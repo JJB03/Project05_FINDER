@@ -91,7 +91,6 @@ body {
 
 /* 공통 */
 .main-content { /* content 영역 지정 */
-  border : 1px solid black;
   margin: 0 auto;
   min-height: calc(100vh - 10rem); /* 푸터 하단 고정에 사용 */
 }
@@ -203,3 +202,4 @@ footer .footer-col2 {
   display: flex;
   column-gap: 20px;
 }
+
