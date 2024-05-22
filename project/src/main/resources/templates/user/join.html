@@ -9,19 +9,24 @@
     <title>회원 페이지</title>
 </head>
 <body layout:fragment="content">
-    <div class="container">
+    <div class="main-content">
         <main>
             <form class="register-form">
-                <svg xmlns="http://www.w3.org/2000/svg" width="500" height="100" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
                     <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
                     <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
                 </svg>
-                <h2>회원정보를 입력해주세요</h2>
-                <h2>회원정보를 입력해주세요</h2>
+
+                <!-- <hr style="position: relative ; width: 100%;"> -->
+                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요</h2>
 
                 <div for="username" class="userid" >아이디</div>
-                <div><input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required></div>
-                <button type="button" class="check-button">중복</button>
+
+                <div style="display: flex; justify-content: center;">
+                    <input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required style="width: 100%;">
+                </div>
+                <button type="button" class="btn-short">중복</button>
+                <br>
                 
                  
                 <div for="password" class="userpw" >비밀번호</div>
@@ -29,10 +34,10 @@
                 
                 <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
                 
-                <label for="name">이름</label>
-                <input type="text" id="name" name="name" required>
+                <div for="name" class="username" >아이디</div>
+                <input type="text" id="name" name="name" required  placeholder="아이디">
                 
-                <label for="birthdate">생년월일</label>
+                <div for="birthdate" class="userbirth" >생년월일</div>
                 <div class="birthdate">
                     <select name="year" id="year">
                         <option value="1">2000</option>
@@ -67,7 +72,7 @@
                     </select>
                 </div>
                 
-                <label>성별</label>
+                <div for="gender" class="usergender" >성별</div>
                 <div class="gender">
                     <input type="radio" id="male" name="gender" value="남">
                     <label for="male">남</label>
@@ -75,12 +80,14 @@
                     <label for="female">여</label>
                 </div>
                 
-                <label for="phone">휴대폰</label>
-                <input type="text" id="phone" name="phone" required>
-                <button type="button" class="verify-button">인증</button>
+                <div for="phone" class="userphone" >휴대폰</div>
+                <input type="text" id="phone" name="phone" required  placeholder="번호">
+                <button type="button" class="btn-short">인증</button>
                 
-                <label for="email">이메일</label>
-                <input type="email" id="email" name="email" required>
+                <br>
+                
+                <div for="email" class="useremail" >이메일</div>
+                <input type="email" id="email" name="email" required  placeholder="이메일">
                 
                 <button type="submit" class="submit-button">등록</button>
             </form>

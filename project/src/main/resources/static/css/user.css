@@ -1,27 +1,26 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.container {
-    display: flex;  
-    flex-direction: column;
-    min-height: 100vh;
-    
-    
-    
-}
-
 .userid { 
     display: inline-block;
     background-color: #E9E9E9;
     border-radius: 20px;
     margin-right: 100px;
-    padding: 1px 12px;
+    padding: 2px 12px;
     color: black;
     width: 70px;
+    height: 27px;
+    font-size: 15px;
+}
+
+.username,
+.usergender,
+.userbirth,
+.userphone,
+.useremail {
+    display: inline-block;
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    margin-right: 100px;
+    padding: 2px 12px;
+    color: black;
     height: 27px;
     font-size: 15px;
 }
@@ -31,20 +30,25 @@ body {
     background-color: #E9E9E9;
     border-radius: 20px;
     margin-right: 100px;
-    padding: 1px 12px;
+    padding: 2px 12px;
     color: black;
-    width: 67px;
     height: 27px;
     font-size: 15px;
+    margin-top: 10px;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f0f0f0;
+.useremail {
+    display: inline-block;
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    margin-right: 100px;
+    padding: 2px 12px;
+    color: black;
+    height: 27px;
+    font-size: 15px;
+    margin-top: 10px;
 }
+
 
 .logo {
     display: flex;
@@ -56,17 +60,6 @@ header {
     margin-right: 10px;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
 main {
     flex: 1;
     display: flex;
@@ -76,11 +69,9 @@ main {
 
 .register-form {
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     padding: 20px;
-    border: 1px solid #ccc;
     border-radius: 20px;
-    background-color: #fff;
 }
 
 .register-form h2 {
@@ -95,12 +86,13 @@ main {
 
 .register-form input,
 .register-form select {
-    width: calc(100% - 22px);
+    width: calc(100% - 8px);
     padding: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    justify-content: center;
 }
 
 .birthdate select {
@@ -119,7 +111,7 @@ main {
 
 
 
-.check-button,
+.check-,
 .verify-button,
 .submit-button {
     display: inline-block;
@@ -140,24 +132,4 @@ main {
 .submit-button {
     width: 100%;
     margin-top: 20px;
-}
-
-footer {
-    background-color: #2d2d2d;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-}
-
-.footer-content p {
-    margin: 5px 0;
-}
-
-.footer-social a {
-    margin: 0 5px;
-}
-
-.footer-social img {
-    width: 24px;
-    height: 24px;
 }
