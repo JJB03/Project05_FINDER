@@ -1,0 +1,135 @@
+.userid { 
+    display: inline-block;
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    margin-right: 100px;
+    padding: 2px 12px;
+    color: black;
+    width: 70px;
+    height: 27px;
+    font-size: 15px;
+}
+
+.username,
+.usergender,
+.userbirth,
+.userphone,
+.useremail {
+    display: inline-block;
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    margin-right: 100px;
+    padding: 2px 12px;
+    color: black;
+    height: 27px;
+    font-size: 15px;
+}
+
+.userpw {
+    display: inline-block;
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    margin-right: 100px;
+    padding: 2px 12px;
+    color: black;
+    height: 27px;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.useremail {
+    display: inline-block;
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    margin-right: 100px;
+    padding: 2px 12px;
+    color: black;
+    height: 27px;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-form {
+    width: 100%;
+    max-width: 550px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.register-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.register-form input,
+.register-form select {
+    width: calc(100% - 8px);
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.birthdate select {
+    width: calc(33% - 12px);
+    margin-right: 5px;
+}
+
+.birthdate select:last-child {
+    margin-right: 0;
+}
+
+.gender {
+    display: flex;
+    gap: 10px;
+}
+
+
+
+.check-,
+.verify-button,
+.submit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #2065E8;
+    color: #fff;
+    cursor: pointer;
+}
+
+.check-button,
+.verify-button {
+    width: auto;
+}
+
+.submit-button {
+    width: 100%;
+    margin-top: 20px;
+}

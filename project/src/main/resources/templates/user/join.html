@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 페이지</title>
+</head>
+<body layout:fragment="content">
+    <div class="main-content">
+        <main>
+            <form class="register-form">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                    <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+                </svg>
+
+                <!-- <hr style="position: relative ; width: 100%;"> -->
+                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요</h2>
+
+                <div for="username" class="userid" >아이디</div>
+
+                <div style="display: flex; justify-content: center;">
+                    <input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required style="width: 100%;">
+                </div>
+                <button type="button" class="btn-short">중복</button>
+                <br>
+                
+                 
+                <div for="password" class="userpw" >비밀번호</div>
+                <input type="password" id="password" name="password" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
+                
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
+                
+                <div for="name" class="username" >아이디</div>
+                <input type="text" id="name" name="name" required  placeholder="아이디">
+                
+                <div for="birthdate" class="userbirth" >생년월일</div>
+                <div class="birthdate">
+                    <select name="year" id="year">
+                        <option value="1">2000</option>
+                        <option value="2">2001</option>
+                        <option value="3">2002</option>
+                    </select>
+                    <select name="month" id="month">
+                        <option value="1">1월</option>
+                        <option value="2">2월</option>
+                        <option value="3">3월</option>
+                        <option value="3">4월</option>
+                        <option value="3">5월</option>
+                        <option value="3">6월</option>
+                        <option value="3">7월</option>
+                        <option value="3">8월</option>
+                        <option value="3">9월</option>
+                        <option value="3">10월</option>
+                        <option value="3">11월</option>
+                        <option value="3">12월</option>
+                    </select>
+                    <select name="day" id="day">
+                        <option value="1">1일</option>
+                        <option value="2">2일</option>
+                        <option value="3">3일</option>
+                        <option value="3">4일</option>
+                        <option value="3">5일</option>
+                        <option value="3">6일</option>
+                        <option value="3">7일</option>
+                        <option value="3">8일</option>
+                        <option value="3">9일</option>
+                        <option value="3">10일</option>
+                    </select>
+                </div>
+                
+                <div for="gender" class="usergender" >성별</div>
+                <div class="gender">
+                    <input type="radio" id="male" name="gender" value="남">
+                    <label for="male">남</label>
+                    <input type="radio" id="female" name="gender" value="여">
+                    <label for="female">여</label>
+                </div>
+                
+                <div for="phone" class="userphone" >휴대폰</div>
+                <input type="text" id="phone" name="phone" required  placeholder="번호">
+                <button type="button" class="btn-short">인증</button>
+                
+                <br>
+                
+                <div for="email" class="useremail" >이메일</div>
+                <input type="email" id="email" name="email" required  placeholder="이메일">
+                
+                <button type="submit" class="submit-button">등록</button>
+            </form>
+        </main>
+        
+       
+    </div>
+</body>
+</html>
