@@ -1,0 +1,158 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}"
+      >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finder Resume</title>
+    <style>
+      .header-logo img {
+        height: 50px;
+      }
+      .resume-form {
+        margin-top: 20px;
+      }
+      .form-header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .profile-pic {
+        width: 300px;
+        height: 300px;
+        border: 1px;
+        background-color: #fd9d9d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .ImgBtn {
+        width: 100px;
+        height: 40px;
+        background-color: #003366;
+        border-radius: 8px;
+        
+      }
+
+      .col-sm-9{
+        background-color: lightgray;
+        border-radius: 20px;
+        border: solid 1px gray;
+      }
+
+      .education-A{
+        background-color: lightgray;
+        border-radius: 20px;
+        border: solid 1px gray;
+        margin-top: 10px;
+      }
+
+      .education-B{
+        background-color: lightgray;
+        border-radius: 20px;
+        border: solid 1px gray;
+        margin-top: 10px;
+      }
+      
+      .footer {
+        background-color: #003366;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        margin-top: 40px;
+      }
+      .footer a {
+        color: white;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body layout:fragment="content">
+
+    <div class="container resume-form">
+      <div class="form-header">
+        <h4>이력서 작성</h4>
+      </div>
+      <form>
+        <div class="col-sm-3 text-center">
+          
+        </div>
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label">제목 :</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="title">
+          </div>
+        </div>
+        <div class="profile-pic">
+          <label for="file">
+            <div class="ImgBtn">사진 추가</div>
+          </label>
+          <input type="file" name="file" id="file" style="display: none;">
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-9">
+            <div class="form-group">
+              <label>이름 : 백승협</label>
+            </div>
+            <div class="form-group">
+              <label>성별/나이 : </label> (26세)
+            </div>
+            <div class="form-group">
+              <label>이메일 : baek1234@gmail.com</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-6 education-A">
+            <h5>학력</h5>
+            <div class="form-group">
+              <label for="school">학교 :</label>
+              <input type="text" class="form-control" id="school">
+            </div>
+            <div class="form-group">
+              <label for="major">전공 :</label>
+              <input type="text" class="form-control" id="major">
+            </div>
+            <div class="form-group">
+              <label for="education-status">학력 상태 :</label>
+              <input type="text" class="form-control" id="education-status">
+            </div>
+          </div>
+          <div class="col-sm-6 education-B">
+            <h5>경력사항</h5>
+            <div class="form-group">
+              <label for="period1">기관 :</label>
+              <input type="text" class="form-control" id="period1">
+            </div>
+            <div class="form-group">
+              <label for="period2">기간 :</label>
+              <input type="text" class="form-control" id="period2">
+            </div>
+            <div class="form-group">
+              <label for="duty">담당업무 :</label>
+              <input type="text" class="form-control" id="duty">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="self-introduction">자기소개서</label>
+          <textarea class="form-control" id="self-introduction" rows="5" placeholder="최소 50글자 이상 작성해야 합니다."></textarea>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-secondary">파일 업로드</button>
+          <button type="submit" class="btn btn-primary">이력서 등록</button>
+        </div>
+      </form>
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
+    </body>
+  </html>
