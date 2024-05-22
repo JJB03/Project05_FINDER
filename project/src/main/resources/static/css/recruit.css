@@ -1,9 +1,9 @@
 .sidebar {
     background-color: #FAFAFA;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    
+    width: 230px;
+    height: 600px;
     
 }
 
@@ -37,7 +37,7 @@
     background-color: #fff;
     padding: 0px;
     border-radius: 8px;
-    width: 850px;
+    width: 100%;
 }
 
 .job-listings h3 {
@@ -45,29 +45,33 @@
     padding: 0;
     font-size: 28px;
     margin-bottom: 10px;
+    
 }
+
+
 
 .job-header {
     color: #fff;
     background-color: #005AAB;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 35px;
     border-radius: 20px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     height: 130px;
     font-size: 28px;
+    
 }
 
 .job-item {
     background-color: #FAFAFA;
     padding: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
 }
 
 .job-item a {
-    color: #007bff;
+    color: #024FDF;
     text-decoration: none;
     float: right;
 }
@@ -88,4 +92,27 @@
 body {
     font-family: Arial, sans-serif;
     
+}
+
+.ul-header {
+    margin-bottom: 30px !important; 
+}
+
+.li-header {
+    margin: 0 0 5px 15px;
+}
+
+.nav-item > div {
+    display: flex;
+    
+}
+
+
+.nav-item > div > div {
+    padding: 5px;
+}
+
+.nav-item > div > div > img {
+    width: 24px;
+    height: 24px;
 }
