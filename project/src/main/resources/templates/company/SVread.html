@@ -1,0 +1,254 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}"
+      >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구직자 이력서 조회</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .sidebar {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .sidebar a {
+        display: block;
+        padding: 10px 0;
+        color: #000;
+        text-decoration: none;
+      }
+      .sidebar a:hover {
+        background-color: #007bff;
+        color: white;
+      }
+      .content-header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      /* alert 창 css입니다.*/
+      .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .alert-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+        .alert-box h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #005BAA;
+        }
+        .alert-box p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        .alert-box .contact-info {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-top: 20px;
+        }
+        .alert-box .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .alert-box button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .alert-box .confirm {
+            background-color: #007bff;
+            color: white;
+        }
+        .alert-box .cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+    </style>
+  </head>
+  <body layout:fragment="content">
+  
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-3 sidebar">
+          <h5>마이페이지</h5>
+          <a href="#">기업 소개</a>
+          <a href="#">기업 정보 수정</a>
+          <a href="#">결제 페이지</a>
+          <h5 class="mt-4">채용공고 관리</h5>
+          <a href="#">채용공고 등록</a>
+          <a href="#">채용공고 조회</a>
+          <h5 class="mt-4">이력서 관리</h5>
+          <a href="#">제출된 이력서</a>
+          <a href="#">AI 간편 평가</a>
+        </div>
+        <div class="col-md-9">
+          <div class="content-header">
+            <h4>지원자 이력서 조회</h4>
+          </div>
+          <form>
+            <div class="form-group row">
+              <label for="title" class="col-sm-2 col-form-label">제목 :</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" value="저 떨어지면 저도 떨어질게요 그냥">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-3 text-center">
+                <div class="profile-pic">
+                  <span>사진 불러오기</span>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <div class="form-group">
+                  <label>이름 : 유상준</label>
+                </div>
+                <div class="form-group">
+                  <label>성별/나이 : </label> (26세)
+                </div>
+                <div class="form-group">
+                  <label>이메일 : baek1234@gmail.com</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <h5>학력</h5>
+                <div class="form-group">
+                  <label for="education-status">학력 상태 :</label>
+                  <input type="text" class="form-control" id="education-status" value="학사 졸업">
+                </div>
+                <div class="form-group">
+                  <label for="school">학교 :</label>
+                  <input type="text" class="form-control" id="school" value="조은대학교">
+                </div>
+                <div class="form-group">
+                  <label for="major">전공 :</label>
+                  <input type="text" class="form-control" id="major" value="컴퓨터공학">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <h5>경력사항</h5>
+                <div class="form-group">
+                  <label for="company">기관 :</label>
+                  <input type="text" class="form-control" id="company" value="구글">
+                </div>
+                <div class="form-group">
+                  <label for="period">기간 :</label>
+                  <input type="text" class="form-control" id="period" value="2014.04 ~ 2022.05">
+                </div>
+                <div class="form-group">
+                  <label for="duty">담당업무 :</label>
+                  <input type="text" class="form-control" id="duty" value="웹 개발자">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="self-introduction">자기소개서</label>
+              <textarea class="form-control" id="self-introduction" rows="5">엄격한 어머니와 다정한 아버지 밑에서 자라</textarea>
+            </div>
+            <div class="form-group">
+              <button type="button" onclick="alert()" class="btn-short">합격</button>
+              <!--합격 경고창 -->
+              <div class="overlay" id="alertOverlay">
+                <div class="alert-box">
+                  <h3><img src="/img/취직성공.png" style="height: 30px; width: 30px;">합격을 결정하시겠습니까?</h3>
+                    <p>결정은 번복할 수 없습니다.<br>
+                       2차 면접이 있을 경우, 지원자에게 통보하십시오.</p>
+                       <hr>
+                    <div class="contact-info">
+                        통보 방법<br>
+                        - 사용자 이메일<br>
+                        - 사용자 전화번호
+                    </div>
+                    <div class="buttons">
+                        <button class="confirm" onclick="confirmAlert()">확인</button>
+                        <button class="cancel" onclick="closeAlert()">취소</button>
+                    </div>
+                </div>
+            </div>
+              
+              <button type="button" onclick="showAlert()" class="btn-short">탈락</button>
+              <!--탈락 경고창-->
+              <div class="overlay" id="alertOverlay2">
+                <div class="alert-box">
+                    <h3><img src="/img/탈락.png" style="height: 30px; width: 30px;">탈락을 결정하시겠습니까?</h3>
+                    <p>결정은 번복할 수 없습니다.<br>
+                       만일, 합격으로 바꿀 경우 구직자에게 재신청 요청을 하시길 바랍니다.</p>
+                       <hr>
+                    <div class="contact-info">
+                        통보 방법<br>
+                        - 사용자 이메일<br>
+                        - 사용자 전화번호
+                    </div>
+                    <div class="buttons">
+                        <button class="confirm" onclick="confirmAlert()">확인</button>
+                        <button class="cancel" onclick="closeAlert()">취소</button>
+                    </div>
+                </div>
+            </div>
+              
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      function alert() {
+          document.getElementById('alertOverlay').style.display = 'flex';
+      }
+
+      function showAlert() {
+            document.getElementById('alertOverlay2').style.display = 'flex';
+        }
+
+        function closeAlert() {
+            document.getElementById('alertOverlay').style.display = 'none';
+        }
+
+        function confirmAlert() {
+            // 확인 버튼을 눌렀을 때의 동작을 추가합니다.
+            alert('확인 버튼을 눌렀습니다.');
+            closeAlert();
+        }
+    </script>
+  
+  
+  </body></html>

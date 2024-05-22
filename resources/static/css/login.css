@@ -1,0 +1,33 @@
+container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+.login-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.social-btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.btn-google {
+    background-color: #db6161;
+    border: 1px solid #ddd;
+    color: #cfcccc;
+}
+.btn-kakao {
+    background-color: #ffeb00;
+    color: #3c1e1e;
+}
+.btn-naver {
+    background-color: #03c75a;
+    color: white;
+}
