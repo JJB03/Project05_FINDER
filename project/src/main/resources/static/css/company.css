@@ -1,0 +1,36 @@
+
+.section-title h4 {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .info-card {
+    padding: 20px;
+    border: 1px solid #e9ecef;
+    border-radius: 15px;
+    text-align: center;
+    background-color: #fff;
+    margin-bottom: 20px;
+  }
+
+  .info-card img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .info-card h5 {
+    background-color: var(--long-btn-color);
+    color: white;
+    padding: 10px;
+    border-radius: 30px;
+  }
+
+  .info-card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .info-card ul li {
+    margin-top: 10px;
+  }
