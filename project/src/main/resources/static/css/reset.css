@@ -105,14 +105,14 @@ header {
   margin-bottom: 50px; /* header - content 영역 사이 간격 */
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .header-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  text-align: center;
+  text-align: center;  
   padding: 10px 0;
   border-bottom: 1px solid lightgrey;
   padding: 10px 100px 10px 100px;
@@ -123,9 +123,8 @@ header .logo {
   align-items: center;
 }
 
-.logo-img {
+.logo-header {
   width : 100px;
-  color: white;
   margin-left: 50px;
 }
 
@@ -139,6 +138,12 @@ header .nav-menu {
   column-gap: 50px;
   margin-right: 50px;
   font-weight: 700;
+}
+
+header .nav-menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: 1000;
 }
 
 
@@ -184,6 +189,7 @@ footer .footer-col2 {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-right: 150px;
 }
 
 .footer-col2 > h1 {
@@ -202,4 +208,9 @@ footer .footer-col2 {
 .sns-icon-menu {
   display: flex;
   column-gap: 20px;
+}
+
+.logo-footer {
+  width : 100px;
+  margin: 0 auto;
 }
