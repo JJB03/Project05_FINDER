@@ -1,0 +1,205 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+/*reset*/
+* {margin: 0; padding: 0; box-sizing: border-box; }
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;}
+h1, h2, h3, h4, h5, h6 {font-weight: 700; font-size: inherit;}
+a {text-decoration: none; color: inherit;}
+ul { list-style-type: none; }
+img {vertical-align: middle;}
+a img {border: none;}
+a:focus {outline: none}
+button:focus {outline: none}
+
+body { 
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* css변수 선언*/
+/*👩‍🦰메인 컬러 지정*/
+:root{
+    /*css 변수 선언*/
+    /*--변수명 : 값*/
+    /*--사용 : var(--변수명)*/
+    --main-color: #024FDF;
+    --sub-color:#283C75;
+    --short-btn-color : #2065E8;
+    --long-btn-color : #005BAA;
+    
+    /*폰트 사이즈 지정*/
+    --text-normal : 16px;
+    --text-middle : 28px;
+    --text-big : 50px;
+
+    /*기본 사이즈 지정*/
+    --container-size : 1440px;
+}
+
+.btn-short {
+  width: 70px;
+  height: 34px;
+  /* padding : 4px 2px; */
+  border-radius: 8px;
+  background-color: var(--short-btn-color);
+  border: none;
+  color: #fff;
+  font-size: var(--text-normal);
+}
+
+.btn-short:hover {
+  background-color: var(--main-color);
+}
+
+.btn-in-short {
+  width: 70px;
+  height: 34px;
+  /* padding : 4px 2px; */
+  border-radius: 8px;
+  background-color: var(--sub-color);
+  border: none;
+  color: #fff;
+  font-size: var(--text-normal);
+}
+
+.btn-in-short:hover {
+  background-color: var(--sub-color);
+}
+
+.btn-long {
+  width: 120px;
+  height: 34px;
+  /* padding : 4px 2px; */
+  border-radius: 8px;
+  background-color: var(--long-btn-color);
+  border: none;
+  color: #fff;
+  font-size: var(--text-normal);
+}
+
+.btn-long:hover {
+  background-color: var(--main-color);
+}
+
+
+
+
+
+
+/* 공통 */
+.main-content { /* content 영역 지정 */
+  border : 1px solid black;
+  margin: 0 auto;
+  min-height: calc(100vh - 10rem); /* 푸터 하단 고정에 사용 */
+}
+
+
+/* 헤더 */
+header {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 3px 3px 5px rgba(65, 51, 42, 0.6);
+  margin-bottom: 50px; /* header - content 영역 사이 간격 */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid lightgrey;
+  padding: 10px 100px 10px 100px;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  width : 100px;
+  color: white;
+  margin-left: 50px;
+}
+
+header .logo-title {
+  font-size: 40px;
+  color: var(--sub-color);
+}
+
+header .nav-menu {
+  display: flex;
+  column-gap: 50px;
+  margin-right: 50px;
+  font-weight: 700;
+}
+
+
+/* 푸터 */
+footer {
+  background-color: #002C77;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 10rem; /* 푸터 하단 고정에 사용 */
+  margin-top: 50px; /* footer - content 영역 사이 간격 */
+}
+
+.footer-wrap {
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10rem; /* 푸터 하단 고정에 사용 */
+  padding: 0px 100px 0px 100px;
+  justify-content: space-between;
+}
+
+footer .footer-col1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.footer-col1-1 {
+  display: flex;
+  column-gap: 50px;
+  color: #DBDBDB;
+}
+
+footer .footer-col2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-col2 > h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.footer-col3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  color: #DBDBDB;
+}
+
+.sns-icon-menu {
+  display: flex;
+  column-gap: 20px;
+}
