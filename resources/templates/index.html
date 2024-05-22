@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/headerfooter.css">
+    <link rel="stylesheet" href="/css/login.css">
+   
+</head>
+<body>
+    <header>
+        <div class="header-wrap">
+            <div class="logo">
+                <img class="logo-img" src="/logo.png" alt="">
+                <h1 class="logo-title">FINDER</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="#">내 정보</a>
+                <a href="#">이력서 관리</a>
+                <a href="#">채용공고</a>
+                <a href="#">로그인</a>
+            </div>
+        </div>
+    </header>
+    <div class="login-container container">
+        <ul class="nav nav-tabs mb-3" id="login-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">일반 회원</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="corporate-tab" data-bs-toggle="tab" data-bs-target="#corporate" type="button" role="tab" aria-controls="corporate" aria-selected="false">기업 회원</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="login-tabContent">
+            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">아이디</label>
+                        <input type="text" class="form-control" id="username" placeholder="아이디">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="password" placeholder="비밀번호">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">로그인</button>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="#">회원가입</a>
+                        <a href="#">아이디/비밀번호 찾기</a>
+                    </div>
+                    <div class="text-center mt-3">or continue with</div>
+                    <button type="button" class="btn btn-google social-btn mt-2">Google</button>
+                    <button type="button" class="btn btn-kakao social-btn">카카오 간편 로그인</button>
+                    <button type="button" class="btn btn-naver social-btn">네이버 아이디로 로그인</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="corporate" role="tabpanel" aria-labelledby="corporate-tab">
+                <!-- 기업 회원 로그인 폼을 여기에 추가할 수 있습니다. -->
+                <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">아이디</label>
+                        <input type="text" class="form-control" id="username" placeholder="사업자 아이디 입력">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="password" placeholder="사업자 비밀번호 입력">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">로그인</button>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="#">회원가입</a>
+                        <a href="#">아이디/비밀번호 찾기</a>
+                    </div>
+                    <div class="text-center mt-3">or continue with</div>
+                    <button type="button" class="btn btn-google social-btn mt-2">Google</button>
+                    <button type="button" class="btn btn-kakao social-btn">카카오 간편 로그인</button>
+                    <button type="button" class="btn btn-naver social-btn">네이버 아이디로 로그인</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-wrap">
+            <div class="footer-col1">
+                <div></div>
+                <div class="sns-icon-menu">
+                    <i class="fa-brands fa-facebook fa-spin"></i>
+                    <i class="fa-brands fa-linkedin fa-spin"></i>   
+                    <i class="fa-brands fa-youtube fa-spin"></i>
+                    <i class="fa-brands fa-instagram fa-spin"></i>
+                </div>
+                <div class="footer-col1-1">
+                       <div>
+                           <h1>주소</h1>
+                           <p>인천광역시 부평구 더조은 </p>
+                       </div>
+                       <div>
+                           <h1>대표이사</h1>
+                           <p>홍준범</p>
+                       </div>
+                       <div>
+                           <h1>이메일</h1>
+                           <p>redtiger@gmail.com</p>
+                       </div>
+                </div>
+            </div>
+            <div class="footer-col2">
+                <h1>FINDER JOB</h1>
+                <img class="logo-img" src="/logo3.png" alt="">
+            </div>
+            <div class="footer-col3">
+                <div></div>
+               <p>© 2023. Poly Inspiration Inc. All Rights Reserved.</p>
+               <div class="footer-3-menu3">
+                    <h3>사업자등록번호</h3>
+                    <p>117-81-42415</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+     /*   document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 폼 제출을 막음
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 아이디와 비밀번호가 "admin"과 "password"인 경우 로그인 성공
+            if (username === 'admin' && password === 'password') {
+                window.location.href = 'login_success.html'; // 로그인 성공 페이지로 리디렉션
+            } else {
+                alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+            }
+        }); */
+    </script>
+</body>
+</html>

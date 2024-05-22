@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}"
+      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .sidebar {
+          background-color: #f8f9fa;
+          padding: 20px;
+          border-radius: 8px;
+        }
+        .sidebar a {
+          display: block;
+          padding: 10px 0;
+          color: #000;
+          text-decoration: none;
+        }
+        .sidebar a:hover {
+          background-color: #007bff;
+          color: white;
+        }
+        .content-header {
+          background-color: #007bff;
+          color: white;
+          padding: 10px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+        }
+        .resume-list {
+          margin-top: 20px;
+        }
+        .resume-item {
+          background-color: #f8f9fa;
+          padding: 10px;
+          border-radius: 8px;
+          margin-bottom: 10px;
+        }
+        .resume-item .badge {
+          margin-right: 10px;
+        }
+        .resume-item .btn {
+          margin-left: 10px;
+        }
+      </style>
+    <title>이력서모음 조회</title>
+</head>
+<body layout:fragment="content">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-3 sidebar">
+          <h5>마이페이지</h5>
+          <a href="#">내 정보</a>
+          <a href="#">내 정보 수정</a>
+          <h5 class="mt-4">채용공고 관리</h5>
+          <a href="#">지원한 채용공고</a>
+          <a href="#">최근 본 채용공고</a>
+          <h5 class="mt-4">이력서 관리</h5>
+          <a href="#">나의 이력서</a>
+        </div>
+        <div class="col-md-9">
+          <div class="content-header d-flex justify-content-between align-items-center">
+            <h4>나의 이력서</h4>
+            <div class="d-flex">
+              <input type="text" class="form-control mr-2" placeholder="검색🔍">
+              <button class="btn-short">찾기</button>
+            </div>
+        </div>
+        <div class="button-SvCraete">
+            <button class="btn-long">이력서 작성</button> 
+        </div>
+          <div class="resume-list">
+            <div class="resume-item d-flex justify-content-between align-items-center">
+              <div>
+                <span class="badge badge-primary">NEW</span>
+                <span>홍길동 이력서</span>
+                <span class="text-muted">제목: 풀스택 개발자 취업</span>
+              </div>
+              <div>
+                <button class="btn-short">수정</button>
+                <button class="btn-short">삭제</button>
+              </div>
+            </div>
+            <div class="resume-item d-flex justify-content-between align-items-center">
+              <div>
+                <span class="text-muted">등록: 2024.5.20</span>
+                <span>홍길동 이력서</span>
+                <span class="text-muted">제목: 풀스택 개발자 취업</span>
+              </div>
+              <div>
+                <button class="btn-short">수정</button>
+                <button class="btn-short">삭제</button>
+              </div>
+            </div>
+            <div class="resume-item d-flex justify-content-between align-items-center">
+              <div>
+                <span class="text-muted">등록: 2024.5.20</span>
+                <span>홍길동 이력서</span>
+                <span class="text-muted">제목: 풀스택 개발자 취업</span>
+              </div>
+              <div>
+                <button class="btn-short">수정</button>
+                <button class="btn-short">삭제</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
+  </body>
+</html>
