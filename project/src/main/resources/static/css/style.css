@@ -9,8 +9,12 @@
 /* 헤더 */
 header {
     width: 100%;
+    background-color: #fff;
     box-shadow: 3px 3px 5px rgba(65, 51, 42, 0.6);
     margin-bottom: 50px; /* header - content 영역 사이 간격 */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .header-wrap {
