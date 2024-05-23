@@ -23,7 +23,7 @@
           color: white;
         }
         .content-header {
-          background-color: #007bff;
+          background-color: #024FDF;
           color: white;
           padding: 10px;
           border-radius: 8px;
@@ -78,17 +78,23 @@
             </form>
         </div>
         <div class="button-SvCraete">
-            <button onclick="location.href='SVcreate.html'" class="btn-long">이력서 작성</button> 
+            <button onclick="location.href='SVcreate_user.html'" class="btn-long">이력서 작성</button> 
         </div>
           <div class="resume-list">
             <div class="resume-item d-flex justify-content-between align-items-center">
+             <!--  <th:block th:if="${#CVlist.isEmpty(CvList)}">
+                <div class="text-muted">등록된 이력서가 없습니다.</div>
+              </th:block> -->
               <div>
-                <span class="text-muted">등록: 2024.5.20</span>
-                <span>홍길동 이력서</span>
-                <span class="text-muted">제목: 풀스택 개발자 취업</span>
+               <!--<span class="text-muted" th:text="${#temporals.format(user.user_reg_date, 'yyyy.MM.dd HH:mm:ss')}">등록: 2024.5.20</span -->
+                <span class="text-muted">등록: <span>2024.05.25</span></span>
+                <!-- <span th:text="${user.name}"> 이력서</span> -->
+                <span> | 이력서: <span>정주빈</span></span>
+                <!-- <span class="text-muted" th:text="${user.title}">제목: 풀스택 개발자 취업</span> -->
+                <span class="text-muted"> | 제목: <span>풀스택 개발자 취업 지원서</span></span>
               </div>
               <div>
-                <button class="btn-short" onclick="location.href='SVupdate.html'" >수정</button>
+                <button class="btn-short" onclick="location.href='SVupdate_user.html'" >수정</button>
                 <button class="btn-short" onclick="deleteSV()">삭제</button>
               </div>
             </div>
