@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구직자 이력서 조회</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  
     <style>
       .sidebar {
         background-color: #f8f9fa;
@@ -86,8 +86,9 @@
         }
         .alert-box .buttons {
             display: flex;
-            justify-content: space-between;
+            text-align: center;
             margin-top: 20px;
+            justify-content: space-evenly;
         }
         .alert-box button {
             padding: 5px 10px;
@@ -136,6 +137,7 @@
               <div class="col-sm-3 text-center">
                 <div class="profile-pic">
                   <span>사진 불러오기</span>
+                  <!-- <span><img th:src="${data.imgURL}" th:if="${data.imgURL != null}" alt="이미지 불러오기에 실패했습니다."></span> -->
                 </div>
               </div>
               <div class="col-sm-9">
@@ -237,10 +239,6 @@
       </div>
     </div>
   
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <script>
       function alert() {
           document.getElementById('alertOverlay').style.display = 'flex';

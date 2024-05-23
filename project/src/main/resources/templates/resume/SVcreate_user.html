@@ -16,15 +16,15 @@
       }
       .form-header {
         text-align: center;
-        background-color: #007bff;
+        background-color: #024FDF;
         color: white;
         padding: 10px;
         border-radius: 8px;
       }
       .profile-pic {
-        width: 230px;
-        height: 250px;
-        background-color: #eee;
+        float: left; 
+        height: 280px; 
+        width: 250px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -35,7 +35,7 @@
       #preview {
             width: 230px;
             height: 250px;
-            border: 1px solid #ccc;
+            border: 1px solid #eeeeee;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -47,44 +47,12 @@
             object-fit: cover; /* 이미지가 preview 영역에 맞춰서 잘림 */
         }
 
-        /*input file(파일2)*/
-        input[type='file'] {
-          display: block;
-          width: 0;
-          height: 0;
-          overflow: hidden;
+        .deleteFile-btn{
+          border-radius: #003366 solid 1px ;
+          background-color: #eeeeee;
+          border-radius: 8px;
         }
-        .form__input--file_wrap {
-          display: flex;
-        }
-        .form__label--file {
-          width: 80px;
-          height: 30px;
-          line-height:30px;
-          background: #999;
-          border-radius: 3px;
-          color: #fff;
-          font-weight: bold;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-        }
-        .form__span--file {
-          padding: 0 5px 0 10px;
-          margin-left: 5px;
-          display: block;
-          width: 500px;
-          min-height: 30px;
-          border: 1px solid #e7e7e7;
-          border-radius: 3px;
-          line-height: 30px;
-          color: #999;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          box-sizing: border-box;
-        }
+   
 
       .footer {
         background-color: #003366;
@@ -112,7 +80,7 @@
               <input type="text" class="form-control" id="title">
             </div>
           </div>
-          <div class="profile-pic" style="float: left; height: 250px; width: 250px;">
+          <div class="profile-pic">
             <div id="preview">
               <img src="" class="img-thumbnail"  alt="이미지를 넣어주세요">
             </div>
@@ -176,12 +144,17 @@
                 <textarea required minlength="50" class="form-control border bg-light rounded-3" id="self-introduction" rows="5" placeholder="최소 50글자 이상 작성해야 합니다."></textarea>
             </div>
             <div class="upload-btn">
-              <div class="form__input--file_wrap">
-                <input class="form__input--file" id="upload1" type="file" multiple>
-                <label class="btn-long" for="upload1">파일 업로드</label>
-                <span class="form__span--file">선택된 파일이 없습니다.</span>
+              <div>
+                <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()" >
+                <button class="btn-long" id="fileButton">파일 선택</button>
+                <span id="fileName">파일을 추가해주세요.</span>
+                <button class="deleteFile-btn" type="button">X</button>
+                <!-- <button type="button" th:if="" th:onclick="|deleteFile(this, ${file.no})|">삭제</button> -->
+            </div>
+              <div  class="btn-click123" style="float: inline-end;">
+                <button type="submit" class="btn-long">이력서 등록</button>
+                <button type="button" class="btn-long" onclick="moveToList()">이전 페이지</button>
               </div>
-                <button type="submit" class="btn-long" onclick="moveToList()">이력서 등록</button>
             </div>
           </div>
       </form>
@@ -189,7 +162,12 @@
   
   
     <script>
-      //이미지 파일 미리보기 업로드
+
+      function moveToList() {
+        location.href='/resume/SVlist_user'
+      }
+
+      //이미지 파일 미리보기 업
       document.getElementById('file').addEventListener('change', function(event) {
           const file = event.target.files[0];
           const preview = document.getElementById('preview');
@@ -208,23 +186,19 @@
           }
       });
 
+      //GPT 사용 파일 첨부
+      document.getElementById('fileButton').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
 
-      //파일 업로드2, jquary 이용
-      // input file 커스텀 - 파일명 붙이기
-    const fileTarget = $('.form__input--file_wrap input');
+        function displayFileName() {
+            var input = document.getElementById('fileInput');
+            var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
+            document.getElementById('fileName').textContent = fileName;
+        }
 
-    fileTarget.on('change', function () { 
-      var files = $(this)[0].files;
-      var fileArr = [];
-      for (var i = 0; i < files.length; i++) {
-        fileArr.push(files[i].name);
-    }
-      
-    // 파일명 노출방법1: 배열 값 사이에 공백 추가
-    var fileList = fileArr.join(', '); // 배열 값을 쉼표와 공백으로 연결
-    $(this).siblings('.form__span--file').text(fileList);
-
-    });
-      </script>
+        
+        
+  </script>
   </body>
   </html>

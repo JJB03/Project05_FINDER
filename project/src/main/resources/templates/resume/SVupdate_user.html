@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/user_layout}"
+      layout:decorate="~{/layout/resume_layout}"
       >
     <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
       }
       .form-header {
         text-align: center;
-        background-color: #007bff;
+        background-color: #024FDF;
         color: white;
         padding: 10px;
         border-radius: 8px;
@@ -129,10 +129,10 @@
               </div>
               <div class="form-group">
                 <label>성별 </label>  
-                <input type='radio' name='gender' value='female' />여성
-                <input type='radio' name='gender' value='male' />남성
+                <input type='radio' name='gender' value='female'/>여성
+                <input type='radio' name='gender' value='male'/>남성
                 <br>
-                <label>나이 </label>  
+                <label>나이 :</label>  
                 <!-- <input type="text" id="age" name="age" th:value="${cv.age}" class="form-control" > -->
                 <input type="text" id="age" name="age" class="form-control" >
               </div>
@@ -184,7 +184,8 @@
             <div class="form-group">
                 <label for="self-introduction">자기소개서</label>
                 <!-- 최소 글자수-->
-                <textarea required minlength="50" class="form-control border bg-light rounded-3" id="self-introduction" rows="5" placeholder="최소 50글자 이상 작성해야 합니다."></textarea>
+                <textarea required minlength="50" class="form-control border bg-light rounded-3" id="self-introduction" rows="5" 
+                placeholder="최소 50글자 이상 작성해야 수정/삭제가 가능합니다."></textarea>
             </div>
             <div class="upload-btn">
               <div class="form__input--file_wrap">
@@ -200,7 +201,6 @@
               <div class="btn-click123" style="float: inline-end;">
                 <button type="submit" class="btn-long">수정완료</button>
                 <button type="submit" class="btn-long" onclick="moveToDelete()">이력서 삭제</button>
-                <button type="submit" class="btn-long" onclick="moveToList()">이력서 목록</button>
               </div>  
             </div>
           </div>
@@ -214,7 +214,7 @@
       let form = document.getElementById('form')
       let no =  "[[${cv.no}]]"
 
-      //이력서 삭제
+      //이력서 삭제, textarea에 50자 제한 걸려서 삭제에도 이상 있음.
       function moveToDelete() {
         let check = confirm('이력서를 삭제하시겠습니까?')
         if (check) {
@@ -223,10 +223,6 @@
         }
       }
 
-      function moveToList() {
-        //리스트로 안 가고 계속 create로 이동함
-        location.href='SVlist.html'
-      }
 
       //파일 삭제
       function deleteFile(element, no) {

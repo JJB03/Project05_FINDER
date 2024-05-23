@@ -16,7 +16,7 @@
       }
       .form-header {
         text-align: center;
-        background-color: #007bff;
+        background-color: #024FDF;
         color: white;
         padding: 10px;
         border-radius: 8px;
@@ -57,19 +57,6 @@
         }
         .form__input--file_wrap {
           display: flex;
-        }
-        .form__label--file {
-          width: 80px;
-          height: 30px;
-          line-height:30px;
-          background: #999;
-          border-radius: 3px;
-          color: #fff;
-          font-weight: bold;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
         }
         .form__span--file {
           padding: 0 5px 0 10px;
@@ -189,15 +176,15 @@
                   민주평화통일자문회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다. 선거에 있어서 최고득표자가 2인 이상인 때에는 국회의 재적의원 과반수가 출석한 공개회의에서 다수표를 얻은 자를 당선자로 한다.
                   국가는 농업 및 어업을 보호·육성하기 위하여 농·어촌종합개발과 그 지원등 필요한 계획을 수립·시행하여야 한다. 군인은 현역을 면한 후가 아니면 국무위원으로 임명될 수 없다.</p>
             </div>
-            <div class="upload-btn">
+            <div class="down-btn">
               <div class="form__input--file_wrap">
-                <input class="form__input--file" id="upload1" type="file" multiple>
-                <p class="btn-long" for="upload1">파일 다운로드</p>
+                <input class="form__input--file" id="downlode" type="file" multiple>
+                <p class="btn-long" for="downlode">파일 다운로드</p>
                 <span class="form__span--file">선택된 파일이 없습니다.</span>
                 <!-- <a th:href="|/cv/${cv.no}|" th:text="${file.originName}" for="upload1"></a> -->
               </div>
-                <button type="submit" class="btn-long" onclick="moveToList()">이력서 목록</button>
-                <button type="submit" class="btn-long" onclick="moveToUpdate()">이력서 수정</button>
+                <button type="button" class="btn-long" onclick="moveToList()">이력서 목록</button>
+                <button type="button" class="btn-long" onclick="moveToUpdate()">이력서 수정</button>
             </div>
           </div>
       </form>
@@ -207,10 +194,13 @@
   
     <script>
       function moveToList() {
-        //리스트로 안 가고 계속 create로 이동함
-        location.href='SVlist.html'
+        
+        location.href='/resume/SVlist_user'
       }
 
+      function moveToUpdate() {
+        location.href='/resume/SVupdate_user'
+      }
     </script>
   </body>
   </html>
