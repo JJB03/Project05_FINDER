@@ -4,7 +4,7 @@
     border-radius: 20px;
     width: 230px;
     height: 600px;
-    
+
 }
 
 .sidebar h2 {
@@ -45,7 +45,7 @@
     padding: 0;
     font-size: 28px;
     margin-bottom: 10px;
-    
+
 }
 
 
@@ -59,15 +59,52 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     height: 130px;
     font-size: 28px;
-    
+
+}
+
+.job-item-link {
+    text-decoration: none;
+    /* 링크의 밑줄 제거 */
+    color: #1B1B1B;
+    /* 링크 글씨 색상 설정 */
+    display: block;
+    /* 전체 영역 클릭 가능하게 블록 요소로 변경 */
+}
+
+.job-item-link * {
+    color: inherit;
+    /* 자식 요소가 부모 요소의 색상 상속 */
 }
 
 .job-item {
-    background-color: #FAFAFA;
+    background-color: #fff;
     padding: 15px;
     margin-bottom: 16px;
-    border-radius: 8px;
-    
+    border-radius: 20px;
+    cursor: pointer;
+    /* 커서를 포인터로 변경 */
+    transition: background-color 0.5s ease;
+}
+
+.job-item:hover {
+    background-color: #F7F9FC;
+
+
+}
+
+.keyword-span span {
+    background-color: #f8f8f8;
+    color: #5d5d5d;
+    border-radius: 20px;
+    padding: 5px;
+    font-size: 8px;
+    /* opacity: 0.9; */
+    font-weight: bold;
+    transition: background-color 0.5s ease;
+}
+
+.job-item:hover .keyword-span span {
+    background-color: #fff;
 }
 
 .job-item a {
@@ -75,6 +112,20 @@
     text-decoration: none;
     float: right;
 }
+
+.job-item .d-flex {
+    color: #FFFFFF;
+    /* NEW 태그는 여전히 흰색 */
+}
+
+.job-item .d-flex span {
+    color: #1B1B1B;
+    /* NEW 태그의 글씨를 흰색으로 유지 */
+}
+
+
+
+
 
 .container {
     background: #fff;
@@ -89,30 +140,34 @@
     height: 32px;
     border-radius: 8px;
 }
-body {
-    font-family: Arial, sans-serif;
-    
-}
 
 .ul-header {
-    margin-bottom: 30px !important; 
+    margin-bottom: 30px !important;
 }
 
 .li-header {
     margin: 0 0 5px 15px;
 }
 
-.nav-item > div {
+
+.nav-link {
+    padding: 3% !important;
+}
+
+.nav-item {
+    height: 40px;
+}
+
+.nav-item>div> {
     display: flex;
-    
+
 }
 
-
-.nav-item > div > div {
-    padding: 5px;
+.nav-item>div>div {
+    /* padding: 5px; */
 }
 
-.nav-item > div > div > img {
+.nav-item>div>div>img {
     width: 24px;
     height: 24px;
 }
