@@ -1,4 +1,4 @@
-.userid { 
+.userid {
     display: inline-block;
     background-color: #E9E9E9;
     border-radius: 20px;
@@ -53,12 +53,11 @@
     margin-top: 10px;
 }
 
-
-
 .phone {
     display: flex;
     gap: 10px;
 }
+
 .phone-check {
     display: flex;
     align-items: center;
@@ -76,11 +75,20 @@ main {
 
 .register-form {
     width: 100%;
-    max-width: 550px;
+    max-width: 570px;
     padding: 20px;
-    border-radius: 20px;
-    justify-content: center;
 }
+
+
+.search-form {
+    width: 100%;
+    max-width: 80%;
+    padding: 20px;
+    justify-content: center;
+
+}
+
+
 
 .register-form h2 {
     text-align: center;
@@ -93,7 +101,7 @@ main {
 }
 
 .register-form input,
-.register-form select{
+.register-form select {
     width: calc(100% - 8px);
     padding: 10px;
     margin-bottom: 10px;
@@ -102,6 +110,9 @@ main {
     border-radius: 8px;
     justify-content: center;
 }
+
+
+
 
 .birthdate select {
     width: calc(31%);
@@ -120,17 +131,20 @@ main {
 .gender-btn {
     display: flex;
     align-items: center;
-    
+
 }
 
 .btn-male {
     width: 70px;
-    height: 42px; /* input의 height와 padding을 고려하여 맞춤 */
+    height: 42px;
+    /* input의 height와 padding을 고려하여 맞춤 */
     border-radius: 8px;
-    background-color: var(--short-btn-color, #007BFF); /* 기본 색상 설정 */
+    background-color: var(--short-btn-color, #007BFF);
+    /* 기본 색상 설정 */
     border: none;
     color: #fff;
-    font-size: 16px; /* input과 같은 폰트 크기 */
+    font-size: 16px;
+    /* input과 같은 폰트 크기 */
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: 8px;
@@ -139,12 +153,14 @@ main {
 
 .btn-female {
     width: 70px;
-    height: 42px; /* input의 height와 padding을 고려하여 맞춤 */
+    height: 42px;
+    /* input의 height와 padding을 고려하여 맞춤 */
     border-radius: 8px;
     background-color: #EDEDED;
     border: none;
     color: black;
-    font-size: 16px; /* input과 같은 폰트 크기 */
+    font-size: 16px;
+    /* input과 같은 폰트 크기 */
     margin-top: 10px;
     margin-bottom: 10px;
     vertical-align: middle;
@@ -153,12 +169,15 @@ main {
 
 .btn-duplicate {
     width: 70px;
-    height: 42px; /* input의 height와 padding을 고려하여 맞춤 */
+    height: 42px;
+    /* input의 height와 padding을 고려하여 맞춤 */
     border-radius: 8px;
-    background-color: var(--short-btn-color, #007BFF); /* 기본 색상 설정 */
+    background-color: var(--short-btn-color, #007BFF);
+    /* 기본 색상 설정 */
     border: none;
     color: #fff;
-    font-size: 16px; /* input과 같은 폰트 크기 */
+    font-size: 16px;
+    /* input과 같은 폰트 크기 */
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 8px;
@@ -167,12 +186,32 @@ main {
 
 .btn-confirm {
     width: 70px;
-    height: 42px; /* input의 height와 padding을 고려하여 맞춤 */
+    height: 42px;
+    /* input의 height와 padding을 고려하여 맞춤 */
     border-radius: 8px;
-    background-color: var(--short-btn-color, #007BFF); /* 기본 색상 설정 */
+    background-color: var(--short-btn-color, #007BFF);
+    /* 기본 색상 설정 */
     border: none;
     color: #fff;
-    font-size: 16px; /* input과 같은 폰트 크기 */
+    font-size: 16px;
+    /* input과 같은 폰트 크기 */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+
+}
+
+
+.btn-search {
+    width: 70px;
+    height: 42px;
+    /* input의 height와 padding을 고려하여 맞춤 */
+    border-radius: 8px;
+    background-color: #283C75;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    /* input과 같은 폰트 크기 */
     margin-top: 10px;
     margin-bottom: 10px;
     vertical-align: middle;
