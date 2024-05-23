@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/recruit_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채용공고 상세페이지</title>
+</head>
+
+<body layout:fragment="content">
+
+    <div class="container-fluid container d-flex justify-content-between">
+        <div class="wrapper d-flex flex-column ">
+            <div class="detail-header">
+                <div class="detail-logo d-flex justify-content-start" style="">
+                    <img src="/img/logo.png" alt="" style=" width: 100px; ">
+                </div>
+                <div>
+                    <span style="font-size: 14px;">CANB R&D 연구소</span>
+                </div>
+                <div>
+                    <span style="font-size: 32px; font-weight: bold;">CANB R&D 연구소 부문별 채용</span>
+                </div>
+                <div class="item d-flex justify-content-between">
+                    <div class="keyword-span">
+                        <span>#연구개발</span> <span>#포천시</span> <span>#계약직</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin: 51px 0 40px 0;">
+
+            <div class="sec_detail d-flex flex-column justify-content-start ">
+                <div class="detail-box01">
+                    <span style="font-size: 17px; font-weight: bold; margin-right: 72px;">담당업무</span>
+                    <span style="font-size: 14px;">부문별 상이 / 하단 공고 참조</span>
+                </div>
+                <div class="detail-box02">
+                    <span style="font-size: 17px; font-weight: bold; margin-right: 72px;">자격조건</span>
+                    <span style="font-size: 14px;">부문별 상이 / 하단 공고 참조</span>
+                </div>
+                <div class="detail-box03">
+                    <span style="font-size: 17px; font-weight: bold; margin-right: 72px;">우대사항</span>
+                    <span style="font-size: 14px;">부문별 상이 / 하단 공고 참조</span>
+                </div>
+            </div>
+            <div style="margin: 44px 26px; height: auto;" class="d-flex justify-content-start">
+                <img src="/img/poly.png" alt="">
+            </div>
+        </div>
+
+
+        <div class="d-flex flex-column job_notice_detail a-wrapper" style="position: sticky; top: 130px;">
+            <a href="#" style="background-color: #004ea0; ">이력서 제출</a>
+            <a href="#" style="background-color: #fff; color: #000000E6; border: 1px solid #000;">뒤로가기</a>
+        </div>
+
+    </div>
+
+</body>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</html>

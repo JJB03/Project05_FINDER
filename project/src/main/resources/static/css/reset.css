@@ -44,7 +44,7 @@ body {
   width: 70px;
   height: 34px;
   /* padding : 4px 2px; */
-  border-radius: 8px;
+  border-radius: 20px;
   background-color: var(--short-btn-color);
   border: none;
   color: #fff;
@@ -59,7 +59,7 @@ body {
   width: 70px;
   height: 34px;
   /* padding : 4px 2px; */
-  border-radius: 8px;
+  border-radius: 20px;
   background-color: var(--sub-color);
   border: none;
   color: #fff;
