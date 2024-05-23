@@ -1,0 +1,256 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}"
+      >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이력서 수정</title>
+    
+    <style>
+      .header-logo img {
+        height: 50px;
+      }
+      .resume-form {
+        margin-top: 20px;
+      }
+      .form-header {
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .profile-pic {
+        width: 230px;
+        height: 250px;
+        background-color: #eee;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      #preview {
+            width: 230px;
+            height: 250px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 preview 영역에 맞춰서 잘림 */
+        }
+
+        /*input file(파일2)*/
+        input[type='file'] {
+          display: block;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+        }
+        .form__input--file_wrap {
+          display: flex;
+        }
+        .form__label--file {
+          width: 80px;
+          height: 30px;
+          line-height:30px;
+          background: #999;
+          border-radius: 3px;
+          color: #fff;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+        .form__span--file {
+          padding: 0 5px 0 10px;
+          margin-left: 5px;
+          display: block;
+          width: 500px;
+          min-height: 30px;
+          border: 1px solid #e7e7e7;
+          border-radius: 3px;
+          line-height: 30px;
+          color: #999;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          box-sizing: border-box;
+        }
+
+      .footer {
+        background-color: #003366;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        margin-top: 40px;
+      }
+      .footer a {
+        color: white;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body layout:fragment="content">
+  
+    <div class="container resume-form">
+      <div class="form-header">
+        <h4>이력서 수정</h4>
+      </div>
+      <form action="/user/SVupdate" method="post">
+        <div class="form-group row" style="margin-top: 5px;">
+            <label for="title" class="col-sm-2 col-form-label" style="width: 80px;">제목 :</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="title">
+            </div>
+          </div>
+          <div class="profile-pic" style="float: left; height: 250px; width: 250px;">
+            <div id="preview">
+              <!-- th:src="|/img/$/{cv.no}|" 를 사용하여 불러오면 됩니다.-->
+              <img src="" class="img-thumbnail"  alt="이미지를 불러오지 못했습니다. ">
+            </div>
+            <input type="file" name="file" id="file" accept="img/*" style="display: none;">
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-9">
+              <div class="form-group">
+                <label>이름 : </label> 
+                <!-- <input type="text" name="name" id="name" th:value="${cv.name}" class="form-control" > -->
+                <input type="text" name="name" id="name" class="form-control" >
+              </div>
+              <div class="form-group">
+                <label>성별 </label>  
+                <input type='radio' name='gender' value='female' />여성
+                <input type='radio' name='gender' value='male' />남성
+                <br>
+                <label>나이 </label>  
+                <!-- <input type="text" id="age" name="age" th:value="${cv.age}" class="form-control" > -->
+                <input type="text" id="age" name="age" class="form-control" >
+              </div>
+              <div class="form-group">
+                <label>이메일 : </label> 
+                <!-- <input type="text" id="email" name="email" th:value="${cv.email}" class="form-control" > -->
+                <input type="text" class="form-control" id="email">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-6 border bg-light rounded-3">
+              <h5>학력</h5>
+              <div class="form-group">
+                <label for="school">학교 :</label>
+                <!-- <input type="text" id="school" name="school" th:value="${cv.school}" class="form-control" > -->
+                <input type="text" id="school" name="school" class="form-control" >
+              </div>
+              <div class="form-group">
+                <label for="major">전공 :</label>
+                <!-- <input type="text" id="major" name="major" th:value="${cv.major}" class="form-control" > -->
+                <input type="text" id="major" class="form-control" >
+              </div>
+              <div class="form-group">
+                <label for="education-status">학력 상태 :</label>
+                <!-- <input type="text" id="education-status" name="education-status" th:value="${cv.education-status}" class="form-control" > -->
+                <input type="text" class="form-control" id="education-status">
+              </div>
+            </div>
+            <div class="col-sm-6 border bg-light rounded-3">
+              <h5>경력사항</h5>
+              <div class="form-group">
+                <label for="period1">기관 :</label>
+                <!-- <input type="text" id="period1" name="period1" th:value="${cv.period1}" class="form-control" > -->
+                <input type="text" class="form-control" id="period1">
+              </div>
+              <div class="form-group">
+                <label for="period2">기간 :</label>
+                <!-- <input type="text" id="period2" name="period2" th:value="${cv.period2}" class="form-control" > -->
+                <input type="text" class="form-control" id="period2">
+              </div>
+              <div class="form-group">
+                <label for="duty">담당업무 :</label>
+                <!-- <input type="text" id="duty" name="duty" th:value="${cv.duty}" class="form-control" > -->
+                  <input type="text" class="form-control" id="duty">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="self-introduction">자기소개서</label>
+                <!-- 최소 글자수-->
+                <textarea required minlength="50" class="form-control border bg-light rounded-3" id="self-introduction" rows="5" placeholder="최소 50글자 이상 작성해야 합니다."></textarea>
+            </div>
+            <div class="upload-btn">
+              <div class="form__input--file_wrap">
+                <input class="form__input--file" id="upload1" type="file" multiple>
+                <p class="btn-long" for="upload1">파일 다운로드</p>
+                <span class="form__span--file">선택된 파일이 없습니다.</span>
+                <!-- <a th:href="|/cv/${cv.no}|" th:text="${file.originName}" for="upload1"></a> -->
+                
+                <!--파일 삭제-->
+                <button type="button" class="btn-short">삭제</button>
+               <!--  <button type="button" onclick="|deleteFile(this, ${file.no})|">삭제</button> -->
+              </div>
+              <div class="btn-click123" style="float: inline-end;">
+                <button type="submit" class="btn-long">수정완료</button>
+                <button type="submit" class="btn-long" onclick="moveToDelete()">이력서 삭제</button>
+                <button type="submit" class="btn-long" onclick="moveToList()">이력서 목록</button>
+              </div>  
+            </div>
+          </div>
+      </form>
+    </div>
+  
+    
+  
+    <script>
+      //이력서 불러오기
+      let form = document.getElementById('form')
+      let no =  "[[${cv.no}]]"
+
+      //이력서 삭제
+      function moveToDelete() {
+        let check = confirm('이력서를 삭제하시겠습니까?')
+        if (check) {
+          form.action = '/user/delete'
+          form.submit()
+        }
+      }
+
+      function moveToList() {
+        //리스트로 안 가고 계속 create로 이동함
+        location.href='SVlist.html'
+      }
+
+      //파일 삭제
+      function deleteFile(element, no) {
+            // alert(no)
+            
+            // AJAX 비동기 요청
+            let request = new XMLHttpRequest()
+            
+            // 요청 세팅
+            // request.open(요청메소드, URL)
+            request.open('DELETE', '/file/' + no)
+            request.send()
+            
+            request.onreadystatechange = function() {
+                
+                // 요청 성공 시,
+                if( request.readyState == request.DONE && request.status == 200 ) {
+                    console.log('파일 삭제 성공!');
+                    // 파일 항목 제거    
+                    element.parentNode.remove()
+                }
+            }
+        }
+
+    </script>
+  </body>
+  </html>
