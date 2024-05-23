@@ -14,7 +14,7 @@ public class MainController {
     @GetMapping("/{page}")
     public String main(@PathVariable("page") String page) {
         log.info("메인 화면...");
-        return page;
+        return "/" + page;
     }
 
     
