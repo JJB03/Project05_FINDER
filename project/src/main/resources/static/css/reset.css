@@ -93,7 +93,6 @@ body {
 /* 공통 */
 .main-content { /* content 영역 지정 */
   margin: 0 auto;
-  min-height: calc(100vh - 14rem); /* 푸터 하단 고정에 사용 */
 }
 
 

@@ -1,36 +1,28 @@
+/* company/index */
+.com-info-wrap {
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: 1px 2px 2px 3px lightgrey;
+}
 
-.section-title h4 {
-    text-align: center;
-    margin: 20px 0;
-  }
+.card-body .card-option {
+  background-color: var(--long-btn-color);
+  color: white;
+  padding: 10px;
+  border-radius: 30px;
+}
 
-  .info-card {
-    padding: 20px;
-    border: 1px solid #e9ecef;
-    border-radius: 15px;
-    text-align: center;
-    background-color: #fff;
-    margin-bottom: 20px;
-  }
+.com-info-wrap .col-lg-4 {
+  text-decoration: none;
+  font-weight: 1000;
+}
 
-  .info-card img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-  }
+.com-index-card:hover {
+  background-color: lightgrey;
+}
 
-  .info-card h5 {
-    background-color: var(--long-btn-color);
-    color: white;
-    padding: 10px;
-    border-radius: 30px;
-  }
 
-  .info-card ul {
-    list-style-type: none;
-    padding: 0;
-  }
 
-  .info-card ul li {
-    margin-top: 10px;
-  }
+/* company/credit */
