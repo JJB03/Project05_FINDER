@@ -1,60 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/company_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/company_layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>기업 페이지</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기업 페이지</title>
 </head>
+
 <body layout:fragment="content">
 
-    <div class="container mt-5 main-content">
+  <div class="container mt-5 main-content">
 
-        <div class="section-title">
-          <h4>기업 정보</h4>
+    <div class="section-title">
+      <h4><strong>기업 정보</strong></h4>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center align-items-center g-5 com-index-menu">
+
+      <a href="#" class="card-a-tag">
+        <div class="info-card com-menu-option">
+          <h5>정보</h5>
+          <img src="/img/기업정보.png" alt="정보">
+          <ul>
+            <li>기업 소개</li>
+            <li>기업 정보 수정</li>
+          </ul>
         </div>
+      </a>
 
-        <div class="row content-wrap mx-auto">
-
-            <div class="col-md-4">
-                <div class="info-card">
-                  <h5>정보</h5>
-                  <img src="/img/기업정보.png" alt="Information Icon">
-                  <ul>
-                    <li>기업 소개</li>
-                    <li>기업 정보 수정</li>
-                  </ul>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="info-card">
-                  <h5>채용공고 관리</h5>
-                  <img src="/img/채용공고.png" alt="Recruitment Icon">
-                  <ul>
-                    <li>채용공고 등록</li>
-                    <li>채용공고 조회</li>
-                  </ul>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="info-card">
-                  <h5>이력서 조회</h5>
-                  <img src="/img/이력서.png" alt="Resume Icon">
-                  <ul>
-                    <li>제출된 이력서</li>
-                    <li>AI 간편 평가</li>
-                  </ul>
-                </div>
-            </div>
-
+      <a href="/recruit/index" class="card-a-tag">
+        <div class="info-card com-menu-option">
+          <h5>채용공고 관리</h5>
+          <img src="/img/채용공고.png" alt="채용공고">
+          <ul>
+            <li>채용공고 등록</li>
+            <li>채용공고 조회</li>
+          </ul>
         </div>
+      </a>
+
+      <a href="#" class="card-a-tag">
+        <div class="info-card com-menu-option">
+          <h5>이력서 조회</h5>
+          <img src="/img/이력서.png" alt="이력서">
+          <ul>
+            <li>제출된 이력서</li>
+            <li>AI 간편 평가</li>
+          </ul>
+        </div>
+      </a>
 
     </div>
 
 
+
+  </div>
+
+
 </body>
+
 </html>
