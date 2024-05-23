@@ -1,43 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout/user_layout}"
-      >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/user_layout}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 페이지</title>
 </head>
-<body layout:fragment="content">
+
+< layout:fragment="content">
     <div class="main-content">
         <main>
             <form class="register-form">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
-                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-                    <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor"
+                    class="bi bi-person-check" viewBox="0 0 16 16">
+                    <path
+                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                    <path
+                        d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
                 </svg>
 
                 <!-- <hr style="position: relative ; width: 100%;"> -->
                 <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요</h2>
 
-                <div for="username" class="userid" >아이디</div>
+                <div for="username" class="userid">아이디</div>
 
-                <div style="display: flex; justify-content: center;">
-                    <input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required style="width: 100%;">
+                <div id="id">
+                    <div class="check-btn">
+                    <input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required>
+                        <button type="button" id="check" class="btn-duplicate">중복</button>
+                    </div>
                 </div>
-                <button type="button" class="btn-short">중복</button>
                 <br>
-                
-                 
-                <div for="password" class="userpw" >비밀번호</div>
+
+
+                <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
                 <input type="password" id="password" name="password" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
-                
+
                 <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
-                
-                <div for="name" class="username" >아이디</div>
-                <input type="text" id="name" name="name" required  placeholder="아이디">
-                
-                <div for="birthdate" class="userbirth" >생년월일</div>
+
+                <div for="name" class="username" style="width: 55px; text-align: center;">
+                    이름
+                </div>
+
+                <div class="gender">
+                    <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
+                    <div class="gender-btn">
+                        <button type="button" class="btn-male" id="male" name="gender">남</button>
+                        <button type="button" class="btn-female" id="female" name="gender">여</button>
+                    </div>
+                </div>
+
+                <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
                 <div class="birthdate">
                     <select name="year" id="year">
                         <option value="1">2000</option>
@@ -48,7 +62,7 @@
                         <option value="1">1월</option>
                         <option value="2">2월</option>
                         <option value="3">3월</option>
-                        <option value="3">4월</option>
+                        <option value="3">4월</option>  
                         <option value="3">5월</option>
                         <option value="3">6월</option>
                         <option value="3">7월</option>
@@ -71,29 +85,37 @@
                         <option value="3">10일</option>
                     </select>
                 </div>
-                
-                <div for="gender" class="usergender" >성별</div>
-                <div class="gender">
-                    <input type="radio" id="male" name="gender" value="남">
-                    <label for="male">남</label>
-                    <input type="radio" id="female" name="gender" value="여">
-                    <label for="female">여</label>
+
+
+                <div for="phone" class="userphone">휴대폰</div>
+
+                <div class="phone">
+                    <input type="text" id="phone" name="phone" required placeholder="번호를 입력해주세요.">
+                    <div class="phone-check">
+                        <button type="button" class="btn-confirm">인증</button>
+                    </div>
                 </div>
-                
-                <div for="phone" class="userphone" >휴대폰</div>
-                <input type="text" id="phone" name="phone" required  placeholder="번호">
-                <button type="button" class="btn-short">인증</button>
-                
+
                 <br>
-                
-                <div for="email" class="useremail" >이메일</div>
-                <input type="email" id="email" name="email" required  placeholder="이메일">
-                
-                <button type="submit" class="submit-button">등록</button>
+
+                <div for="email" class="useremail">
+                    이메일
+                </div>
+                <div class="phone">
+                    <input type="email" id="email" name="email" required placeholder="이메일">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="72" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
+                            <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
+                        </svg>
+                        <select name="emailselect" id="emailselect">
+                            <option value="1">naver.com</option>
+                            <option value="1">gmail.com</option>
+                        </select>
+                </div>
+                    <button type="submit" class="submit-button">등록</button>
             </form>
         </main>
-        
-       
     </div>
+        <!-- 여기서 부터 시작-->
 </body>
+
 </html>
