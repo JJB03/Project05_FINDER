@@ -1,0 +1,216 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/user_layout}"
+      >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이력서 조횐</title>
+    
+    <style>
+      .header-logo img {
+        height: 50px;
+      }
+      .resume-form {
+        margin-top: 20px;
+      }
+      .form-header {
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .profile-pic {
+        width: 230px;
+        height: 250px;
+        background-color: #eee;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      #preview {
+            width: 230px;
+            height: 250px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 preview 영역에 맞춰서 잘림 */
+        }
+
+        /*input file(파일2)*/
+        input[type='file'] {
+          display: block;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+        }
+        .form__input--file_wrap {
+          display: flex;
+        }
+        .form__label--file {
+          width: 80px;
+          height: 30px;
+          line-height:30px;
+          background: #999;
+          border-radius: 3px;
+          color: #fff;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+        .form__span--file {
+          padding: 0 5px 0 10px;
+          margin-left: 5px;
+          display: block;
+          width: 500px;
+          min-height: 30px;
+          border: 1px solid #e7e7e7;
+          border-radius: 3px;
+          line-height: 30px;
+          color: #999;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          box-sizing: border-box;
+        }
+
+      .footer {
+        background-color: #003366;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        margin-top: 40px;
+      }
+      .footer a {
+        color: white;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body layout:fragment="content">
+  
+    <div class="container resume-form">
+      <div class="form-header">
+        <h4>이력서 조회</h4>
+      </div>
+      <form action="/user/SVread" method="get">
+        <div class="form-group row" style="margin-top: 5px;">
+            <label for="title" class="col-sm-2 col-form-label" style="width: 80px;">제목 :</label>
+            <div class="col-sm-10">
+              <p type="text" class="form-control" id="title">제목조회x</p>
+            </div>
+          </div>
+          <div class="profile-pic" style="float: left; height: 250px; width: 250px;">
+            <div id="preview">
+              <!-- th:src="|/img/$/{cv.no}|" 를 사용하여 불러오면 됩니다.-->
+              <img src="" class="img-thumbnail"  alt="이미지를 불러오지 못했습니다. ">
+            </div>
+            <input type="file" name="file" id="file" accept="img/*" style="display: none;">
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-9">
+              <div class="form-group">
+                <label>이름  </label> 
+                <!-- <p type="text" name="name" id="name" th:value="${cv.name}" class="form-control"> </p> -->
+                <p type="text" name="name" id="name" class="form-control" >이름조회x</p>
+              </div>
+              <div class="form-group">
+                <label>성별 </label>  
+                <input type='radio' name='gender' value='female' />여성
+                <input type='radio' name='gender' value='male' />남성
+                <br>
+                <label>나이 </label>  
+                <!-- <p type="text" id="age" name="age" th:value="${cv.age}" class="form-control"> </p> -->
+                <p type="text" id="age" name="age" class="form-control" >나이 조회x</p>
+              </div>
+              <div class="form-group">
+                <label>이메일  </label> 
+                <!-- <p type="text" id="email" name="email" th:value="${cv.email}" class="form-control"> </p> -->
+                <p type="text" class="form-control" id="email">이메일 조회x</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-6 border bg-light rounded-3">
+              <h5>학력</h5>
+              <div class="form-group">
+                <label for="school">학교 </label>
+                <!-- <input type="text" id="school" name="school" th:value="${cv.school}" class="form-control" > -->
+                <p type="text" id="school" name="school" class="form-control" >학교조회x</p>
+              </div>
+              <div class="form-group">
+                <label for="major">전공 </label>
+                <!-- <input type="text" id="major" name="major" th:value="${cv.major}" class="form-control" > -->
+                <p type="text" id="major" class="form-control" >전공조회x</p>
+              </div>
+              <div class="form-group">
+                <label for="education-status">학력 상태 :</label>
+                <!-- <input type="text" id="education-status" name="education-status" th:value="${cv.education-status}" class="form-control" > -->
+                <p type="text" class="form-control" id="education-status">학력상태조회x</p>
+              </div>
+            </div>
+            <div class="col-sm-6 border bg-light rounded-3">
+              <h5>경력사항</h5>
+              <div class="form-group">
+                <label for="period1">기관 </label>
+                <!-- <input type="text" id="period1" name="period1" th:value="${cv.period1}" class="form-control" > -->
+                <p type="text" class="form-control" id="period1">기관조회x</p>
+              </div>
+              <div class="form-group">
+                <label for="period2">기간 </label>
+                <!-- <input type="text" id="period2" name="period2" th:value="${cv.period2}" class="form-control" > -->
+                <p type="text" class="form-control" id="period2">기간조회x</p>
+              </div>
+              <div class="form-group">
+                <label for="duty">담당업무 </label>
+                <!-- <input type="text" id="duty" name="duty" th:value="${cv.duty}" class="form-control" > -->
+                  <p type="text" class="form-control" id="duty">담당업무조회x</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="self-introduction">자기소개서</label>
+                <p class="form-control border bg-light rounded-3" id="self-introduction" rows="5" placeholder="최소 50글자 이상 작성해야 합니다.">
+                  최소 50자이상 작성해야하지만 아직 DB에 추가할 게 없기에 임의로 작성해서 넣어봅니다. 
+                  이런식으로 조회페이지는 수정 자체를 못하게 만들 생각입니다.
+                  민주평화통일자문회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다. 선거에 있어서 최고득표자가 2인 이상인 때에는 국회의 재적의원 과반수가 출석한 공개회의에서 다수표를 얻은 자를 당선자로 한다.
+                  국가는 농업 및 어업을 보호·육성하기 위하여 농·어촌종합개발과 그 지원등 필요한 계획을 수립·시행하여야 한다. 군인은 현역을 면한 후가 아니면 국무위원으로 임명될 수 없다.</p>
+            </div>
+            <div class="upload-btn">
+              <div class="form__input--file_wrap">
+                <input class="form__input--file" id="upload1" type="file" multiple>
+                <p class="btn-long" for="upload1">파일 다운로드</p>
+                <span class="form__span--file">선택된 파일이 없습니다.</span>
+                <!-- <a th:href="|/cv/${cv.no}|" th:text="${file.originName}" for="upload1"></a> -->
+              </div>
+                <button type="submit" class="btn-long" onclick="moveToList()">이력서 목록</button>
+                <button type="submit" class="btn-long" onclick="moveToUpdate()">이력서 수정</button>
+            </div>
+          </div>
+      </form>
+    </div>
+  
+    
+  
+    <script>
+      function moveToList() {
+        //리스트로 안 가고 계속 create로 이동함
+        location.href='SVlist.html'
+      }
+
+    </script>
+  </body>
+  </html>

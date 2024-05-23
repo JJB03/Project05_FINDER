@@ -44,6 +44,13 @@
         .resume-item .btn {
           margin-left: 10px;
         }
+
+        .new{
+          color: white;
+          border: black solid 1px;
+          background-color: #005BAA;
+          border-radius: 20px;
+        }
       </style>
     <title>이력서모음 조회</title>
 </head>
@@ -63,57 +70,44 @@
         <div class="col-md-9">
           <div class="content-header d-flex justify-content-between align-items-center">
             <h4>나의 이력서</h4>
-            <div class="d-flex">
-              <input type="text" class="form-control mr-2" placeholder="검색🔍">
-              <button class="btn-short">찾기</button>
-            </div>
+            <!-- 검색-->
+            <form action="/user/SVlist" method="get" class="d-flex"> 
+              <input type="text" class="keyword mr-2" placeholder="검색🔍"
+                th:value="${param.keyword}">
+              <input type="submit" class="btn-short" value="검색"></input>
+            </form>
         </div>
         <div class="button-SvCraete">
-            <button class="btn-long">이력서 작성</button> 
+            <button onclick="location.href='SVcreate.html'" class="btn-long">이력서 작성</button> 
         </div>
           <div class="resume-list">
             <div class="resume-item d-flex justify-content-between align-items-center">
               <div>
-                <span class="badge badge-primary">NEW</span>
-                <span>홍길동 이력서</span>
-                <span class="text-muted">제목: 풀스택 개발자 취업</span>
-              </div>
-              <div>
-                <button class="btn-short">수정</button>
-                <button class="btn-short">삭제</button>
-              </div>
-            </div>
-            <div class="resume-item d-flex justify-content-between align-items-center">
-              <div>
                 <span class="text-muted">등록: 2024.5.20</span>
                 <span>홍길동 이력서</span>
                 <span class="text-muted">제목: 풀스택 개발자 취업</span>
               </div>
               <div>
-                <button class="btn-short">수정</button>
-                <button class="btn-short">삭제</button>
-              </div>
-            </div>
-            <div class="resume-item d-flex justify-content-between align-items-center">
-              <div>
-                <span class="text-muted">등록: 2024.5.20</span>
-                <span>홍길동 이력서</span>
-                <span class="text-muted">제목: 풀스택 개발자 취업</span>
-              </div>
-              <div>
-                <button class="btn-short">수정</button>
-                <button class="btn-short">삭제</button>
+                <button class="btn-short" onclick="location.href='SVupdate.html'" >수정</button>
+                <button class="btn-short" onclick="deleteSV()">삭제</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+
+    <script>
+      // 삭제 요청
+      function deleteSV() {
+            let check = confirm('삭제하시겠습니까?')
+            if( check ) {
+                form.action = '/user/delete'
+                form.submit()
+            }
+        }
+
+    </script>  
   
   </body>
 </html>
