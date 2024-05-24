@@ -33,8 +33,6 @@
             height: 140px;
         }
 
-
-
         .keyword-span span {
             background-color: #f8f8f8;
             color: #5d5d5d;
@@ -96,8 +94,8 @@
                 </div>
 
                 <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
-                <div class="birthdate"> <!-- 적용 안 돼서 다시 해보는 중-->
-                    <select name="year" id="year" title="년도"></select>
+                <div class="birthdate"> <!--적용된 코드-->
+                    <select name="year" id="year" title="년도"></select> 
                     <select name="month" id="month" title="월"></select>
                     <select name="day" id="day" title="일"></select>
                 </div>
@@ -156,56 +154,66 @@
         <button class="btn btn-primary mt-3" onclick="createID()">회원가입 완료</button>
     </div>
     </main>
-</body>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 년도 채우기
+            const currentYear = new Date().getFullYear();
+            const yearSelect = document.getElementById('year');
+            for (let i = currentYear; i >= 1950; i--) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i +'년';
+                yearSelect.appendChild(option);
+            }
 
-        //연도 계산
-        $(document).ready(function () {
-        setDateBox();
+            // 월 채우기
+            const monthSelect = document.getElementById('month');
+            
+            for (let i = 1; i <= 12; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '월';
+                monthSelect.appendChild(option);
+            }
+
+            // 일 채우기
+            const daySelect = document.getElementById('day');
+            function fillDays(year, month) {
+                daySelect.innerHTML = ''; // 기존 옵션 제거
+                const daysInMonth = new Date(year, month, 0).getDate();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i+'일';
+                    daySelect.appendChild(option);
+                }
+            }
+
+            // 초기 일 채우기
+            fillDays(currentYear, 1);
+            // 년도 또는 월이 변경될 때 일 다시 채우기
+            yearSelect.addEventListener('change', () => {
+                fillDays(yearSelect.value, monthSelect.value);
+            });
+
+            monthSelect.addEventListener('change', () => {
+                fillDays(yearSelect.value, monthSelect.value);
+            });
+
+
+            //파일 업로드 코드
+            document.getElementById('fileButton').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+
+            function displayFileName() {
+                var input = document.getElementById('fileInput');
+                var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
+                document.getElementById('fileName').textContent = fileName;
+            }
         });
-
-    // select box 연도 , 월 표시
-     function setDateBox() {
-        var dt = new Date();
-        var year = "";
-        var com_year = dt.getFullYear();
-
-        // 발행 뿌려주기
-        $("#year").append("<option value=''>년도</option>");
-
-        // 올해 기준으로 -50년부터 +1년을 보여준다.
-        for (var y = (com_year - 50); y <= (com_year + 1); y++) {
-        $("#year").append("<option value='" + y + "'>" + y + " 년" + "</option>");
-        }
-
-        // 월 뿌려주기(1월부터 12월)
-        var month;
-        $("#month").append("<option value=''>월</option>");
-        for (var i = 1; i <= 12; i++) {
-        $("#month").append("<option value='" + i + "'>" + i + " 월" + "</option>");
-        }
-
-        // 일 뿌려주기(1일부터 31일)
-        var day;
-        $("#day").append("<option value=''>일</option>");
-        for (var i = 1; i <= 31; i++) {
-        $("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
-        }
-
-    }
-
-
-        //파일 업로드 코드
-        document.getElementById('fileButton').addEventListener('click', function() {
-            document.getElementById('fileInput').click();
-        });
-
-        function displayFileName() {
-            var input = document.getElementById('fileInput');
-            var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
-            document.getElementById('fileName').textContent = fileName;
-        }
     </script>
+</body>
 
 </html>

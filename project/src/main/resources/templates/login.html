@@ -103,7 +103,7 @@
 
                 <div class="row find-id-password">
                     <div class="col-md-6 text-center">
-                        <a href="#" style="text-decoration: none; color: black;" ><strong>회원 가입</strong></a>
+                        <a href="#" id="join" style="text-decoration: none; color: black;" ><strong>회원 가입</strong></a>
                     </div>
                     <div class="col-md-6 text-center">
                         <a href="#" style="color: black;">아이디/비밀번호 찾기</a>
@@ -129,11 +129,17 @@
             $('#login-user').css('background-color', '#fff').css('color', 'var(--sub-color)')
             $('#login-com').css('background-color', 'var(--sub-color)').css('color', '#fff')
             $('#login-title').text('기업 로그인')
+            $('#join').on('click', function(){
+                window.location.href = '/company/join_com';
+            });
         }
         function switchUser() {
             $('#login-com').css('background-color', '#fff').css('color', 'var(--sub-color)')
             $('#login-user').css('background-color', 'var(--sub-color)').css('color', '#fff')
             $('#login-title').text('로그인')
+            $('#join').on('click', function(){
+                window.location.href = '/user/join_user';
+            });
         }
     </script>
 
