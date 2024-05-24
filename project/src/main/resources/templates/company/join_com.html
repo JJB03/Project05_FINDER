@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/user_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+    <title>기업회원 페이지</title>
+
+    <style>
+        .job-list {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .job-header {
+            color: #fff;
+            background-color: #005AAB;
+            padding: 10px;
+            margin-bottom: 35px;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            height: 130px;
+            font-size: 28px;
+        }
+
+        .img2{
+            width: 170px;
+            height: 140px;
+        }
+
+
+
+        .keyword-span span {
+            background-color: #f8f8f8;
+            color: #5d5d5d;
+            border-radius: 20px;
+            padding: 5px;
+            font-size: 15px;
+            /* opacity: 0.9; */
+            font-weight: bold;
+            transition: background-color 0.5s ease;
+        }
+    </style>
+</head>
+
+<body layout:fragment="content">
+    <div class="main-content">
+        <main>
+            <form class="register-form">
+              
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor"
+                    class="bi bi-person-check" viewBox="0 0 16 16">
+                    <path
+                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                    <path
+                        d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+                </svg>
+                
+                <!-- <hr style="position: relative ; width: 100%;"> -->
+                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요 </h2>
+            
+                
+
+                <div for="username" class="userid">아이디</div>
+
+                <div id="id">
+                    <div class="check-btn">
+                        <input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능"
+                            required>
+                        <button type="button" id="check" class="btn-duplicate">중복</button>
+                    </div>
+                </div>
+                <br>
+
+
+                <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
+                <input type="password" id="password" name="password" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
+
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
+
+                <div for="name" class="username" style="width: 55px; text-align: center;">
+                    이름
+                </div>
+
+                <div class="gender">
+                    <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
+                    <div class="gender-btn">
+                        <button type="button" class="btn-male" id="male" name="gender">남</button>
+                        <button type="button" class="btn-female" id="female" name="gender">여</button>
+                    </div>
+                </div>
+
+                <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
+                <div class="birthdate"> <!-- 적용 안 돼서 다시 해보는 중-->
+                    <select name="year" id="year" title="년도"></select>
+                    <select name="month" id="month" title="월"></select>
+                    <select name="day" id="day" title="일"></select>
+                </div>
+
+
+                <div for="phone" class="userphone">휴대폰</div>
+
+                <div class="phone">
+                    <input type="text" id="phone" name="phone" required placeholder="번호를 입력해주세요.">
+                    <div class="phone-check">
+                        <button type="button" class="btn-confirm">인증</button>
+                    </div>
+                </div>
+
+                <br>
+
+                <div for="email" class="useremail">
+                    이메일
+                </div>
+                <div class="phone">
+                    <input type="email" id="email" name="email" required placeholder="이메일">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="72" fill="currentColor" class="bi bi-at"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914" />
+                    </svg>
+                    <select name="emailselect" id="emailselect">
+                        <option value="1">naver.com</option>
+                        <option value="1">gmail.com</option>
+                    </select>
+                </div>
+                <br> <!-- 공백 주기-->
+                <div class="img-file">
+                <img class="img2" src="/img/인증서.png" alt="인증서png">
+                <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()" >
+                <button class="btn-short" style="width: 80px;" id="fileButton">파일 선택</button>
+                <span id="fileName">파일을 추가해주세요.</span>
+                <!-- <hr style="position: relative ; width: 100%;"> -->
+                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">사업자 인증서 제출해주세요 </h2>
+            
+                </div>
+
+                <div for="com-name" class="userphone">기업명</div>
+                <input type="text" id="" name="password" placeholder="기업명" required>
+                <div for="sector" class="userphone">업종</div>
+                <input type="text" id="" name="password" placeholder="업종" required>
+                <div for="sector-category" class="userphone">사업분야</div>
+                <input type="text" id="" name="password" placeholder="사업분야" required>
+                <div for="com-address" class="userphone">기업주소</div>
+                <input type="text" id="" name="password" placeholder="예시, 대한민국 인천광역시 강화군 내가면 구하리 5번길" required>
+
+            </form>
+    </div>
+    <!-- 버튼은 수정한 걸로 바꿔주시면 됩니다!-->
+    <div class="register-form" style="margin: auto;">
+        <button class="btn btn-primary mt-3" onclick="createID()">회원가입 완료</button>
+    </div>
+    </main>
+</body>
+
+    <script>
+
+        //연도 계산
+        $(document).ready(function () {
+        setDateBox();
+        });
+
+    // select box 연도 , 월 표시
+     function setDateBox() {
+        var dt = new Date();
+        var year = "";
+        var com_year = dt.getFullYear();
+
+        // 발행 뿌려주기
+        $("#year").append("<option value=''>년도</option>");
+
+        // 올해 기준으로 -50년부터 +1년을 보여준다.
+        for (var y = (com_year - 50); y <= (com_year + 1); y++) {
+        $("#year").append("<option value='" + y + "'>" + y + " 년" + "</option>");
+        }
+
+        // 월 뿌려주기(1월부터 12월)
+        var month;
+        $("#month").append("<option value=''>월</option>");
+        for (var i = 1; i <= 12; i++) {
+        $("#month").append("<option value='" + i + "'>" + i + " 월" + "</option>");
+        }
+
+        // 일 뿌려주기(1일부터 31일)
+        var day;
+        $("#day").append("<option value=''>일</option>");
+        for (var i = 1; i <= 31; i++) {
+        $("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
+        }
+
+    }
+
+
+        //파일 업로드 코드
+        document.getElementById('fileButton').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        function displayFileName() {
+            var input = document.getElementById('fileInput');
+            var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
+            document.getElementById('fileName').textContent = fileName;
+        }
+    </script>
+
+</html>
