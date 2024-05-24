@@ -115,6 +115,28 @@
 
 }
 
+.a-wrapper .detail-form {
+    text-decoration: none;
+    /* 링크의 밑줄 제거 */
+    color: #fff;
+    /* 링크 글씨 색상 설정 */
+    display: block;
+    /* 전체 영역 클릭 가능하게 블록 요소로 변경 */
+
+    width: 300px;
+    height: 90px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 10px 20px; /* 버튼 패딩 설정 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+
+}
+
 .keyword-span span {
     background-color: #f8f8f8;
     color: #5d5d5d;
@@ -239,6 +261,7 @@ input[type="text"] {
     height: 32px !important;
     font-size: 12px !important;
     border-radius: 8px !important;
+    margin-right: 15px;
 }
 
 .detail-header > div {
@@ -266,4 +289,25 @@ input[type="text"] {
 .job_notice_detail {
 
    
+}
+
+.modal-list {
+    
+}
+
+.modal-list .job-item {
+    
+
+
+}
+.modal-list .job-item:focus,
+.modal-list .job-item:focus:hover {
+    background-color: #F7F9FC !important;
+
+
+}
+.modal-list .job-item:hover:focus {
+    background-color: #F7F9FC !important;
+
+
 }
