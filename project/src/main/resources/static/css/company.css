@@ -153,18 +153,6 @@
 
 }
 
-.keyword-span span {
-  background-color: #f8f8f8;
-  color: #5d5d5d;
-  border-radius: 20px;
-  padding: 0 13px 0 13px;
-  font-size: 12px;
-  opacity: 0.8;
-  font-weight: bold;
-  transition: background-color 0.5s ease;
-  margin-right: 5px;
-}
-
 .job-item:hover .keyword-span span {
   background-color: #fff;
 }
@@ -192,7 +180,6 @@
 .container {
   background: #fff;
   margin: 0 auto;
-
 }
 
 .form-control {
@@ -250,60 +237,6 @@
 .nav-item>div>div>img {
   width: 24px;
   height: 24px;
-}
-
-
-input[type="text"] {
-  /* 기본 브라우저 스타일 제거 */
-  margin: 0;
-  padding: 0;
-  border: none;
-  outline: none;
-  background: none;
-  box-shadow: none;
-
-  /* 원하는 초기화 스타일 적용 */
-  width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-}
-
-/* 추가 스타일 */
-#search_filter {
-  padding: 10px;
-  background-color: #fff;
-  width: 180px !important;
-  height: 32px !important;
-  font-size: 12px !important;
-  border-radius: 8px !important;
-}
-
-.detail-header > div {
-  margin-bottom: 9px;
-}
-
-.detail-logo {
-  margin-bottom: 44px;
-}
-
-.sec_detail {
-  padding-bottom: 80px;
-}
-
-.sec_detail > div {
-  margin-bottom: 27px;
-}
-
-.detail_box01,
-.detail_box02,
-.detail_box03 {
-  margin-bottom: 26px;
-}
-
-.job_notice_detail {
-
- 
 }
 
 
@@ -385,17 +318,7 @@ main {
 
 .register-form {
   width: 100%;
-  max-width: 570px;
   padding: 20px;
-}
-
-
-.search-form {
-  width: 100%;
-  max-width: 80%;
-  padding: 20px;
-  justify-content: center;
-
 }
 
 
@@ -449,7 +372,7 @@ main {
   height: 42px;
   /* input의 height와 padding을 고려하여 맞춤 */
   border-radius: 8px;
-  background-color: var(--short-btn-color, #007BFF);
+  background-color: var(--long-btn-color);
   /* 기본 색상 설정 */
   border: none;
   color: #fff;
@@ -511,33 +434,6 @@ main {
 
 }
 
-
-.btn-search {
-  width: 70px;
-  height: 42px;
-  /* input의 height와 padding을 고려하여 맞춤 */
-  border-radius: 8px;
-  background-color: #283C75;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  /* input과 같은 폰트 크기 */
-  margin-top: 10px;
-  margin-bottom: 10px;
-  vertical-align: middle;
-
-}
-
-
-.check-btn {
-  display: flex;
-  align-items: center;
-}
-
-.id {
-  display: flex;
-  gap: 10px;
-}
 
 
 .check-,
