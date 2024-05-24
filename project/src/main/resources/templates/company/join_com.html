@@ -5,8 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원 페이지</title>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+    <title>기업회원 페이지</title>
 
     <style>
         .job-list {
@@ -26,6 +28,12 @@
             font-size: 28px;
         }
 
+        .img2{
+            width: 170px;
+            height: 140px;
+        }
+
+
 
         .keyword-span span {
             background-color: #f8f8f8;
@@ -44,6 +52,7 @@
     <div class="main-content">
         <main>
             <form class="register-form">
+              
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor"
                     class="bi bi-person-check" viewBox="0 0 16 16">
                     <path
@@ -51,9 +60,11 @@
                     <path
                         d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
                 </svg>
-
+                
                 <!-- <hr style="position: relative ; width: 100%;"> -->
-                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요</h2>
+                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요 </h2>
+            
+                
 
                 <div for="username" class="userid">아이디</div>
 
@@ -85,38 +96,10 @@
                 </div>
 
                 <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
-                <div class="birthdate">
-                    <select name="year" id="year">
-                        <option value="1">2000</option>
-                        <option value="2">2001</option>
-                        <option value="3">2002</option>
-                    </select>
-                    <select name="month" id="month">
-                        <option value="1">1월</option>
-                        <option value="2">2월</option>
-                        <option value="3">3월</option>
-                        <option value="3">4월</option>
-                        <option value="3">5월</option>
-                        <option value="3">6월</option>
-                        <option value="3">7월</option>
-                        <option value="3">8월</option>
-                        <option value="3">9월</option>
-                        <option value="3">10월</option>
-                        <option value="3">11월</option>
-                        <option value="3">12월</option>
-                    </select>
-                    <select name="day" id="day">
-                        <option value="1">1일</option>
-                        <option value="2">2일</option>
-                        <option value="3">3일</option>
-                        <option value="3">4일</option>
-                        <option value="3">5일</option>
-                        <option value="3">6일</option>
-                        <option value="3">7일</option>
-                        <option value="3">8일</option>
-                        <option value="3">9일</option>
-                        <option value="3">10일</option>
-                    </select>
+                <div class="birthdate"> <!-- 적용 안 돼서 다시 해보는 중-->
+                    <select name="year" id="year" title="년도"></select>
+                    <select name="month" id="month" title="월"></select>
+                    <select name="day" id="day" title="일"></select>
                 </div>
 
 
@@ -146,12 +129,83 @@
                         <option value="1">gmail.com</option>
                     </select>
                 </div>
+                <br> <!-- 공백 주기-->
+                <div class="img-file">
+                <img class="img2" src="/img/인증서.png" alt="인증서png">
+                <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()" >
+                <button class="btn-short" style="width: 80px;" id="fileButton">파일 선택</button>
+                <span id="fileName">파일을 추가해주세요.</span>
+                <!-- <hr style="position: relative ; width: 100%;"> -->
+                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">사업자 인증서 제출해주세요 </h2>
+            
+                </div>
+
+                <div for="com-name" class="userphone">기업명</div>
+                <input type="text" id="" name="password" placeholder="기업명" required>
+                <div for="sector" class="userphone">업종</div>
+                <input type="text" id="" name="password" placeholder="업종" required>
+                <div for="sector-category" class="userphone">사업분야</div>
+                <input type="text" id="" name="password" placeholder="사업분야" required>
+                <div for="com-address" class="userphone">기업주소</div>
+                <input type="text" id="" name="password" placeholder="예시, 대한민국 인천광역시 강화군 내가면 구하리 5번길" required>
+
             </form>
     </div>
-    <div class="register-form">
-        <button class="btn btn-primary mt-3 ">회원가입 완료</button>
+    <!-- 버튼은 수정한 걸로 바꿔주시면 됩니다!-->
+    <div class="register-form" style="margin: auto;">
+        <button class="btn btn-primary mt-3" onclick="createID()">회원가입 완료</button>
     </div>
     </main>
 </body>
+
+    <script>
+
+        //연도 계산
+        $(document).ready(function () {
+        setDateBox();
+        });
+
+    // select box 연도 , 월 표시
+     function setDateBox() {
+        var dt = new Date();
+        var year = "";
+        var com_year = dt.getFullYear();
+
+        // 발행 뿌려주기
+        $("#year").append("<option value=''>년도</option>");
+
+        // 올해 기준으로 -50년부터 +1년을 보여준다.
+        for (var y = (com_year - 50); y <= (com_year + 1); y++) {
+        $("#year").append("<option value='" + y + "'>" + y + " 년" + "</option>");
+        }
+
+        // 월 뿌려주기(1월부터 12월)
+        var month;
+        $("#month").append("<option value=''>월</option>");
+        for (var i = 1; i <= 12; i++) {
+        $("#month").append("<option value='" + i + "'>" + i + " 월" + "</option>");
+        }
+
+        // 일 뿌려주기(1일부터 31일)
+        var day;
+        $("#day").append("<option value=''>일</option>");
+        for (var i = 1; i <= 31; i++) {
+        $("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
+        }
+
+    }
+
+
+        //파일 업로드 코드
+        document.getElementById('fileButton').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        function displayFileName() {
+            var input = document.getElementById('fileInput');
+            var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
+            document.getElementById('fileName').textContent = fileName;
+        }
+    </script>
 
 </html>
