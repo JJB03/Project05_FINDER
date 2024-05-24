@@ -3,15 +3,20 @@
 <th:block th:fragment="header">
     <header>
         <div class="header-wrap">
+            <!-- 로고 누르면 메인페이지로 이동 -->
             <div class="logo">
                 <a href=""><img class="logo-header" src="/img/logo.png" alt=""></a>
                <h1 class="logo-title"><strong>FINDER</strong></h1>
             </div>
             <div class="nav-menu">
+                <!-- 기업이면 기업정보/ 일반회원이면 내정보 -->
                 <a href="#">내 정보</a>
-                <a href="#">이력서 관리</a>
+                <!-- 기업이면 제출된 이력서 / 일반회원이면 내 이력서 -->
+                <a href="/resume/SVlist_user">이력서 관리</a>
+                <!-- 메인 카드뷰 채용공고 페이지 -->
                 <a href="#">채용공고</a>
-                <a href="#">로그인</a>
+                <!-- 로그인시 로그아웃으로 표시 -->
+                <a href="/login">로그인</a>
             </div>
         </div>
     </header>
