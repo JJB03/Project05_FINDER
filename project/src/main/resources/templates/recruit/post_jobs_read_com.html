@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/recruit_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채용공고 조회</title>
+</head>
+
+<body layout:fragment="content">
+    <div class="container-fluid container">
+        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
+            <strong style="font-size: 70px; margin-bottom: 30px;">채용공고 조회</strong>
+            <strong style="font-size: 22px;">새로운 길을 만드는 여정에 함께하세요.</strong>
+        </div>
+
+        <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
+
+            <nav class="col-12 col-md-12 col-lg-3 sidebar">
+                <div style="margin: 15px 0 45px 15px;">
+                    <strong style="font-size: 24px;">
+                        마이페이지
+                    </strong>
+                </div>
+                <ul class="nav flex-column ul-header">
+                    <li class="li-header">
+                        <strong class="fs-5">기업 정보</strong>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/home.png" alt="x">
+                                </div>
+                                <div>
+                                    기업 소개
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/Registration.png" alt="x">
+                                </div>
+                                <div>
+                                    기업 정보 수정
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/CreditCard.png" alt="x">
+                                </div>
+                                <div>
+                                    결제
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column ul-header">
+                    <li class="li-header">
+                        <strong class="fs-5">채용공고 관리</strong>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/list.png" alt="x">
+                                </div>
+                                <div>
+                                    채용공고 등록
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/list.png" alt="x">
+                                </div>
+                                <div>
+                                    채용공고 조회
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column ul-header">
+                    <li class="li-header">
+                        <strong class="fs-5">이력서 관리</strong>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/Documents.png" alt="x">
+                                </div>
+                                <div>
+                                    제출된 이력서
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/Documents.png" alt="x">
+                                </div>
+                                <div>
+                                    AI 간편 평가
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            </a>
+
+            <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
+                <div class="job-listings ">
+                    <div class="job-header">
+                        <div style="padding: 15px;"><strong>채용공고 조회</strong></div>
+                    </div>
+                    <div class="post-main">
+                        <div>제목</div>
+                        <div>
+                            <input type="text" name="" id="" placeholder="제목을 입력해주세요">
+                        </div>
+                        <div>keyword</div>
+                        <div class="item d-flex justify-content-between">
+                            <div class="keyword-span">
+                                <a href="#" style="text-decoration: none;"><span
+                                        style="text-align: justify;">#연구개발</span></a>
+                                <a href="#" style="text-decoration: none;"><span
+                                        style="text-align: justify;">#포천시</span></a>
+                                <a href="#" style="text-decoration: none;"><span
+                                        style="text-align: justify;">#계약직</span></a>
+
+                            </div>
+                            <div class="gap-2 d-flex">
+                                <div class="d-flex justify-content-center ">
+                                    <select name="filter" class="form-control mx-3"
+                                        style="color: #828282; padding: 3px 12px 3px 12px; width: 70px !important; height: 24px !important; padding: 0; text-align:center">
+                                        <option value="1">keyword</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-floating" style="height: 500px;">
+                            <textarea class="form-control w-100 h-100" placeholder="Leave a comment here"
+                                id="floatingTextarea2"></textarea>
+                            <label for="floatingTextarea2">담당업무, 자격조건, 우대사항을 입력해주세요</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn-long">
+                            파일첨부
+                        </button>
+                        <button class="btn-long" style="margin-left: 15px;">
+                            수정
+                        </button>
+                        <button class="btn-long" style="margin-left: 15px;">
+                            삭제
+                        </button>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+
+
+</html>
