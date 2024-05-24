@@ -147,6 +147,8 @@
     font-weight: bold;
     transition: background-color 0.5s ease;
     margin-right: 5px;
+    width: 70px !important;
+    height: 24px !important;
 }
 
 .job-item:hover .keyword-span span {
@@ -303,6 +305,7 @@ input[type="text"] {
 .modal-list .job-item:focus,
 .modal-list .job-item:focus:hover {
     background-color: #F7F9FC !important;
+    border: 2px solid #bdbdbd;
 
 
 }
@@ -310,4 +313,8 @@ input[type="text"] {
     background-color: #F7F9FC !important;
 
 
+}
+
+.post-main > * {
+    margin-bottom: 20px;
 }
