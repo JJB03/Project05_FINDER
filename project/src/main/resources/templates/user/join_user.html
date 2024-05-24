@@ -56,39 +56,12 @@
                     </div>
 
                     <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
-                    <div class="birthdate">
-                        <select name="year" id="year">
-                            <option value="1">2000</option>
-                            <option value="2">2001</option>
-                            <option value="3">2002</option>
-                        </select>
-                        <select name="month" id="month">
-                            <option value="1">1월</option>
-                            <option value="2">2월</option>
-                            <option value="3">3월</option>
-                            <option value="3">4월</option>
-                            <option value="3">5월</option>
-                            <option value="3">6월</option>
-                            <option value="3">7월</option>
-                            <option value="3">8월</option>
-                            <option value="3">9월</option>
-                            <option value="3">10월</option>
-                            <option value="3">11월</option>
-                            <option value="3">12월</option>
-                        </select>
-                        <select name="day" id="day">
-                            <option value="1">1일</option>
-                            <option value="2">2일</option>
-                            <option value="3">3일</option>
-                            <option value="3">4일</option>
-                            <option value="3">5일</option>
-                            <option value="3">6일</option>
-                            <option value="3">7일</option>
-                            <option value="3">8일</option>
-                            <option value="3">9일</option>
-                            <option value="3">10일</option>
-                        </select>
-                    </div>
+                <div class="birthdate"> <!--적용된 코드-->
+                    <select name="year" id="year" title="년도"></select> 
+                    <select name="month" id="month" title="월"></select>
+                    <select name="day" id="day" title="일"></select>
+                </div>
+
 
                     <br>
 
@@ -116,6 +89,51 @@
         </main>
     </div>
 
+    <script>
+        // 년도 채우기
+        const currentYear = new Date().getFullYear();
+            const yearSelect = document.getElementById('year');
+            for (let i = currentYear; i >= 1950; i--) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i +'년';
+                yearSelect.appendChild(option);
+            }
+
+            // 월 채우기
+            const monthSelect = document.getElementById('month');
+            
+            for (let i = 1; i <= 12; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '월';
+                monthSelect.appendChild(option);
+            }
+
+            // 일 채우기
+            const daySelect = document.getElementById('day');
+            function fillDays(year, month) {
+                daySelect.innerHTML = ''; // 기존 옵션 제거
+                const daysInMonth = new Date(year, month, 0).getDate();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i+'일';
+                    daySelect.appendChild(option);
+                }
+            }
+
+            // 초기 일 채우기
+            fillDays(currentYear, 1);
+            // 년도 또는 월이 변경될 때 일 다시 채우기
+            yearSelect.addEventListener('change', () => {
+                fillDays(yearSelect.value, monthSelect.value);
+            });
+
+            monthSelect.addEventListener('change', () => {
+                fillDays(yearSelect.value, monthSelect.value);
+            });
+    </script>
 </body>
 
 </html>
