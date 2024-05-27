@@ -104,7 +104,7 @@
         <div class="container mt-5 payment-form-wrap">
             <div class="payment-form">
               <!-- 신용카드 결제 / 구매자 확인 동의 -->
-              <form class="d-flex flex-column justify-content-between">
+              <form action="" method="" class="d-flex flex-column justify-content-between">
                 <div class="credit_user_info">
                     <p>이용 건수 : 1건</p>
                     <p>상품 가격 : 100,000원</p>
@@ -114,7 +114,7 @@
                     <p>결제자 : 백승헌</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <p style="margin: 0;">연락처 : 010-1234-5678</p>
-                        <button style="align-self: self-end;" type="button" class="btn-long" data-bs-toggle="modal" data-bs-target="#exampleModal">구매자 확인</button>
+                        <button id="buyCheck" style="align-self: self-end;" type="button" class="btn-long" data-bs-toggle="modal" data-bs-target="#exampleModal">구매자 확인</button>
                     </div>
                     <hr>
                 </div>
@@ -124,7 +124,7 @@
                         <p style="margin: 0;">결제 수단 :</p>
                     </div>
                     <div class="align-self-end">
-                        <a href="/toss_payments" type="button" class="btn-long">신용카드 결제</a> <!-- 결제모듈 연결? -->
+                        <a href="/toss_payments" type="button" class="btn-long">신용카드 결제</a> <!-- 결제모듈 연결 -->
                         <a href="/company/credit_com" type="button" class="btn-long">취소</a>
                     </div>
                   </div>
@@ -135,6 +135,15 @@
 
     </div>
 
+    <script>
+
+        function BuyCheck() {
+            $('#buyCheck').css('backgroundColor', 'green')
+            $('#buyCheck').attr('disabled', 'disabled')
+
+        }
+
+    </script>
 
 </body>
 
