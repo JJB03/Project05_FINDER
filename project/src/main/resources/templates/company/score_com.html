@@ -77,123 +77,127 @@
 
 <body layout:fragment="content">
 
-    
-        <div class="main-content">
-            <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
-                <strong style="font-size: 70px; margin-bottom: 30px;">AI 평가</strong>
-                <strong style="font-size: 22px;">새로운 길을 만드는 여정에 함께하세요.</strong>
-            </div>
 
-            <main>
-                <nav class="col-12 col-sm-12 col-lg-3 sidebar">
-                    <div style="margin: 15px 0 45px 15px;">
-                        <strong style="font-size: 24px;">
-                            마이페이지
-                        </strong>
-                    </div>
-                    <ul class="nav flex-column ul-header">
-                        <li class="li-header">
-                            <strong class="fs-5">기업 정보</strong>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/company/introduce_com" class="job-item-link nav-link fw-normal fs-6">
-                                <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
-                                    <div>
-                                        <img src="/img/home.png" alt="x">
-                                    </div>
-                                    <div>
-                                        기업 소개
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/company/info_update_com" class="job-item-link nav-link fw-normal fs-6">
-                                <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
-                                    <div>
-                                        <img src="/img/Registration.png" alt="x">
-                                    </div>
-                                    <div>
-                                        기업 정보 수정
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/company/creditList_com" class="job-item-link nav-link fw-normal fs-6">
-                                <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
-                                    <div>
-                                        <img src="/img/CreditCard.png" alt="x">
-                                    </div>
-                                    <div>
-                                        결제 내역
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav flex-column ul-header">
-                        <li class="li-header">
-                            <strong class="fs-5">채용공고 관리</strong>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/recruit/post_jobs_com" class="job-item-link nav-link fw-normal fs-6">
-                                <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                    <div>
-                                        <img src="/img/list.png" alt="x">
-                                    </div>
-                                    <div>
-                                        채용공고 등록
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/recruit/posted_jobs_com" class="job-item-link nav-link fw-normal fs-6">
-                                <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                    <div>
-                                        <img src="/img/list.png" alt="x">
-                                    </div>
-                                    <div>
-                                        등록한 채용공고
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav flex-column ul-header">
-                        <li class="li-header">
-                            <strong class="fs-5">이력서 관리</strong>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/company/recruitList_com" class="job-item-link nav-link fw-normal fs-6">
-                                <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                    <div>
-                                        <img src="/img/Documents.png" alt="x">
-                                    </div>
-                                    <div>
-                                        제출된 이력서
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/company/score_com" class="job-item-link nav-link fw-normal fs-6">
-                                <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                    <div>
-                                        <img src="/img/Documents.png" alt="x">
-                                    </div>
-                                    <div>
-                                        AI 간편 평가
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+    <div class="container-fluid container">
+        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px;">
+            <strong style="font-size: 45px; margin-bottom: 15px;">AI 평가</strong>
+            <strong style="font-size: 19px;">새로운 길을 만드는 여정에 함께하세요.</strong>
+        </div>
 
-                <!-- 여기서 부터 시작-->
-                <form class="justify-content-center container mt-4 middle-container" style="width: 900px;">
+        <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
+            <nav class="col-12 col-md-12 col-lg-3 sidebar">
+                <div style="margin: 15px 0 45px 15px;">
+                    <strong style="font-size: 24px;">
+                        마이페이지
+                    </strong>
+                </div>
+                <ul class="nav flex-column ul-header">
+                    <li class="li-header">
+                        <strong class="fs-5">기업 정보</strong>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company/introduce_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/home.png" alt="x">
+                                </div>
+                                <div>
+                                    기업 소개
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company/info_update_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/Registration.png" alt="x">
+                                </div>
+                                <div>
+                                    기업 정보 수정
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company/creditList_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/CreditCard.png" alt="x">
+                                </div>
+                                <div>
+                                    결제 내역
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column ul-header">
+                    <li class="li-header">
+                        <strong class="fs-5">채용공고 관리</strong>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/recruit/post_jobs_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/list.png" alt="x">
+                                </div>
+                                <div>
+                                    채용공고 등록
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/recruit/posted_jobs_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/list.png" alt="x">
+                                </div>
+                                <div>
+                                    등록한 채용공고
+                                </div>
+
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column ul-header">
+                    <li class="li-header">
+                        <strong class="fs-5">이력서 관리</strong>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company/recruitList_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/Documents.png" alt="x">
+                                </div>
+                                <div>
+                                    제출된 이력서
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company/score_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/Documents.png" alt="x">
+                                </div>
+                                <div>
+                                    AI 간편 평가
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            
+            <!-- 여기서 부터 시작-->
+            <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
+                <div class="job-listings ">
+
                     <div class="job-header mb-1">
                         <div style="padding: 16px;"><strong>점수 환산</strong>
                             <div class="d-flex justify-content-end align-items-center me-3 mb-0" style="margin: 10px;">
@@ -206,76 +210,82 @@
                         </div>
                     </div>
 
-                <div class="container mt-0 justify-content-center">
-                    <div style="margin-bottom: 20px; margin-top: 13px;">
-                        <span style="margin-right: 15px;"><strong>모집인원<span
-                                    style="color: #155ADC; margin-left: 5px;">3명</span></strong></span>
-                        <span style="margin-right: 15px;"><strong>합격<span
-                                    style="color: #128246; margin-left: 5px;">3명</span> </strong></span>
-                        <span style="margin-right: 15px;"><strong>불합격<span
-                                    style="color: red; margin-left: 5px;">3명</span></strong></span>
-                    </div>
 
-                    <div class="item d-flex justify-content-between">
-                        <div class="keyword-span">
-                            <span style="margin-right: 10px;">#대학</span>
-                            <span style="margin-right: 10px;">#자격증 개수</span>
-                            <span style="margin-right: 10px;">#나이</span>
-                            <span style="margin-right: 10px;">#경력</span>
+
+                    <div class="container mt-0 justify-content-center">
+                        <div style="margin-bottom: 20px; margin-top: 13px;">
+                            <span style="margin-right: 15px;"><strong>모집인원<span
+                                        style="color: #155ADC; margin-left: 5px;">3명</span></strong></span>
+                            <span style="margin-right: 15px;"><strong>합격<span
+                                        style="color: #128246; margin-left: 5px;">3명</span>
+                                </strong></span>
+                            <span style="margin-right: 15px;"><strong>불합격<span
+                                        style="color: red; margin-left: 5px;">3명</span></strong></span>
                         </div>
-                    </div>
-                    <div>
-                        <div class="job-list mt-1">
-                            <ol class="list-group">
-                                <li class="list-group-item"><strong style="font-size: 20px;">지원자 순위</strong></li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>
-                                        <strong>1.</strong>
-                                        <span style="margin-right: 20px;">김조은</span>
-                                        <span style="color:#128246;"><strong>94점</strong></span>
-                                    </div>
-                                    <span class="keyword-span-green">
-                                        <span>합격</span>
-                                    </span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>
-                                        <strong>2.</strong>
-                                        <span style="margin-right: 20px;">유상준</span>
-                                        <span style="color: red;"><strong>54점</strong></span>
-                                    </div>
-                                    <span class="keyword-span-red">
-                                        <span>불합격</span>
-                                    </span>
-                                </li>
-                            </ol>
-                            <!-- 페이징 -->
-                            <nav aria-label="Page navigation example"
-                                class="pagination-container justify-content-center d-flex mt-4">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
 
-                                </ul>
-                            </nav>
+                        <div class="item d-flex justify-content-between">
+                            <div class="keyword-span">
+                                <span style="margin-right: 10px;">#대학</span>
+                                <span style="margin-right: 10px;">#자격증 개수</span>
+                                <span style="margin-right: 10px;">#나이</span>
+                                <span style="margin-right: 10px;">#경력</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="job-list mt-1">
+                                <ol class="list-group">
+                                    <li class="list-group-item"><strong style="font-size: 20px;">지원자 순위</strong></li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <strong>1.</strong>
+                                            <span style="margin-right: 20px;">김조은</span>
+                                            <span style="color:#128246;"><strong>94점</strong></span>
+                                        </div>
+                                        <span class="keyword-span-green">
+                                            <span>합격</span>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <strong>2.</strong>
+                                            <span style="margin-right: 20px;">유상준</span>
+                                            <span style="color: red;"><strong>54점</strong></span>
+                                        </div>
+                                        <span class="keyword-span-red">
+                                            <span>불합격</span>
+                                        </span>
+                                    </li>
+                                </ol>
+                                <!-- 페이징 -->
+                                <nav aria-label="Page navigation example"
+                                    class="pagination-container justify-content-center d-flex mt-4">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </main>
+            </main>
+
+
+        </div>
     </div>
 </body>
 
