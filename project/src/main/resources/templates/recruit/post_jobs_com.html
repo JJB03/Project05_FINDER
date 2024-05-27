@@ -10,9 +10,9 @@
 
 <body layout:fragment="content">
     <div class="container-fluid container">
-        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
-            <strong style="font-size: 70px; margin-bottom: 30px;">채용공고 등록</strong>
-            <strong style="font-size: 22px;">새로운 길을 만드는 여정에 함께하세요.</strong>
+        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px;">
+            <strong style="font-size: 45px; margin-bottom: 15px;">채용공고 관리</strong>
+            <strong style="font-size: 19px;">새로운 길을 만드는 여정에 함께하세요.</strong>
         </div>
 
         <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
@@ -87,7 +87,7 @@
                                     <img src="/img/list.png" alt="x">
                                 </div>
                                 <div>
-                                    채용공고 조회
+                                    등록한 채용공고
                                 </div>
                             </div>
                         </a>
@@ -155,12 +155,40 @@
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <div>
+                                <span>담당업무</span>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control w-100" id="floatingInput"
+                                        placeholder="Example">
+                                    <label for="floatingInput">Ex : 개발자</label>
+                                </div>
+                            </div>
+                            <div>
+                                <span>자격조건</span>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control w-100" id="floatingInput"
+                                        placeholder="Example">
+                                    <label for="floatingInput">Ex : 학사졸업</label>
+                                </div>
+                            </div>
+                            <div>
+                                <span>우대사항</span>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control w-100" id="floatingInput"
+                                        placeholder="Example">
+                                    <label for="floatingInput">Ex : 자격증 우대</label>
+                                </div>
+                            </div>
+                        </div>
 
-
-                        <div class="form-floating" style="height: 500px;">
-                            <textarea class="form-control w-100 h-100" placeholder="Leave a comment here"
-                                id="floatingTextarea2"></textarea>
-                            <label for="floatingTextarea2">담당업무, 자격조건, 우대사항을 입력해주세요</label>
+                        <div>
+                            <span>내용</span>
+                            <div class="form-floating" style="height: 500px;">
+                                <textarea class="form-control w-100 h-100" placeholder="Leave a comment here"
+                                    id="floatingTextarea2"></textarea>
+                                <label for="floatingTextarea2">내용을 입력해주세요.</label>
+                            </div>
                         </div>
                     </div>
 

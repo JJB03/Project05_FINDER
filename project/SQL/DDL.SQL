@@ -1,4 +1,4 @@
--- Active: 1716536339109@@127.0.0.1@3306@joeun
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 
 
 DROP TABLE IF EXISTS user;
