@@ -5,23 +5,25 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이력서 수정</title>
+    <title>이력서 작성</title>
     
     <style>
-      .header-logo img {
-        height: 50px;
-      }
+
       .resume-form {
         margin-top: 20px;
       }
       .form-header {
         text-align: center;
-        background-color: #024FDF;
+        background-color: var(--long-btn-color);
         color: white;
-        padding: 10px;
+        padding-top: 16px;
         border-radius: 8px;
+        margin-bottom: 10px;
       }
 
+      .form-group .form-control {
+        margin-bottom: 10px;
+      }
       
       .profile-pic {
         float: left; 
@@ -32,10 +34,6 @@
         justify-content: center;
         align-items: center;
         margin-bottom: 20px;
-      }
-    
-      .col-sm-9{
-        margin-bottom: 10px;
       }
 
       .file-upload{
@@ -62,19 +60,7 @@
           background-color: white;
           border-radius: 8px;
         }
-   
 
-      .footer {
-        background-color: #003366;
-        color: white;
-        padding: 20px 0;
-        text-align: center;
-        margin-top: 40px;
-      }
-      .footer a {
-        color: white;
-        margin: 0 10px;
-      }
     </style>
   </head>
   <body layout:fragment="content">
@@ -84,33 +70,36 @@
         <h4>이력서 작성</h4>
       </div>
       <form action="/user/SVcreate" method="post">
-        <div class="form-group row" style="margin-top: 5px; margin-bottom: 5px;">
+          <div class="form-group row justify-content-between" style="margin-top: 5px; margin-bottom: 5px;">
             <label for="title" class="col-sm-2 col-form-label" style="width: 80px;">제목 :</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="title">
             </div>
           </div>
+
           <div class="profile-pic">
             <div id="preview">
               <img src="" class="img-thumbnail"  alt="이미지를 넣어주세요">
             </div>
             <label for="file">
-              <div class="btn-long" style="text-align: center;">사진 추가</div>
+              <div class="btn-long" style="padding-top: 5px;">사진 추가</div>
             </label>
            <!--특정 이미지파일만 볼 수 있게 만들기-->
            <input type="file" name="file" id="file" 
            accept="image/png, image/jpeg" style="display: none;">
           </div>
+
           <div class="form-group row">
-            <div class="col-sm-9">
+            <div class="col-sm-9 w-100" style="margin-bottom: 10px">
               <div class="form-group">
                 <label>이름 : </label> <input type="text" class="form-control" id="name">
               </div>
               <div class="form-group">
-                <label>성별 </label>  
+                <div class="mb-3">
+                <label style="margin-right: 20px;">성별 </label>  
                 <input type='radio' name='gender' value='female' />여성
                 <input type='radio' name='gender' value='male' />남성
-                <br>
+                </div>
                 <label>나이 </label>  
                 <input type="text" class="form-control" id="age">
               </div>
@@ -121,7 +110,7 @@
           </div>
           <div class="form-group row">
             <div class="col-sm-6 border bg-light rounded-3">
-              <h5>학력</h5>
+              <h5 style="margin-top: 10px;">학력</h5>
               <div class="form-group">
                 <label for="school">학교 :</label>
                 <input type="text" class="form-control" id="school">
@@ -136,7 +125,7 @@
               </div>
             </div>
             <div class="col-sm-6 border bg-light rounded-3">
-                <h5>경력사항</h5>
+                <h5 style="margin-top: 10px;">경력사항</h5>
                 <div class="form-group">
                   <label for="period1">기관 :</label>
                   <input type="text" class="form-control" id="period1">
@@ -151,7 +140,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="self-introduction">자기소개서</label>
                 <textarea required minlength="50" class="form-control border bg-light rounded-3" id="self-introduction" rows="5" placeholder="최소 50글자 이상 작성해야 합니다."></textarea>
             </div>
