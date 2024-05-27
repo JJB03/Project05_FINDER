@@ -19,11 +19,17 @@ public class MainController {
     //     return "/" + page;
     // }
 
+    // 로그인 페이지
     @GetMapping("/login")
     public String login() {
         return "/login";
     }
     
-
+    // 메인페이지 (채용공고)
+    @GetMapping("/index")
+    public String index() {
+        return "/index";
+    }
+    
     
 }
