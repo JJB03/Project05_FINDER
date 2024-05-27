@@ -318,3 +318,8 @@ input[type="text"] {
 .post-main > * {
     margin-bottom: 20px;
 }
+
+.card {
+    min-height: 300px;
+}
+
