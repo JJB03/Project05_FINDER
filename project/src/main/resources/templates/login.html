@@ -106,11 +106,11 @@
 
                 <div class="row find-id-password">
                     <div class="col-md-6 text-center">
-                        <a href="#" id="join" style="text-decoration: none; color: black;" ><strong>회원 가입</strong></a>
+                        <a href="/user/join_user" id="join" style="text-decoration: none; color: black;" ><strong>회원 가입</strong></a>
                     </div>
                     <!-- axaj로 폼마다 달리 아이디 비번 찾기-->
                     <div class="col-md-6 text-center">
-                        <a href="#" id="find" style="color: black;">아이디/비밀번호 찾기</a>
+                        <a href="/user/find_user" id="find" style="color: black;">아이디/비밀번호 찾기</a>
                     </div>
                 </div>
 
@@ -129,27 +129,20 @@
     
     <script>
         // 일반/기업 버튼 전환
+        // 회원가입 / 아이디 비밀번호 찾기도 전환된다
         function switchUser() {
             $('#login-com').css('background-color', '#fff').css('color', 'var(--sub-color)')
             $('#login-user').css('background-color', 'var(--sub-color)').css('color', '#fff')
             $('#login-title').text('로그인')
-            $('#join').on('click', function(){
-                window.location.href = '/user/join_user';
-            });
-            $('#find').on('click',function() {
-                window.location.href = '/user/find_user'
-            })
+            $('#join').prop('href', '/user/join_user')
+            $('#find').prop('href', '/user/find_user')
         }
         function switchCom() {
             $('#login-user').css('background-color', '#fff').css('color', 'var(--sub-color)')
             $('#login-com').css('background-color', 'var(--sub-color)').css('color', '#fff')
             $('#login-title').text('기업 로그인')
-            $('#join').on('click', function(){
-                window.location.href = '/company/join_com';
-            });
-            $('#find').on('click',function() {
-                window.location.href = '/user/find_company'
-            })
+            $('#join').prop('href', '/company/join_com')
+            $('#find').prop('href', '/user/find_company')
         }
     </script>
 
