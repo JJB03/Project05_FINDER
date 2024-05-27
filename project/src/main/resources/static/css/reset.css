@@ -90,6 +90,10 @@ body {
 .main-content { /* content 영역 지정 */
   margin: 0 auto;
 }
+/* 1440px로 메인화면 통일테스트 */
+.main-content2 {
+  max-width: 1440px;
+}
 
 
 /* 헤더 */

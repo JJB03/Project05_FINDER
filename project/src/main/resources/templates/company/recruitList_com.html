@@ -50,7 +50,7 @@
 
         <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
 
-            <nav class="col-12 col-md-12 col-lg-3 sidebar">
+            <nav class="col-12 col-sm-12 col-lg-3 sidebar">
                 <div style="margin: 15px 0 45px 15px;">
                     <strong style="font-size: 24px;">
                         마이페이지
@@ -58,16 +58,40 @@
                 </div>
                 <ul class="nav flex-column ul-header">
                     <li class="li-header">
-                        <strong class="fs-5">내 정보</strong>
+                        <strong class="fs-5">기업 정보</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/company/introduce_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/home.png" alt="x">
+                                </div>
+                                <div>
+                                    기업 소개
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company/info_update_com" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Registration.png" alt="x">
                                 </div>
                                 <div>
-                                    내 정보 수정
+                                    기업 정보 수정
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/company/creditList_com" class="job-item-link nav-link fw-normal fs-6">
+                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
+                                <div>
+                                    <img src="/img/CreditCard.png" alt="x">
+                                </div>
+                                <div>
+                                    결제 내역
                                 </div>
                             </div>
                         </a>
@@ -78,25 +102,25 @@
                         <strong class="fs-5">채용공고 관리</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/recruit/post_jobs_com" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/list.png" alt="x">
                                 </div>
                                 <div>
-                                    지원한 채용공고
+                                    채용공고 등록
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/recruit/posted_jobs_com" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/list.png" alt="x">
                                 </div>
                                 <div>
-                                    최근 본 최용공고
+                                    등록한 채용공고
                                 </div>
                             </div>
                         </a>
@@ -107,25 +131,25 @@
                         <strong class="fs-5">이력서 관리</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/company/recruitList_com" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Documents.png" alt="x">
                                 </div>
                                 <div>
-                                    나의 이력서
+                                    제출된 이력서
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/company/score_com" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Documents.png" alt="x">
                                 </div>
                                 <div>
-                                    이력서 작성
+                                    AI 간편 평가
                                 </div>
                             </div>
                         </a>
@@ -155,9 +179,9 @@
                     <div style="text-align: justify;">
                         <b>제출된 이력서 n개</b>
                     </div>
-                    <div class="container-line">
+                    <div class="container-line p-3">
                     <h3 class="company-name">기업명: FINDER</h3>
-                    <a href="#" class="job-item-link">
+                    <a href="/company/SVread_com" class="job-item-link">
                         <!-- 지원자 리스트-->
                         <div class="job-item d-flex flex-column">
                             <!--10개? 9개? 에서 자르기-->
