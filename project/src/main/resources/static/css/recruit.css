@@ -259,7 +259,7 @@
 }
 
 
-input[type="text"] {
+.input-none {
     /* 기본 브라우저 스타일 제거 */
     margin: 0;
     padding: 0;
