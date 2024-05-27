@@ -24,6 +24,10 @@
             border-bottom: gray solid 1px;
         }
 
+        .td-st{
+            border-bottom:  #828282 solid 1px;
+        }
+
         .pagination-container {
                           display: flex;
                           margin-top: 10px;
@@ -40,7 +44,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">종합이력서 결과 안내</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">결제내역 상세 안내</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="text-align: center;">
@@ -50,8 +54,8 @@
                     <br>
                     <br>
                     유상준님의 결제 내역입니다<br>
-                    상품 옵션은 ****이며 <br>
-                    결제 금액은 ******원입니다.<br>
+                    상품 옵션은 12개월이며 <br>
+                    결제 금액은 500000원입니다.<br>
                     <hr>
                     구매해주셔서 감사합니다.<br>
                     주문처리 일자: 2024/06/02<br>
@@ -64,8 +68,8 @@
 
     <div class="container-fluid container">
         <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
-            <strong style="font-size: 70px; margin-bottom: 30px;">이력서 관리</strong>
-            <strong style="font-size: 22px;">앞으로의 길을 내다볼 때 필요한 건 아닌 판단이다.</strong>
+            <strong style="font-size: 70px; margin-bottom: 30px;">결제내역 확인</strong>
+            <strong style="font-size: 22px;">용기만 있다면 꿈은 이루어진다</strong>
         </div>
 
         <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
@@ -185,18 +189,18 @@
                             </tr>
 
                             <!-- 임시 페이지-->
-                            <tr>
-                                <td>블라블라</td>
-                                <td>블라블라</td>
-                                <td>블라블라</td>
-                                <td>블라블라</td>
-                                <td>블라블라</td>
-                                <td>블라블라</td>
+                            <tr class="td-st">
+                                <td>203123123123</td>
+                                <td>계좌이체</td>
+                                <td>2024/06/02</td>
+                                <td>500000</td>
+                                <td>89052532</td>
+                                <td>1231242</td>
                                 <td>
-                                    <button type="button"  data-bs-toggle="modal"
+                                    <a data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">
-                                        <strong>자세히보기</strong>
-                                    </button>
+                                        <strong>상세조회</strong>
+                                    </a>
                                 </td>
                             </tr>
                         
