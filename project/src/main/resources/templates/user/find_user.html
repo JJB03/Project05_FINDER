@@ -10,13 +10,13 @@
 
 <body layout:fragment="content">
 
-  <div class="container recovery-form " style="width: 45%;">
+  <div class="container recovery-form" style="width: 45%;">
     <div class="form-header">
       <h4 style="margin-top: 10px;">회원 아이디/비밀번호를 잊으셨습니까?</h4>
       <p>아이디 찾기와 비밀번호 찾기 중 해당되는 것에 입력해주세요.</p>
     </div>
     <div class="row mt-4">
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center w-100">
         <div class="col-md-6">
           <h4><strong>아이디 찾기</strong></h4>
           <form>
@@ -32,11 +32,13 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px;">
               <label for="username"><strong>사용자명</strong></label>
-              <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요.">
+              <div class="d-flex justify-content-between">
+                <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요.">
+                <button type="submit" class="btn btn-primary" style="width: 16% !important; margin-left: 15px;">확인</button>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">확인</button>
           </form>
         </div>
 
@@ -49,7 +51,7 @@
               <label for="user-id" style="margin-top: 20px;"><strong>아이디</strong></label>
               <input type="text" class="form-control" id="user-id" placeholder="아이디를 입력해주세요.">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px;">
               <label for="email"><strong>이메일</strong></label>
               <div class="d-flex">
                 <input type="text" class="form-control" id="email" placeholder="이메일을 입력해주세요.">
@@ -61,11 +63,13 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px;">
               <label for="username"><strong>사용자명</strong></label>
-              <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요.">
+              <div class="d-flex justify-content-between">
+                <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요.">
+                <button type="submit" class="btn btn-primary" style="width: 16% !important; margin-left: 15px;">확인</button>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">확인</button>
           </form>
         </div>
       </div>
