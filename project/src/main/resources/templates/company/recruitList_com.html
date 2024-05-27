@@ -11,7 +11,7 @@
         }
 
         .container-line{
-            border: #283C75 solid 1px; 
+            border: lightgrey solid 1px; 
             border-radius: 8px;
             height: 450px;
         }
@@ -20,7 +20,7 @@
             font-size: 17px; 
             margin-top: 15px; 
             font-weight: bold; 
-            border-bottom: #283C75 solid 2px;
+            border-bottom: lightgrey solid 2px;
         }
 
         .btn-short{
@@ -44,8 +44,8 @@
 
     <div class="container-fluid container">
         <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
-            <strong style="font-size: 70px; margin-bottom: 30px;">이력서 관리</strong>
-            <strong style="font-size: 22px;">앞으로의 길을 내다볼 때 필요한 건 아닌 판단이다.</strong>
+            <strong style="font-size: 45px; margin-bottom: 15px;">이력서 관리</strong>
+            <strong style="font-size: 19px;">앞으로의 길을 내다볼 때 필요한 건 아닌 판단이다.</strong>
         </div>
 
         <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
@@ -176,12 +176,12 @@
                             </button>
                         </div>
                     </div>
-                    <div style="text-align: justify;">
+                    <div style="text-align: right;" class="mb-2 me-2">
                         <b>제출된 이력서 n개</b>
                     </div>
                     <div class="container-line p-3">
                     <h3 class="company-name">기업명: FINDER</h3>
-                    <a href="/company/SVread_com" class="job-item-link">
+                    <a href="/company/SVread_com" class="job-item-link mt-5">
                         <!-- 지원자 리스트-->
                         <div class="job-item d-flex flex-column">
                             <!--10개? 9개? 에서 자르기-->
@@ -192,11 +192,8 @@
                                 <strong>조회</strong>
                                 </button>
                             </div>
-
-                            
-                         
                         </div>
-                        
+                    </a>
                     </div>
                     <!-- 페이징 html, page dto 만들어야 함.-->  
                       <nav aria-label="Page navigation example" class="pagination-container">

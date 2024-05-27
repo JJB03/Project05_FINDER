@@ -31,5 +31,11 @@ public class MainController {
         return "/index";
     }
     
+    // 토스 결제 모듈
+    @GetMapping("/toss_payments")
+    public String toss() {
+        return "/toss_payments";
+    }
+    
     
 }
