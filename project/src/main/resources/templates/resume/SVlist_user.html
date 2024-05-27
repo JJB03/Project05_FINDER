@@ -5,6 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .click-me{
+            font-size: 17px; 
+            margin-bottom: 15px; 
+            font-weight: bold;
+        }
+    </style>
     <title>지원한 채용공고</title>
 </head>
 
@@ -12,8 +19,8 @@
 
     <div class="container-fluid container">
         <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px;">
-            <strong style="font-size: 45px; margin-bottom: 15px;">기업 정보</strong>
-            <strong style="font-size: 19px;">새로운 길을 만드는 여정에 함께하세요.</strong>
+            <strong style="font-size: 45px; margin-bottom: 15px;">이력서 관리</strong>
+            <strong style="font-size: 19px;">경험은 만들어 낼 수 없다. 그것은 겪어야만 한다.</strong>
         </div>
         <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
 
@@ -120,16 +127,18 @@
                     </div>
 
 
-
-                    <a href="#" class="job-item-link">
+                    <!-- 삭제 버튼 눌렀는데 바로 페이지로 이동함.-->
+                    <a  class="job-item-link">
                         <div class="job-item d-flex flex-column">
                             <div style="width: 38px; height: 15px;">
                                 <!-- new 자리 -->
                             </div>
                             <div style="font-size: 12px;">
-                                <span>CANB R&D 연구소</span> <span>|</span> <span>기간: 2024.05.20 ~ 채용시</span>
+                                <span>CANB R&D 채용 공고</span> <span>|</span> <span>기간: 2024.05.20 ~ 채용시</span>
                             </div>
-                            <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;">CANB R&D 연구소 부문별 채용
+                            <!-- 삭제 눌렀을 때 바로 이동 못하게 여기다가 태그-->
+                            <div class="click-me" onclick="moveToRecruit()">유상준 이력서
+                                <div>제목: 떨어지면 저도 떨어질게요.</div>
                             </div>
                             <div class="item d-flex justify-content-between">
                                 <div class="keyword-span">
@@ -138,7 +147,7 @@
                                 <div class="gap-2 d-flex">
                                     <div>
                                         <button type="button" class="btn-short" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
+                                            data-bs-target="#exampleModal" onclick="moveToDelete()">
                                             <strong>삭제</strong>
                                         </button>
                                     </div>
@@ -153,10 +162,6 @@
 
 
 
-
-
-
-
                 </div>
             </main>
         </div>
@@ -164,12 +169,21 @@
     </div>
 
     <script>
-        var myModal = document.getElementById('myModal')
-        var myInput = document.getElementById('myInput')
+        function moveToRecruit() {
+            location.href="/resume/SVread_user.html"
+        }
 
-        myModal.addEventListener('shown.bs.modal', function () {
-            myInput.focus()
-        })
+
+        function moveToDelete() {
+            let userDelete = confirm('삭제하시겠습니까?');
+            if (userDelete) {
+                alert('삭제가 완료되었습니다.');
+                // 여기서 실제 삭제 작업을 수행
+            } else {
+                alert('삭제가 취소되었습니다.');
+            }
+        }
+
     </script>
 </body>
 
