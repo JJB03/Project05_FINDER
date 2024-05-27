@@ -5,6 +5,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+         /* 이 친구들이 버튼 변경하게 하는 코드입니다.*/
+            .btn-male, .btn-female {
+            padding: 10px 20px;
+            margin: 5px;
+            color: black;
+            background-color: lightblue;
+            cursor: pointer;
+        }
+
+        .btn-male.selected, .btn-female.selected {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
     <title>회원 페이지</title>
 </head>
 
@@ -27,11 +43,13 @@
 
                     <div for="username" class="userid">아이디</div>
 
+                    <!-- 아이디 중복 axaj로 체크하기 -->
                     <div id="id">
-                        <div class="check-btn">
-                            <input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능"
-                                required>
-                            <button type="button" id="check" class="btn-duplicate">중복</button>
+                        <div class="check-btn">           
+                            <input type="text" class="username_input" name="username"
+                              placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required />
+                            <button type="button" class="btn-short">중복</button>
+                            <img id="id_check_sucess" style="display: none;">
                         </div>
                     </div>
                     <br>
@@ -50,9 +68,9 @@
                     <div class="gender">
                         <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
                         <div class="gender-btn">
-                            <button type="button" class="btn-male " id="male" name="gender">남</button>
-                            <button type="button" class="btn-female" id="female" name="gender">여</button>
-                        </div>
+                            <button type="button" class="btn-male" id="male" name="gender" onclick="change_btn(event)">남</button>
+                            <button type="button" class="btn-female" id="female" name="gender" onclick="change_btn(event)">여</button>
+                        </div> 
                     </div>
 
                     <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
@@ -90,6 +108,22 @@
     </div>
 
     <script>
+
+        //버튼 클릭시 유지하는 js 코드
+        function change_btn(event) {
+        // 모든 버튼의 'selected' 클래스를 제거
+        var buttons = document.querySelectorAll('.gender-btn button');
+        buttons.forEach(function(button) {
+            button.classList.remove('selected');
+        });
+
+        // 클릭된 버튼에 'selected' 클래스 추가
+        var clickedButton = event.target;
+        clickedButton.classList.add('selected');
+        }
+        
+        // 아이디 중복 체크하기 //
+
         // 년도 채우기
         const currentYear = new Date().getFullYear();
             const yearSelect = document.getElementById('year');
