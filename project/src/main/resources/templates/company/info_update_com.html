@@ -5,6 +5,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        /* 이 친구들이 버튼 변경하게 하는 코드입니다.*/
+           .btn-male, .btn-female {
+           padding: 10px 10px;
+           margin: 5px;
+           color: black;
+           background-color: #EDEDED;
+           cursor: pointer;
+       }
+
+       .btn-male.selected, .btn-female.selected {
+           background-color: #007bff;
+           color: white;
+       }
+   </style>
     <title>내 정보</title>
 </head>
 
@@ -160,11 +176,11 @@
                         </div>
         
                         <div class="gender">
-                            <input class="input-name" type="text" id="name" name="name" required placeholder="사용자 이름" readonly>
+                            <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
                             <div class="gender-btn">
-                                <button type="button" class="btn-male" id="male" name="gender">남</button>
-                                <button type="button" class="btn-female" id="female" name="gender">여</button>
-                            </div>
+                                <button type="button" class="btn-male" id="male" name="gender" onclick="change_btn(event)">남</button>
+                                <button type="button" class="btn-female" id="female" name="gender" onclick="change_btn(event)">여</button>
+                            </div> 
                         </div>
         
                         <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
@@ -217,7 +233,7 @@
                             <input type="email" id="email" name="email" required placeholder="이메일">
                         </div>
 
-                        <div for="address" class="address">
+                        <div for="address" class="useraddress">
                             기업 주소
                         </div>
                         <div class="phone d-flex flex-column">
@@ -234,6 +250,20 @@
     </div>
 
     <script>
+        //버튼 클릭시 유지하는 js 코드
+        function change_btn(event) {
+        // 모든 버튼의 'selected' 클래스를 제거
+        var buttons = document.querySelectorAll('.gender-btn button');
+        buttons.forEach(function(button) {
+            button.classList.remove('selected');
+        });
+
+        // 클릭된 버튼에 'selected' 클래스 추가
+        var clickedButton = event.target;
+        clickedButton.classList.add('selected');
+        }
+        
+
         var myModal = document.getElementById('myModal')
         var myInput = document.getElementById('myInput')
 
