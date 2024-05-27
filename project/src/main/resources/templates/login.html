@@ -93,9 +93,12 @@
                     <h2><strong id="login-title">로그인</strong></h2>
                 </div>
                 
-                <form class="login-form row flex-column row-gap-2 mb-3">
-                    <input type="id" id="id" name="id" placeholder="아이디" required>
-                    <input type="password" id="password" name="password" placeholder="비밀번호" required>
+                <form action="/login" method="post" class="login-form row flex-column row-gap-2 mb-3">
+                    <!-- CSRF TOKEN -->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                    <input type="text" id="id" name="userId" placeholder="아이디" required>
+                    <input type="password" id="password" name="userPw" placeholder="비밀번호" required>
                     <button type="submit" class="btn-long w-100 login-btn" >
                         로그인
                     </button>
