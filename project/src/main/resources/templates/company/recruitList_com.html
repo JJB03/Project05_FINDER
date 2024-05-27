@@ -6,35 +6,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .company-name{
+        .company-name {
             position: absolute;
         }
 
-        .container-line{
-            border: lightgrey solid 1px; 
+        .container-line {
+            border: lightgrey solid 1px;
             border-radius: 8px;
             height: 450px;
         }
-        
-        .apply-user{
-            font-size: 17px; 
-            margin-top: 15px; 
-            font-weight: bold; 
+
+        .apply-user {
+            font-size: 17px;
+            margin-top: 15px;
+            font-weight: bold;
             border-bottom: lightgrey solid 2px;
         }
 
-        .btn-short{
-            height: 23px;
-            width: 65px;
-            float: right;
-            color: white;
-        }
 
         .pagination-container {
-                          display: flex;
-                          margin-top: 10px;
-                          justify-content: center;
-                        }
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
+        }
     </style>
     <title>지원한 구직자 조회</title>
 </head>
@@ -159,64 +153,87 @@
             </a>
 
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
-                <div class="job-listings">
+                <div class="job-listings ">
                     <div class="job-header">
-                        <div style="padding: 15px;"><strong>제출된 이력서</strong></div>
+                        <div style="padding: 15px;"><strong>지원한 채용공고</strong></div>
                         <!-- <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-right: 20px;"> -->
                         <div class="d-flex justify-content-end align-items-center me-3 mb-2">
                             <!-- <select name="filter" id="filter" class="form-control"> -->
                             <select name="filter" class="form-control w-auto mx-3"
                                 style="color: #828282; padding: 3px 12px 3px 12px;">
                                 <option value="1">최근 날짜</option>
-                                <option value="1">오래된 날짜</option>
                             </select>
-                            <input class="form-control form_input"  type="text" name="search_filter" id="search_filter" placeholder="검색어를 입력해주세요">
+                            <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
+                                placeholder="검색어를 입력해주세요">
                             <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
                                 찾기
                             </button>
                         </div>
                     </div>
-                    <div style="text-align: right;" class="mb-2 me-2">
-                        <b>제출된 이력서 n개</b>
-                    </div>
-                    <div class="container-line p-3">
-                    <h3 class="company-name">기업명: FINDER</h3>
-                    <a href="/company/SVread_com" class="job-item-link mt-5">
-                        <!-- 지원자 리스트-->
+
+
+
+                    <a href="/company/SVread_com" class="job-item-link">
                         <div class="job-item d-flex flex-column">
-                            <!--10개? 9개? 에서 자르기-->
-                            <div class="apply-user">
-                                이력서 제목 | 구직자 이름 
-                                <button type="button" class="btn-short" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" >
-                                <strong>조회</strong>
-                                </button>
+                            <div style="width: 38px; height: 15px;">
+                                <!-- new 자리 -->
+                            </div>
+                            <div class="item d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <span style="font-size: 19px; font-weight: bold;" class="mb-3">
+                                        안뽑아주면 떨어질게요
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="font-size: 16px;" class="row">
+                                <div class="d-flex">
+                                    <div style="width: 100%;">
+                                        <span>25</span>
+                                        <span>/</span>
+                                        <span>남자</span>
+                                        <span>/</span>
+                                        <span>홍준범</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gap-2 d-flex justify-content-end">
+                                <div>
+                                    <button type="button" class="btn-short" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                        <strong>조회</strong>
+                                    </button>
+                                </div>
+                                <div class="d-flex justify-content-center m-1">
+                                    <strong style="color: #024FDF;">FINDER</strong>
+                                </div>
                             </div>
                         </div>
                     </a>
-                    </div>
-                    <!-- 페이징 html, page dto 만들어야 함.-->  
-                      <nav aria-label="Page navigation example" class="pagination-container">
+
+
+
+                    <!-- 페이징 html, page dto 만들어야 함.-->
+                    <nav aria-label="Page navigation example" class="pagination-container">
                         <ul class="pagination">
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">4</a></li>
-                          <li class="page-item"><a class="page-link" href="#">5</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                            </a>
-                          </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
                         </ul>
-                      </nav>
-                      
-                      
+                    </nav>
+
+
 
                 </div>
             </main>
