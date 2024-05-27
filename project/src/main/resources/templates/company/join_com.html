@@ -28,7 +28,7 @@
             font-size: 28px;
         }
 
-        .img2{
+        .img2 {
             width: 170px;
             height: 140px;
         }
@@ -43,6 +43,31 @@
             font-weight: bold;
             transition: background-color 0.5s ease;
         }
+
+        .btn-short {
+            width: 60px;
+            padding: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 이 친구들이 버튼 변경하게 하는 코드입니다.*/
+        .btn-male, .btn-female {
+            padding: 10px 20px;
+            margin: 5px;
+            color: black;
+            background-color: lightblue;
+            cursor: pointer;
+        }
+
+        .btn-male.selected, .btn-female.selected {
+            background-color: #007bff;
+            color: white;
+        }
+       
+        
     </style>
 </head>
 
@@ -66,14 +91,17 @@
 
                 <div for="username" class="userid">아이디</div>
 
-                <div id="id">
-                    <div class="check-btn">
-                        <input type="text" id="username" name="username" placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능"
-                            required>
-                        <button type="button" id="check" class="btn-duplicate">중복</button>
+                 <!-- 아이디 중복 axaj로 체크하기 -->
+                 <!-- 중복확인 후 바뀌는 뭔가가 필요함.-->
+                 <div id="id">
+                    <div class="check-btn">           
+                        <input type="text" class="username_input" name="username"
+                          placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required />
+                        <button type="button" class="btn-short">중복</button>
                     </div>
                 </div>
                 <br>
+
 
 
                 <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
@@ -88,9 +116,9 @@
                 <div class="gender">
                     <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
                     <div class="gender-btn">
-                        <button type="button" class="btn-male" id="male" name="gender">남</button>
-                        <button type="button" class="btn-female" id="female" name="gender">여</button>
-                    </div>
+                        <button type="button" class="btn-male" id="male" name="gender" onclick="change_btn(event)">남</button>
+                        <button type="button" class="btn-female" id="female" name="gender" onclick="change_btn(event)">여</button>
+                    </div>                    
                 </div>
 
                 <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
@@ -129,13 +157,12 @@
                 </div>
                 <br> <!-- 공백 주기-->
                 <div class="img-file">
-                <img class="img2" src="/img/인증서.png" alt="인증서png">
-                <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()" >
-                <button class="btn-short" style="width: 80px;" id="fileButton">파일 선택</button>
-                <span id="fileName">파일을 추가해주세요.</span>
-                <!-- <hr style="position: relative ; width: 100%;"> -->
-                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">사업자 인증서 제출해주세요 </h2>
-            
+                    <img class="img2" src="/img/인증서.png" alt="인증서png">
+                    <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()" >
+                    <button class="btn-short" id="fileButton">파일 선택</button>
+                    <span id="fileName">파일을 추가해주세요.</span>
+                    <!-- <hr style="position: relative ; width: 100%;"> -->
+                    <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">사업자 인증서 제출해주세요 </h2>
                 </div>
 
                 <div for="com-name" class="userphone">기업명</div>
@@ -156,6 +183,23 @@
     </main>
 
     <script>
+        //버튼 클릭시 유지하는 js 코드
+        function change_btn(event) {
+        // 모든 버튼의 'selected' 클래스를 제거
+        var buttons = document.querySelectorAll('.gender-btn button');
+        buttons.forEach(function(button) {
+            button.classList.remove('selected');
+        });
+
+        // 클릭된 버튼에 'selected' 클래스 추가
+        var clickedButton = event.target;
+        clickedButton.classList.add('selected');
+        }
+
+         // 아이디 중복 체크하기 //
+
+
+
         document.addEventListener('DOMContentLoaded', function() {
             // 년도 채우기
             const currentYear = new Date().getFullYear();
@@ -163,7 +207,7 @@
             for (let i = currentYear; i >= 1950; i--) {
                 const option = document.createElement('option');
                 option.value = i;
-                option.textContent = i +'년';
+                option.textContent = i + '년';
                 yearSelect.appendChild(option);
             }
 
@@ -185,7 +229,7 @@
                 for (let i = 1; i <= daysInMonth; i++) {
                     const option = document.createElement('option');
                     option.value = i;
-                    option.textContent = i+'일';
+                    option.textContent = i + '일';
                     daySelect.appendChild(option);
                 }
             }
@@ -201,18 +245,17 @@
                 fillDays(yearSelect.value, monthSelect.value);
             });
 
-
             //파일 업로드 코드
             document.getElementById('fileButton').addEventListener('click', function() {
                 document.getElementById('fileInput').click();
             });
-
-            function displayFileName() {
-                var input = document.getElementById('fileInput');
-                var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
-                document.getElementById('fileName').textContent = fileName;
-            }
         });
+
+        function displayFileName() {
+            var input = document.getElementById('fileInput');
+            var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
+            document.getElementById('fileName').textContent = fileName;
+        }
     </script>
 </body>
 
