@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/company_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>점수 환산 페이지</title>
+
+
+    <style>
+        .job-list {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .job-header {
+            color: #fff;
+            background-color: #005AAB;
+            padding: 10px;
+            margin-bottom: 35px;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            height: 130px;
+            font-size: 28px;
+        }
+
+
+        .keyword-span span {
+            background-color: #f8f8f8;
+            color: #5d5d5d;
+            border-radius: 20px;
+            padding: 5px;
+            font-size: 15px;
+            /* opacity: 0.9; */
+            font-weight: bold;
+            transition: background-color 0.5s ease;
+        }
+
+        .keyword-span-green span {
+            background-color: #128246;
+            color: black;
+            border-radius: 20px;
+            padding: 5px 16px 5px 16px;
+            font-size: 15px;
+            /* opacity: 0.9; */
+            font-weight: bold;
+        }
+
+
+        .keyword-span-red span {
+            background-color: red;
+            color: black;
+            border-radius: 20px;
+            padding: 5px 10px 5px 10px;
+            font-size: 15px;
+            /* opacity: 0.9; */
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body layout:fragment="content">
+    
+        <div class="main-content">
+            <main>
+                <!-- 여기서 부터 시작-->
+                <form class="justify-content-center container mt-4 middle-container" style="width: 900px;">
+                    <div class="job-header mb-1">
+                        <div style="padding: 16px;"><strong>점수 환산</strong>
+                            <div class="d-flex justify-content-end align-items-center me-3 mb-0" style="margin: 10px;">
+                                <input class="form-control form_input" type="text" name="search_filter"
+                                    id="search_filter" placeholder="검색어를 입력해주세요">
+                                <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
+                                    찾기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container mt-0 justify-content-center">
+                        <div style="margin-bottom: 20px; margin-top: 13px;">
+                            <span style="margin-right: 15px;"><strong>모집인원<span
+                                        style="color: #155ADC; margin-left: 5px;">3명</span></strong></span>
+                            <span style="margin-right: 15px;"><strong>합격<span
+                                        style="color: #128246; margin-left: 5px;">3명</span> </strong></span>
+                            <span style="margin-right: 15px;"><strong>불합격<span
+                                        style="color: red; margin-left: 5px;">3명</span></strong></span>
+                        </div>
+
+                        <div class="item d-flex justify-content-between">
+                            <div class="keyword-span">
+                                <span style="margin-right: 10px;">#대학</span>
+                                <span style="margin-right: 10px;">#자격증 개수</span>
+                                <span style="margin-right: 10px;">#나이</span>
+                                <span style="margin-right: 10px;">#경력</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="job-list mt-1">
+                                <ol class="list-group">
+                                    <li class="list-group-item"><strong style="font-size: 20px;">지원자 순위</strong></li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <strong>1.</strong>
+                                            <span style="margin-right: 20px;">김조은</span>
+                                            <span
+                                                style="color:#128246; margin-right: 435px;"><strong>94점</strong></span>
+                                        </div>
+                                        <span class="keyword-span-green">
+                                            <span>합격</span>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <strong>2.</strong>
+                                            <span style="margin-right: 20px;">유상준</span>
+                                            <span style="color: red; margin-right: 420px;"><strong>54점</strong></span>
+                                        </div>
+                                        <span class="keyword-span-red">
+                                            <span>불합격</span>
+                                        </span>
+                                    </li>
+                                </ol>
+                                <div class="register-form justify-content-center d-flex">
+                                    <button class="btn btn-primary mt-3 ">회원가입 완료</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+</body>
+
+</html>

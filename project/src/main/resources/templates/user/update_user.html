@@ -102,44 +102,103 @@
             </nav>
             </a>
 
-            <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
-                <div class="job-listings ">
-                    <div class="job-header">
-                        <div style="padding: 15px;"><strong>내 정보</strong></div>
-                        <!-- <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-right: 20px;"> -->
+         <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
+                <div class="job-listings d-flex flex-column align-items-center">
+                    <div class="job-header w-100">
+                        <div style="padding: 15px;"><strong>내 정보 수정</strong></div>
                     </div>
 
+                    <form class="register-form" style="width:100% !important; border-radius: 12px; background-color: #FAFAFA;">
+        
+
+                        <div for="username" class="userid">아이디</div>
+                        <div id="id">
+                                <input type="text" id="username" name="username" placeholder="사용자 아이디"
+                                    readonly>
+                        </div>
+                        <br>
+                        <!-- 비밀번호 변경 -->
+                        <div class="d-flex flex-column">
+                            <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
+                            <input type="password" id="current_password" name="current_password" placeholder="현재 비밀번호 입력" required>
+                            <input type="password" id="password" name="password" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
+                            <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
+                            <button class="btn-in-short align-self-end" style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button> <br>
+                        </div> 
+
+                    </form>
+
+                    <form class="register-form mt-4" style="border-radius: 12px; background-color: #FAFAFA;">
 
 
-                    <a href="#" class="job-item-link">
-                        <div class="job-item d-flex flex-column">
-                            <div style="width: 38px; height: 15px;">
-                                <!-- new 자리 -->
-                            </div>
-                            <div style="font-size: 12px;">
-                                <span>CANB R&D 연구소</span> <span>|</span> <span>기간: 2024.05.20 ~ 채용시</span>
-                            </div>
-                            <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;">CANB R&D 연구소 부문별 채용
-                            </div>
-                            <div class="item d-flex justify-content-between">
-                                <div class="keyword-span">
-                                    <span>#연구개발</span> <span>#포천시</span> <span>#계약직</span>
-                                </div>
-                                <div class="gap-2 d-flex">
-                                    <div>
-                                        <button type="button" class="btn-short" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
-                                            <strong>삭제</strong>
-                                        </button>
-                                    </div>
-
-                                    <div class="d-flex justify-content-center m-1">
-                                        <strong style="color: #024FDF;">FINDER</strong>
-                                    </div>
-                                </div>
+                        <div for="name" class="username" style="width: 55px; text-align: center;">
+                            이름
+                        </div>
+        
+                        <div class="gender">
+                            <input class="input-name" type="text" id="name" name="name" required placeholder="사용자 이름" readonly>
+                            <div class="gender-btn">
+                                <button type="button" class="btn-male" id="male" name="gender">남</button>
+                                <button type="button" class="btn-female" id="female" name="gender">여</button>
                             </div>
                         </div>
-                    </a>
+        
+                        <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
+                        <div class="birthdate">
+                            <select name="year" id="year">
+                                <option value="1">2000</option>
+                                <option value="2">2001</option>
+                                <option value="3">2002</option>
+                            </select>
+                            <select name="month" id="month">
+                                <option value="1">1월</option>
+                                <option value="2">2월</option>
+                                <option value="3">3월</option>
+                                <option value="3">4월</option>
+                                <option value="3">5월</option>
+                                <option value="3">6월</option>
+                                <option value="3">7월</option>
+                                <option value="3">8월</option>
+                                <option value="3">9월</option>
+                                <option value="3">10월</option>
+                                <option value="3">11월</option>
+                                <option value="3">12월</option>
+                            </select>
+                            <select name="day" id="day">
+                                <option value="1">1일</option>
+                                <option value="2">2일</option>
+                                <option value="3">3일</option>
+                                <option value="3">4일</option>
+                                <option value="3">5일</option>
+                                <option value="3">6일</option>
+                                <option value="3">7일</option>
+                                <option value="3">8일</option>
+                                <option value="3">9일</option>
+                                <option value="3">10일</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                        </div>
+
+                        <div for="phone" class="userphone">휴대폰</div>
+                        <div class="phone d-flex flex-column">
+                            <input type="text" id="phone" name="phone" required placeholder="번호를 입력해주세요.">                            
+                        </div>
+        
+                        <div for="email" class="useremail">
+                            이메일
+                        </div>
+                        <div class="phone d-flex flex-column">
+                            <input type="email" id="email" name="email" required placeholder="이메일">
+                        </div>
+
+                        <div class="phone d-flex flex-column">
+                            <button class="btn-in-short align-self-end" style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button>
+                        </div>
+                    </form>
+
+
                 </div>
             </main>
         </div>
