@@ -124,12 +124,18 @@ header .logo {
   align-items: center;
 }
 
+.logo a {
+  display: flex;
+  text-decoration-line: none;
+}
+
 .logo-header {
   width : 75px;
 }
 
 header .logo-title {
   font-size: 30px;
+  line-height: 75px;
   color: var(--main-color);
 }
 

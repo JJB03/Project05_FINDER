@@ -6,7 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채용공고 조회</title>
+
 </head>
+
 
 <body layout:fragment="content">
     <div class="container-fluid container">
@@ -123,7 +125,7 @@
                     </li>
                 </ul>
             </nav>
-            
+
 
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
                 <div class="job-listings ">
@@ -133,7 +135,8 @@
                     <div class="post-main">
                         <div>제목</div>
                         <div>
-                            <input type="text" name="" id="" placeholder="제목을 입력해주세요">
+                            <input type="text" name="" id="" placeholder="제목을 입력해주세요" class="input-none"
+                                style="border: 1px solid var(--bs-border-color); padding: 1rem .75rem; border-radius: 8px;">
                         </div>
                         <div>keyword</div>
                         <div class="item d-flex justify-content-between">
@@ -193,16 +196,23 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end">
-                        <button class="btn-long">
-                            파일첨부
-                        </button>
-                        <button class="btn-long" style="margin-left: 15px;">
-                            수정
-                        </button>
-                        <button class="btn-long" style="margin-left: 15px;">
-                            삭제
-                        </button>
+                    <div class="d-flex justify-content-between">
+
+                        <div class="file-input-wrapper">
+                            <button class="btn-long" id="file-upload-button" style="display: inline-block;">파일
+                                첨부</button>
+                            <input type="file" class="file-input hidden-file-input" id="file-input" multiple>
+                            <div id="file-names" class="mt-2"></div> <!-- 파일 이름들을 표시할 요소 추가 -->
+                        </div>
+
+                        <div>
+                            <button class="btn-long" style="margin-left: 15px;">
+                                수정
+                            </button>
+                            <button class="btn-long" style="margin-left: 15px;">
+                                삭제
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -212,6 +222,20 @@
     </div>
 
 
+
+    <script>
+        document.getElementById('file-upload-button').addEventListener('click', function () {
+            document.getElementById('file-input').click();
+        });
+
+        document.getElementById('file-input').addEventListener('change', function () {
+            var fileNames = [];
+            for (var i = 0; i < this.files.length; i++) {
+                fileNames.push(this.files[i].name);
+            }
+            document.getElementById('file-names').textContent = fileNames.join(', ');
+        });
+    </script>
 
 
 </body>
