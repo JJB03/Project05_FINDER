@@ -87,11 +87,12 @@
     <!-- TODO : 회원 컬럼 수정하기 -->
     <update id="update">
         UPDATE user
-           SET name = #{name}
-              ,email = #{email}
-              ,profile = #{profile}
-              ,updated_at = now()
-        WHERE username = #{username}
+           SET user_name = #{user_name}
+              ,user_id = #{user_id}
+              ,user_pw = #{user_pw}
+              ,user_phone = #{user_phone}
+              ,user_gender = #{user_gender}
+        WHERE username = #{user_name}
     </update>
 
     <!-- 회원 권한 등록 -->
