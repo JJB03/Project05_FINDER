@@ -1,4 +1,4 @@
-/* company/index */
+/* company/main_com 기업 메인페이지 */
 .com-info-wrap {
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -22,15 +22,6 @@
 .com-index-card:hover {
   background-color: lightgrey;
 }
-
-
-
-/* company/credit */
-
-
-
-
-
 
 
 
