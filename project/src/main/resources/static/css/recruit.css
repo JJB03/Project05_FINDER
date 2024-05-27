@@ -353,3 +353,12 @@ input[type="text"] {
     border-color: #005AAB !important;
     outline: 0 !important;
 }
+
+.job-index-input {
+    
+    transition: border-color 0.3s ease;
+}
+
+.job-index-input:focus {
+    border: 1px solid #1B1B1B;
+}
