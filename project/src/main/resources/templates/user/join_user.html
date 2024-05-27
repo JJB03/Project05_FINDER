@@ -9,10 +9,10 @@
 
          /* 이 친구들이 버튼 변경하게 하는 코드입니다.*/
             .btn-male, .btn-female {
-            padding: 10px 20px;
+            padding: 10px 10px;
             margin: 5px;
             color: black;
-            background-color: lightblue;
+            background-color: #EDEDED;
             cursor: pointer;
         }
 
@@ -48,7 +48,8 @@
                         <div class="check-btn">           
                             <input type="text" class="username_input" name="username"
                               placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required />
-                            <button type="button" class="btn-short">중복</button>
+                              <button type="button" class="btn-male" id="male" name="gender" style="background-color: #007bff; color: white; margin-left: 15px;">중복</button>
+                            
                             <img id="id_check_sucess" style="display: none;">
                         </div>
                     </div>
