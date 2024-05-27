@@ -80,6 +80,8 @@ body {
   border: none;
   color: #fff;
   font-size: var(--text-normal);
+  text-decoration: none;
+  text-align: center;
 }
 
 .btn-long:hover {
