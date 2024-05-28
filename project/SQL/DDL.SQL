@@ -27,10 +27,8 @@ CREATE TABLE `user_auth` (
 DROP TABLE IF EXISTS mail;
 
 CREATE TABLE `mail` (
-   `Key` bigint NOT NULL,
-   `user_no` int NOT NULL,
-   PRIMARY KEY (`Key`),
-   FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
+	`Key`	bigint	NOT NULL,
+	`user_no`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS cv;
@@ -47,50 +45,46 @@ CREATE TABLE `cv` (
 DROP TABLE IF EXISTS employment_history;
 
 CREATE TABLE `employment_history` (
-   `employment_history_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `organization` varchar(500) NOT NULL,
-   `duration` timestamp NOT NULL,
-   `duties` varchar(500) NOT NULL,
-   `cv_no` int NOT NULL,
-   FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
+	`employment_history_no`	int	NOT NULL,
+	`organization`	varchar(500)	NULL,
+	`duration`	timestamp	NULL,
+	`duties`	varchar(500)	NULL,
+	`cv_no`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS education;
 
 CREATE TABLE `education` (
-   `education_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `cv_no` int NOT NULL,
-   `university` varchar(500) NOT NULL,
-   `major` varchar(500) NULL,
-   `university_status` varchar(500) NULL,
-   FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
+	`education_no`	int	NOT NULL,
+	`cv_no`	int	NOT NULL,
+	`university`	varchar(500)	NULL,
+	`major`	varchar(500)	NULL,
+	`university_ status`	varchar(500)	NULL
 );
 
 DROP TABLE IF EXISTS apply_employee;
 
 CREATE TABLE `apply_employee` (
-   `apply_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `apply_title` varchar(100) NOT NULL,
-   `apply_date` timestamp NOT NULL DEFAULT now(),
-   `cv_no` int NOT NULL,
-   `apply_no2` int NOT NULL,
-   FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
+	`apply_no`	int	NOT NULL,
+	`apply_title`	varchar(100)	NOT NULL,
+	`apply_date`	timestamp	NOT NULL	DEFAULT now(),
+	`cv_no`	int	NOT NULL,
+	`apply_no2`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS thumbnail;
 
 CREATE TABLE `thumbnail` (
-   `thumbnail_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `thumbnail_type` int NOT NULL,
-   `thumbnail_name` varchar(500) NOT NULL,
-   `thumbnail_size` varchar(500) NOT NULL,
-   `thumbnail_reg_date` timestamp NOT NULL DEFAULT now(),
-   `thumbnail_upd_date` timestamp NOT NULL DEFAULT now() ON UPDATE now(),
-   `cv_no` int NOT NULL,
-   `apply_no` int NOT NULL,
-   FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
-   FOREIGN KEY (`apply_no`) REFERENCES `apply_employee`(`apply_no`)
+    `thumbnail_no` INT NOT NULL,
+    `thumbnail_type` INT NOT NULL,
+    `thumbnail_name` VARCHAR(500) NOT NULL,
+    `thumbnail_size` VARCHAR(500) NOT NULL,
+    `thumbnail_reg_date` TIMESTAMP NOT NULL,
+    `thumbnail_upd_date` TIMESTAMP NOT NULL,
+    `cv_no` INT NOT NULL,
+    `apply_no` INT NOT NULL
 );
+
 
 DROP TABLE IF EXISTS company;
 
@@ -105,6 +99,7 @@ CREATE TABLE `company` (
 	`com_business`	varchar(500)	NOT NULL,
 	`user_no`	int	NOT NULL
 );
+
 
 
 DROP TABLE IF EXISTS recruit;
@@ -126,23 +121,19 @@ CREATE TABLE `recruit` (
 DROP TABLE IF EXISTS file;
 
 CREATE TABLE `file` (
-   `file_no` VARCHAR(255) NOT NULL PRIMARY KEY,
-   `parent_table` varchar(500) NOT NULL,
-   `parent_no` int NOT NULL,
-   `file_name` varchar(500) NOT NULL,
-   `origin_name` varchar(500) NOT NULL,
-   `file_path` varchar(500) NOT NULL,
-   `file_size` int NOT NULL,
-   `reg_date` timestamp NOT NULL DEFAULT now(),
-   `upd_date` timestamp NOT NULL DEFAULT now() ON UPDATE now(),
-   `file_code` int NOT NULL,
-   `cv_no` int NOT NULL,
-   `recruit_no` int NOT NULL,
-   FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
-   FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
+	`file_no`	VARCHAR(255)	NOT NULL,
+	`parent_table`	varchar(500)	NOT NULL,
+	`parent_no`	int	NOT NULL,
+	`file_name`	varchar(500)	NOT NULL,
+	`origin _name`	varchar(500)	NOT NULL,
+	`file_path`	varchar(500)	NOT NULL,
+	`file_size`	int	NOT NULL,
+	`reg_date`	timestamp	NOT NULL,
+	`upd_date`	timestamp	NOT NULL,
+	`file_code`	int	NOT NULL,
+	`cv_no`	int	NOT NULL,
+	`recruit_no`	int	NOT NULL
 );
-
-
 
 
 DROP TABLE IF EXISTS company_detail;
@@ -156,7 +147,7 @@ CREATE TABLE `company_detail` (
 	`com_emp_count`	int	NOT NULL,
 	`com_sales`	int	NOT NULL,
 	`com_content`	text	NOT NULL,
-	`com_address`	varchar(500)	NOT NULL,
+	`com_address`	varchar(500)	NULL,
 	`com_vision`	varchar(500)	NULL,
 	`com_welfare`	varchar(500)	NULL,
 	`com_avg_salary`	int	NOT NULL,
@@ -171,27 +162,24 @@ CREATE TABLE `product` (
 	`product_option`	varchar(500)	NULL,
 	`product_price`	int	NOT NULL
 );
+
 DROP TABLE IF EXISTS `order`;
 
 CREATE TABLE `order` (
-   `order_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `product_no` int NOT NULL,
-   `type` enum('order','refund') NOT NULL,
-   `process_date` timestamp NOT NULL DEFAULT now(),
-   `com_no2` int NOT NULL,
-   FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`),
-   FOREIGN KEY (`com_no2`) REFERENCES `company`(`com_no`)
+	`order_no`	int	NOT NULL,
+	`product_no`	int	NOT NULL,
+	`type`	enum('order','refund')	NOT NULL,
+	`process_date`	timestamp	NOT NULL	DEFAULT now(),
+	`com_no2`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS credit;
 
 CREATE TABLE `credit` (
-   `credit_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `credit_method` int NOT NULL,
-   `credit_date` timestamp NOT NULL DEFAULT now(),
-   `credit_money` varchar(100) NOT NULL,
-   `order_code` varchar(500) NOT NULL,
-   `order_no` int NOT NULL,
-   FOREIGN KEY (`order_no`) REFERENCES `order`(`order_no`)
+    `credit_no` INT NOT NULL,
+    `credit_method` INT NOT NULL,
+    `credit_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `credit_money` VARCHAR(100) NOT NULL,
+    `order_code` VARCHAR(500) NOT NULL,
+    `order_no` INT NOT NULL
 );
-
