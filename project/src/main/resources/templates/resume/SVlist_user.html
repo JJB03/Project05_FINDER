@@ -154,7 +154,7 @@
                             <div class="gap-2 d-flex justify-content-end">
                                 <div>
                                     <button type="button" class="btn-short" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
+                                        data-bs-target="#exampleModal" id="btn-stop">
                                         <strong>조회</strong>
                                     </button>
                                 </div>
@@ -190,6 +190,9 @@
             }
         }
 
+        document.getElementById('btn-stop').addEventListener('click', function(event) {
+            event.stopPropagation();  // 이벤트 전파 중지
+        });
     </script>
 </body>
 
