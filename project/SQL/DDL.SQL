@@ -1,7 +1,5 @@
-
-
--- 테이블 삭제
-DROP TABLE IF EXISTS user;		-- 회원 테이블
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
+DROP TABLE IF EXISTS user;
 
 DROP TABLE IF EXISTS user_auth; -- 권한 테이블
 
@@ -149,13 +147,12 @@ CREATE TABLE `company` (
 CREATE TABLE `recruit` (
 	`recruit_no` int NOT NULL AUTO_INCREMENT,
 	`recruit_title` varchar(500) NOT NULL,
-	`recruit_writer` varchar(500) NOT NULL,
 	`recruit_content` text NOT NULL,
 	`com_no` int NOT NULL,
 	`recruit_responsibilities` varchar(500) NULL,
 	`recruit_qualifications` varchar(500) NULL,
 	`reruit_preferred_qualifications` varchar(500) NULL,
-	`recruit_reg_date` date NOT NULL,
+	`recruit_reg_date` varchar(500) NOT NULL,
 	`com_reg_date` timestamp NOT NULL DEFAULT now(),
 	`com_upd_date` timestamp NULL DEFAULT now(),
 	PRIMARY KEY (`recruit_no`),

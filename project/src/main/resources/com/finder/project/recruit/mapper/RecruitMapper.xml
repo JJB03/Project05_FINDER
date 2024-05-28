@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finder.project.recruit.mapper.RecruitMapper">
+
+  <select id="max" resultType="int">
+    SELECT MAX(recruit_no)
+    FROM recruit
+  </select>
+
+  <select id="recruitList" resultType="RecruitPost">
+    SELECT c.*, r.* 
+    FROM company c 
+    INNER JOIN recruit r ON c.com_no = r.com_no
+  </select>
+
+
+  <insert id="recruitPost">
+    insert INTO recruit ( recruit_title, recruit_content, com_no, recruit_responsibilities, recruit_qualifications, reruit_preferred_qualifications, recruit_reg_date )
+    VALUES ( #{recruitTitle}, #{recruitContent}, #{comNo}, #{recruitResponsibilities}, #{recruitQualifications}, #{recruitPreferredQualifications}, #{recruitRegDate} )
+  </insert>
+    
+  <insert id="recruitKeyword">
+    INSERT INTO recruit_keyword (recruit_no, recruit_keyword)
+    VALUES (#{recruitNo}, #{keyword})
+  </insert>
+  
+</mapper>
