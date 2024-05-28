@@ -106,8 +106,12 @@
               <!-- 신용카드 결제 / 구매자 확인 동의 -->
               <form action="" method="" class="d-flex flex-column justify-content-between">
                 <div class="credit_user_info">
-                    <p>이용 건수 : 1건</p>
-                    <p>상품 가격 : 100,000원</p>
+
+                    <!-- 넘겨줄 데이터 -->
+                    <input type="hidden" name="product_price" id="product_price" value=""> <!-- 상품 가격 -->
+                    <input type="hidden" name="product_name" id="product_name" value=""> <!-- 상품 이름 -->
+                    <input type="hidden" name="com_name" id="com_name" value=""> <!-- 결제자 -->
+
                     <p>할인 : 5건 추가 증정</p>
                     <p>결제 금액 : 100,000원</p>
                     <hr>
