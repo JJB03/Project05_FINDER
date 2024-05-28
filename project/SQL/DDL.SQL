@@ -1,36 +1,43 @@
--- Active: 1716770063195@@127.0.0.1@3306@joeun
-DROP TABLE IF EXISTS user;
 
-DROP TABLE IF EXISTS user_auth;
 
-DROP TABLE IF EXISTS mail;
+-- 테이블 삭제
+DROP TABLE IF EXISTS user;		-- 회원 테이블
 
-DROP TABLE IF EXISTS cv;
+DROP TABLE IF EXISTS user_auth; -- 권한 테이블
 
-DROP TABLE IF EXISTS employment_history;
+DROP TABLE IF EXISTS mail;  	-- 메일인증 테이블
 
-DROP TABLE IF EXISTS education;
+DROP TABLE IF EXISTS cv;  		-- 이력서 테이블
 
-DROP TABLE IF EXISTS apply_employee;
+DROP TABLE IF EXISTS employment_history;	-- 경력사항 테이블
 
-DROP TABLE IF EXISTS thumbnail;
+DROP TABLE IF EXISTS education;		-- 학력 테이블
 
-DROP TABLE IF EXISTS company;
+DROP TABLE IF EXISTS apply_employee;	-- 지원내역 테이블
 
-DROP TABLE IF EXISTS recruit;
+DROP TABLE IF EXISTS thumbnail;		-- 썸네일 테이블
 
-DROP TABLE IF EXISTS file;
+DROP TABLE IF EXISTS company;		-- 기업 테이블
 
-DROP TABLE IF EXISTS company_detail;
+DROP TABLE IF EXISTS recruit;		-- 채용공고 게시글 테이블
 
-DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS recruit_keyword;		-- 채용공고 키워드 테이블
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS file;		-- 파일 테이블
 
-DROP TABLE IF EXISTS credit;
+DROP TABLE IF EXISTS company_detail;		-- 기업 상세 정보 테이블
+
+DROP TABLE IF EXISTS product;	-- 상품 테이블
+
+DROP TABLE IF EXISTS `order`;	-- 주문 테이블
+
+DROP TABLE IF EXISTS credit;	-- 결제내역 테이블
+
 
 
 -- 테이블 생성
+
+-- 회원 테이블
 CREATE TABLE `user` (
 	`user_no` int NOT NULL AUTO_INCREMENT,
 	`user_name` varchar(500) NOT NULL,
@@ -43,9 +50,11 @@ CREATE TABLE `user` (
 	`user_reg_date` timestamp NOT NULL DEFAULT now(),
 	`user_upd_date` timestamp NULL DEFAULT now(),
 	`user_gender` enum('남자','여자') NOT NULL,
+	`ENABLED` int DEFAULT 1,
 	PRIMARY KEY (`user_no`)
 );
 
+-- 권한 테이블
 CREATE TABLE `user_auth` (
    `auth_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    `auth` varchar(500) NULL,
@@ -53,6 +62,7 @@ CREATE TABLE `user_auth` (
    FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
 );
 
+-- 메일인증 테이블
 CREATE TABLE `mail` (
 	`mail_key` bigint NOT NULL,
 	`user_no` int NOT NULL,
@@ -60,6 +70,7 @@ CREATE TABLE `mail` (
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
 );
 
+-- 이력서 테이블
 CREATE TABLE `cv` (
 	`cv_no` int NOT NULL AUTO_INCREMENT,
 	`user_no` int NOT NULL,
@@ -70,6 +81,7 @@ CREATE TABLE `cv` (
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
 );
 
+-- 경력사항 테이블
 CREATE TABLE `employment_history` (
 	`employment_history_no` int NOT NULL AUTO_INCREMENT,
 	`organization` varchar(500) NULL,
@@ -80,6 +92,7 @@ CREATE TABLE `employment_history` (
     FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
 );
 
+-- 학력 테이블
 CREATE TABLE `education` (
 	`education_no` int NOT NULL AUTO_INCREMENT,
 	`cv_no` int NOT NULL,
@@ -90,6 +103,7 @@ CREATE TABLE `education` (
 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
 );
 
+-- 지원내역 테이블
 CREATE TABLE `apply_employee` (
 	`apply_no` int NOT NULL AUTO_INCREMENT,
 	`apply_title` varchar(100) NOT NULL,
@@ -101,6 +115,7 @@ CREATE TABLE `apply_employee` (
 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 );
 
+-- 썸네일 테이블
 CREATE TABLE `thumbnail` (
     `thumbnail_no` INT NOT NULL AUTO_INCREMENT,
     `thumbnail_type` INT NOT NULL,
@@ -108,13 +123,14 @@ CREATE TABLE `thumbnail` (
     `thumbnail_size` VARCHAR(500) NOT NULL,
     `thumbnail_reg_date` TIMESTAMP NOT NULL,
     `thumbnail_upd_date` TIMESTAMP NOT NULL,
-    `cv_no` INT NOT NULL,
-    `apply_no` INT NOT NULL,
+    `cv_no` INT NULL,
+    `recruit_no` INT NULL,
     PRIMARY KEY (`thumbnail_no`),
 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 );
 
+-- 기업 테이블
 CREATE TABLE `company` (
 	`com_no` int NOT NULL AUTO_INCREMENT,
 	`com_name` varchar(500) NOT NULL,
@@ -129,6 +145,7 @@ CREATE TABLE `company` (
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
 );
 
+-- 채용공고 게시글 테이블
 CREATE TABLE `recruit` (
 	`recruit_no` int NOT NULL AUTO_INCREMENT,
 	`recruit_title` varchar(500) NOT NULL,
@@ -145,15 +162,16 @@ CREATE TABLE `recruit` (
 	FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
 );
 
+-- 채용공고 키워드 테이블
 CREATE TABLE `recruit_keyword` (
 	`recruit_keyword_no` int NOT NULL AUTO_INCREMENT,
     `recruit_keyword` varchar(500) NOT NULL,
+	`recruit_no` int NOT NULL,
     PRIMARY KEY (`recruit_keyword_no`),
 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 );
 
-
-
+-- 파일 테이블
 CREATE TABLE `file` (
 	`file_no` INT NOT NULL AUTO_INCREMENT,
 	`parent_table` varchar(500) NOT NULL,
@@ -172,6 +190,7 @@ CREATE TABLE `file` (
 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 );
 
+-- 기업 상세 정보 테이블
 CREATE TABLE `company_detail` (
 	`com_info_no` int NOT NULL AUTO_INCREMENT,
 	`com_represent` varchar(100) NOT NULL,
@@ -190,6 +209,7 @@ CREATE TABLE `company_detail` (
 	FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
 );
 
+-- 상품 테이블
 CREATE TABLE `product` (
 	`product_no` int NOT NULL AUTO_INCREMENT COMMENT 'auto_increment',
 	`product_name` varchar(100) NOT NULL,
@@ -198,6 +218,7 @@ CREATE TABLE `product` (
 	PRIMARY KEY (`product_no`)
 );
 
+-- 주문 테이블
 CREATE TABLE `order` (
 	`order_no` int NOT NULL AUTO_INCREMENT,
 	`product_no` int NOT NULL,
@@ -209,6 +230,7 @@ CREATE TABLE `order` (
 	FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
 );
 
+-- 결제내역 테이블
 CREATE TABLE `credit` (
     `credit_no` INT NOT NULL AUTO_INCREMENT,
     `credit_method` INT NOT NULL,
