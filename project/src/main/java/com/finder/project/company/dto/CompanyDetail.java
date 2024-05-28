@@ -4,11 +4,13 @@ import lombok.Data;
 
 @Data
 public class CompanyDetail {
+    
     private int comInfoNo;
     private String comRepresent;
     private String comCategory;
     private String comUrl;
-    private String comSize;
+    private int comBirth;
+    private companySize comSize;
     private int comEmpCount;
     private int comSales;
     private String comContent;
@@ -17,4 +19,11 @@ public class CompanyDetail {
     private String comWelfare;
     private int comAvgSalary;
     private int comNo;
+}
+
+
+enum companySize {
+    대기업,
+    중견기업,
+    중소기업
 }

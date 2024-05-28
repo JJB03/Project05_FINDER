@@ -1,6 +1,6 @@
 
 
--- 테이블 삭제
+-- 테이블 삭제 ( 총 16개 )
 DROP TABLE IF EXISTS user;		-- 회원 테이블
 
 DROP TABLE IF EXISTS user_auth; -- 권한 테이블
@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS credit;	-- 결제내역 테이블
 
 
 
--- 테이블 생성
+-- 테이블 생성 ( 총 16개 )
 
 -- 회원 테이블
 CREATE TABLE `user` (
@@ -196,6 +196,7 @@ CREATE TABLE `company_detail` (
 	`com_represent` varchar(100) NOT NULL,
 	`com_category` varchar(100) NOT NULL,
 	`com_url` varchar(500) NULL,
+	`com_birth` int NOT NULL,
 	`com_size` enum('대기업','중견기업','중소기업') NOT NULL,
 	`com_emp_count` int NOT NULL,
 	`com_sales` int NOT NULL,
