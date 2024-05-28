@@ -1,19 +1,18 @@
+-- Active: 1716536339109@@127.0.0.1@3306@joeun
 DROP TABLE IF EXISTS user;
 
 CREATE TABLE `user` (
-   `user_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `user_name` varchar(500) NOT NULL,
-   `user_id` varchar(500) NOT NULL,
-   `user_pw` varchar(500) NOT NULL,
-   `user_before_pw` varchar(500) NULL,
-   `user_birth` varchar(8) NOT NULL,
-   `user_phone` varchar(11) NOT NULL,
-   `user_email` varchar(500) NOT NULL,
-   `user_like_job` varchar(500) NULL,
-   `user_reg_date` timestamp NOT NULL DEFAULT now(),
-   `user_upd_date` timestamp NOT NULL DEFAULT now() ON UPDATE now(),
-   `user_gender` enum('남자','여자') NOT NULL,
-   `enabled` INT DEFAULT 1
+	`user_no`	int	NOT NULL,
+	`user_name`	varchar(500)	NOT NULL,
+	`user_id`	varchar(500)	NOT NULL,
+	`user_pw`	varchar(500)	NOT NULL,
+	`user_before_pw`	varchar(500)	NULL,
+	`user_birth`	varchar(8)	NOT NULL,
+	`user_phone`	varchar(11)	NOT NULL,
+	`user_email`	varchar(500)	NOT NULL,
+	`user_reg_date`	timestamp	NOT NULL	DEFAULT now(),
+	`user_upd_date`	timestamp	NULL	DEFAULT now(),
+	`user_gender`	enum('남자','여자')	NOT NULL
 );
 
 DROP TABLE IF EXISTS user_auth;
@@ -37,12 +36,14 @@ CREATE TABLE `mail` (
 DROP TABLE IF EXISTS cv;
 
 CREATE TABLE `cv` (
-   `cv_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `user_no` int NOT NULL,
-   `cover_letter` text NULL,
-   FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
+	`cv_no`	int	NOT NULL,
+	`user_no`	int	NOT NULL,
+	`cover_letter`	text	NULL,
+	`cv_reg_date`	timestamp	NOT NULL	DEFAULT now(),
+	`cv_upd_date`	timestamp	NULL	DEFAULT now()
 );
 
+-- 경력
 DROP TABLE IF EXISTS employment_history;
 
 CREATE TABLE `employment_history` (
@@ -91,6 +92,37 @@ CREATE TABLE `thumbnail` (
    FOREIGN KEY (`apply_no`) REFERENCES `apply_employee`(`apply_no`)
 );
 
+DROP TABLE IF EXISTS company;
+
+CREATE TABLE `company` (
+	`com_no`	int	NOT NULL,
+	`com_name`	varchar(500)	NOT NULL,
+	`com_category`	varchar(500)	NOT NULL,
+	`com_phone`	varchar(500)	NOT NULL,
+	`com_email`	varchar(500)	NOT NULL,
+	`com_employee`	int	NULL,
+	`com_address`	varchar(500)	NOT NULL,
+	`com_business`	varchar(500)	NOT NULL,
+	`user_no`	int	NOT NULL
+);
+
+
+DROP TABLE IF EXISTS recruit;
+
+CREATE TABLE `recruit` (
+	`recruit_no`	int	NOT NULL,
+	`recruit_title`	varchar(500)	NOT NULL,
+	`recruit_writer`	varchar(500)	NOT NULL,
+	`recruit_content`	text	NOT NULL,
+	`com_no`	int	NOT NULL,
+	`recruit_responsibilities`	varchar(500)	NULL,
+	`recruit_qualifications`	varchar(500)	NULL,
+	`reruit_preferred_qualifications`	varchar(500)	NULL,
+	`recruit_reg_date`	date	NOT NULL,
+	`com_reg_date`	timestamp	NOT NULL	DEFAULT now(),
+	`com_upd_date`	timestamp	NULL	DEFAULT now()
+);
+
 DROP TABLE IF EXISTS file;
 
 CREATE TABLE `file` (
@@ -110,69 +142,35 @@ CREATE TABLE `file` (
    FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 );
 
-DROP TABLE IF EXISTS recruit;
 
-CREATE TABLE `recruit` (
-   `recruit_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `recruit_title` varchar(500) NOT NULL,
-   `recruit_writer` varchar(500) NOT NULL,
-   `recruit_content` text NOT NULL,
-   `com_no` int NOT NULL,
-   `recruit_responsibilities` varchar(500) NULL,
-   `recruit_qualifications` varchar(500) NULL,
-   `recruit_preferred_qualifications` varchar(500) NULL,
-   FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
-);
 
-DROP TABLE IF EXISTS recruit_keyword;
-
-CREATE TABLE `recruit_keyword` (
-   `recruit_keyword_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `recruit_keyword` varchar(500) NOT NULL,
-   `recruit_no` int NOT NULL,
-   FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
-);
-
-DROP TABLE IF EXISTS company;
-
-CREATE TABLE `company` (
-   `com_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `com_name` varchar(500) NOT NULL,
-   `com_category` varchar(500) NOT NULL,
-   `com_phone` varchar(500) NOT NULL,
-   `com_email` varchar(500) NOT NULL,
-   `com_employee` int NULL,
-   `com_reg_date` timestamp NOT NULL DEFAULT now(),
-   `com_upd_date` timestamp NOT NULL DEFAULT now() ON UPDATE now(),
-   `com_address` varchar(500) NOT NULL,
-   `com_business` varchar(500) NOT NULL,
-   `user_no` int NOT NULL,
-   FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
-);
 
 DROP TABLE IF EXISTS company_detail;
 
 CREATE TABLE `company_detail` (
-   `com_info_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `com_hope_job` varchar(500) NOT NULL,
-   `com_hope_emp` varchar(500) NOT NULL,
-   `com_hope_edu` varchar(500) NOT NULL,
-   `com_worktype` varchar(500) NOT NULL,
-   `com_represent` varchar(100) NOT NULL,
-   `com_category` varchar(100) NOT NULL,
-   `com_url` varchar(500) NOT NULL,
-   `com_size` enum('대기업','중견기업','중소기업') NOT NULL,
-   `com_emp_count` int NOT NULL,
-   `com_sales` int NOT NULL,
-   `com_content` text NOT NULL,
-   `com_address` varchar(500) NOT NULL,
-   `com_vision` varchar(500) NOT NULL,
-   `com_welfare` varchar(500) NULL,
-   `com_avg_salary` int NOT NULL,
-   `com_no` int NOT NULL,
-   FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
+	`com_info_no`	int	NOT NULL,
+	`com_represent`	varchar(100)	NOT NULL,
+	`com_category`	varchar(100)	NOT NULL,
+	`com_url`	varchar(500)	NULL,
+	`com_size`	enum('대기업','중견기업','중소기업')	NOT NULL,
+	`com_emp_count`	int	NOT NULL,
+	`com_sales`	int	NOT NULL,
+	`com_content`	text	NOT NULL,
+	`com_address`	varchar(500)	NOT NULL,
+	`com_vision`	varchar(500)	NULL,
+	`com_welfare`	varchar(500)	NULL,
+	`com_avg_salary`	int	NOT NULL,
+	`com_no`	int	NOT NULL
 );
 
+DROP TABLE IF EXISTS product;
+
+CREATE TABLE `product` (
+	`product_no`	int	NOT NULL	COMMENT 'auto_increment',
+	`product_name`	varchar(100)	NOT NULL,
+	`product_option`	varchar(500)	NULL,
+	`product_price`	int	NOT NULL
+);
 DROP TABLE IF EXISTS `order`;
 
 CREATE TABLE `order` (
@@ -197,11 +195,3 @@ CREATE TABLE `credit` (
    FOREIGN KEY (`order_no`) REFERENCES `order`(`order_no`)
 );
 
-DROP TABLE IF EXISTS product;
-
-CREATE TABLE `product` (
-   `product_no` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   `product_name` varchar(100) NOT NULL,
-   `product_option` varchar(500) NOT NULL,
-   `product_price` int NOT NULL
-);
