@@ -1,4 +1,4 @@
--- Active: 1716536339109@@127.0.0.1@3306@joeun
+-- Active: 1716771409910@@127.0.0.1@3306@joeun
 DROP TABLE IF EXISTS user;
 
 CREATE TABLE `user` (
