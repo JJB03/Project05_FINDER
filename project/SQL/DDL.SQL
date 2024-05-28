@@ -1,4 +1,5 @@
--- Active: 1716536339109@@127.0.0.1@3306@joeun
+
+-- Active: 1716771409910@@127.0.0.1@3306@joeun
 
 DROP TABLE IF EXISTS user;
 
@@ -52,6 +53,24 @@ CREATE TABLE `user` (
 	`ENABLED` int DEFAULT 1,
 	PRIMARY KEY (`user_no`)
 );
+
+-- 잠시만 값에 null 넣는 테이블
+CREATE TABLE `user` (
+    `user_no` int NOT NULL AUTO_INCREMENT,
+    `user_name` varchar(500) NULL,
+    `user_id` varchar(500) NULL,
+    `user_pw` varchar(500) NULL,
+    `user_before_pw` varchar(500) NULL,
+    `user_birth` varchar(8) NULL,
+    `user_phone` varchar(11) NULL,
+    `user_email` varchar(500) NULL,
+    `user_reg_date` timestamp NULL DEFAULT now(),
+    `user_upd_date` timestamp NULL DEFAULT now(),
+    `user_gender` enum('남자','여자') NULL,
+    `ENABLED` int DEFAULT 1,
+    PRIMARY KEY (`user_no`)
+);
+
 
 -- 권한 테이블
 CREATE TABLE `user_auth` (
@@ -238,4 +257,4 @@ CREATE TABLE `credit` (
     `order_no` INT NOT NULL,
     PRIMARY KEY (`credit_no`),
 	FOREIGN KEY (`order_no`) REFERENCES `order`(`order_no`)
-);
+);	
