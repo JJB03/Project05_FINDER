@@ -138,7 +138,7 @@
     <div class="form-header">
       <h4>구직자 이력서 조회</h4>
     </div>
-    <form action="" method="get">
+    <form action="" method="post">
 
       <div class="form-group row justify-content-between" style="margin-top: 5px; margin-bottom: 5px;">
         <label for="title" class="col-sm-2 col-form-label" style="width: 80px;">제목 :</label>
@@ -220,6 +220,7 @@
           <a type="button" style="padding-top: 5px;" class="btn-long" href="파일경로/파일이름.확장자" download>파일 다운로드</a>
   
           <button type="button" class="btn-long" onclick="alert()">합격</button>
+          <button type="button" class="btn-long" onclick="showAlert()">불합격</button>
 
           <!--합격 경고창 -->
           <div class="overlay" id="alertOverlay">
@@ -234,14 +235,11 @@
                 - 사용자 전화번호
               </div>
               <div class="buttons">
-                <button class="confirm" onclick="confirmAlert()">확인</button>
+                <button type="button" class="confirm" onclick="confirmAlert()">확인</button>
                 <button class="cancel" onclick="closeAlert()">취소</button>
               </div>
             </div>
           </div>
-
-          <button type="button" class="btn-long" onclick="showAlert()">불합격</button>
-
           <!--탈락 경고창-->
           <div class="overlay" id="alertOverlay2">
             <div class="alert-box">
@@ -255,7 +253,7 @@
                 - 사용자 전화번호
               </div>
               <div class="buttons">
-                <button class="confirm" onclick="confirmAlert()">확인</button>
+                <button type="button" class="confirm" onclick="confirmAlert()">확인</button>
                 <button class="cancel" onclick="closeAlert()">취소</button>
               </div>
             </div>
@@ -285,6 +283,8 @@
       // 확인 버튼을 눌렀을 때의 동작을 추가합니다.
       alert('확인 버튼을 눌렀습니다.');
       closeAlert();
+      
+      location.href = '/'
     }
   </script>
 

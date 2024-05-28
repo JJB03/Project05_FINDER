@@ -6,45 +6,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .company-name {
-            position: absolute;
-        }
-
-        .container-line {
-            border: lightgrey solid 1px;
-            border-radius: 8px;
-            height: 450px;
-        }
-
-        .apply-user {
-            font-size: 17px;
-            margin-top: 15px;
+        .click-me{
+            font-size: 17px; 
+            margin-bottom: 15px; 
             font-weight: bold;
-            border-bottom: lightgrey solid 2px;
-        }
-
-
-        .pagination-container {
-            display: flex;
-            margin-top: 10px;
-            justify-content: center;
         }
     </style>
-    <title>제출된 이력서</title>
+    <title>나의 이력서</title>
 </head>
 
 <body layout:fragment="content">
 
-
     <div class="container-fluid container">
-        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
+        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px;">
             <strong style="font-size: 45px; margin-bottom: 15px;">이력서 관리</strong>
-            <strong style="font-size: 19px;">앞으로의 길을 내다볼 때 필요한 건 아닌 판단이다.</strong>
+            <strong style="font-size: 19px;">경험은 만들어 낼 수 없다. 그것은 겪어야만 한다.</strong>
         </div>
-
         <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
 
-            <nav class="col-12 col-sm-12 col-lg-3 sidebar">
+            <nav class="col-12 col-md-12 col-lg-3 sidebar">
                 <div style="margin: 15px 0 45px 15px;">
                     <strong style="font-size: 24px;">
                         마이페이지
@@ -52,40 +32,16 @@
                 </div>
                 <ul class="nav flex-column ul-header">
                     <li class="li-header">
-                        <strong class="fs-5">기업 정보</strong>
+                        <strong class="fs-5">내 정보</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="/company/introduce_com" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/home.png" alt="x">
-                                </div>
-                                <div>
-                                    기업 소개
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/company/info_update_com" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/user/update_user" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Registration.png" alt="x">
                                 </div>
                                 <div>
-                                    기업 정보 수정
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/company/creditList_com" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/CreditCard.png" alt="x">
-                                </div>
-                                <div>
-                                    결제 내역
+                                    내 정보 수정
                                 </div>
                             </div>
                         </a>
@@ -96,25 +52,25 @@
                         <strong class="fs-5">채용공고 관리</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="/recruit/post_jobs_com" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/recruit/applied_jobs_user" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/list.png" alt="x">
                                 </div>
                                 <div>
-                                    채용공고 등록
+                                    지원한 채용공고
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/recruit/posted_jobs_com" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/recruit/new_jobs_user" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/list.png" alt="x">
                                 </div>
                                 <div>
-                                    등록한 채용공고
+                                    최근 본 채용공고
                                 </div>
                             </div>
                         </a>
@@ -125,25 +81,25 @@
                         <strong class="fs-5">이력서 관리</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="/company/recruitList_com" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/resume/cv_list_user" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Documents.png" alt="x">
                                 </div>
                                 <div>
-                                    제출된 이력서
+                                    나의 이력서
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/company/score_com" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/resume/cv_create_user" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Documents.png" alt="x">
                                 </div>
                                 <div>
-                                    AI 간편 평가
+                                    이력서 작성
                                 </div>
                             </div>
                         </a>
@@ -151,10 +107,11 @@
                 </ul>
             </nav>
 
+
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
                 <div class="job-listings ">
-                    <form class="job-header">
-                        <div style="padding: 15px;"><strong>제출된 이력서</strong></div>
+                    <div class="job-header">
+                        <div style="padding: 15px;"><strong>나의 이력서</strong></div>
                         <!-- <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-right: 20px;"> -->
                         <div class="d-flex justify-content-end align-items-center me-3 mb-2">
                             <!-- <select name="filter" id="filter" class="form-control"> -->
@@ -162,17 +119,16 @@
                                 style="color: #828282; padding: 3px 12px 3px 12px;">
                                 <option value="1">최근 날짜</option>
                             </select>
-                            <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
-                                placeholder="검색어를 입력해주세요">
+                            <input class="form-control form_input"  type="text" name="search_filter" id="search_filter" placeholder="검색어를 입력해주세요">
                             <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
                                 찾기
                             </button>
                         </div>
-                    </form>
+                    </div>
 
 
-
-                    <a href="/company/SVread_com" class="job-item-link">
+                    <!-- 삭제 버튼 눌렀는데 바로 페이지로 이동함.-->
+                    <a href="/company/cv_read_com" class="job-item-link">
                         <div class="job-item d-flex flex-column">
                             <div style="width: 38px; height: 15px;">
                                 <!-- new 자리 -->
@@ -211,28 +167,6 @@
 
 
 
-                    <!-- 페이징 html, page dto 만들어야 함.-->
-                    <nav aria-label="Page navigation example" class="pagination-container">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-
-
 
                 </div>
             </main>
@@ -241,7 +175,22 @@
     </div>
 
     <script>
-        document.getElementById('button').addEventListener('click', function(event) {
+        function moveToRecruit() {
+            location.href="/resume/cv_read_user.html"
+        }
+
+
+        function moveToDelete() {
+            let userDelete = confirm('삭제하시겠습니까?');
+            if (userDelete) {
+                alert('삭제가 완료되었습니다.');
+                // 여기서 실제 삭제 작업을 수행
+            } else {
+                alert('삭제가 취소되었습니다.');
+            }
+        }
+
+        document.getElementById('btn-stop').addEventListener('click', function(event) {
             event.stopPropagation();  // 이벤트 전파 중지
         });
     </script>
