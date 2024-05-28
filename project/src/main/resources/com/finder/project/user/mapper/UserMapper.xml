@@ -14,7 +14,6 @@
         <result property="userBirth" column="user_birth" />
         <result property="userPhone" column="user_phone" />
         <result property="userEmail" column="user_email" />
-        <result property="userLikeJob" column="user_like_job" />
         <result property="userRegDate" column="user_reg_date" />
         <result property="userUpdDate" column="user_upd_date" />
         <result property="userGender" column="user_gender" />
@@ -41,7 +40,6 @@
             u.user_birth ,
             u.user_phone ,
             u.user_email ,
-            u.user_like_job ,
             u.user_reg_date ,
             u.user_upd_date ,
             u.user_gender ,
@@ -65,7 +63,6 @@
             u.user_birth ,
             u.user_phone ,
             u.user_email ,
-            u.user_like_job ,
             u.user_reg_date ,
             u.user_upd_date ,
             u.user_gender ,
@@ -79,7 +76,7 @@
 
     <!-- 회원 가입 -->
     <insert id="join">
-        INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_like_job, user_gender )
+        INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender )
         VALUES (#{userName}, #{userId}, #{userPw}, #{userBirth}, #{userPhone}, #{userEmail}, #{userLikeJob}, #{userGender})
     </insert>
 

@@ -16,15 +16,5 @@ public class ResumeDto {
     private String cover_letter;
     private Timestamp cv_reg_date;
     private Timestamp cv_upd_date;
-
-    //이미지 파일
-    MultipartFile thumbnail;
-    
-    //파일 
-    List<MultipartFile> file;
-
-    //파일 번호
-    private int file_no;
-
 }
 
