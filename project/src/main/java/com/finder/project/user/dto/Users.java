@@ -15,7 +15,6 @@ public class Users {
     private String userBirth;
     private String userPhone;
     private String userEmail;
-    private String userLikeJob;
     private Date userRegDate;
     private Date userUpdDate;
     private String userGender;
