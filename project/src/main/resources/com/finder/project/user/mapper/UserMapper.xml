@@ -77,7 +77,9 @@
     <!-- 회원 가입 -->
     <insert id="join">
         INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender )
+
         VALUES (#{userName}, #{userId}, #{userPw}, #{userBirth}, #{userPhone}, #{userEmail}, #{userGender})
+
     </insert>
 
     <!-- 회원 정보 수정 -->
