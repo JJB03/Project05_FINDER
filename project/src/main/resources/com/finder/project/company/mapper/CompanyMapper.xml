@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finder.project.company.mapper.CompanyMapper">
+
+    <!-- 기업 상세 정보 조회 -->
+    <select id="select" resultType="Company">
+        SELECT *
+        FROM company_detail
+        WHERE com_info_no = #{comInfoNo}
+    </select>
+ 
+
+    <!-- 기업 상세 정보 등록 -->
+    <insert id="insert">
+        INSERT INTO company_detail( com_represent, com_category, com_size, com_emp_count, com_sales )
+        VALUES ( #{title}, #{writer}, #{content} )
+    </insert>
+
+    <insert id="insertCompanyDetail" parameterType="com.example.demo.dto.CompanyDetailDTO">
+        INSERT INTO company_detail (com_represent, com_category, com_url, com_size, com_emp_count, com_sales, com_content, com_address, com_vision, com_welfare, com_avg_salary, com_no)
+        VALUES (#{comRepresent}, #{comCategory}, #{comUrl}, #{comSize}, #{comEmpCount}, #{comSales}, #{comContent}, #{comAddress}, #{comVision}, #{comWelfare}, #{comAvgSalary}, #{comNo})
+    </insert>
+
+    <!-- 기업 상세 정보 수정 -->
+    <update id="updateCompanyDetail" parameterType="com.example.demo.dto.CompanyDetailDTO">
+        UPDATE company_detail
+        SET com_represent = #{comRepresent},
+            com_category = #{comCategory},
+            com_url = #{comUrl},
+            com_size = #{comSize},
+            com_emp_count = #{comEmpCount},
+            com_sales = #{comSales},
+            com_content = #{comContent},
+            com_address = #{comAddress},
+            com_vision = #{comVision},
+            com_welfare = #{comWelfare},
+            com_avg_salary = #{comAvgSalary},
+            com_no = #{comNo}
+        WHERE com_info_no = #{comInfoNo}
+    </update>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 기업 정보 조회 -->
+    <select id="select" resultType="Company">
+        SELECT *
+        FROM company
+        WHERE com_no = #{comNo}
+    </select>
+
+    <!-- 기업 정보 등록 -->
+    <insert id="insert">
+        INSERT INTO company
+        VALUES ( #{title}, #{writer}, #{content} )
+    </insert>
+
+    <!-- 기업 정보 수정 -->
+    <update id="update">
+        UPDATE board
+           SET title = #{title}
+              ,writer = #{writer}
+              ,content = #{content}
+              ,upd_date = now()
+        WHERE no = #{no}
+    </update>
+
+</mapper>

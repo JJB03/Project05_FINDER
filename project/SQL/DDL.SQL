@@ -34,6 +34,7 @@ DROP TABLE IF EXISTS `order`;	-- 주문 테이블
 DROP TABLE IF EXISTS credit;	-- 결제내역 테이블
 
 
+
 -- 테이블 생성
 
 -- 회원 테이블
@@ -49,6 +50,7 @@ CREATE TABLE `user` (
 	`user_reg_date` timestamp NOT NULL DEFAULT now(),
 	`user_upd_date` timestamp NULL DEFAULT now(),
 	`user_gender` enum('남자','여자') NOT NULL,
+	`ENABLED` int DEFAULT 1,
 	PRIMARY KEY (`user_no`)
 );
 
