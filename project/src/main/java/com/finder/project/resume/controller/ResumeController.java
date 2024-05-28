@@ -15,8 +15,15 @@ public class ResumeController {
     
     @GetMapping("/{page}")
     public String main(@PathVariable("page") String page) {
-        log.info("이력서 화면...");
+        log.info("메인 화면...");
         return "/resume/" + page;
     }
 
+    // @GetMapping("/{domain}/{page}")
+    // public String main(@PathVariable("domain") String domain
+    //                   ,@PathVariable("page") String page  ) {
+    //     log.info("메인 화면...");
+    //     return domain + "/" + page;
+    // }   
+    
 }
