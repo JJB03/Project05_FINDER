@@ -158,62 +158,67 @@
                         <div style="padding: 15px;"><strong>기업 소개</strong></div>
                     </div>
 
-                    <form action="" method="post" style="width:100% !important; border-radius: 12px;">
+                    <form action="/company/insert_detail" method="post" style="width:100% !important; border-radius: 12px;">
+                        <!-- CSRF 토큰 -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <!-- <input type="hidden" name="no" th:value="${companyDetail.comInfoNo}"> -->
                         <div class="d-flex justify-content-end">
-                            <button class="btn-long">
+                            <button type="submit" class="btn-long">
                                 등록
                             </button>
                             <button class="btn-long" style="margin-left: 15px;">
                                 수정
                             </button>
                         </div>
+
                         <div class="company-introduce d-flex flex-column w-100">
                             <div>
-                                <input type="text" placeholder="제목을 입력해주세요." class="w-100 my-4 com-intro-title">
+                                <input type="text" class="w-100 my-4 com-intro-title" name="com_intro_title">
                             </div>
                             <div class="row">
                                 <div class="d-flex flex-column row-gap-3 col-3">
                                     <img src="/img/업력연차.png" alt="업력연차">
-                                    <input type="text" id="com" name="" placeholder="N년차" style="border: none; text-align: center;"> <!-- 업력 연차 ERD 에서 만들지 않음 -->
+                                    <input type="text" id="com_birth" name="com_birth" class="com-intro-input" style="text-align: center;" placeholder="N년차">
                                     <h4 style="text-align: center;">업력 연차</h4>
                                 </div>
                                 <div class="d-flex flex-column row-gap-3 col-3">
                                     <img src="/img/기업규모.png" alt="기업규모">
-                                    <input type="text" id="com_size" name="com_size" placeholder="소/중소/대" style="border: none; text-align: center;">
+                                    <input type="text" id="com_size" name="com_size" class="com-intro-input" style="text-align: center;" placeholder="대기업">
                                     <h4 style="text-align: center;">기업 규모</h4>
                                 </div>
                                 <div class="d-flex flex-column row-gap-3 col-3">
                                     <img src="/img/사원수.png" alt="사원수">
-                                    <input type="text" id="com_emp_count" name="com_emp_count" placeholder="N명" style="border: none; text-align: center;">
+                                    <input type="text" id="com_emp_count" name="com_emp_count" class="com-intro-input" style="text-align: center;" placeholder="50000명">
                                     <h4 style="text-align: center;">사원수</h4>
                                 </div>
                                 <div class="d-flex flex-column row-gap-3 col-3">
                                     <img src="/img/매출액.png" alt="매출액">
-                                    <input type="text" id="com_sales" name="com_sales" placeholder="N원" style="border: none; text-align: center;">
+                                    <input type="text" id="com_sales" name="com_sales" class="com-intro-input" style="text-align: center;" placeholder="150억">
                                     <h4 style="text-align: center;">매출액</h4>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between introduce-col2 mb-3">
+                            <div class="d-flex justify-content-between introduce-col2 mb-3" style="column-gap: 25px;">
                                 <div class="w-100">
                                     <label for="com_represent">대표명</label>
-                                    <input class="com-intro-input" type="text" id="com_represent" name="com_represent" placeholder="홍준범">
+                                    <input class="com-intro-input" type="text" id="com_represent" name="com_represent" placeholder="홍준범" >
                                 </div>
                                 <div class="w-100">
                                     <label for="com_category">업종</label>
-                                    <input class="com-intro-input" type="text" id="com_category" name="com_category" placeholder="소프트웨어 개발">
+                                    <input class="com-intro-input" type="text" id="com_category" name="com_category" placeholder="소프트웨어 개발" >
                                 </div>
                             </div>
                             <div class="introduce-col3 ">
                                 <label for="com_address">주소</label>
-                                <input class="com-intro-input" type="text" id="com_address" name="com_address" placeholder="인천광역시 부평구 부평1동 534-48">
+                                <input class="com-intro-input" type="text" id="com_address" name="com_address" placeholder="인천광역시 부평구 부평1동 534-48" >
                             </div>
                             <div class="w-100 introduce-col4">                                
                                 <h4 class="w-100" style="text-align: center; background-color: #bdbdbd; margin-top: 20px; margin-bottom: 0;">기술 소개</h4>
                                 <textarea class="w-100" style="min-height: 300px; border: 1px solid #bdbdbd; border-radius: 0 0 8px 8px;" name="com_content" id="com_content" placeholder="기업 소개글을 작성하세요."></textarea>
                             </div>
                         </div>
-                    </form>
 
+
+                    </form>
 
                 </div>
             </main>
