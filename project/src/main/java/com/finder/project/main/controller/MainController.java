@@ -13,6 +13,7 @@ import com.finder.project.recruit.service.RecruitService;
 import lombok.extern.slf4j.Slf4j;
 
 
+
 @Slf4j
 @Controller
 public class MainController {
@@ -26,6 +27,12 @@ public class MainController {
         log.info("메인 화면...");
 
         List<RecruitPost> recruitList = recruitService.recruitList();
+
+        for (RecruitPost recruitPost : recruitList) {
+            
+            log.info("잘 나오니 ?" + recruitPost.getCompany().getComName());
+        }
+
         model.addAttribute("recruitList", recruitList);
 
         return "/index";

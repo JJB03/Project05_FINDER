@@ -54,9 +54,9 @@
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       <th:block th:if="${recruitList.isEmpty()}">
-        <td colspan="6">
-          조회된 게시글 정보가 없습니다.
-        </td>
+        <div>
+          <span>조회된 채용공고 정보가 없습니다.</span>
+        </div>
       </th:block>
 
       <th:block th:each="recruit : ${recruitList}">
@@ -69,22 +69,31 @@
                   <img src="/img/logo.png" alt="" style="width: 75px;">
                 </div>
                 <input type="hidden" name="recruitNo" th:value="${recruit.recruitNo}">
-                <p class="card-text" style=" font-size: 12px;" th:text="${recruit.recruitTitle}"></p>
+                <p class="card-text" style=" font-size: 12px;" th:text="${recruit.company.comName}"></p>
               </div>
-              <strong>
-                현대 중공업 [ 연구개발 R&D ]
+              <strong th:text="${recruit.recruitTitle}">
+                
               </strong>
 
               <div class="keyword-span d-flex justify-content-start ">
-                <span>#연구개발</span>
-                <span>#포천시</span>
-                <span>#계약직</span>
+                <th:block th:each="keyword : ${recruit.keywordList}">
+                  <span th:text="${keyword.recruitKeyword}">
+
+                  </span>
+                
+                </th:block>
               </div>
 
               <div class="d-flex justify-content-between ">
-                <div>2024.05.20 ~ 채용시</div>
+
+                <div th:text="${recruit.recruitRegDate}">
+
+                </div>
+
                 <div>
-                  <button class="btn-short">조회</button>
+                  <button class="btn-short" >
+                    <a th:href="|/recruit/detail_jobs_user?recuitNo=${recruit.recruitNo}|" style="text-decoration-line: none; color: white;">조회</a>
+                  </button>
                 </div>
               </div>
             </div>

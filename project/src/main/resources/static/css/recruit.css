@@ -135,7 +135,8 @@
     /* 전체 영역 클릭 가능하게 블록 요소로 변경 */
 
     width: 300px;
-    height: 90px;
+    height: 90px; 
+    
     margin-bottom: 15px;
     border-radius: 20px;
 
