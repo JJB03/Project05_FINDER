@@ -154,7 +154,7 @@
                         <div for="username" class="userid">아이디</div>
                         <div id="id">
                                 <!-- 사용자 아이디 -->
-                                <input type="text" id="username" name="username" placeholder="사용자 아이디"
+                                <input type="text" id="username" th:value="${session.user.userId}" name="username" placeholder="사용자 아이디"
                                     readonly>
                         </div>
                         <br>
@@ -180,7 +180,7 @@
                         
                         <div class="gender">
                             <!-- 이름 -->
-                            <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
+                            <input class="input-name" type="text" id="name" name="name" th:value="${session.user.userName}" required placeholder="이름" readonly>
                             <div class="gender-btn">
                                 <button type="button" class="btn-male" id="male" name="gender" onclick="change_btn(event)">남</button>
                                 <button type="button" class="btn-female" id="female" name="gender" onclick="change_btn(event)">여</button>
@@ -271,14 +271,11 @@
         var clickedButton = event.target;
         clickedButton.classList.add('selected');
         }
-        
 
-        var myModal = document.getElementById('myModal')
-        var myInput = document.getElementById('myInput')
 
-        myModal.addEventListener('shown.bs.modal', function () {
-            myInput.focus()
-        })
+        // 타임리프 템플릿 자바스크립트 객체로 세션 전달하기
+
+
     </script>
 </body>
 

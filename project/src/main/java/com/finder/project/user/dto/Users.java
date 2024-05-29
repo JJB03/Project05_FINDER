@@ -24,8 +24,8 @@ public class Users {
     private int enabled;
 
 
-    private Company company;
-    private CompanyDetail companyDetail;
+    private Company company;                // 기업 테이블 (info_update_com)
+    private CompanyDetail companyDetail;    // 기업 상세 테이블 (introduce_com)
 
 
     private List<UserAuth> authList;
