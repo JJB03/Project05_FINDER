@@ -32,5 +32,10 @@ public interface CompanyMapper {
     public int updateCompany(Company company) throws Exception;
 
     // // 기업 정보 삭제는 없음 (기업 정보)
+
+    // 유저번호로 기업 조회
+    public Company selectByUserNo(int userNo);   
+    // 기업번호로 기업상세 조회
+    public CompanyDetail selectCompanyDetailByComNo(int comNo);
 }
 
