@@ -95,6 +95,7 @@ CREATE TABLE `cv` (
 	`cv_no` int NOT NULL AUTO_INCREMENT,
 	`user_no` int NOT NULL,
 	`cover_letter` text NULL,
+	`cv_title`	VARCHAR(255)	NULL,
 	`cv_reg_date` timestamp NOT NULL DEFAULT now(),
 	`cv_upd_date` timestamp NULL DEFAULT now(),
 	PRIMARY KEY (`cv_no`),

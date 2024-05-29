@@ -2,46 +2,70 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.finder.project.resume.mapper.ResumeMapper">
 
+<resultMap id="CvResultMap" type="com.finder.project.resume.dto.Resume">
+    <id property="cvNo" column="cv_no"/>
+    <result property="coverLetter" column="cover_letter"/>
+    <result property="cvTitle" column="cv_title"/>
+    <result property="cvRegDate" column="cv_reg_date"/>
+    <result property="cvUpdDate" column="cv_upd_date"/>
+    
+    <!-- education mapping -->
+    <collection property="educationList" ofType="com.finder.project.resume.dto.Education">
+        <id property="educationNo" column="education_no"/>
+        <result property="university" column="university"/>
+        <result property="major" column="major"/>
+        <result property="universityStatus" column="university_status"/>
+        <result property="cvNo" column="cv_no"/>
+    </collection>
 
-<!--이력서 리스트 조회-->
-    <select id="list" resultType="ResumeDto">
-        SELECT *
-        FROM cv
-        WHERE cv_no = #{cv_no}
-    </select>
+    <!-- employment_history mapping -->
+    <collection property="employmentHistory" ofType="com.finder.project.resume.dto.EmploymentHistory">
+        <id property="employmentHistoryNo" column="employment_history_no"/>
+        <result property="organization" column="organization"/>
+        <result property="duration" column="duration"/>
+        <result property="duties" column="duties"/>
+        <result property="cvNo" column="cv_no"/>
+    </collection>
+</resultMap>
 
-<!-- 이력서 상세 조회-->
-<!-- 왜 안 켜지지 -->
-    <select id="select" resultType="ResumeDto">
-      SELECT * FROM cv
-      WHERE user_no = #{user_no}
-    </select>
+  <!-- 이력서 리스트 조회 -->
+  <select id="resumelist" resultMap="CvResultMap">
+      SELECT c.*, eh.*, ed.*
+      FROM cv c
+      INNER JOIN employment_history eh ON c.cv_no = eh.cv_no
+      INNER JOIN education ed ON c.cv_no = ed.cv_no
+  </select>
 
-<!--여기 켜지긴 하는데 union이든 뭐든 조인해야해요.-->
-<!--이력서 작성-->
+  <!-- 이력서 상세 조회 -->
+  <select id="select" resultMap="CvResultMap">
+    SELECT c.*, eh.*, ed.*
+      FROM cv c
+      INNER JOIN employment_history eh ON c.cv_no = eh.cv_no
+      INNER JOIN education ed ON c.cv_no = ed.cv_no
+    WHERE c.cv_no = #{cvNo}
+  </select>
+
+  <!-- 이력서 작성 -->
   <insert id="create">
-    INSERT INTO `cv` (`user_no`, `cover_letter`)
-    VALUES (#{user_no}, '#{cover_letter}');
+    INSERT INTO `cv` (`user_no`, `cover_letter`, `cv_title`)
+    VALUES 
+    (#{userNo}, #{coverLetter}, #{cvTitle});
 
     INSERT INTO `employment_history` (`organization`, `duration`, `duties`, `cv_no`)
-    VALUES ('#{organization}', '#{duration}', '#{duties}', #{cv_no});
+    VALUES 
+    (#{employHistoryList.organizationName}, #{employHistoryList.durationDate}, #{employHistoryList.dutiesJob}, #{cvNo});
 
     INSERT INTO `education` (`cv_no`, `university`, `major`, `university_status`)
-    VALUES (#{cv_no}, '#{university}', '#{major}', '#{university_status}');
+    VALUES 
+    (#{cvNo} ,#{educationList.universityName}, #{educationList.majorName}, #{educationList.universityStatus} );
   </insert>
 
-<!--상세조회가 켜져야 수정이 가능합니다.-->
-<!--이력서 수정-->
-
-<!--이력서 삭제-->
+  <!-- 이력서 삭제 -->
   <delete id="delete">
-        DELETE FROM cv
-        WHERE cv_no = #{cv_no}
-    </delete>
-
-
+    DELETE FROM cv
+    WHERE cv_no = #{cv_no}
+  </delete>
 
 </mapper>

@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.finder.project.main.dto.File;
 import com.finder.project.main.service.FileService;
-import com.finder.project.resume.dto.ResumeDto;
+import com.finder.project.resume.dto.Resume;
 import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 import com.finder.project.user.service.UserService;
@@ -60,7 +61,7 @@ public class ResumeController {
     // public String CvList(Model model, Option option) throws Exception {
     //     log.info("이력서 목록 조회화면입니다.");
     //     //1)데이터 요청
-    //     List<ResumeDto> resumeList = resumeService.list(option);
+    //     List<Resume> resumeList = resumeService.list(option);
 
     //     //2)모델 등록하기
     //     model.addAttribute("resumeList", resumeList);
@@ -78,10 +79,14 @@ public class ResumeController {
     //     //3)뷰 페이지 지정
     //     return "/resume/cv_list_user";
     // }
+        
 
     @GetMapping("/cv_list_user")
-    public String CvList(Model model) throws Exception {
-        List<ResumeDto> resumeList = resumeService.list();
+    public String CvList(@SessionAttribute("user") Users user ,Model model) throws Exception {
+        
+        int userNo = user.getUserNo();
+        log.info(" 이력서 목차는 : " + userNo);
+        List<Resume> resumeList = resumeService.resumelist(userNo);
 
         //모델 등록
         model.addAttribute("resumeList", resumeList);
@@ -92,7 +97,7 @@ public class ResumeController {
     
 
     /**
-     * 게시글 등록 처리
+     * 게시글 등록 처리화면
      * @return
      */
     @GetMapping("/cv_create_user")
@@ -101,14 +106,15 @@ public class ResumeController {
     }
 
     @PostMapping("/cv_create_user")
-    public String CvCreatePro(ResumeDto resumeDto) throws Exception {
-        log.info(resumeDto.toString());
+    public String CvCreatePro(Resume Resume) throws Exception {
+        log.info(Resume.toString());
 
         //데이터요청
-        int result = resumeService.create(resumeDto);
+        int result = resumeService.create(Resume);
         //리다이렉트 데이터 처리 성공
         if (result>0) {
-            return"redirect:/resume/cv_create_user";
+            log.info("등록 성공");
+            return"redirect:/resume/cv_list_user";
         }
         //데이터 처리 실패
         return "redirect:/index";
@@ -121,17 +127,37 @@ public class ResumeController {
      * 파일 요청도 해야함.
      */
     @GetMapping("/cv_read_user")
-    public String getMethodName( Model model ) throws Exception{
-        log.info("데이터를 안 불러와요");
-        //데이터 가지고 오기
-        ResumeDto resumeDto = resumeService.select(1);
+    public String cvReadUser(@SessionAttribute("user") Users user
+                                ,Model model) throws Exception{
+        // 세션으로 가져온 User 객체의 user_no을 참조해서 service에 넣기
+            // 세션에서 사용자 정보를 가져옴
+            int userNo = user.getUserNo();
 
-        //회원정보 가지고 오기
-        Users user = userService.select("정주빈");
+            // 사용자의 이력서 정보를 가져옴
+            Resume resume = resumeService.select(userNo);
 
-        //이력서 정보 - 유저 정보
-        model.addAttribute("resumeDto", resumeDto);
-        return "resume/cv_read_user";
+            // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
+            model.addAttribute("Resume", resume);
+
+            // 이력서 정보가 담긴 화면으로 이동
+            return "resume/cv_read_user";
+    }
+    
+    /**
+     * 구직자 게시글 수정 처리
+     * @param Resume
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/cv_read_user")
+    public String ReadUserPro(Resume Resume) throws Exception{
+        int result = resumeService.update(Resume);
+        if (result>0) {
+            return "redirect:/cv_read_user";
+        }
+        //실패시
+        int cv_no = Resume.getCvNo();
+        return "redirect:/resume/cv_read_user=" + cv_no + "&error";
     }
     
 
@@ -141,57 +167,36 @@ public class ResumeController {
      * @return
      */
     @GetMapping("/cv_read_com")
-    public String ReadCom(@RequestParam("cv_no") int cv_no
-                            , Model model
-                            , File file) throws Exception {
-        //데이터 요청
-        ResumeDto resumeDto = resumeService.select(cv_no);
+    public String ReadCom(@SessionAttribute("user") Users user
+                            , Model model) throws Exception {
 
-        //파일 목록 요청
-        file.setParentTable("resumeDto");
-        file.setCvNo(cv_no);
+            // 세션에서 사용자 정보를 가져옴
+            int userNo = user.getUserNo();
 
-        List<File> fileList = fileService.listByParent(file);
+            // 사용자의 이력서 정보를 가져옴
+            Resume resume = resumeService.select(userNo);
 
-        //모델등록
-        model.addAttribute("resumeList", resumeDto);
-        model.addAttribute("fileList", fileList);
+            // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
+            model.addAttribute("Resume", resume);
 
-        //뷰페이지 지정
-        return "resume/cv_read_com";
+            // 화면 이동
+            return "resume/cv_read_com";
     }
 
-    /**
-     * 구직자 게시글 수정 처리
-     * @param resumeDto
-     * @return
-     * @throws Exception
-     */
-    @PostMapping("/cv_read_user")
-    public String ReadUserPro(ResumeDto resumeDto) throws Exception{
-        int result = resumeService.update(resumeDto);
-        if (result>0) {
-            return "redirect:/cv_read_user";
-        }
-        //실패시
-        int cv_no = resumeDto.getCv_no();
-        return "redirect:/resume/cv_read_user=" + cv_no + "&error";
-    }
-    
     /**
      * 사업가 게시글 수정 처리
-     * @param resumeDto
+     * @param Resume
      * @return
      * @throws Exception
      */
     @PostMapping("/cv_read_com")
-    public String ReadComPro(ResumeDto resumeDto) throws Exception{
-        int result = resumeService.update(resumeDto);
+    public String ReadComPro(Resume Resume) throws Exception{
+        int result = resumeService.update(Resume);
         if (result>0) {
             return "redirect:/resume/cv_read_com";
         }
         //실패시
-        int cv_no = resumeDto.getCv_no();
+        int cv_no = Resume.getCvNo();
         return "redirect:/resume/cv_read_com=" + cv_no + "&error";
     }
 
@@ -201,7 +206,7 @@ public class ResumeController {
         if (result>0) {
             //파일까지 삭제
             File file = new File();
-            file.setParentTable("resumeDto");
+            file.setParentTable("Resume");
             file.setParentNo(cv_no);
             fileService.deleteByParent(file);
             
