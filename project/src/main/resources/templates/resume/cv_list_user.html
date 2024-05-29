@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .click-me{
-            font-size: 17px; 
-            margin-bottom: 15px; 
+        .click-me {
+            font-size: 17px;
+            margin-bottom: 15px;
             font-weight: bold;
         }
 
-        .mb-3{
-            font-size: 19px; 
+        .mb-3 {
+            font-size: 19px;
             font-weight: bold;
         }
     </style>
@@ -124,7 +124,8 @@
                                 style="color: #828282; padding: 3px 12px 3px 12px;">
                                 <option value="1">최근 날짜</option>
                             </select>
-                            <input class="form-control form_input"  type="text" name="search_filter" id="search_filter" placeholder="검색어를 입력해주세요">
+                            <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
+                                placeholder="검색어를 입력해주세요">
                             <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
                                 찾기
                             </button>
@@ -133,6 +134,7 @@
 
 
                     <!-- 삭제 버튼 눌렀는데 바로 페이지로 이동함.-->
+                    <!--      <th:block th:each="resume : ${resumelist}"> -->
                     <!-- <a href="/resume/cv_read_com" class="job-item-link"> -->
                     <a href="/resume/cv_read_user" class="job-item-link">
                         <div class="job-item d-flex flex-column">
@@ -143,18 +145,31 @@
                                 <div class="d-flex align-items-center">
                                     <!--데이터 불러오기-->
                                     <span class="mb-3">
-                                        안뽑아주면 떨어질게요
+                                        <!-- thtext? -->
+                                        <th:text="${cv.cvTitle}">엥 왜 안 넣어져</th:text>
                                     </span>
                                 </div>
                             </div>
                             <div style="font-size: 16px;" class="row">
                                 <div class="d-flex">
                                     <div style="width: 100%;">
-                                        <span>25</span>
+
+                                        <!-- 나이 -->
+                                        <span>
+                                            25
+                                        </span>
                                         <span>/</span>
-                                        <span>남자</span>
+
+                                        <!-- 성별 -->
+                                        <span>
+                                            남자
+                                        </span>
                                         <span>/</span>
-                                        <span>홍준범</span>
+
+                                        <!-- 이름 -->
+                                        <span>
+                                            홍준범
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +198,7 @@
 
     <script>
         function moveToRecruit() {
-            location.href="/resume/cv_read_user.html"
+            location.href = "/resume/cv_read_user.html"
         }
 
 
@@ -197,7 +212,7 @@
             }
         }
 
-        document.getElementById('btn-stop').addEventListener('click', function(event) {
+        document.getElementById('btn-stop').addEventListener('click', function (event) {
             event.stopPropagation();  // 이벤트 전파 중지
         });
     </script>

@@ -10,34 +10,28 @@
     <!-- 기업 상세 정보 조회 -->
     <select id="selectCompanyDetail" resultType="CompanyDetail">
         SELECT *
-        FROM company_detail
+        FROM company_detail cd JOIN company c ON cd.com_no = c.com_no
         WHERE com_info_no = #{comInfoNo}
     </select>
 
-    <!-- 기업 상세 정보 등록 -->
+    <!-- 기업 상세 정보 등록 (작동은 한다) --> 
     <insert id="insertCompanyDetail">
-        INSERT INTO company_detail(com_represent, com_category, com_url, com_birth, com_size, com_emp_count, com_sales, com_content, com_address, com_vision, com_welfare, com_avg_salary, com_no)
-        VALUES (#{comRepresent}, #{comCategory}, #{comUrl}, #{comBirth}, #{comSize}, #{comEmpCount}, #{comSales}, #{comContent}, #{comAddress}, #{comVision}, #{comWelfare}, #{comAvgSalary}, #{comNo})
+        INSERT INTO company_detail(com_represent, com_url, com_birth, com_size, com_emp_count, com_sales, com_content, com_vision, com_welfare, com_no)
+        VALUES (#{comRepresent}, #{comUrl}, #{comBirth}, #{comSize}, #{comEmpCount}, #{comSales}, #{comContent}, #{comVision}, #{comWelfare}, #{comNo})
     </insert>
 
-    <!-- 기업 상세 정보 수정 -->
+    <!-- 기업 상세 정보 수정 (작동 안함) -->
     <update id="updateCompanyDetail">
         UPDATE company_detail
         SET com_represent = #{comRepresent},
-            com_category = #{comCategory},
-            com_url = #{comUrl},
             com_birth = #{comBirth},
             com_size = #{comSize},
             com_emp_count = #{comEmpCount},
             com_sales = #{comSales},
-            com_content = #{comContent},
-            com_address = #{comAddress},
-            com_vision = #{comVision},
-            com_welfare = #{comWelfare},
-            com_avg_salary = #{comAvgSalary},
-            com_no = #{comNo}
+            com_content = #{comContent}
         WHERE com_info_no = #{comInfoNo}
     </update>
+
 
 
 
@@ -52,8 +46,8 @@
 
     <!-- 기업 등록 -->
     <insert id="insertCompany">
-        INSERT INTO company(com_name, com_category, com_phone, com_email, com_employee, com_address, com_business, user_no)
-        VALUES (#{comName}, #{comCategory}, #{comPhone}, #{comEmail}, #{comEmployee}, #{comAddress}, #{comBusiness}, #{userNo})
+        INSERT INTO company(com_name, com_category, com_address, com_business, user_no)
+        VALUES (#{comName}, #{comCategory}, #{comAddress}, #{comBusiness}, #{userNo})
     </insert>
 
     <!-- 기업 수정 -->
@@ -61,9 +55,6 @@
         UPDATE company
         SET com_name = #{comName},
             com_category = #{comCategory},
-            com_phone = #{comPhone},
-            com_email = #{comEmail},
-            com_employee = #{comEmployee},
             com_address = #{comAddress},
             com_business = #{comBusiness},
             user_no = #{userNo}
@@ -71,15 +62,12 @@
     </update>
 
 
-    <!-- 기업 비밀번호 수정 못짜겠다... -->
-    <update id="updatePW">
-        UPDATE user u 
-        INNER JOIN company c ON u.userNo = c.userNo
-        SET user_pw = #{userPw}
-        WHERE c.comNo = #{comNo}
-    </update>
 
 
+
+
+
+    <!-- 쌤이랑 -->
     <!-- user_no 로 company 조회 -->
     <select id="selectByUserNo" resultType="Company">
         SELECT *
@@ -87,8 +75,8 @@
         WHERE user_no = #{userNo}
         LIMIT 0, 1
     </select>
-
-    <!-- user_no 로 company 조회 -->
+    <!-- 쌤이랑 -->
+    <!-- com_no 로 companyDetail 조회 -->
     <select id="selectCompanyDetailByComNo" resultType="CompanyDetail">
         SELECT *
         FROM company_detail

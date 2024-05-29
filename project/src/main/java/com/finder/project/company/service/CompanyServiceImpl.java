@@ -2,10 +2,12 @@ package com.finder.project.company.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.mapper.CompanyMapper;
+import com.finder.project.user.dto.Users;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -56,6 +58,9 @@ public class CompanyServiceImpl implements CompanyService {
         int result = companyMapper.updateCompany(company);
         return result;
     }
+
+
+
     @Override
     public Company selectByUserNo(int userNo) {
         Company company = companyMapper.selectByUserNo(userNo);
@@ -66,7 +71,5 @@ public class CompanyServiceImpl implements CompanyService {
         CompanyDetail companyDetail = companyMapper.selectCompanyDetailByComNo(comNo);
         return companyDetail;
     }
-
-    
 
 }
