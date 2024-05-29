@@ -69,7 +69,8 @@
                     <div for="phone" class="userphone">휴대폰</div>
 
                     <div class="phone">
-                        <input type="text" id="phone" name="userPhone" required placeholder="번호를 입력해주세요.">
+                        <input type="text" id="phone" name="userPhone" required placeholder="번호를 입력해주세요."
+                            onchange="validatePhone(this)">
                     </div>
 
                     <div for="name" class="username" style="width: 55px; text-align: center;">
@@ -81,7 +82,6 @@
                         <div class="gender-btn">
 
                             <input type="hidden" id="userGender" name="userGender">
-
                             <button type="button" class="btn-male" id="male" name="userGender"
                                 onclick="change_btn(event)" value="남자">남</button>
                             <button type="button" class="btn-female" id="female" name="userGender"
@@ -139,19 +139,17 @@
     </div>
 
     <script>
+        
         //버튼 클릭시 유지하는 js 코드
         function change_btn(event) {
-            // 모든 버튼의 'selected' 클래스를 제거
             var buttons = document.querySelectorAll('.gender-btn button');
             buttons.forEach(function (button) {
                 button.classList.remove('selected');
             });
 
-            // 클릭된 버튼에 'selected' 클래스 추가
             var clickedButton = event.target;
             clickedButton.classList.add('selected');
 
-            // 선택된 성별 값을 가져와서 숨겨진 input 필드에 설정
             var gender = clickedButton.value;
             document.getElementById('userGender').value = gender;
         }
@@ -193,21 +191,24 @@
         }
 
 
-        // 폼 제출 시 호출되는 함수
         function validateForm() {
-            // 생년월일 결합
-            combineBirthdate();
 
-            // 비밀번호 확인
-            validatePasswordConfirmation();
+            validatePasswordConfirmation(); // 비밀번호 확인
 
-            // 아이디 유효성 검사
             var usernameInput = document.querySelector('.username_input');
-            validateId(usernameInput);
+            validateId(usernameInput); // 아이디 유효성 검사
 
-            // 비밀번호가 일치하지 않으면 폼 제출 중단
+            var genderSelected = document.getElementById('userGender').value;
+
+            if (genderSelected === '') { // 성별이 선택되지 않았을 때
+
+                alert('성별을 선택해주세요.'); // 경고 메시지 표시
+
+                return false; // 폼 제출 중단
+            }
+
             if (document.getElementsByName("pw_confirm")[0].checkValidity() === false) {
-                document.getElementsByName("pw_confirm")[0].reportValidity(); // 유효성 검사 메시지 표시
+                document.getElementsByName("pw_confirm")[0].reportValidity(); // 비밀번호 일치 여부 검사
                 return false;
             }
 
@@ -222,6 +223,19 @@
             option.value = i;
             option.textContent = i + '년';
             yearSelect.appendChild(option);
+        }
+
+        // 휴대전화 유효성 검사
+        function validatePhone(input) {
+            var phone = input.value;
+            // 휴대폰 번호가 11자리인지 확인
+            if (phone.length !== 11 || !/^[0-9]+$/.test(phone)) {
+                input.setCustomValidity("휴대전화번호 형식이 아닙니다.");
+            } else {
+                input.setCustomValidity("");
+            }
+            // 유효성 검사 메시지 표시
+            input.reportValidity();
         }
 
         // 월 채우기

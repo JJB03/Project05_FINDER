@@ -53,7 +53,7 @@ public class UserController {
         }
 
         // 회원가입 실패
-        return "redirect:/error";
+        return "redirect:/user/join_user";
     }
 
     // @GetMapping("/{domain}/{page}")
