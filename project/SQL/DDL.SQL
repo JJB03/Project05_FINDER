@@ -1,4 +1,6 @@
 
+-- Active: 1716771409910@@127.0.0.1@3306@joeun
+
 
 -- 테이블 삭제 ( 총 16개 )
 DROP TABLE IF EXISTS user;		-- 회원 테이블
@@ -53,6 +55,24 @@ CREATE TABLE `user` (
 	`ENABLED` int DEFAULT 1,
 	PRIMARY KEY (`user_no`)
 );
+
+-- 잠시만 값에 null 넣는 테이블
+CREATE TABLE `user` (
+    `user_no` int NOT NULL AUTO_INCREMENT,
+    `user_name` varchar(500) NULL,
+    `user_id` varchar(500) NULL,
+    `user_pw` varchar(500) NULL,
+    `user_before_pw` varchar(500) NULL,
+    `user_birth` varchar(8) NULL,
+    `user_phone` varchar(11) NULL,
+    `user_email` varchar(500) NULL,
+    `user_reg_date` timestamp NULL DEFAULT now(),
+    `user_upd_date` timestamp NULL DEFAULT now(),
+    `user_gender` enum('남자','여자') NULL,
+    `ENABLED` int DEFAULT 1,
+    PRIMARY KEY (`user_no`)
+);
+
 
 -- 권한 테이블
 CREATE TABLE `user_auth` (
@@ -149,13 +169,12 @@ CREATE TABLE `company` (
 CREATE TABLE `recruit` (
 	`recruit_no` int NOT NULL AUTO_INCREMENT,
 	`recruit_title` varchar(500) NOT NULL,
-	`recruit_writer` varchar(500) NOT NULL,
 	`recruit_content` text NOT NULL,
 	`com_no` int NOT NULL,
 	`recruit_responsibilities` varchar(500) NULL,
 	`recruit_qualifications` varchar(500) NULL,
 	`reruit_preferred_qualifications` varchar(500) NULL,
-	`recruit_reg_date` date NOT NULL,
+	`recruit_reg_date` varchar(500) NOT NULL,
 	`com_reg_date` timestamp NOT NULL DEFAULT now(),
 	`com_upd_date` timestamp NULL DEFAULT now(),
 	PRIMARY KEY (`recruit_no`),
@@ -241,4 +260,4 @@ CREATE TABLE `credit` (
     `order_no` INT NOT NULL,
     PRIMARY KEY (`credit_no`),
 	FOREIGN KEY (`order_no`) REFERENCES `order`(`order_no`)
-);
+);	
