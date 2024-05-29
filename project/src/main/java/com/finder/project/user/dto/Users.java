@@ -23,8 +23,10 @@ public class Users {
     private String userGender;
     private int enabled;
 
+
     private Company company;
     private CompanyDetail companyDetail;
+
 
     private List<UserAuth> authList;
 }
