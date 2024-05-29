@@ -92,10 +92,16 @@
                     <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
 
                     <div class="birthdate">
-                        <select name="userBirth" id="year" title="년도" required></select>
-                        <select name="userBirth" id="month" title="월" required></select>
-                        <select name="userBirth" id="day" title="일" required></select>
-                        <input type="hidden" id="user_birth" name="userBirth">
+
+                        <input type="date" id="startDate" name="userBirth" class="keyword-main">
+
+
+                        <!-- <option name="userYear" id="year" title="년도"></option>
+                        <option name="userMonth" id="month" title="월"></option>
+                        <option name="userDay" id="day" title="일"></option> -->
+                        <!-- <input type="hidden" id="user_birth" name="userBirth"> -->
+                        <!-- <input type="hidden" id="user_birth" name="userBirth"> -->
+                        <!-- <input type="hidden" id="user_birth" name="userBirth"> -->
                     </div>
 
                     <br>
@@ -253,14 +259,15 @@
             fillDays(yearSelect.value, monthSelect.value);
         });
 
-        function combineBirthdate() {
-            const year = document.getElementById('year').value;
-            const month = document.getElementById('month').value.padStart(2, '0');
-            const day = document.getElementById('day').value.padStart(2, '0');
-            const birthdate = `${year}-${month}-${day}`;
-            console.log('생년월일: ' + birthdate);
-            document.getElementById('userBirth').value = birthdate;
-        }
+        // function combineBirthdate() {
+        //     const year = document.getElementById('year').value;
+        //     const month = document.getElementById('month').value;
+        //     const day = document.getElementById('day').value;
+        //     const birthdate = `${year}${month}${day}`;
+        //     console.log('생년월일: ' + birthdate);
+        //     alert('생년월일: ' + birthdate);
+        //     document.getElementById('userBirth').value = birthdate;
+        // }
     </script>
 
 

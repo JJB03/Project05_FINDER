@@ -35,9 +35,9 @@ public class UserController {
     @PostMapping("/join_user")
     public String joinPro(Users users) throws Exception {
         // 생년월일의 쉼표를 "-"으로 변경
-        String userBirth = users.getUserBirth();
-        userBirth = userBirth.replace(",", "-");
-        users.setUserBirth(userBirth);
+        // String userBirth = users.getUserBirth();
+        // userBirth = userBirth.replace(",", "-");
+        // users.setUserBirth(userBirth);
 
         String userEmail = users.getUserEmail();
         userEmail = userEmail.replace(",","");

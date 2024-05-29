@@ -16,12 +16,14 @@ public class Users {
     private String userPw;
     private String userBeforePw;
     private String userBirth;
+
     private String userPhone;
     private String userEmail;
     private Date userRegDate;
     private Date userUpdDate;
     private String userGender;
     private int enabled;
+
 
 
     private Company company;
