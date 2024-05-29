@@ -44,20 +44,20 @@
 
     <!-- info_update_com 기업 정보 수정 페이지 -->
     <!-- 기업 조회 -->
-    <!-- <select id="selectCompanyById" resultType="Company">
+    <select id="selectCompanyById" resultType="Company">
         SELECT *
         FROM company
         WHERE com_no = #{comNo}
-    </select> -->
+    </select>
 
     <!-- 기업 등록 -->
-    <!-- <insert id="insertCompany">
+    <insert id="insertCompany">
         INSERT INTO company(com_name, com_category, com_phone, com_email, com_employee, com_address, com_business, user_no)
         VALUES (#{comName}, #{comCategory}, #{comPhone}, #{comEmail}, #{comEmployee}, #{comAddress}, #{comBusiness}, #{userNo})
-    </insert> -->
+    </insert>
 
     <!-- 기업 수정 -->
-    <!-- <update id="updateCompany">
+    <update id="updateCompany">
         UPDATE company
         SET com_name = #{comName},
             com_category = #{comCategory},
@@ -68,7 +68,7 @@
             com_business = #{comBusiness},
             user_no = #{userNo}
         WHERE com_no = #{comNo}
-    </update> -->
+    </update>
 
 
 

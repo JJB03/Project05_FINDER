@@ -10,7 +10,7 @@ public class CompanyDetail {
     private String comCategory;
     private String comUrl;
     private int comBirth;
-    private companySize comSize;
+    private ComSize comSize;
     private int comEmpCount;
     private int comSales;
     private String comContent;
@@ -22,7 +22,7 @@ public class CompanyDetail {
 }
 
 
-enum companySize {
+enum ComSize {
     대기업,
     중견기업,
     중소기업

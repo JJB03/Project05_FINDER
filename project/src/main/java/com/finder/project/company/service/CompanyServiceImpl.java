@@ -38,24 +38,24 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 
-    // // 기업 정보 조회 (기업 정보)
-    // @Override
-    // public Company selectCompanyById(int no) throws Exception {
-    //     Company company = companyMapper.selectCompanyById(no);
-    //     return company;
-    // }
-    // // 기업 정보 등록 (기업 정보)
-    // @Override
-    // public int insertCompany(Company company) throws Exception {
-    //     int result = companyMapper.insertCompany(company);
-    //     return result;
-    // }
-    // // 기업 정보 수정 (기업 정보)
-    // @Override
-    // public int updateCompany(Company company) throws Exception {
-    //     int result = companyMapper.updateCompany(company);
-    //     return result;
-    // }
+    // 기업 정보 조회 (기업 정보)
+    @Override
+    public Company selectCompanyById(int no) throws Exception {
+        Company company = companyMapper.selectCompanyById(no);
+        return company;
+    }
+    // 기업 정보 등록 (기업 정보)
+    @Override
+    public int insertCompany(Company company) throws Exception {
+        int result = companyMapper.insertCompany(company);
+        return result;
+    }
+    // 기업 정보 수정 (기업 정보)
+    @Override
+    public int updateCompany(Company company) throws Exception {
+        int result = companyMapper.updateCompany(company);
+        return result;
+    }
 
     
 
