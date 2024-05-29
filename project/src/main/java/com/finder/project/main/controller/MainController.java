@@ -21,7 +21,7 @@ public class MainController {
     RecruitService recruitService;
 
     // 메인페이지 (채용공고)
-    @GetMapping("/index")
+    @GetMapping({"/index", ""})
     public String main(Model model) throws Exception {
         log.info("메인 화면...");
 

@@ -56,6 +56,16 @@ public class CompanyServiceImpl implements CompanyService {
         int result = companyMapper.updateCompany(company);
         return result;
     }
+    @Override
+    public Company selectByUserNo(int userNo) {
+        Company company = companyMapper.selectByUserNo(userNo);
+        return company;
+    }
+    @Override
+    public CompanyDetail selectCompanyDetailByComNo(int comNo) {
+        CompanyDetail companyDetail = companyMapper.selectCompanyDetailByComNo(comNo);
+        return companyDetail;
+    }
 
     
 

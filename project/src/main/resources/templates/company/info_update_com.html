@@ -148,34 +148,38 @@
                         <div style="padding: 15px;"><strong>기업 정보 수정</strong></div>
                     </div>
 
-                    <form class="register-form" style="width:100% !important; border-radius: 12px; background-color: #FAFAFA;">
-        
+                    <!-- 비밀번호 변경 폼 -->
+                    <form action="" method="post" class="register-form" style="width:100% !important; border-radius: 12px; background-color: #FAFAFA;">
 
                         <div for="username" class="userid">아이디</div>
                         <div id="id">
+                                <!-- 사용자 아이디 -->
                                 <input type="text" id="username" name="username" placeholder="사용자 아이디"
                                     readonly>
                         </div>
                         <br>
-                        <!-- 비밀번호 변경 -->
                         <div class="d-flex flex-column">
                             <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
+                            
+                            <!-- 현재 DB에 들어있는 비밀번호 -->
                             <input type="password" id="current_password" name="current_password" placeholder="현재 비밀번호 입력" required>
+                            
                             <input type="password" id="password" name="password" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
                             <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
-                            <button class="btn-in-short align-self-end" style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button> <br>
+
+                            <!-- 폼 전송버튼 -->
+                            <button type="submit" class="btn-in-short align-self-end" style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button> <br>
                         </div> 
 
                     </form>
 
-                    <form class="register-form mt-4" style="border-radius: 12px; background-color: #FAFAFA;">
+                    <!-- 이름/생년월일/휴대폰/이메일/기업주소 변경 폼 -->
+                    <form action="" method="post" class="register-form mt-4" style="border-radius: 12px; background-color: #FAFAFA;">
 
-
-                        <div for="name" class="username" style="width: 55px; text-align: center;">
-                            이름
-                        </div>
-        
+                        <div for="name" class="username" style="width: 55px; text-align: center;">이름</div>
+                        
                         <div class="gender">
+                            <!-- 이름 -->
                             <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
                             <div class="gender-btn">
                                 <button type="button" class="btn-male" id="male" name="gender" onclick="change_btn(event)">남</button>
@@ -223,6 +227,7 @@
 
                         <div for="phone" class="userphone">휴대폰</div>
                         <div class="phone d-flex flex-column">
+                            <!-- 휴대폰번호 -->
                             <input type="text" id="phone" name="phone" required placeholder="번호를 입력해주세요.">                            
                         </div>
         
@@ -230,6 +235,7 @@
                             이메일
                         </div>
                         <div class="phone d-flex flex-column">
+                            <!-- 이메일 -->
                             <input type="email" id="email" name="email" required placeholder="이메일">
                         </div>
 
@@ -237,8 +243,11 @@
                             기업 주소
                         </div>
                         <div class="phone d-flex flex-column">
-                            <input type="email" id="address" name="address" required placeholder="회사 주소 예시) 강남구 테헤란로 120번길 12">
-                            <button class="btn-in-short align-self-end" style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button>
+                            <!-- 기업주소 -->
+                            <input type="text" id="address" name="address" required placeholder="회사 주소 예시) 강남구 테헤란로 120번길 12">
+
+                            <!-- 폼 전송버튼 -->
+                            <button type="submit" class="btn-in-short align-self-end" style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button>
                         </div>
                     </form>
 
