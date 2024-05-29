@@ -26,13 +26,13 @@ public class MainController {
         log.info("메인 화면...");
 
         List<RecruitPost> recruitList = recruitService.recruitList();
-
+        log.info(recruitList+"");
         for (RecruitPost recruitPost : recruitList) {
 
+            log.info("Keyword list: " + recruitPost.getKeywordList());
             log.info("잘 나오니 ?" + recruitPost.getCompany().getComName());
         }
 
-        
         recruitList.forEach(recruit -> {
             if (recruit.getKeywordList() == null) {
                 recruit.setKeywordList(Collections.emptyList());

@@ -42,8 +42,9 @@
   <select id="recruitList" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    INNER JOIN recruit r ON c.com_no = r.com_no
-    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+
   </select>
 
   <insert id="recruitPost">
@@ -60,8 +61,8 @@
   <select id="recruitRead" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    INNER JOIN recruit r ON c.com_no = r.com_no
-    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.recruit_no = #{recruitNo}
     
   </select>
@@ -78,8 +79,8 @@
   <select id="postsRecruitList" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    INNER JOIN recruit r ON c.com_no = r.com_no
-    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.com_no = #{comNo}
   </select>
 
@@ -88,8 +89,8 @@
   <select id="postsRecruitRead" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    INNER JOIN recruit r ON c.com_no = r.com_no
-    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.recruit_no = #{recruitNo}
   </select>
 

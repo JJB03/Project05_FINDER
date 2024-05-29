@@ -77,7 +77,7 @@
 
               <div class="keyword-span d-flex justify-content-start ">
                 <th:block th:if="${recruit.keywordList.isEmpty()}">
-                  <span></span>
+                  <p>키워드가 존재하지 않습니다.</p>
                 </th:block>
 
                   <th:block th:each="keyword : ${recruit.keywordList}">

@@ -38,6 +38,7 @@ public class SecurityConfig {
         // ✅ 인가 설정
         http.authorizeRequests(requests -> requests
                                             .antMatchers("/**").permitAll()
+                                            .antMatchers("/recruit/posted_jobs_com/**").hasRole("COMPANY")
                                             .anyRequest().permitAll()
                                             );
 

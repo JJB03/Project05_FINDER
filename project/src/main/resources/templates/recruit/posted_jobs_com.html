@@ -181,8 +181,7 @@
 
                                     <div class="gap-2 d-flex">
                                         <div>
-                                            <button type="button" class="btn-short" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" id="btn-stop" onclick="deleteRecruit(); stop(event)">
+                                            <button type="button" class="btn-short" id="btn-stop" th:onclick="'deleteRecruit(' + ${recruit.recruitNo} + ', event)'">
                                                 <strong>삭제</strong>
                                             </button>
                                         </div>
@@ -210,10 +209,13 @@
     </div>
 
     <script>
-        function deleteRecruit() {
-            let recruitNo = $('#recruitNo').value;
+        function deleteRecruit(recruitNo, event) {
             // let data = {"userId"   : userId}
+            event.stopPropagation(); // 이벤트 전파 중지
+            event.preventDefault(); // 기본 동작 방지
+
             let request = new XMLHttpRequest()
+            let csrfToken = $('#csrfToken').val();
 
             request.open("POST", `/recruit/posted_jobs_com/${recruitNo}`, true)
             request.setRequestHeader("Content-Type", "application/json")
@@ -238,10 +240,12 @@
 
         document.getElementById('btn-stop').addEventListener('click', function (event) {
             event.stopPropagation();  // 이벤트 전파 중지
+            event.preventDefault();  // 기본 동작 방지
         });
 
-        function stop(event) {
+        function stopEvent(event) {
             event.stopPropagation(); // 이벤트 전파 중지
+            event.preventDefault();  // 기본 동작 방지
             // 추가적인 버튼 클릭 동작을 여기서 처리
             console.log('Button clicked');
         }

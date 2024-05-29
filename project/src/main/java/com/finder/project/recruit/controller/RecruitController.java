@@ -140,16 +140,15 @@ public class RecruitController {
     }
     // 채용공고 삭제 비동기
     @ResponseBody
-    @GetMapping("/posted_jobs_com/{recruitNo}")
-    public ResponseEntity<Boolean> userCheck(@PathVariable("recruitNo") int recruitNo) throws Exception {
+    @PostMapping("/posted_jobs_com/{recruitNo}")
+    public ResponseEntity<Boolean> deleteRecruit(@PathVariable("recruitNo") int recruitNo) throws Exception {
         log.info("채용공고 삭제 : " + recruitNo);
         int result = recruitService.deleteRecruitList(recruitNo);
-        // 아이디 중복
+        
         if( result > 0 ) {
             log.info("삭제되었습니다. ");
             return new ResponseEntity<>(false, HttpStatus.OK);
         }
-        // 사용 가능한 아이디입니다.
         log.info("삭제가 불가능합니다.");
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
