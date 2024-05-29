@@ -44,10 +44,11 @@
 
                     <div id="id">
                         <div class="check-btn">
-                            <input type="text" class="username_input" name="userId"
+                            <input type="text" class="username_input" name="userId"  id="userId"
                                 placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required onchange="validateId(this)" />
-                            <button type="button" class="btn-male" id="male"
-                                style="background-color: #007bff; color: white; margin-left: 15px;">중복</button>
+                                
+                            <button type="button" class="btn-male" id="" onclick="checkId()"
+                                    style="background-color: #007bff; color: white; margin-left: 15px;">중복</button>
 
                             <img id="id_check_sucess" style="display: none;">
                         </div>
@@ -95,13 +96,13 @@
 
                         <input type="date" id="startDate" name="userBirth" class="keyword-main">
 
-
-                        <!-- <option name="userYear" id="year" title="년도"></option>
+<!-- 
+                        <option name="userYear" id="year" title="년도"></option>
                         <option name="userMonth" id="month" title="월"></option>
-                        <option name="userDay" id="day" title="일"></option> -->
-                        <!-- <input type="hidden" id="user_birth" name="userBirth"> -->
-                        <!-- <input type="hidden" id="user_birth" name="userBirth"> -->
-                        <!-- <input type="hidden" id="user_birth" name="userBirth"> -->
+                        <option name="userDay" id="day" title="일"></option>
+                        <input type="hidden" id="user_birth" name="userBirth">
+                        <input type="hidden" id="user_birth" name="userBirth">
+                        <input type="hidden" id="user_birth" name="userBirth"> -->
                     </div>
 
                     <br>
@@ -124,8 +125,7 @@
                         </div>
 
                         <div class="justify-content-end">
-                            <button type="button" class="btn-male" id="male" name="gender"
-                                style="background-color: #007bff; color: white;">인증</button>
+                            <button type="button" class="btn-male" style="background-color: #007bff; color: white;">인증</button>
                         </div>
                     </div>
 
@@ -139,7 +139,10 @@
     </div>
 
     <script>
-        
+
+        // 💍 CRSF TOKEN
+        var csrfToken = "[[${_csrf.token}]]"
+
         //버튼 클릭시 유지하는 js 코드
         function change_btn(event) {
             var buttons = document.querySelectorAll('.gender-btn button');
@@ -215,15 +218,15 @@
             return true;
         }
 
-        // 년도 채우기
-        const currentYear = new Date().getFullYear();
-        const yearSelect = document.getElementById('year');
-        for (let i = currentYear; i >= 1950; i--) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i + '년';
-            yearSelect.appendChild(option);
-        }
+        // // 년도 채우기
+        // const currentYear = new Date().getFullYear();
+        // const yearSelect = document.getElementById('year');
+        // for (let i = currentYear; i >= 1950; i--) {
+        //     const option = document.createElement('option');
+        //     option.value = i;
+        //     option.textContent = i + '년';
+        //     // yearSelect.appendChild(option);
+        // }
 
         // 휴대전화 유효성 검사
         function validatePhone(input) {
@@ -238,40 +241,40 @@
             input.reportValidity();
         }
 
-        // 월 채우기
-        const monthSelect = document.getElementById('month');
+        // // 월 채우기
+        // const monthSelect = document.getElementById('month');
 
-        for (let i = 1; i <= 12; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i + '월';
-            monthSelect.appendChild(option);
-        }
+        // for (let i = 1; i <= 12; i++) {
+        //     const option = document.createElement('option');
+        //     option.value = i;
+        //     option.textContent = i + '월';
+        //     monthSelect.appendChild(option);
+        // }
 
-        // 일 채우기
-        const daySelect = document.getElementById('day');
+        // // 일 채우기
+        // const daySelect = document.getElementById('day');
 
-        function fillDays(year, month) {
-            daySelect.innerHTML = ''; // 기존 옵션 제거
-            const daysInMonth = new Date(year, month, 0).getDate();
-            for (let i = 1; i <= daysInMonth; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i + '일';
-                daySelect.appendChild(option);
-            }
-        }
+        // function fillDays(year, month) {
+        //     daySelect.innerHTML = ''; // 기존 옵션 제거
+        //     const daysInMonth = new Date(year, month, 0).getDate();
+        //     for (let i = 1; i <= daysInMonth; i++) {
+        //         const option = document.createElement('option');
+        //         option.value = i;
+        //         option.textContent = i + '일';
+        //         daySelect.appendChild(option);
+        //     }
+        // }
 
-        // 초기 일 채우기
-        fillDays(currentYear, 1);
-        // 년도 또는 월이 변경될 때 일 다시 채우기
-        yearSelect.addEventListener('change', () => {
-            fillDays(yearSelect.value, monthSelect.value);
-        });
+        // // 초기 일 채우기
+        // fillDays(currentYear, 1);
+        // // 년도 또는 월이 변경될 때 일 다시 채우기
+        // yearSelect.addEventListener('change', () => {
+        //     fillDays(yearSelect.value, monthSelect.value);
+        // });
 
-        monthSelect.addEventListener('change', () => {
-            fillDays(yearSelect.value, monthSelect.value);
-        });
+        // monthSelect.addEventListener('change', () => {
+        //     fillDays(yearSelect.value, monthSelect.value);
+        // });
 
         // function combineBirthdate() {
         //     const year = document.getElementById('year').value;
@@ -282,6 +285,32 @@
         //     alert('생년월일: ' + birthdate);
         //     document.getElementById('userBirth').value = birthdate;
         // }
+
+        function checkId() {
+            let userId = document.getElementById('userId').value
+            // let data = {"userId"	: userId}
+            let request = new XMLHttpRequest()
+            
+            request.open("GET", `/user/check/${userId}`, true)
+            request.setRequestHeader("Content-Type", "application/json")
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) // 💍       // 이래야 403 이 안뜬다.
+            // request.send( JSON.stringify( data ) )
+            request.send(  )
+
+            request.onreadystatechange = function() {
+            
+                // 요청 성공 시,
+                if( request.readyState == request.DONE && request.status == 200 ) {
+                    // 파일 항목을 화면에서 제거
+                    if( request.responseText == 'true' ) {
+                        alert('사용가능한 아이디입니다.')
+                    }
+                    else {
+                        alert('중복된 아이디입니다.')
+                    }
+                }
+            }   
+        }
     </script>
 
 
