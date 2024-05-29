@@ -21,7 +21,7 @@ public class ResumeServiceImpl implements ResumeService {
     private FileService fileService;
     
     /*
-     * 게시글 목록 조회
+     * 이력서 목록 조회
      */
     @Override
     public List<ResumeDto> list() throws Exception {
@@ -30,16 +30,16 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     /*
-     * 게시글 상세 조회
+     * 이력서 상세 조회
      */
     @Override
-    public ResumeDto select(int cv_no) throws Exception {
-        ResumeDto resumeDto = resumeMapper.select(cv_no);
+    public ResumeDto select(int user_no) throws Exception {
+        ResumeDto resumeDto = resumeMapper.select(user_no);
         return resumeDto;
     }
 
     /*
-     * 게시글 등록
+     * 이력서 등록
      */
     @Override
     public int create(ResumeDto resumeDto) throws Exception {
@@ -48,7 +48,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     /*
-     * 게시글 수정
+     * 이력서 수정
      */
     @Override
     public int update(ResumeDto resumeDto) throws Exception {
@@ -57,7 +57,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     /*
-     게시글 삭제
+     이력서 삭제
      */
     @Override
     public int delete(int cv_no) throws Exception {
