@@ -6,49 +6,4 @@
 <mapper namespace="com.finder.project.resume.mapper.ResumeMapper">
 
 
-    <!-- 이력서 목차 페이지 -->
-    <!-- 기업/구직자 이력서 상세 정보 조회 -->
-    <!-- <select id="list" resultType="resume">
-        SELECT *
-        FROM cv
-        WHERE cv_no = #{cv_no}
-    </select> -->
-    
-    <!-- 조인해야하는데 안 묶임 이거 어떻게 해야-->
-    <!-- 이력서 등록 -->
-    <!-- <insert id="cv_create_user">
-    INSERT INTO cv (user_no, cover_letter)
-    VALUES (#{user_no}, '#{cover_letter}');
-
-    INSERT INTO employment_history (organization, duration, duties, cv_no)
-    VALUES (#{organization}, #{duration}, #{duties}, LAST_INSERT_ID());
-
-    INSERT INTO education (cv_no, university, major, university_status)
-    VALUES (LAST_INSERT_ID(), #{university}, #{major}, #{university_status});
-    </insert> -->
-
-    <!-- 구직자 이력서 수정 -->
-    <!-- <update id="cv_read_com_user">
-      UPDATE cv
-      SET cover_letter = '#{cover_letter}'
-      WHERE cv_no = #{cv_no};
-
-      UPDATE employment_history
-      SET 
-          organization = '#{organization}',
-          duration = #{duration},
-          duties = '#{duties}'
-      WHERE cv_no = #{cv_no};
-
-
-      UPDATE education
-      SET 
-          university = '#{university}',
-          major = '#{major}',
-          university_status = '#{university_status}'
-      WHERE cv_no = #{cv_no};
-    </update> -->
-
-
-
 </mapper>

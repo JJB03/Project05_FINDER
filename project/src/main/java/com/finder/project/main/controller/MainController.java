@@ -33,7 +33,7 @@ public class MainController {
 
     // 로그인 페이지
     @GetMapping("/login")
-    public String login() {
+    public String login() { 
         return "/login";
     }
     

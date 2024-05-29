@@ -19,6 +19,6 @@ public class Users {
     private Date userUpdDate;
     private String userGender;
     private int enabled;
-
+    
     private List<UserAuth> authList;
 }
