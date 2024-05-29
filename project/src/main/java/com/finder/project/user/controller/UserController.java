@@ -11,7 +11,6 @@ import com.finder.project.user.dto.Users;
 import com.finder.project.user.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -41,13 +40,14 @@ public class UserController {
     @PostMapping("/join_user")
     public String joinPro(Users users) throws Exception {
 
+        // 생년월일의 쉼표를 "-"으로 변경
         int result = UserService.join(users);
         
         // 회원가입 성공
-        if ( result > 0) {
+        if (result > 0) {
             return "redirect:/login";
         }
-
+    
         // 회원가입 실패
         return "redirect:/error";
     }

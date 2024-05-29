@@ -13,6 +13,7 @@ import com.finder.project.recruit.service.RecruitService;
 import lombok.extern.slf4j.Slf4j;
 
 
+
 @Slf4j
 @Controller
 public class MainController {
@@ -21,11 +22,17 @@ public class MainController {
     RecruitService recruitService;
 
     // 메인페이지 (채용공고)
-    @GetMapping("/index")
+    @GetMapping({"/index", ""})
     public String main(Model model) throws Exception {
         log.info("메인 화면...");
 
         List<RecruitPost> recruitList = recruitService.recruitList();
+
+        for (RecruitPost recruitPost : recruitList) {
+            
+            log.info("잘 나오니 ?" + recruitPost.getCompany().getComName());
+        }
+
         model.addAttribute("recruitList", recruitList);
 
         return "/index";
@@ -33,7 +40,7 @@ public class MainController {
 
     // 로그인 페이지
     @GetMapping("/login")
-    public String login() {
+    public String login() { 
         return "/login";
     }
     
