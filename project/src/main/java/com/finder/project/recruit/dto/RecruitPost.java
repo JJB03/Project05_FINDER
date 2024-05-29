@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class RecruitPost {
+
     // Post DTO
     private int recruitNo;
     private String recruitTitle;
@@ -23,6 +24,6 @@ public class RecruitPost {
     private List<Keyword> keywordList;
     
     // Company 테이블 참조
-    private List<Company> company;
+    private Company company;
     
 }

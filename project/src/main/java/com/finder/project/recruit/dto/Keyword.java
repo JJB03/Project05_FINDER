@@ -6,7 +6,8 @@ import lombok.Data;
 public class Keyword {
 
      // Keyword DTO
-     private String keyword;
+     private int recruitKeywordNo;
+     private String recruitKeyword;
      private int recruitNo;
 
 }

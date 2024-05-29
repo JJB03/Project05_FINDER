@@ -26,7 +26,7 @@ public class RecruitServiceImpl implements RecruitService {
         return recruitList;
     } 
 
-    // 채용공고 Keyword input
+    // 채용공고 등록 & keyword 등록
     @Override
     public int recruitPost(RecruitPost recruitPost) throws Exception {
         
@@ -38,12 +38,26 @@ public class RecruitServiceImpl implements RecruitService {
 
         for (String keyword : recruitPost.getKeyword()) {
             Keyword k = new Keyword();
-            k.setKeyword(keyword);
+            k.setRecruitKeyword(keyword);
             k.setRecruitNo(recruitNo);
             recruitMapper.recruitKeyword(k);     
         }
         return result;
     }
+
+    // 채용공고 상세조회
+    @Override
+    public RecruitPost recruitRead(int recruitNo) throws Exception {
+        RecruitPost recruitPost = recruitMapper.recruitRead(recruitNo);
+        return recruitPost;
+    }
+
+    // @Override
+    // public List<Keyword> recruitReadKeyword(int recruitNo) throws Exception {
+    //     List<Keyword> keywords = recruitMapper.recruitReadKeyword(recruitNo);
+    //     return keywords;
+    // }
+    // 채용공고 상세조회 끝
 
 
     
