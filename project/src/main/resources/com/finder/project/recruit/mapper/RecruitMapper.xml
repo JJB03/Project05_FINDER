@@ -74,5 +74,28 @@
   </select> -->
   <!-- 상세조회 끝-->
 
+  <!-- 등록한 채용공고 목록 -->
+  <select id="postsRecruitList" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.com_no = #{comNo}
+  </select>
+
+
+  <!-- 등록한 채용공고 조회 -->
+  <select id="postsRecruitRead" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.recruit_no = #{recruitNo}
+  </select>
+
+  <delete id="deleteRecruitList">
+    DELETE FROM recruit
+    WHERE recruit_no = #{recrutNo};
+  </delete>
   
 </mapper>

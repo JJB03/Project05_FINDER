@@ -72,16 +72,18 @@
                 <p class="card-text" style=" font-size: 12px;" th:text="${recruit.company.comName}"></p>
               </div>
               <strong th:text="${recruit.recruitTitle}">
-                
+
               </strong>
 
               <div class="keyword-span d-flex justify-content-start ">
-                <th:block th:each="keyword : ${recruit.keywordList}">
-                  <span th:text="${keyword.recruitKeyword}">
-
-                  </span>
-                
+                <th:block th:if="${recruit.keywordList.isEmpty()}">
+                  <span></span>
                 </th:block>
+
+                  <th:block th:each="keyword : ${recruit.keywordList}">
+                    <span th:text="${keyword.recruitKeyword}">
+                    </span>
+                  </th:block>
               </div>
 
               <div class="d-flex justify-content-between ">
@@ -91,8 +93,9 @@
                 </div>
 
                 <div>
-                  <button class="btn-short" >
-                    <a th:href="|/recruit/detail_jobs_user?recuitNo=${recruit.recruitNo}|" style="text-decoration-line: none; color: white;">조회</a>
+                  <button class="btn-short">
+                    <a th:href="|/recruit/detail_jobs_user?recuitNo=${recruit.recruitNo}|"
+                      style="text-decoration-line: none; color: white;">조회</a>
                   </button>
                 </div>
               </div>

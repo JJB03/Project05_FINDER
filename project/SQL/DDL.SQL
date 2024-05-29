@@ -1,5 +1,5 @@
 
--- Active: 1716536339109@@127.0.0.1@3306@joeun
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 
 
 -- 테이블 삭제 ( 총 16개 )
@@ -167,13 +167,13 @@ CREATE TABLE `company` (
 
 -- 채용공고 게시글 테이블
 CREATE TABLE `recruit` (
-	`recruit_no` int NOT NULL AUTO_INCREMENT,
+	`recruit_no` int NOT NULL AUTO_INCREMENT ,
 	`recruit_title` varchar(500) NOT NULL,
 	`recruit_content` text NOT NULL,
 	`com_no` int NOT NULL,
 	`recruit_responsibilities` varchar(500) NULL,
 	`recruit_qualifications` varchar(500) NULL,
-	`reruit_preferred_qualifications` varchar(500) NULL,
+	`recruit_preferred_qualifications` varchar(500) NULL,
 	`recruit_reg_date` varchar(500) NOT NULL,
 	`com_reg_date` timestamp NOT NULL DEFAULT now(),
 	`com_upd_date` timestamp NULL DEFAULT now(),
@@ -187,7 +187,7 @@ CREATE TABLE `recruit_keyword` (
     `recruit_keyword` varchar(500) NOT NULL,
 	`recruit_no` int NOT NULL,
     PRIMARY KEY (`recruit_keyword_no`),
-	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
+	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`) ON DELETE CASCADE
 );
 
 -- 파일 테이블

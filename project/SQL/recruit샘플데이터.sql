@@ -9,8 +9,14 @@ SELECT c.*, r.*
 SELECT c.*, r.*, rk.*
     FROM company c
     INNER JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no;
+    
+  SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
     INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
-    WHERE r.recruit_no = 28;
+    WHERE r.com_no = 1;
+  
 
     SELECT c.*, r.*
     FROM company c
