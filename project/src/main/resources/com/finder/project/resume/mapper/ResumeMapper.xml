@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finder.project.resume.mapper.ResumeMapper">
+
+
+<!--이력서 리스트 조회-->
+    <select id="list" resultType="ResumeDto">
+        SELECT *
+        FROM cv
+        WHERE cv_no = #{cv_no}
+    </select>
+
+<!-- 이력서 상세 조회-->
+<!-- 왜 안 켜지지 -->
+    <select id="select" resultType="ResumeDto">
+      SELECT * FROM cv
+      WHERE user_no = #{user_no}
+    </select>
+
+<!--여기 켜지긴 하는데 union이든 뭐든 조인해야해요.-->
+<!--이력서 작성-->
+  <insert id="create">
+    INSERT INTO `cv` (`user_no`, `cover_letter`)
+    VALUES (#{user_no}, '#{cover_letter}');
+
+    INSERT INTO `employment_history` (`organization`, `duration`, `duties`, `cv_no`)
+    VALUES ('#{organization}', '#{duration}', '#{duties}', #{cv_no});
+
+    INSERT INTO `education` (`cv_no`, `university`, `major`, `university_status`)
+    VALUES (#{cv_no}, '#{university}', '#{major}', '#{university_status}');
+  </insert>
+
+<!--상세조회가 켜져야 수정이 가능합니다.-->
+<!--이력서 수정-->
+
+<!--이력서 삭제-->
+  <delete id="delete">
+        DELETE FROM cv
+        WHERE cv_no = #{cv_no}
+    </delete>
+
+
+
+</mapper>

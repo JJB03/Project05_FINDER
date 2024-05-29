@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finder.project.recruit.mapper.RecruitMapper">
+
+  <resultMap id="RecruitPostResultMap" type="com.finder.project.recruit.dto.RecruitPost">
+    <id property="recruitNo" column="recruit_no"/>
+    <result property="recruitTitle" column="recruit_title"/>
+    <result property="recruitContent" column="recruit_content"/>
+    <result property="recruitResponsibilities" column="recruit_responsibilities"/>
+    <result property="recruitQualifications" column="recruit_qualifications"/>
+    <result property="recruitPreferredQualifications" column="recruit_preferred_qualifications"/>
+    <result property="recruitRegDate" column="recruit_reg_date"/>
+    
+    <!-- Company mapping -->
+    <association property="company" javaType="com.finder.project.company.dto.Company">
+        <id property="comNo" column="com_no"/>
+        <result property="comName" column="com_name"/>
+        <result property="comCategory" column="com_category"/>
+        <result property="comPhone" column="com_phone"/>
+        <result property="comEmail" column="com_email"/>
+        <result property="comEmployee" column="com_employee"/>
+        <result property="comAddress" column="com_address"/>
+        <result property="comBusiness" column="com_business"/>
+        <result property="userNo" column="user_no"/>
+    </association>
+    
+    <!-- Keywords mapping -->
+    <collection property="keywordList" ofType="com.finder.project.recruit.dto.Keyword">
+        <id property="recruitKeywordNo" column="recruit_keyword_no"/>
+        <result property="recruitKeyword" column="recruit_keyword"/>
+    </collection>
+  </resultMap>
+
+  <select id="max" resultType="int">
+    SELECT MAX(recruit_no)
+    FROM recruit
+  </select>
+
+  <select id="recruitList" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+  </select>
+
+  <insert id="recruitPost">
+    INSERT INTO recruit (recruit_title, recruit_content, com_no, recruit_responsibilities, recruit_qualifications, recruit_preferred_qualifications, recruit_reg_date)
+    VALUES (#{recruitTitle}, #{recruitContent}, #{comNo}, #{recruitResponsibilities}, #{recruitQualifications}, #{recruitPreferredQualifications}, #{recruitRegDate})
+  </insert>
+    
+  <insert id="recruitKeyword">
+    INSERT INTO recruit_keyword (recruit_no, recruit_keyword)
+    VALUES (#{recruitNo}, #{recruitKeyword})
+  </insert>
+
+  <!-- 상세조회 -->
+  <select id="recruitRead" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.recruit_no = #{recruitNo}
+    
+  </select>
+
+  <!-- <select id="recruitReadKeyword" resultType="Keyword">
+    SELECT rk.*
+    FROM recruit r
+    INNER JOIN recruit_keyword rk ON rk.recruit_no = r.recruit_no
+    WHERE r.recruit_no = #{recruitNo}
+  </select> -->
+  <!-- 상세조회 끝-->
+
+  <!-- 등록한 채용공고 목록 -->
+  <select id="postsRecruitList" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.com_no = #{comNo}
+  </select>
+
+
+  <!-- 등록한 채용공고 조회 -->
+  <select id="postsRecruitRead" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.recruit_no = #{recruitNo}
+  </select>
+
+  <delete id="deleteRecruitList">
+    DELETE FROM recruit
+    WHERE recruit_no = #{recrutNo};
+  </delete>
+  
+</mapper>

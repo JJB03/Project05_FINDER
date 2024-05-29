@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/layout/user_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+    <title>기업회원 페이지</title>
+
+    <style>
+        .job-list {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .job-header {
+            color: #fff;
+            background-color: #005AAB;
+            padding: 10px;
+            margin-bottom: 35px;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            height: 130px;
+            font-size: 28px;
+        }
+
+        .img2 {
+            width: 170px;
+            height: 140px;
+        }
+
+        .keyword-span span {
+            background-color: #f8f8f8;
+            color: #5d5d5d;
+            border-radius: 20px;
+            padding: 5px;
+            font-size: 15px;
+            /* opacity: 0.9; */
+            font-weight: bold;
+            transition: background-color 0.5s ease;
+        }
+
+        .btn-short {
+            width: 60px;
+            padding: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 이 친구들이 버튼 변경하게 하는 코드입니다.*/
+        .btn-male, .btn-female {
+            margin: 5px;
+            color: black;
+            background-color: #EDEDED;
+            cursor: pointer;
+        }
+
+        .btn-male.selected, .btn-female.selected {
+            background-color: #007bff;
+            color: white;
+        }
+       
+        
+    </style>
+</head>
+
+<body layout:fragment="content">
+    <div class="main-content">
+        <main>
+            <form class="register-form">
+              
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor"
+                    class="bi bi-person-check" viewBox="0 0 16 16">
+                    <path
+                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                    <path
+                        d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+                </svg>
+                
+                <!-- <hr style="position: relative ; width: 100%;"> -->
+                <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요 </h2>
+            
+                
+
+                <div for="username" class="userid">아이디</div>
+
+                 <!-- 아이디 중복 axaj로 체크하기 -->
+                 <!-- 중복확인 후 바뀌는 뭔가가 필요함.-->
+                 <div id="id">
+                    <div class="check-btn">           
+                        <input type="text" class="username_input" name="username"
+                          placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required />
+                          <button type="button" class="btn-male" id="male" name="gender" style="background-color: #007bff; color: white; margin-left: 15px;">중복</button>
+                        
+                        <img id="id_check_sucess" style="display: none;">
+                    </div>
+                </div>
+                <br>
+
+
+
+                <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
+                <input type="password" id="password" name="password" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
+
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
+
+                <div for="name" class="username" style="width: 55px; text-align: center;">
+                    이름
+                </div>
+
+                <div class="gender">
+                    <input class="input-name" type="text" id="name" name="name" required placeholder="이름">
+                    <div class="gender-btn">
+                        <button type="button" class="btn-male" id="male" name="gender" onclick="change_btn(event)">남</button>
+                        <button type="button" class="btn-female" id="female" name="gender" onclick="change_btn(event)">여</button>
+                    </div>                    
+                </div>
+
+                <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
+                <div class="birthdate"> <!--적용된 코드-->
+                    <select name="year" id="year" title="년도"></select> 
+                    <select name="month" id="month" title="월"></select>
+                    <select name="day" id="day" title="일"></select>
+                </div>
+
+
+                <div for="phone" class="userphone">휴대폰</div>
+
+                <div class="phone">
+                    <input type="text" id="phone" name="phone" required placeholder="번호를 입력해주세요.">
+                </div>
+
+                <br>
+                
+                <div for="email" class="useremail">
+                    이메일
+                </div>
+                <div class="phone">
+                    <div class="d-flex justify-content">
+                        <input type="email" id="email" name="email" required placeholder="이메일">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="72" fill="currentColor"
+                        class="bi bi-at" viewBox="0 0 16 16">
+                        <path
+                        d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914" />
+                    </svg>
+                    <select name="emailselect" id="emailselect">
+                        <option value="1">naver.com</option>
+                        <option value="1">gmail.com</option>
+                    </select>
+                </div>
+                <div class="justify-content-end">
+                    <button type="button" class="btn-confirm">인증</button>
+                </div>
+                </div>
+
+                <br> <!-- 공백 주기-->
+                <div class="img-file">
+                    <div style="text-align: center;">
+                        <img class="img2" src="/img/인증서.png" alt="인증서png">
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn-short" id="fileButton">파일 선택</button>
+                        <span id="fileName">파일을 추가해주세요.</span>
+                    </div>
+                    <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()" >
+                    <!-- <hr style="position: relative ; width: 100%;"> -->
+                    <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">사업자 인증서 제출해주세요 </h2>
+                </div>
+                <div for="com-name" class="userphone">기업명</div>
+                <input type="text" id="" name="password" placeholder="기업명" required>
+                <div for="sector" class="userphone">업종</div>
+                <input type="text" id="" name="password" placeholder="업종" required>
+                <div for="sector-category" class="userphone">사업분야</div>
+                <input type="text" id="" name="password" placeholder="사업분야" required>
+                <div for="com-address" class="userphone">기업주소</div>
+                <input type="text" id="" name="password" placeholder="예시, 대한민국 인천광역시 강화군 내가면 구하리 5번길" required>
+
+                <div class="d-grid gap-2">
+                    <button class="btn mt-4" type="button" style="background-color: var(--main-color); color: #fff; ">회원가입</button>
+                </div>
+            </form>
+    </div>
+    <!-- 버튼은 수정한 걸로 바꿔주시면 됩니다!-->
+    </main>
+
+    <script>
+        //버튼 클릭시 유지하는 js 코드
+        function change_btn(event) {
+        // 모든 버튼의 'selected' 클래스를 제거
+        var buttons = document.querySelectorAll('.gender-btn button');
+        buttons.forEach(function(button) {
+            button.classList.remove('selected');
+        });
+
+        // 클릭된 버튼에 'selected' 클래스 추가
+        var clickedButton = event.target;
+        clickedButton.classList.add('selected');
+        }
+
+         // 아이디 중복 체크하기 //
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 년도 채우기
+            const currentYear = new Date().getFullYear();
+            const yearSelect = document.getElementById('year');
+            for (let i = currentYear; i >= 1950; i--) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '년';
+                yearSelect.appendChild(option);
+            }
+
+            // 월 채우기
+            const monthSelect = document.getElementById('month');
+            
+            for (let i = 1; i <= 12; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '월';
+                monthSelect.appendChild(option);
+            }
+
+            // 일 채우기
+            const daySelect = document.getElementById('day');
+            function fillDays(year, month) {
+                daySelect.innerHTML = ''; // 기존 옵션 제거
+                const daysInMonth = new Date(year, month, 0).getDate();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i + '일';
+                    daySelect.appendChild(option);
+                }
+            }
+
+            // 초기 일 채우기
+            fillDays(currentYear, 1);
+            // 년도 또는 월이 변경될 때 일 다시 채우기
+            yearSelect.addEventListener('change', () => {
+                fillDays(yearSelect.value, monthSelect.value);
+            });
+
+            monthSelect.addEventListener('change', () => {
+                fillDays(yearSelect.value, monthSelect.value);
+            });
+
+            //파일 업로드 코드
+            document.getElementById('fileButton').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+        });
+
+        function displayFileName() {
+            var input = document.getElementById('fileInput');
+            var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
+            document.getElementById('fileName').textContent = fileName;
+        }
+    </script>
+</body>
+
+</html>
