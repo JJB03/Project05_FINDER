@@ -2,6 +2,7 @@ package com.finder.project.company.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
@@ -41,8 +42,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     // 기업 정보 조회 (기업 정보)
     @Override
-    public Company selectCompanyById(int no) throws Exception {
-        Company company = companyMapper.selectCompanyById(no);
+    public Company selectCompanyByComNo(int no) throws Exception {
+        Company company = companyMapper.selectCompanyByComNo(no);
         return company;
     }
     // 기업 정보 등록 (기업 정보)
@@ -52,20 +53,22 @@ public class CompanyServiceImpl implements CompanyService {
         return result;
     }
     // 기업회원 정보 수정 (기업 정보)
+    @Transactional
     @Override
-    public int updateUserCom(Users user) throws Exception {
-        int result = companyMapper.updateUserCom(user);
-        return result;
-    }
-    // // 기업 주소 수정 (기업 정보)
-    @Override
-    public int updateCompanyAddress(Company company) throws Exception {
-        int result = companyMapper.updateCompanyAddress(company);
-        return result;
+    public int updateUserComInfo(Users user, Company company) throws Exception {
+        int resultUserCom = companyMapper.updateUserCom(user);
+        int resultCompany = companyMapper.updateCompanyAddress(company);
+        return resultUserCom + resultCompany;
     }
 
 
 
+    // 비밀번호 암호화해서 받아오기
+
+
+
+
+    
 
 
     // 쌤이랑 한거 userNo로 company 가져오기, comNo 으로 companyDetail 가져오기
