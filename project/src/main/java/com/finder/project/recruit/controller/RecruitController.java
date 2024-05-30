@@ -23,6 +23,8 @@ import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -68,7 +70,10 @@ public class RecruitController {
 
     // 채용공고 등록 페이지 ----
     @GetMapping("/post_jobs_com")
-    public String getPost_jobs_com() {
+    public String getPost_jobs_com(@SessionAttribute("user") Users user, Model model) {
+        Company company = companyService.selectByUserNo(user.getUserNo());
+        
+        model.addAttribute("company", company);
         return "/recruit/post_jobs_com";
     }
 
@@ -86,7 +91,7 @@ public class RecruitController {
     }
     // 채용공고 등록 페이지 ---- 끝
 
-    // 채용공고 조회/수정 페이지 ----
+    // 채용공고 조회/수정/삭제 페이지 ----
     @GetMapping("/post_jobs_read_com")
     public String getPost_jobs_read_com(@RequestParam("recuitNo") int recuitNo, Model model) throws Exception {
         
@@ -112,18 +117,30 @@ public class RecruitController {
     }
 
     @PostMapping("/post_jobs_read_com")
-    public String postPost_jobs_read_com(RecruitPost recruitPost) throws Exception {
-        log.info("11"+ recruitPost);
+    public String postPost_jobs_read_com(Integer recruitNo) throws Exception {
         
-        int result = recruitService.recruitPost(recruitPost);
+        int result = recruitService.deleteRecruitList(recruitNo);
+        
 
         if (result > 0) {
             log.info(" insert 성공 ");
         }
 
-        return "redirect:/index";
+        return "redirect:/recruit/posted_jobs_com";
     }
-    // 채용공고 등록 페이지 ---- 끝
+
+    @PostMapping("/post_jobs_read_com/update")
+    public String post_jobs_read_com_update(RecruitPost recruitPost) throws Exception {
+        
+        int result = recruitService.updateRecruitRead(recruitPost);
+
+        if (result > 0) {
+            log.info(" update 성공 ");
+        }
+        return "redirect:/recruit/posted_jobs_com";
+    }
+    
+    // 채용공고 조회/수정/삭제 페이지 ---- 끝
 
 
     // 기업이 등록 한 채용공고 목록
@@ -142,15 +159,17 @@ public class RecruitController {
     @ResponseBody
     @PostMapping("/posted_jobs_com/{recruitNo}")
     public ResponseEntity<Boolean> deleteRecruit(@PathVariable("recruitNo") int recruitNo) throws Exception {
+
         log.info("채용공고 삭제 : " + recruitNo);
         int result = recruitService.deleteRecruitList(recruitNo);
         
         if( result > 0 ) {
             log.info("삭제되었습니다. ");
-            return new ResponseEntity<>(false, HttpStatus.OK);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         }
+
         log.info("삭제가 불가능합니다.");
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(false, HttpStatus.OK);
     }
     // 기업이 등록 한 채용공고 페이지 ---- 끝
 

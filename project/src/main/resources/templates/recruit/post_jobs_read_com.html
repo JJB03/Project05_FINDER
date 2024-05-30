@@ -129,28 +129,32 @@
 
 
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
-                <form action="" method="post" class="job-listings ">
+                <form action="/recruit/post_jobs_read_com" method="post" class="job-listings " id="recruitForm">
+                    <!-- CSRF 토큰 -->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <input type="hidden" name="recruitNo" id="recruitNo" th:value="${recruitPost.recruitNo}">
                     <div class="job-header">
                         <div style="padding: 15px;"><strong>채용공고 조회</strong></div>
                     </div>
                     <div class="post-main">
                         <div>제목</div>
                         <div>
-                            <input type="text" name="" id="" placeholder="제목을 입력해주세요" class="input-none"
+                            <input type="text" name="recruitTitle" id="" placeholder="제목을 입력해주세요"
+                                class="input-none keyword-main"
                                 style="border: 1px solid var(--bs-border-color); padding: 1rem .75rem; border-radius: 8px;"
                                 th:value="${recruitPost.recruitTitle}">
                         </div>
                         <div>keyword</div>
                         <div class="item d-flex justify-content-between">
-                            
+
                             <div class="keyword-span" id="outputContainer">
                                 <th:block th:each="keyword : ${recruitPost.keywordList}">
-                                    <span th:text="${keyword.recruitKeyword}">
+                                    <span th:text="${keyword.recruitKeyword}" name="recruitKeyword">
 
                                     </span>
                                 </th:block>
                             </div>
-            
+
                             <div class="gap-2 d-flex">
                                 <div class="d-flex justify-content-center ">
                                     <input type="text" name="keyword" id="keyword" placeholder="keyword" class="p-1"
@@ -163,32 +167,36 @@
                             <div>
                                 <span>담당업무</span>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control w-100" id="floatingInput"
-                                        placeholder="Example" th:value="${recruitPost.recruitResponsibilities}">
+                                    <input type="text" class="form-control w-100 keyword-main" id="floatingInput"
+                                        placeholder="Example" th:value="${recruitPost.recruitResponsibilities}"
+                                        name="recruitResponsibilities">
                                     <label for="floatingInput">Ex : 개발자</label>
                                 </div>
                             </div>
                             <div>
                                 <span>자격조건</span>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control w-100" id="floatingInput"
-                                        placeholder="Example" th:value="${recruitPost.recruitQualifications}">
-                                    <label for="floatingInput" >Ex : 학사졸업</label>
+                                    <input type="text" class="form-control w-100 keyword-main" id="floatingInput"
+                                        placeholder="Example" th:value="${recruitPost.recruitQualifications}"
+                                        name="recruitQualifications">
+                                    <label for="floatingInput">Ex : 학사졸업</label>
                                 </div>
                             </div>
                             <div>
                                 <span>우대사항</span>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control w-100" id="floatingInput"
-                                        placeholder="Example" th:value="${recruitPost.recruitPreferredQualifications}">
-                                    <label for="floatingInput" >Ex : 자격증 우대</label>
+                                    <input type="text" class="form-control w-100 keyword-main" id="floatingInput"
+                                        placeholder="Example" th:value="${recruitPost.recruitPreferredQualifications}"
+                                        name="recruitPreferredQualifications">
+                                    <label for="floatingInput">Ex : 자격증 우대</label>
                                 </div>
                             </div>
                             <div>
                                 <span>기간</span>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control w-100" id="floatingInput"
-                                        placeholder="Example" th:value="${recruitPost.recruitRegDate}">
+                                    <input type="text" class="form-control w-100 keyword-main" id="floatingInput"
+                                        placeholder="Example" th:value="${recruitPost.recruitRegDate}"
+                                        name="recruitRegDate">
                                     <label for="floatingInput">채용공고 기간을 적어주세요.</label>
                                 </div>
                             </div>
@@ -196,9 +204,10 @@
 
                         <div>
                             <span>내용</span>
-                            <div class="form-floating" style="height: 500px;">
-                                <textarea class="form-control w-100 h-100" placeholder="Leave a comment here"
-                                    id="floatingTextarea2" th:text="${recruitPost.recruitContent}"></textarea>
+                            <div class="form-floating " style="height: 500px;">
+                                <textarea class="form-control w-100 h-100 keyword-main"
+                                    placeholder="Leave a comment here" id="floatingTextarea2"
+                                    th:text="${recruitPost.recruitContent}" name="recruitContent"></textarea>
                                 <label for="floatingTextarea2">내용을 입력해주세요.</label>
                             </div>
                         </div>
@@ -214,10 +223,11 @@
                         </div>
 
                         <div>
-                            <button class="btn-long" style="margin-left: 15px;">
+                            <button onclick="moveToUpdate()" class="btn-long" style="margin-left: 15px;">
                                 수정
                             </button>
-                            <button class="btn-long" style="margin-left: 15px;">
+
+                            <button type="submit" onclick="moveToDelete()" class="btn-long" style="margin-left: 15px;">
                                 삭제
                             </button>
                         </div>
@@ -247,7 +257,12 @@
         // });
 
         $(document).ready(function () {
-            $('#keyword').on('keypress', function (event) {
+            console.log("Event handler registration");
+
+            $('#keyword').off('keypress').on('keypress', function (event) {
+                console.log("Keypress event detected");
+
+
                 if (event.key === 'Enter') {
                     event.preventDefault(); // Prevent the default form submission
                     var inputValue = $(this).val();
@@ -301,6 +316,24 @@
             $('#file-names').text(fileNames.join(', '));
         });
 
+        function moveToDelete() {
+            let check = confirm('삭제하시겠습니까?');
+            if (check) {
+                alert('삭제가 완료되었습니다.');
+                // 여기서 실제 삭제 작업을 수행
+            }
+        }
+
+        function moveToUpdate() {
+            // 폼 서브밋 이벤트를 방지
+            event.preventDefault();
+            $('#keyword').remove();
+            // 수정 폼으로 이동하기 위해 폼의 액션을 변경
+            $('#recruitForm').attr('action', '/recruit/post_jobs_read_com/update');
+            // 수정 폼으로 이동
+            $('#recruitForm').submit();
+            
+        }
     </script>
 
 

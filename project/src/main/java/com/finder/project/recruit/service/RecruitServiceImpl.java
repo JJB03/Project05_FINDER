@@ -66,14 +66,37 @@ public class RecruitServiceImpl implements RecruitService {
     @Override
     public RecruitPost postsRecruitRead(int recruitNo) throws Exception {
         RecruitPost recruitPost = recruitMapper.postsRecruitRead(recruitNo);
-        throw new UnsupportedOperationException("Unimplemented method 'postsRecruitRead'");
+        return recruitPost;
     }
 
     @Override
     public int deleteRecruitList(int recruitNo) throws Exception {
+        int result = recruitMapper.deleteRecruitList(recruitNo);
         
-        throw new UnsupportedOperationException("Unimplemented method 'deleteRecruitList'");
+        return result;
     }
+
+    // 등록 한 채용공고 키워드 삭제 후 수정
+    @Override
+    public int updateRecruitRead(RecruitPost recruitPost) throws Exception {
+        int recruitNo = recruitPost.getRecruitNo();
+
+        
+        int result2 = recruitMapper.deleteKeyword(recruitNo);
+        for (String keyword : recruitPost.getKeyword()) {
+            Keyword k = new Keyword();
+            k.setRecruitKeyword(keyword);
+            k.setRecruitNo(recruitNo);
+            recruitMapper.recruitKeyword(k);     
+        }
+
+        int result = recruitMapper.updateRecruitRead(recruitPost);
+
+        return result;
+    }
+
+   
+    
     
 
     
