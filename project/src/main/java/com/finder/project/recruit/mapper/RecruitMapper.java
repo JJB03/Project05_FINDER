@@ -24,8 +24,15 @@ public interface RecruitMapper {
 
     // 채용공고 상세조회
     public RecruitPost recruitRead(int recruitNo) throws Exception;
-    
     // public List<Keyword> recruitReadKeyword(int recruitNo) throws Exception;
     // 채용공고 상세조회 끝
 
+    // 등록 한 채용공고 목록
+    public List<RecruitPost> postsRecruitList(int comNo) throws Exception;
+
+    // 등록 한 채용공고 삭제 비동기
+    public int deleteRecruitList(int recruitNo) throws Exception;
+
+    // 등록 한 채용공고 조회
+    public RecruitPost postsRecruitRead(int recruitNo) throws Exception;
 }
