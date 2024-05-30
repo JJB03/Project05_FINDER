@@ -60,7 +60,9 @@ public class CompanyController {
 
         // 데이터 처리 성공
         if (result > 0) {
-            session.setAttribute("companyDetail", companyDetail);
+            user.setCompanyDetail(companyDetail);
+            session.setAttribute("user", user);
+            // session.setAttribute("companyDetail", companyDetail);
             return "redirect:/company/introduce_com";
         }
         // 데이터 처리 실패
@@ -92,6 +94,8 @@ public class CompanyController {
         
         // 데이터 처리 성공 
         if( result > 0 ) {
+            user.setCompanyDetail(companyDetail);
+            session.setAttribute("user", user);
             return "redirect:/company/introduce_com";
         }
         // 데이터 처리 실패
@@ -106,7 +110,7 @@ public class CompanyController {
 
     // 기업 조회 (기업정보)
     @GetMapping("/info_update_com")
-    public String getCompanyById() throws Exception {  
+    public String info_update_com() throws Exception {  
 
         return "/company/info_update_com";
     }
@@ -118,11 +122,34 @@ public class CompanyController {
     // }
 
     // 기업 수정 (기업정보)
-    // @PostMapping("/")
-    // public void updateCompany(@PathVariable int comNo, @RequestBody Company company) {
-    //     company.setComNo(comNo);
-    //     companyService.updateCompany(company);
-    // }
+    @PostMapping("/update_com_info")
+    public String updateCompany(HttpSession session, Company company) throws Exception {
+        
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
+        
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        company = companyService.selectByUserNo(user.getUserNo());
+        
+        // 데이터 요청
+        int result = companyService.updateCompanyAddress(company);
+        result = companyService.updateUserCom(user);
+
+        log.info("Company : " + user);
+        
+        // 데이터 처리 성공 
+        if( result > 0 ) {
+            user.setCompany(company);
+            session.setAttribute("user", user);
+            return "redirect:/company/info_update_com";
+        }
+        // 데이터 처리 실패
+        return "redirect:/user/login";
+    }
 
     
 
