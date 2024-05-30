@@ -20,7 +20,7 @@
                 </div>
                 <div class="modal-body" style="text-align: center;">
                     <strong th:text="${recruitPost.recruitTitle}">
-                        
+
                     </strong>
                     <br>
 
@@ -72,27 +72,28 @@
                 <div class="wrapper d-flex flex-column  ">
                     <div class="detail-header">
                         <div class="detail-logo d-flex justify-content-start ">
-                            <img src="/img/logo.png" alt="" style=" width: 100px; ">
+                            <img th:src="|/file/img/${Thumbnail.fileNo}|" alt="썸네일" width="100px">
                         </div>
                         <div>
                             <span style="font-size: 14px;" th:text="${recruitPost.company.comName}"></span>
                         </div>
                         <div>
-                            <span style="font-size: 32px; font-weight: bold;" th:text="${recruitPost.recruitTitle}"></span>
+                            <span style="font-size: 32px; font-weight: bold;"
+                                th:text="${recruitPost.recruitTitle}"></span>
                         </div>
                         <div class="item d-flex justify-content-between">
                             <div class="keyword-span">
                                 <th:block th:each="keyword : ${recruitPost.keywordList}">
                                     <span th:text="${keyword.recruitKeyword}">
-    
+
                                     </span>
                                 </th:block>
                             </div>
                         </div>
                     </div>
-    
+
                     <hr class="my-5">
-    
+
                     <div class="sec_detail d-flex flex-column justify-content-start ">
                         <div class="detail-box01">
                             <span style="font-size: 17px; font-weight: bold; margin-right: 72px;">담당업무</span>
@@ -104,37 +105,72 @@
                         </div>
                         <div class="detail-box03">
                             <span style="font-size: 17px; font-weight: bold; margin-right: 72px;">우대사항</span>
-                            <span style="font-size: 14px;" th:text="${recruitPost.recruitPreferredQualifications}"></span>
+                            <span style="font-size: 14px;"
+                                th:text="${recruitPost.recruitPreferredQualifications}"></span>
                         </div>
                     </div>
                     <div style="margin: 44px 26px; height: auto;" class="d-flex justify-content-start">
                         <!-- <img src="/img/poly.png" alt=""> -->
-                        <p th:text="${recruitPost.recruitContent}"></p>
+                        <div>
+                            <p th:text="${recruitPost.recruitContent}"></p>
+                        </div>
+                        <th:block th:each="file : ${fileList}">
+                            <div>
+                                <!-- 썸네일 이미지 -->
+                                <img th:src="|/file/img/${file.fileNo}|" alt="썸네일" style=" max-width: 948px">
+                                <!-- 파일명 (다운로드) -->
+                                <a th:href="|/file/${file.fileNo}|" th:text="${file.originName}"></a>
+                                <!-- 파일 삭제 -->
+                                <button type="button" th:onclick="|deleteFile(this, ${file.fileNo})|">삭제</button>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
 
             </div>
             <!-- <div class="col-md-12 col-lg-3 order-1 order-lg-2 sticky-top"> -->
             <div class="col-md-12 col-lg-3 order-1 order-lg-2">
-                <div class="d-flex flex-row flex-lg-column job_notice_detail a-wrapper" style="position: sticky; top: 130px; right: 50px">
-    
-                    <button type="button" class="detail-form w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                <div class="d-flex flex-row flex-lg-column job_notice_detail a-wrapper"
+                    style="position: sticky; top: 130px; right: 50px">
+
+                    <button type="button" class="detail-form w-100" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
                         style="background-color: #004ea0; font-weight: bold; border: transparent;">
                         지원하기
                     </button>
-    
+
                     <a href="#" class="detail-form w-100"
                         style="background-color: #fff; color: #000000E6; border: 1px solid #000; font-weight: bold; border: 1px solid #aaa;">뒤로가기</a>
                 </div>
             </div>
 
-            
+
 
 
 
         </div>
     </div>
+    <script>
+        function deleteFile(element, no) {
+            // alert(no)
 
+            // AJAX 비동기 요청
+            let request = new XMLHttpRequest()
+
+            // 요청 세팅
+            // request.open(요청메소드, URL)
+            request.open('DELETE', '/file/' + no)
+            request.send()
+
+            request.onreadystatechange = function () {
+                if (request.readyState == request.DONE && request.status == 200) {
+                    console.log('파일 삭제 성공!');
+                    // 파일 항목 제거
+                    element.parentNode.remove();
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

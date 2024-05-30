@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.finder.project.main.dto.File;
+import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
 
 import groovy.util.logging.Slf4j;
@@ -46,7 +46,7 @@ public class FileController {
     @GetMapping("/{fileNo}")
     public void fileDownload(@PathVariable("fileNo") int fileNo
                             , HttpServletResponse response) throws Exception {
-        File downloadFile = fileService.downFile(fileNo);
+        Files downloadFile = fileService.downFile(fileNo);
         
         //파일 없다면
         if (downloadFile == null) {
@@ -99,7 +99,7 @@ public class FileController {
     @GetMapping("/img/{no}")
     public ResponseEntity<byte[]> thumbnail_img(@PathVariable("no") int no) throws Exception{
         //번호로 파일정보 조회
-        File file = fileService.select(no);
+        Files file = fileService.select(no);
 
         //Null체크
         if (file == null) {

@@ -29,6 +29,24 @@ SELECT c.*, r.*, rk.*
     WHERE r.recruit_no = 28;
 
 
+    SELECT c.*
+        ,r.*
+        ,rk.*
+        ,f.file_no AS file_no
+        ,f.file_name
+        ,f.file_path
+        ,f.file_code
+        FROM company c
+        INNER JOIN recruit r ON c.com_no = r.com_no
+        LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+        LEFT JOIN (
+            SELECT *
+            FROM file
+            WHERE parent_table = 'recruit'
+              AND file_code = 1
+        ) f ON r.recruit_no = f.parent_no
+
+
 
 
 
@@ -63,3 +81,52 @@ INSERT INTO company (com_name, com_category, com_address, com_business, user_no)
 INSERT INTO `company_detail` (`com_represent`, `com_category`, `com_url`, `com_birth`, `com_size`, `com_emp_count`, `com_sales`, `com_content`, `com_address`, `com_vision`, `com_welfare`, `com_avg_salary`, `com_no`) VALUES
 ('김철수', 'IT', 'http://www.abccorp.com', 1995, '대기업', 1000, 500000000, 'ABC Corporation은 소프트웨어 개발을 전문으로 하는 회사입니다.', '서울특별시 강남구 테헤란로 123', '글로벌 리더가 되겠습니다.', '식사 제공, 건강 검진', 6000, 1)
 ;
+
+
+SELECT c.*
+      ,r.*
+      ,rk.*
+      ,f.file_no AS file_no
+      ,f.file_name
+      ,f.file_path
+      ,f.file_code
+      FROM company c
+      INNER JOIN recruit r ON c.com_no = r.com_no
+      LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_keyword_no
+      LEFT JOIN (
+          SELECT *
+          FROM file
+          WHERE parent_table = 'recruit'
+            AND file_code = 1
+      ) f ON r.recruit_no = f.parent_no
+      WHERE r.com_no = 1;
+
+      SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND parent_no = 35
+          AND file_code = 1
+        ORDER BY reg_date DESC
+
+        SELECT c.*
+        ,r.*
+        ,rk.*
+        ,f.file_no AS file_no
+        ,f.file_name
+        ,f.file_path
+        ,f.file_code
+        FROM company c
+        INNER JOIN recruit r ON c.com_no = r.com_no
+        LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+        LEFT JOIN (
+            SELECT *
+            FROM file
+            WHERE parent_table = 'recruit'
+              AND file_code = 1
+        ) f ON r.recruit_no = f.parent_no
+        
+
+    --     SELECT c.*, r.*, rk.*
+    -- FROM company c
+    -- INNER JOIN recruit r ON c.com_no = r.com_no
+    -- LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no

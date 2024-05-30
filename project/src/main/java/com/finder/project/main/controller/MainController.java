@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.finder.project.main.dto.Files;
+import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.service.RecruitService;
 
@@ -20,9 +22,12 @@ public class MainController {
     @Autowired
     RecruitService recruitService;
 
+    @Autowired
+    FileService fileService;
+
     // 메인페이지 (채용공고)
     @GetMapping({ "/index", "" })
-    public String main(Model model) throws Exception {
+    public String main(Model model, Files file) throws Exception {
         log.info("메인 화면...");
 
         List<RecruitPost> recruitList = recruitService.recruitList();
@@ -32,13 +37,17 @@ public class MainController {
             log.info("Keyword list: " + recruitPost.getKeywordList());
             log.info("잘 나오니 ?" + recruitPost.getCompany().getComName());
         }
-
+        log.info("파일값 나오냐 안나오냐 나와라" + file);
         recruitList.forEach(recruit -> {
             if (recruit.getKeywordList() == null) {
                 recruit.setKeywordList(Collections.emptyList());
-            }
-        });
 
+            }
+            log.info("파일값 나오냐 안나오냐 나와라!!!!!!" + recruit.getFileNo());
+           
+
+            
+        });
         model.addAttribute("recruitList", recruitList);
 
         return "/index";
