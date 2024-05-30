@@ -29,7 +29,7 @@
             com_emp_count = #{comEmpCount},
             com_sales = #{comSales},
             com_content = #{comContent}
-        WHERE com_info_no = #{comInfoNo}
+        WHERE com_no = #{comNo}
     </update>
 
 
