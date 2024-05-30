@@ -138,8 +138,9 @@
     <div class="form-header">
       <h4>구직자 이력서 조회</h4>
     </div>
-    <form action="" method="post">
-
+    <form action="/resume/cv_read_com" method="post">
+    <!-- CSRF 토큰 -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
       <div class="form-group row justify-content-between" style="margin-top: 5px; margin-bottom: 5px;">
         <label for="title" class="col-sm-2 col-form-label" style="width: 80px;">제목 :</label>
         <div class="col-sm-10">

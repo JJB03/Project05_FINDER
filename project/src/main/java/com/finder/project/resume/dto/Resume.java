@@ -18,6 +18,6 @@ public class Resume {
     private Timestamp cvUpdDate;
 
     private List<Education> educationList; // Ensure this is lowercased
-    private List<EmploymentHistory> employmentHistory; // Ensure this is lowercased
+    private List<EmploymentHistory> employmentHistoryList; // Ensure this is lowercased
 }
 

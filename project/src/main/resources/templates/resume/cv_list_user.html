@@ -134,10 +134,14 @@
 
 
                     <!-- 삭제 버튼 눌렀는데 바로 페이지로 이동함.-->
-                    <!--      <th:block th:each="resume : ${resumelist}"> -->
+                <th:block th:each="resume : ${resumeList}">
                     <!-- <a href="/resume/cv_read_com" class="job-item-link"> -->
-                    <a href="/resume/cv_read_user" class="job-item-link">
-                        <div class="job-item d-flex flex-column">
+                                                <!--구분할 수 있게 스타일임시로 추가함.-->
+                    <a href="/resume/cv_read_user" class="job-item-link" style="border: 1px solid gray; border-radius: 8px; margin-bottom: 5px;">
+
+                        <form class="job-item d-flex flex-column">
+                        <!-- CSRF 토큰 -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                             <div style="width: 38px; height: 15px;">
                                 <!-- new 자리 -->
                             </div>
@@ -146,7 +150,7 @@
                                     <!--데이터 불러오기-->
                                     <span class="mb-3">
                                         <!-- thtext? -->
-                                        <th:text="${cv.cvTitle}">엥 왜 안 넣어져</th:text>
+                                        <p th:text="${resume.cvTitle}"></p>
                                     </span>
                                 </div>
                             </div>
@@ -156,7 +160,7 @@
 
                                         <!-- 나이 -->
                                         <span>
-                                            25
+                                            <p th:text="${variable}"></p>
                                         </span>
                                         <span>/</span>
 
@@ -186,7 +190,7 @@
                             </div>
                         </div>
                     </a>
-
+                </th:block>
 
 
 

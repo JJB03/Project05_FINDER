@@ -2,11 +2,13 @@ package com.finder.project.resume.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -106,18 +108,30 @@ public class ResumeController {
     }
 
     @PostMapping("/cv_create_user")
-    public String CvCreatePro(Resume Resume) throws Exception {
-        log.info(Resume.toString());
+    public String CvCreatePro(HttpSession session,Resume Resume) throws Exception {
+        Users user = (Users) session.getAttribute("user"); // 세션 사용자 정보 가져오기
 
-        //데이터요청
-        int result = resumeService.create(Resume);
-        //리다이렉트 데이터 처리 성공
-        if (result>0) {
-            log.info("등록 성공");
-            return"redirect:/resume/cv_list_user";
+        if (user == null) {
+            return "redirect:/login";
         }
-        //데이터 처리 실패
-        return "redirect:/index";
+    
+        // 사용자의 이력서 정보 가져오기
+        Resume userResume = resumeService.select(user.getUserNo());
+    
+        // 사용자 정보 설정
+        userResume.setCvNo(userResume.getCvNo());
+    
+        // 데이터 등록 요청
+        int result = resumeService.create(userResume);
+    
+        // 데이터 처리 성공 시
+        if (result > 0) {
+            log.info("정보가 들어가요");
+            return "redirect:/resume/cv_list_user";
+        }
+    
+        // 데이터 처리 실패 시
+        return "redirect:/index"; // 실패 사유를 알려주는 등의 처리가 필요
     }
     
     /**
@@ -150,15 +164,26 @@ public class ResumeController {
      * @throws Exception
      */
     @PostMapping("/cv_read_user")
-    public String ReadUserPro(Resume Resume) throws Exception{
-        int result = resumeService.update(Resume);
-        if (result>0) {
-            return "redirect:/cv_read_user";
+    public String ReadUserPro(HttpSession session, Resume resume)  throws Exception{
+            // 세션에서 사용자 정보를 가져옴
+            Users user = (Users) session.getAttribute("user");
+            if (user == null) {
+                return "redirect:/login"; // 사용자가 로그인되어 있지 않은 경우 로그인 페이지로 이동
+            }
+            
+            // 사용자의 이력서 정보를 업데이트
+            int result = resumeService.update(resume);
+            
+            // 데이터 처리 성공 시
+            if (result > 0) {
+                log.info("정보가 수정되었어요.");
+                return "redirect:/cv_read_user"; // 성공 시 이력서를 다시 읽는 페이지로 리다이렉트
+            }
+            
+            // 데이터 처리 실패 시
+            int cvNo = resume.getCvNo();
+            return "redirect:/resume/cv_read_user?cvNo=" + cvNo + "&error"; // 실패 시 오류 메시지와 함께 이력서 읽는 페이지로 리다이렉트
         }
-        //실패시
-        int cv_no = Resume.getCvNo();
-        return "redirect:/resume/cv_read_user=" + cv_no + "&error";
-    }
     
 
 
