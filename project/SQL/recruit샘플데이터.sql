@@ -28,22 +28,22 @@ SELECT c.*, r.*, rk.*
     INNER JOIN recruit_keyword rk ON rk.recruit_no = r.recruit_no
     WHERE r.recruit_no = 28;
 
-INSERT INTO company (com_name, com_category, com_phone, com_email, com_employee, com_address, com_business, user_no) VALUES
-('ABC 주식회사', '소프트웨어 및 기술', '123-456-7890', 'abc@example.com', 100, '서울특별시 강남구 역삼동 123번지', '소프트웨어 개발 및 컨설팅', 1);
 
-<<<<<<< HONGJUNBEOM
-('XYZ 주식회사', '제조업', '987-654-3210', 'xyz@example.com', 50, '경기도 성남시 분당구 정자동 456번지', '전자제품 제조 및 판매', 2)
-=======
 
-('XYZ 주식회사', '제조업', '987-654-3210', 'xyz@example.com', 50, '경기도 성남시 분당구 정자동 456번지', '전자제품 제조 및 판매', 2);
->>>>>>> main
+
+
+
+
+
+
+
+
 
 
 
 
 INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender, enabled)
 VALUES ('홍준범', 'hjb', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '20240101', '01012341234', 'jjb@naver.com', '남자', 1);
-
 
 
 INSERT INTO user_auth (user_no, auth) VALUES (1, 'ROLE_COMPANY');
