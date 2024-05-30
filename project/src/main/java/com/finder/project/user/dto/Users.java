@@ -33,5 +33,5 @@ public class Users {
     private List<UserAuth> authList;
 }
 
-// 로그인된 정보를 세션에 저장해서
+// 로그인된 정보를 세션에 저장해서  
 // 세션에서 가져와야 되는게 맞다
