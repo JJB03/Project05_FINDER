@@ -2,7 +2,6 @@ package com.finder.project.company.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
@@ -52,15 +51,24 @@ public class CompanyServiceImpl implements CompanyService {
         int result = companyMapper.insertCompany(company);
         return result;
     }
-    // 기업 정보 수정 (기업 정보)
+    // 기업회원 정보 수정 (기업 정보)
     @Override
-    public int updateCompany(Company company) throws Exception {
-        int result = companyMapper.updateCompany(company);
+    public int updateUserCom(Users user) throws Exception {
+        int result = companyMapper.updateUserCom(user);
+        return result;
+    }
+    // // 기업 주소 수정 (기업 정보)
+    @Override
+    public int updateCompanyAddress(Company company) throws Exception {
+        int result = companyMapper.updateCompanyAddress(company);
         return result;
     }
 
 
 
+
+
+    // 쌤이랑 한거 userNo로 company 가져오기, comNo 으로 companyDetail 가져오기
     @Override
     public Company selectByUserNo(int userNo) {
         Company company = companyMapper.selectByUserNo(userNo);

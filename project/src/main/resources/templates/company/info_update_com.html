@@ -150,7 +150,8 @@
 
                     <!-- 비밀번호 변경 폼 -->
                     <form action="" method="post" class="register-form" style="width:100% !important; border-radius: 12px; background-color: #FAFAFA;">
-
+                        <!-- CSRF 토큰 -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <div for="username" class="userid">아이디</div>
                         <div id="id">
                                 <!-- 사용자 아이디 -->
@@ -162,9 +163,9 @@
                             <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
                             
                             <!-- 현재 DB에 들어있는 비밀번호 -->
-                            <input type="password" id="current_password" name="current_password" placeholder="현재 비밀번호 입력" required>
+                            <input type="password" id="userBeforePw" name="userBeforePw" placeholder="현재 비밀번호 입력" required>
                             
-                            <input type="password" id="password" name="password" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
+                            <input type="password" id="userPw" name="userPw" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
                             <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
 
                             <!-- 폼 전송버튼 -->
@@ -174,13 +175,14 @@
                     </form>
 
                     <!-- 이름/생년월일/휴대폰/이메일/기업주소 변경 폼 -->
-                    <form action="" method="post" class="register-form mt-4" style="border-radius: 12px; background-color: #FAFAFA;">
-
+                    <form action="/company/update_com_info" method="post" class="register-form mt-4" style="border-radius: 12px; background-color: #FAFAFA;">
+                        <!-- CSRF 토큰 -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <div for="name" class="username" style="width: 55px; text-align: center;">이름</div>
                         
                         <div class="gender">
                             <!-- 이름 -->
-                            <input class="input-name" type="text" id="name" name="name" th:value="${session.user.userName}" required placeholder="이름" readonly>
+                            <input class="input-name" type="text" id="name" name="userName" th:value="${session.user.userName}" required placeholder="이름" readonly>
                             <div class="gender-btn">
                                 <button type="button" class="btn-male" id="male" name="gender" onclick="change_btn(event)">남</button>
                                 <button type="button" class="btn-female" id="female" name="gender" onclick="change_btn(event)">여</button>
@@ -188,47 +190,16 @@
                         </div>
         
                         <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
+
                         <div class="birthdate">
-                            <select name="year" id="year">
-                                <option value="1">2000</option>
-                                <option value="2">2001</option>
-                                <option value="3">2002</option>
-                            </select>
-                            <select name="month" id="month">
-                                <option value="1">1월</option>
-                                <option value="2">2월</option>
-                                <option value="3">3월</option>
-                                <option value="3">4월</option>
-                                <option value="3">5월</option>
-                                <option value="3">6월</option>
-                                <option value="3">7월</option>
-                                <option value="3">8월</option>
-                                <option value="3">9월</option>
-                                <option value="3">10월</option>
-                                <option value="3">11월</option>
-                                <option value="3">12월</option>
-                            </select>
-                            <select name="day" id="day">
-                                <option value="1">1일</option>
-                                <option value="2">2일</option>
-                                <option value="3">3일</option>
-                                <option value="3">4일</option>
-                                <option value="3">5일</option>
-                                <option value="3">6일</option>
-                                <option value="3">7일</option>
-                                <option value="3">8일</option>
-                                <option value="3">9일</option>
-                                <option value="3">10일</option>
-                            </select>
+                            <input type="date" id="startDate" th:value="${session.user.userBirth}" name="userBirth" class="keyword-main">
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <div></div>
-                        </div>
+
 
                         <div for="phone" class="userphone">휴대폰</div>
                         <div class="phone d-flex flex-column">
                             <!-- 휴대폰번호 -->
-                            <input type="text" id="phone" name="phone" required placeholder="번호를 입력해주세요.">                            
+                            <input type="text" id="phone" name="userPhone" th:value="${session.user.userPhone}" required placeholder="번호를 입력해주세요.">                            
                         </div>
         
                         <div for="email" class="useremail">
@@ -236,7 +207,7 @@
                         </div>
                         <div class="phone d-flex flex-column">
                             <!-- 이메일 -->
-                            <input type="email" id="email" name="email" required placeholder="이메일">
+                            <input type="email" id="email" name="userEmail" th:value="${session.user.userEmail}" required placeholder="이메일">
                         </div>
 
                         <div for="address" class="useraddress">
@@ -244,7 +215,7 @@
                         </div>
                         <div class="phone d-flex flex-column">
                             <!-- 기업주소 -->
-                            <input type="text" id="address" name="address" required placeholder="회사 주소 예시) 강남구 테헤란로 120번길 12">
+                            <input type="text" id="address" name="comAddress" th:value="${session.user.company.comAddress}" required placeholder="회사 주소 예시) 강남구 테헤란로 120번길 12">
 
                             <!-- 폼 전송버튼 -->
                             <button type="submit" class="btn-in-short align-self-end" style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button>
@@ -272,8 +243,6 @@
         clickedButton.classList.add('selected');
         }
 
-
-        // 타임리프 템플릿 자바스크립트 객체로 세션 전달하기
 
 
     </script>

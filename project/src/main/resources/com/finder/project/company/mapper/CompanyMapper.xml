@@ -7,20 +7,20 @@
 
 
     <!-- introduce_com 기업소개 페이지 -->
-    <!-- 기업 상세 정보 조회 -->
+    <!-- 기업 상세 정보 조회 (안쓰고 있다) -->
     <select id="selectCompanyDetail" resultType="CompanyDetail">
         SELECT *
         FROM company_detail cd JOIN company c ON cd.com_no = c.com_no
         WHERE com_info_no = #{comInfoNo}
     </select>
 
-    <!-- 기업 상세 정보 등록 (작동은 한다) --> 
+    <!-- 기업 상세 정보 등록 (동작함) --> 
     <insert id="insertCompanyDetail">
         INSERT INTO company_detail(com_represent, com_url, com_birth, com_size, com_emp_count, com_sales, com_content, com_vision, com_welfare, com_no)
         VALUES (#{comRepresent}, #{comUrl}, #{comBirth}, #{comSize}, #{comEmpCount}, #{comSales}, #{comContent}, #{comVision}, #{comWelfare}, #{comNo})
     </insert>
 
-    <!-- 기업 상세 정보 수정 (작동 안함) -->
+    <!-- 기업 상세 정보 수정 (동작함) -->
     <update id="updateCompanyDetail">
         UPDATE company_detail
         SET com_represent = #{comRepresent},
@@ -36,7 +36,7 @@
 
 
 
-    <!-- info_update_com 기업 정보 수정 페이지 -->
+    <!-- info_update_com 기업 정보 수정 페이지 (지금 작업중) -->
     <!-- 기업 조회 -->
     <select id="selectCompanyById" resultType="Company">
         SELECT *
@@ -50,15 +50,24 @@
         VALUES (#{comName}, #{comCategory}, #{comAddress}, #{comBusiness}, #{userNo})
     </insert>
 
-    <!-- 기업 수정 -->
-    <update id="updateCompany">
+    <!-- 비밀번호 변경 -->
+
+    
+
+    <!-- 동시에 한 post매핑에서 수행 -->
+    <!-- 기업회원 정보 수정 (하는중) -->
+    <update id="updateUserCom">
+        UPDATE user
+           SET user_birth = #{userBirth}
+              ,user_phone = #{userPhone}
+              ,user_email = #{userEmail}
+        WHERE user_no = #{userNo}
+    </update>
+    <!-- 기업 주소 수정 (하는중) -->
+    <update id="updateCompanyAddress">
         UPDATE company
-        SET com_name = #{comName},
-            com_category = #{comCategory},
-            com_address = #{comAddress},
-            com_business = #{comBusiness},
-            user_no = #{userNo}
-        WHERE com_no = #{comNo}
+        SET com_address = #{comAddress}
+        WHERE user_no = #{userNo}
     </update>
 
 
@@ -67,7 +76,10 @@
 
 
 
-    <!-- 쌤이랑 -->
+
+
+
+    <!-- 쌤이랑 user_no -> company 연결 com_no -> companyDetail 연결 -->
     <!-- user_no 로 company 조회 -->
     <select id="selectByUserNo" resultType="Company">
         SELECT *
@@ -82,5 +94,4 @@
         FROM company_detail
         WHERE com_no = #{comNo}
     </select>
- 
 </mapper>

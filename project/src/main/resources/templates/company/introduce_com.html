@@ -188,32 +188,38 @@
                                 <div class="row">
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/업력연차.png" alt="업력연차">
-                                        <input type="text" id="comBirth" name="comBirth" class="com-intro-input" style="text-align: center;" placeholder="N년차">
+                                        <div class="com-intro-input">
+                                            <input type="text" id="comBirth" name="comBirth" class="w-75" style="border: none; text-align: center;">
+                                            <span>년</span>
+                                        </div>
                                         <h4 style="text-align: center;">업력 연차</h4>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/기업규모.png" alt="기업규모">
-                                        <input type="text" id="comSize" name="comSize"  class="com-intro-input" style="text-align: center;" placeholder="대기업">
+                                        <input type="text" id="comSize" name="comSize"  class="com-intro-input" style="text-align: center;" placeholder="대/중견/중소기업">
                                         <h4 style="text-align: center;">기업 규모</h4>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/사원수.png" alt="사원수">
                                         <div class="com-intro-input">
-                                            <input type="text" id="comEmpCount" name="comEmpCount"  class="w-75" style="border: none; text-align: center;" placeholder="50000">
+                                            <input type="text" id="comEmpCount" name="comEmpCount"  class="w-75" style="border: none; text-align: center;">
                                             <span>명</span>
                                         </div>
                                         <h4 style="text-align: center;">사원수</h4>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/매출액.png" alt="매출액">
-                                            <input type="text" id="comSales" name="comSales" class="com-intro-input" style="text-align: center;" placeholder="150억">
+                                        <div class="com-intro-input">
+                                            <input type="text" id="comSales" name="comSales" class="w-75" style="border: none; text-align: center;">
+                                            <span>억</span>
+                                        </div>
                                         <h4 style="text-align: center;">매출액</h4>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between introduce-col2 mb-3" style="column-gap: 25px;">
                                     <div class="w-100">
                                         <label for="com_represent">대표명</label>
-                                        <input class="com-intro-input" type="text" id="comRepresent" name="comRepresent"  placeholder="홍준범" >
+                                        <input class="com-intro-input" type="text" id="comRepresent" name="comRepresent" >
                                     </div>
                                     <div class="w-100">
                                         <label for="com_category">업종</label>
@@ -241,39 +247,47 @@
                                 <div class="row">
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/업력연차.png" alt="업력연차">
-                                        <input type="text" id="comBirth" name="comBirth" th:value="${session.user.companyDetail.comBirth}" class="com-intro-input" style="text-align: center;" placeholder="N년차">
+                                        <div class="com-intro-input">
+                                            <input type="text" id="comBirth" name="comBirth" th:value="${session.user.companyDetail.comBirth}" class="w-75" style="border: none; text-align: center;">
+                                            <span>년</span>
+                                        </div>
                                         <h4 style="text-align: center;">업력 연차</h4>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/기업규모.png" alt="기업규모">
-                                        <input type="text" id="comSize" name="comSize" th:value="${session.user.companyDetail.comSize}" class="com-intro-input" style="text-align: center;" placeholder="대기업">
+                                        <input type="text" id="comSize" name="comSize" th:value="${session.user.companyDetail.comSize}" class="com-intro-input" style="text-align: center;" placeholder="대/중견/중소기업">
                                         <h4 style="text-align: center;">기업 규모</h4>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/사원수.png" alt="사원수">
-                                        <input type="text" id="comEmpCount" name="comEmpCount" th:value="${session.user.companyDetail.comEmpCount}" class="com-intro-input" style="text-align: center;" placeholder="50000명">
+                                        <div class="com-intro-input">
+                                            <input type="text" id="comEmpCount" name="comEmpCount" th:value="${session.user.companyDetail.comEmpCount}"  class="w-75" style="border: none; text-align: center;">
+                                            <span>명</span>
+                                        </div>
                                         <h4 style="text-align: center;">사원수</h4>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3">
                                         <img src="/img/매출액.png" alt="매출액">
-                                        <input type="text" id="comSales" name="comSales" th:value="${session.user.companyDetail.comSales}" class="com-intro-input" style="text-align: center;" placeholder="150억">
-                                        
+                                        <div class="com-intro-input">
+                                            <input type="text" id="comSales" name="comSales" th:value="${session.user.companyDetail.comSales}" class="w-75" style="border: none; text-align: center;">
+                                            <span>억</span>
+                                        </div>
                                         <h4 style="text-align: center;">매출액</h4>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between introduce-col2 mb-3" style="column-gap: 25px;">
                                     <div class="w-100">
                                         <label for="com_represent">대표명</label>
-                                        <input class="com-intro-input" type="text" id="comRepresent" name="comRepresent" th:value="${session.user.companyDetail.comRepresent}" placeholder="홍준범" >
+                                        <input class="com-intro-input" type="text" id="comRepresent" name="comRepresent" th:value="${session.user.companyDetail.comRepresent}" >
                                     </div>
                                     <div class="w-100">
                                         <label for="com_category">업종</label>
-                                        <input class="com-intro-input" type="text" id="comCategory" name="comCategory" th:value="${session.user.company.comBusiness}" placeholder="소프트웨어 개발" >
+                                        <input class="com-intro-input" type="text" id="comCategory" name="comCategory" th:value="${session.user.company.comBusiness}" readonly >
                                     </div>
                                 </div>
                                 <div class="introduce-col3 ">
                                     <label for="com_address">주소</label>
-                                    <input class="com-intro-input" type="text" id="comAddress" name="comAddress" th:value="${session.user.company.comAddress}" placeholder="인천광역시 부평구 부평1동 534-48" >
+                                    <input class="com-intro-input" type="text" id="comAddress" name="comAddress" th:value="${session.user.company.comAddress}" readonly >
                                 </div>
                                 <div class="w-100 introduce-col4">                                
                                     <h4 class="w-100" style="text-align: center; background-color: #bdbdbd; margin-top: 20px; margin-bottom: 0;">기술 소개</h4>
