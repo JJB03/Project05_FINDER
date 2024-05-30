@@ -161,6 +161,7 @@ public class ResumeController {
     }
     
 
+
     /**
      * 사업가 게시글 상세 조회/수정화면
      * @param param
