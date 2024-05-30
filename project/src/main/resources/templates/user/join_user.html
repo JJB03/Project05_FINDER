@@ -96,13 +96,6 @@
 
                         <input type="date" id="startDate" name="userBirth" class="keyword-main">
 
-<!-- 
-                        <option name="userYear" id="year" title="년도"></option>
-                        <option name="userMonth" id="month" title="월"></option>
-                        <option name="userDay" id="day" title="일"></option>
-                        <input type="hidden" id="user_birth" name="userBirth">
-                        <input type="hidden" id="user_birth" name="userBirth">
-                        <input type="hidden" id="user_birth" name="userBirth"> -->
                     </div>
 
                     <br>
@@ -218,16 +211,6 @@
             return true;
         }
 
-        // // 년도 채우기
-        // const currentYear = new Date().getFullYear();
-        // const yearSelect = document.getElementById('year');
-        // for (let i = currentYear; i >= 1950; i--) {
-        //     const option = document.createElement('option');
-        //     option.value = i;
-        //     option.textContent = i + '년';
-        //     // yearSelect.appendChild(option);
-        // }
-
         // 휴대전화 유효성 검사
         function validatePhone(input) {
             var phone = input.value;
@@ -240,52 +223,6 @@
             // 유효성 검사 메시지 표시
             input.reportValidity();
         }
-
-        // // 월 채우기
-        // const monthSelect = document.getElementById('month');
-
-        // for (let i = 1; i <= 12; i++) {
-        //     const option = document.createElement('option');
-        //     option.value = i;
-        //     option.textContent = i + '월';
-        //     monthSelect.appendChild(option);
-        // }
-
-        // // 일 채우기
-        // const daySelect = document.getElementById('day');
-
-        // function fillDays(year, month) {
-        //     daySelect.innerHTML = ''; // 기존 옵션 제거
-        //     const daysInMonth = new Date(year, month, 0).getDate();
-        //     for (let i = 1; i <= daysInMonth; i++) {
-        //         const option = document.createElement('option');
-        //         option.value = i;
-        //         option.textContent = i + '일';
-        //         daySelect.appendChild(option);
-        //     }
-        // }
-
-        // // 초기 일 채우기
-        // fillDays(currentYear, 1);
-        // // 년도 또는 월이 변경될 때 일 다시 채우기
-        // yearSelect.addEventListener('change', () => {
-        //     fillDays(yearSelect.value, monthSelect.value);
-        // });
-
-        // monthSelect.addEventListener('change', () => {
-        //     fillDays(yearSelect.value, monthSelect.value);
-        // });
-
-        // function combineBirthdate() {
-        //     const year = document.getElementById('year').value;
-        //     const month = document.getElementById('month').value;
-        //     const day = document.getElementById('day').value;
-        //     const birthdate = `${year}${month}${day}`;
-        //     console.log('생년월일: ' + birthdate);
-        //     alert('생년월일: ' + birthdate);
-        //     document.getElementById('userBirth').value = birthdate;
-        // }
-
         function checkId() {
             let userId = document.getElementById('userId').value
             // let data = {"userId"	: userId}

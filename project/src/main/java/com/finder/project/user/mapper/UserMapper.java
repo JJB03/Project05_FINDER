@@ -2,6 +2,7 @@ package com.finder.project.user.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.finder.project.company.dto.Company;
 import com.finder.project.user.dto.UserAuth;
 import com.finder.project.user.dto.Users;
 
@@ -16,6 +17,9 @@ public interface UserMapper {
 
     // 회원 가입
     public int join(Users user) throws Exception;
+
+    // 기업 회원 가입 
+    public int comJoin(Users user, Company company) throws Exception;
 
     // 회원 수정
     public int update(Users user) throws Exception;
