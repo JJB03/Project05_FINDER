@@ -16,6 +16,7 @@ public class Users {
     private String userPw;
     private String userBeforePw;
     private String userBirth;
+
     private String userPhone;
     private String userEmail;
     private Date userRegDate;
@@ -26,6 +27,7 @@ public class Users {
 
     private Company company;                // 기업 테이블 (info_update_com)
     private CompanyDetail companyDetail;    // 기업 상세 테이블 (introduce_com)
+
 
 
     private List<UserAuth> authList;

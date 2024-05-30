@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* 이 친구들이 버튼 변경하게 하는 코드입니다.*/
         .btn-male,
         .btn-female {
             padding: 10px 10px;
@@ -28,7 +27,7 @@
     <div class="wrap d-flex flex-column container-fluid container">
         <div class="main-content">
             <main>
-                <form class="register-form" method="post" action="/user/join_user" onsubmit="combineBirthdate()">
+                <form class="register-form" method="post" action="/user/join_user" onsubmit="return validateForm()">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor"
                         class="bi bi-person-check" viewBox="0 0 16 16">
@@ -38,55 +37,52 @@
                             d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
                     </svg>
 
-                    <!-- <hr style="position: relative ; width: 100%;"> -->
                     <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">회원정보를 입력해주세요
                     </h2>
 
                     <div for="username" class="userid">아이디</div>
 
-                    <!-- 아이디 중복 axaj로 체크하기 중복만 미완료 -->
                     <div id="id">
                         <div class="check-btn">
-                            <input type="text" class="username_input" name="userId"
-                                placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required />
-                            <button type="button" class="btn-male" id="male"
-                                style="background-color: #007bff; color: white; margin-left: 15px;">중복</button>
+                            <input type="text" class="username_input" name="userId"  id="userId"
+                                placeholder="4~20자리/영문,숫자,특수문자 '_'사용가능" required onchange="validateId(this)" />
+                                
+                            <button type="button" class="btn-male" id="" onclick="checkId()"
+                                    style="background-color: #007bff; color: white; margin-left: 15px;">중복</button>
 
                             <img id="id_check_sucess" style="display: none;">
                         </div>
                     </div>
                     <br>
 
-
                     <div for="password" class="userpw" style="width: 84px; text-align: center;">비밀번호</div>
-                    <input type="password" id="password" name="userPw" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required>
 
-                    <!-- 비밀번호 확인하는거 자바스크립트로 가능하다고함 -->
-                    <input type="password" id="confirm-password" name="confirm-password" required placeholder="비밀번호 확인">
+                    <!-- 비밀번호 입력 필드 -->
+                    <input type="password" id="password" name="userPw" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required
+                        onchange="validatePasswordConfirmation()">
+
+                    <!-- 비밀번호 확인 입력 필드 -->
+                    <input type="password" id="confirm-password" name="pw_confirm" required placeholder="비밀번호 확인"
+                        onchange="validatePasswordConfirmation()">
+
 
                     <br>
                     <div for="phone" class="userphone">휴대폰</div>
 
                     <div class="phone">
-                        <!-- 휴대폰 완료 -->
-                        <input type="text" id="phone" name="userPhone" required placeholder="번호를 입력해주세요.">
+                        <input type="text" id="phone" name="userPhone" required placeholder="번호를 입력해주세요."
+                            onchange="validatePhone(this)">
                     </div>
-
-
-
 
                     <div for="name" class="username" style="width: 55px; text-align: center;">
                         이름
                     </div>
 
                     <div class="gender">
-                        <!-- 이름 완료-->
                         <input class="input-name" type="text" id="name" name="userName" required placeholder="이름">
                         <div class="gender-btn">
 
                             <input type="hidden" id="userGender" name="userGender">
-
-                            <!-- 성별 완료 -->
                             <button type="button" class="btn-male" id="male" name="userGender"
                                 onclick="change_btn(event)" value="남자">남</button>
                             <button type="button" class="btn-female" id="female" name="userGender"
@@ -96,15 +92,18 @@
 
                     <div for="birthdate" class="userbirth" style="width: 84px; text-align: center;">생년월일</div>
 
-                    <!-- 생년월일 미완료 -->
                     <div class="birthdate">
-                        <!--적용된 코드-->
-                        <select name="year" id="year" title="년도" required></select>
-                        <select name="month" id="month" title="월" required></select>
-                        <select name="day" id="day" title="일" required></select>
-                        <input type="hidden" id="user_birth" name="userBirth">
-                    </div>
 
+                        <input type="date" id="startDate" name="userBirth" class="keyword-main">
+
+<!-- 
+                        <option name="userYear" id="year" title="년도"></option>
+                        <option name="userMonth" id="month" title="월"></option>
+                        <option name="userDay" id="day" title="일"></option>
+                        <input type="hidden" id="user_birth" name="userBirth">
+                        <input type="hidden" id="user_birth" name="userBirth">
+                        <input type="hidden" id="user_birth" name="userBirth"> -->
+                    </div>
 
                     <br>
 
@@ -113,24 +112,22 @@
                     </div>
                     <div class="phone">
                         <div class="d-flex justify-content">
-                            <!-- 이메일 미완료 -->
-                            <input type="email" id="email" name="email" required placeholder="이메일">
+                            <input type="text" id="email" name="userEmail" required placeholder="이메일">
                             <svg xmlns="http://www.w3.org/2000/svg" width="80" height="72" fill="currentColor"
                                 class="bi bi-at" viewBox="0 0 16 16">
                                 <path
                                     d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914" />
                             </svg>
-                            <select name="emailselect" id="emailselect">
-                                <option value="naver.com">naver.com</option>
-                                <option value="gmail.com">gmail.com</option>
+                            <select name="userEmail" id="emailselect">
+                                <option value="@naver.com">naver.com</option>
+                                <option value="@gmail.com">gmail.com</option>
                             </select>
                         </div>
+
                         <div class="justify-content-end">
-                            <button type="button" class="btn-male" id="male" name="gender"
-                                style="background-color: #007bff; color: white;">인증</button>
+                            <button type="button" class="btn-male" style="background-color: #007bff; color: white;">인증</button>
                         </div>
                     </div>
-
 
                     <div class="d-grid gap-2">
                         <button class="btn mt-4" type="submit"
@@ -142,79 +139,181 @@
     </div>
 
     <script>
+
+        // 💍 CRSF TOKEN
+        var csrfToken = "[[${_csrf.token}]]"
+
         //버튼 클릭시 유지하는 js 코드
         function change_btn(event) {
-            // 모든 버튼의 'selected' 클래스를 제거
             var buttons = document.querySelectorAll('.gender-btn button');
             buttons.forEach(function (button) {
                 button.classList.remove('selected');
             });
 
-            // 클릭된 버튼에 'selected' 클래스 추가
             var clickedButton = event.target;
             clickedButton.classList.add('selected');
 
-            // 선택된 성별 값을 가져와서 숨겨진 input 필드에 설정
             var gender = clickedButton.value;
             document.getElementById('userGender').value = gender;
         }
 
-        // 아이디 중복 체크하기 //
+        // 아이디 유효성 검사
+        function validateId(input) {
+            var id = input.value;
+            // 4~20자리
+            // 영문, 숫자, 특수문자 '_'만 사용 가능
+            if (!/^[a-zA-Z0-9_]{4,20}$/.test(id)) {
+                input.setCustomValidity("아이디는 4~20자리로 영문, 숫자, 특수문자 '_'만 사용 가능합니다.");
+            } else {
+                input.setCustomValidity("");
+            }
 
-        // 년도 채우기
-        const currentYear = new Date().getFullYear();
-        const yearSelect = document.getElementById('year');
-        for (let i = currentYear; i >= 1950; i--) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i + '년';
-            yearSelect.appendChild(option);
+            // 유효성 검사 메시지 표시
+            input.reportValidity();
         }
 
-        // 월 채우기
-        const monthSelect = document.getElementById('month');
+        // 비밀번호 확인
+        function validatePasswordConfirmation() {
+            var password = document.getElementsByName("userPw")[0].value;
+            var confirmPassword = document.getElementsByName("pw_confirm")[0].value;
 
-        for (let i = 1; i <= 12; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i + '월';
-            monthSelect.appendChild(option);
-        }
+            // 비밀번호가 8~16자리이고 영문 대소문자, 숫자, 특수문자를 모두 포함하는지 검사
+            if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}[\]:;"'<>,.?\\/]).{8,16}$/.test(password)) {
+                document.getElementsByName("userPw")[0].setCustomValidity(
+                    "비밀번호는 8~16자리의 영문 대소문자, 숫자, 특수문자를 모두 포함해야 합니다.");
+            } else {
+                document.getElementsByName("userPw")[0].setCustomValidity("");
+            }
 
-        // 일 채우기
-        const daySelect = document.getElementById('day');
-
-        function fillDays(year, month) {
-            daySelect.innerHTML = ''; // 기존 옵션 제거
-            const daysInMonth = new Date(year, month, 0).getDate();
-            for (let i = 1; i <= daysInMonth; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i + '일';
-                daySelect.appendChild(option);
+            // 비밀번호와 확인 비밀번호가 일치하는지 검사
+            if (password !== confirmPassword) {
+                document.getElementsByName("pw_confirm")[0].setCustomValidity("비밀번호와 일치하지 않습니다.");
+            } else {
+                document.getElementsByName("pw_confirm")[0].setCustomValidity("");
             }
         }
 
-        // 초기 일 채우기
-        fillDays(currentYear, 1);
-        // 년도 또는 월이 변경될 때 일 다시 채우기
-        yearSelect.addEventListener('change', () => {
-            fillDays(yearSelect.value, monthSelect.value);
-        });
 
-        monthSelect.addEventListener('change', () => {
-            fillDays(yearSelect.value, monthSelect.value);
-        });
+        function validateForm() {
 
-        function combineBirthdate() {
-            const year = document.getElementById('year').value;
-            const month = document.getElementById('month').value.padStart(2, '0');
-            const day = document.getElementById('day').value.padStart(2, '0');
-            const birthdate = `${year}-${month}-${day}`;
-            console.log('생년월일: ' + birthdate);
-            document.getElementById('userBirth').value = birthdate;
+            validatePasswordConfirmation(); // 비밀번호 확인
+
+            var usernameInput = document.querySelector('.username_input');
+            validateId(usernameInput); // 아이디 유효성 검사
+
+            var genderSelected = document.getElementById('userGender').value;
+
+            if (genderSelected === '') { // 성별이 선택되지 않았을 때
+
+                alert('성별을 선택해주세요.'); // 경고 메시지 표시
+
+                return false; // 폼 제출 중단
+            }
+
+            if (document.getElementsByName("pw_confirm")[0].checkValidity() === false) {
+                document.getElementsByName("pw_confirm")[0].reportValidity(); // 비밀번호 일치 여부 검사
+                return false;
+            }
+
+            return true;
+        }
+
+        // // 년도 채우기
+        // const currentYear = new Date().getFullYear();
+        // const yearSelect = document.getElementById('year');
+        // for (let i = currentYear; i >= 1950; i--) {
+        //     const option = document.createElement('option');
+        //     option.value = i;
+        //     option.textContent = i + '년';
+        //     // yearSelect.appendChild(option);
+        // }
+
+        // 휴대전화 유효성 검사
+        function validatePhone(input) {
+            var phone = input.value;
+            // 휴대폰 번호가 11자리인지 확인
+            if (phone.length !== 11 || !/^[0-9]+$/.test(phone)) {
+                input.setCustomValidity("휴대전화번호 형식이 아닙니다.");
+            } else {
+                input.setCustomValidity("");
+            }
+            // 유효성 검사 메시지 표시
+            input.reportValidity();
+        }
+
+        // // 월 채우기
+        // const monthSelect = document.getElementById('month');
+
+        // for (let i = 1; i <= 12; i++) {
+        //     const option = document.createElement('option');
+        //     option.value = i;
+        //     option.textContent = i + '월';
+        //     monthSelect.appendChild(option);
+        // }
+
+        // // 일 채우기
+        // const daySelect = document.getElementById('day');
+
+        // function fillDays(year, month) {
+        //     daySelect.innerHTML = ''; // 기존 옵션 제거
+        //     const daysInMonth = new Date(year, month, 0).getDate();
+        //     for (let i = 1; i <= daysInMonth; i++) {
+        //         const option = document.createElement('option');
+        //         option.value = i;
+        //         option.textContent = i + '일';
+        //         daySelect.appendChild(option);
+        //     }
+        // }
+
+        // // 초기 일 채우기
+        // fillDays(currentYear, 1);
+        // // 년도 또는 월이 변경될 때 일 다시 채우기
+        // yearSelect.addEventListener('change', () => {
+        //     fillDays(yearSelect.value, monthSelect.value);
+        // });
+
+        // monthSelect.addEventListener('change', () => {
+        //     fillDays(yearSelect.value, monthSelect.value);
+        // });
+
+        // function combineBirthdate() {
+        //     const year = document.getElementById('year').value;
+        //     const month = document.getElementById('month').value;
+        //     const day = document.getElementById('day').value;
+        //     const birthdate = `${year}${month}${day}`;
+        //     console.log('생년월일: ' + birthdate);
+        //     alert('생년월일: ' + birthdate);
+        //     document.getElementById('userBirth').value = birthdate;
+        // }
+
+        function checkId() {
+            let userId = document.getElementById('userId').value
+            // let data = {"userId"	: userId}
+            let request = new XMLHttpRequest()
+            
+            request.open("GET", `/user/check/${userId}`, true)
+            request.setRequestHeader("Content-Type", "application/json")
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) // 💍       // 이래야 403 이 안뜬다.
+            // request.send( JSON.stringify( data ) )
+            request.send(  )
+
+            request.onreadystatechange = function() {
+            
+                // 요청 성공 시,
+                if( request.readyState == request.DONE && request.status == 200 ) {
+                    // 파일 항목을 화면에서 제거
+                    if( request.responseText == 'true' ) {
+                        alert('사용가능한 아이디입니다.')
+                    }
+                    else {
+                        alert('중복된 아이디입니다.')
+                    }
+                }
+            }   
         }
     </script>
+
+
 </body>
 
 </html>
