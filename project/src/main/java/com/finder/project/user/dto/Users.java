@@ -29,6 +29,7 @@ public class Users {
     private CompanyDetail companyDetail;    // 기업 상세 테이블 (introduce_com)
 
 
+
     private List<UserAuth> authList;
 }
 

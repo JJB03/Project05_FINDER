@@ -1,6 +1,4 @@
 
--- Active: 1716771298869@@127.0.0.1@3306@joeun
-
 
 -- 테이블 삭제 ( 총 16개 )
 DROP TABLE IF EXISTS user;		-- 회원 테이블
