@@ -77,30 +77,30 @@ public class UserServiceImpl implements UserService {
     }
 
     // 기업 권한 등록
-    @Override
-    public int comJoin(Users user, Company company) throws Exception {
-        String username = user.getUserId();
-        String password = user.getUserPw();
-        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
-        user.setUserPw(encodedPassword);
+    // @Override
+    // public int comJoin(Users user, Company company) throws Exception {
+    //     String username = user.getUserId();
+    //     String password = user.getUserPw();
+    //     String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+    //     user.setUserPw(encodedPassword);
 
-        // 회원 등록
-        int result = userMapper.comJoin(user,company);
+    //     // 회원 등록
+    //     int result = userMapper.comJoin(user,company);
 
-        // 여기 까지 문제 없음 ~!~!~!~!~!---------------
-        if( result > 0 ) {
-            // 기업 권한 등록
-            // USER 조회 ->  userNo 가져오기
-            Users joinedUser = userMapper.select(username);
-            int userNo = joinedUser.getUserNo();
+    //     // 여기 까지 문제 없음 ~!~!~!~!~!---------------
+    //     if( result > 0 ) {
+    //         // 기업 권한 등록
+    //         // USER 조회 ->  userNo 가져오기
+    //         Users joinedUser = userMapper.select(username);
+    //         int userNo = joinedUser.getUserNo();
 
-            UserAuth userAuth = new UserAuth();
-            userAuth.setUserNo(userNo);
-            userAuth.setAuth("ROLE_COMPANY");
-            result = userMapper.insertAuth(userAuth);
-        }
-        return result;
-    }
+    //         UserAuth userAuth = new UserAuth();
+    //         userAuth.setUserNo(userNo);
+    //         userAuth.setAuth("ROLE_COMPANY");
+    //         result = userMapper.insertAuth(userAuth);
+    //     }
+    //     return result;
+    // }
 
 
 

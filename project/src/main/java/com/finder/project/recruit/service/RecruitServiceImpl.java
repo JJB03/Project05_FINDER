@@ -1,10 +1,14 @@
 package com.finder.project.recruit.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.finder.project.main.dto.Files;
+import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.mapper.RecruitMapper;
@@ -17,12 +21,16 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Autowired
     RecruitMapper recruitMapper;
+
+    @Autowired
+    FileService fileService;
     
     // 채용공고 List
     @Override
     public List<RecruitPost> recruitList() throws Exception {
         List<RecruitPost> recruitList = recruitMapper.recruitList();
         
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + recruitList);
         return recruitList;
     } 
 
@@ -42,6 +50,45 @@ public class RecruitServiceImpl implements RecruitService {
             k.setRecruitNo(recruitNo);
             recruitMapper.recruitKeyword(k);     
         }
+
+        String parentTable = "recruit";
+        int parentNo = recruitMapper.max();
+        
+
+        System.out.println("겟파일 "+ recruitPost.getFile());
+        System.out.println("겟파일 "+ recruitPost.getThumbnail());
+        // 썸네일 업로드
+        // - 부모테이블, 부모번호, 멀티파트파일, 파일코드:1(썸네일)
+        MultipartFile thumbnailFile = recruitPost.getThumbnail();
+        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+            
+            Files thumbnail = new Files();
+            thumbnail.setFile(thumbnailFile);
+            thumbnail.setParentTable(parentTable);
+            thumbnail.setParentNo(parentNo);
+            thumbnail.setFileCode(1);
+            
+            fileService.upload(thumbnail);      // 썸네일 파일 업로드
+        }
+
+        // 첨부파일 업로드
+        List<MultipartFile> fileList = recruitPost.getFile();
+        if( fileList != null && !fileList.isEmpty() ) {
+            for (MultipartFile file : fileList) {
+                if( file.isEmpty() ) continue;
+
+                // 파일 정보 등록
+                Files uploadFile = new Files();
+                uploadFile.setParentTable(parentTable);
+                uploadFile.setParentNo(parentNo);
+                uploadFile.setFile(file);
+                
+
+                fileService.upload(uploadFile);
+
+            }
+        }
+        
         return result;
     }
 
@@ -49,6 +96,8 @@ public class RecruitServiceImpl implements RecruitService {
     @Override
     public RecruitPost recruitRead(int recruitNo) throws Exception {
         RecruitPost recruitPost = recruitMapper.recruitRead(recruitNo);
+
+
         return recruitPost;
     }    
     // 채용공고 상세조회 끝

@@ -13,7 +13,7 @@
     <result property="recruitQualifications" column="recruit_qualifications"/>
     <result property="recruitPreferredQualifications" column="recruit_preferred_qualifications"/>
     <result property="recruitRegDate" column="recruit_reg_date"/>
-    
+
     <!-- Company mapping -->
     <association property="company" javaType="com.finder.project.company.dto.Company">
         <id property="comNo" column="com_no"/>
@@ -26,7 +26,7 @@
         <result property="comBusiness" column="com_business"/>
         <result property="userNo" column="user_no"/>
     </association>
-    
+
     <!-- Keywords mapping -->
     <collection property="keywordList" ofType="com.finder.project.recruit.dto.Keyword">
         <id property="recruitKeywordNo" column="recruit_keyword_no"/>
@@ -34,16 +34,30 @@
     </collection>
   </resultMap>
 
+
+
   <select id="max" resultType="int">
     SELECT MAX(recruit_no)
     FROM recruit
   </select>
 
   <select id="recruitList" resultMap="RecruitPostResultMap">
-    SELECT c.*, r.*, rk.*
-    FROM company c
-    INNER JOIN recruit r ON c.com_no = r.com_no
-    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    SELECT c.*
+        ,r.*
+        ,rk.*
+        ,f.file_no AS file_no
+        ,f.file_name
+        ,f.file_path
+        ,f.file_code
+        FROM company c
+        INNER JOIN recruit r ON c.com_no = r.com_no
+        LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+        LEFT JOIN (
+            SELECT *
+            FROM file
+            WHERE parent_table = 'recruit'
+              AND file_code = 1
+        ) f ON r.recruit_no = f.parent_no
 
   </select>
 
@@ -115,4 +129,5 @@
   WHERE recruit_no = #{recruitNo};
 
   </delete>
+
 </mapper>

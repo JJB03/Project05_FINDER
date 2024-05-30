@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.finder.project.main.dto.File;
+import com.finder.project.main.dto.Files;
 import com.finder.project.main.mapper.FileMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,29 +26,29 @@ public class FileServiceImpl implements FileService{
 
     // 파일 목록
     @Override
-    public List<File> list() throws Exception {
-        List<File> fileList = fileMapper.list();
+    public List<Files> list() throws Exception {
+        List<Files> fileList = fileMapper.list();
 
         return fileList;
     }
 
     //파일 조회
     @Override
-    public File select(int fileNo) throws Exception {
-        File file = fileMapper.select(fileNo);
+    public Files select(int fileNo) throws Exception {
+        Files file = fileMapper.select(fileNo);
         return file;
     }
 
     //파일 등록
     @Override
-    public int insert(File file) throws Exception {
+    public int insert(Files file) throws Exception {
         int result = fileMapper.insert(file);
         return result;
     }
 
     //파일 수정
     @Override
-    public int update(File file) throws Exception {
+    public int update(Files file) throws Exception {
         int result = fileMapper.update(file);
         return result;
     }
@@ -57,7 +57,7 @@ public class FileServiceImpl implements FileService{
      @Override
      public int delete(int fileNo) throws Exception {
          //파일 정보 조회
-         com.finder.project.main.dto.File file = fileMapper.select(fileNo); 
+         com.finder.project.main.dto.Files file = fileMapper.select(fileNo); 
  
          //파일 정보 삭제 (데이터베이스 측)
          int result = fileMapper.delete(fileNo);
@@ -83,17 +83,17 @@ public class FileServiceImpl implements FileService{
 
      //부모 테이블 기준으로 파일목록 조회하기
     @Override
-    public List<File> listByParent(File file) throws Exception {
-        List<File> fileList = fileMapper.listByParent(file);
+    public List<Files> listByParent(Files file) throws Exception {
+        List<Files> fileList = fileMapper.listByParent(file);
         return fileList;
     }
 
     //부모 테이블에 종속된 파일목록 삭제하기
     @Override
-    public int deleteByParent(File file) throws Exception {
-        List<File> fileList = fileMapper.listByParent(file);
+    public int deleteByParent(Files file) throws Exception {
+        List<Files> fileList = fileMapper.listByParent(file);
         
-        for(File deleteFile : fileList){
+        for(Files deleteFile : fileList){
             int fileNo = deleteFile.getFileNo();
             delete(fileNo);
         } 
@@ -105,7 +105,7 @@ public class FileServiceImpl implements FileService{
 
     //파일 업로드
     @Override
-    public boolean upload(File file) throws Exception {
+    public boolean upload(Files file) throws Exception {
         log.info("file: " + file);
         
         MultipartFile mf = file.getFile();
@@ -140,12 +140,19 @@ public class FileServiceImpl implements FileService{
 
     //파일 다운로드
     @Override
-    public File downFile(int fileNo) throws Exception {
-        File file = fileMapper.select(fileNo);
+    public Files downFile(int fileNo) throws Exception {
+        Files file = fileMapper.select(fileNo);
 
         //다운로드 시 작업할 코드 추가
 
         return file;
+    }
+
+    @Override
+    public Files listByParentThumbnail(int recruitNo) throws Exception {
+        Files Thumbnail = fileMapper.listByParentThumbnail(recruitNo);
+
+        return Thumbnail;
     }
 
     

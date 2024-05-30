@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.service.CompanyService;
-import com.finder.project.recruit.dto.Keyword;
+import com.finder.project.main.dto.Files;
+import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -42,27 +42,32 @@ public class RecruitController {
     @Autowired
     CompanyService companyService;
 
+    @Autowired
+    FileService fileService;
+
     
     // 채용공고 상세 페이지 ----
     @GetMapping("/detail_jobs_user")
-    public String getMethodName(@RequestParam("recuitNo") int recuitNo, Model model) throws Exception {
+    public String getMethodName(@RequestParam("recruitNo") int recruitNo, Model model, Files file) throws Exception {
+        
 
-        RecruitPost recruitPost = recruitService.recruitRead(recuitNo);
+        RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
         if (recruitPost == null) {
             log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
         } else {
             log.info("RecruitPost 정보: {}", recruitPost);
         }
 
-        // List<Keyword> keywords = recruitService.recruitReadKeyword(recuitNo);
-        // if (keywords == null) {
-        //     log.error("keywords 객체가 null입니다. : ", keywords);
-        // } else {
-        //     log.info("keywords 정보: {}", keywords);
-        // }
+        // 파일 목록 요청
+        file.setParentTable("recruit");
+        file.setParentNo(recruitNo);
+        List<Files> fileList = fileService.listByParent(file);
 
+        Files Thumbnail = fileService.listByParentThumbnail(recruitNo);
+
+        model.addAttribute("Thumbnail", Thumbnail);
         model.addAttribute("recruitPost", recruitPost);
-        // model.addAttribute("keywords", keywords);
+        model.addAttribute("fileList", fileList);
 
         return "/recruit/detail_jobs_user";
     }
@@ -79,7 +84,6 @@ public class RecruitController {
 
     @PostMapping("/post_jobs_com")
     public String postPost_jobs_com(RecruitPost recruitPost) throws Exception {
-        log.info("11"+ recruitPost);
         
         int result = recruitService.recruitPost(recruitPost);
 
@@ -93,9 +97,10 @@ public class RecruitController {
 
     // 채용공고 조회/수정/삭제 페이지 ----
     @GetMapping("/post_jobs_read_com")
-    public String getPost_jobs_read_com(@RequestParam("recuitNo") int recuitNo, Model model) throws Exception {
+    public String getPost_jobs_read_com(@RequestParam("recruitNo") int recruitNo, Model model) throws Exception {
         
-        RecruitPost recruitPost = recruitService.recruitRead(recuitNo);
+        RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
+        
 
         if (recruitPost == null) {
             log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
@@ -103,7 +108,7 @@ public class RecruitController {
             log.info("RecruitPost 정보: {}", recruitPost);
         }
 
-        // List<Keyword> keywords = recruitService.recruitReadKeyword(recuitNo);
+        // List<Keyword> keywords = recruitService.recruitReadKeyword(recruitNo);
         // if (keywords == null) {
         //     log.error("keywords 객체가 null입니다. : ", keywords);
         // } else {
@@ -123,7 +128,11 @@ public class RecruitController {
         
 
         if (result > 0) {
-            log.info(" insert 성공 ");
+            Files file = new Files();
+            file.setParentTable("recruit");
+            file.setParentNo(recruitNo);
+            fileService.deleteByParent(file);
+            log.info(" delete 성공 ");
         }
 
         return "redirect:/recruit/posted_jobs_com";

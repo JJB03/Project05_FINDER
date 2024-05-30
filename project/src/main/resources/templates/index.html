@@ -66,7 +66,7 @@
             <div class="card-body d-flex flex-column justify-content-between">
               <div>
                 <div class="card-title">
-                  <img src="/img/logo.png" alt="" style="width: 75px;">
+                  <img th:src="|/file/img/${recruit.fileNo}|" alt="썸네일" width="75px">
                 </div>
                 <input type="hidden" name="recruitNo" th:value="${recruit.recruitNo}">
                 <p class="card-text" style=" font-size: 12px;" th:text="${recruit.company.comName}"></p>
@@ -94,7 +94,7 @@
 
                 <div>
                   <button class="btn-short">
-                    <a th:href="|/recruit/detail_jobs_user?recuitNo=${recruit.recruitNo}|"
+                    <a th:href="|/recruit/detail_jobs_user?recruitNo=${recruit.recruitNo}|"
                       style="text-decoration-line: none; color: white;">조회</a>
                   </button>
                 </div>

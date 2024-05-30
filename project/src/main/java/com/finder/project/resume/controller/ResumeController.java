@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import com.finder.project.main.dto.File;
+import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
 
 import com.finder.project.resume.dto.Resume;
@@ -259,7 +259,7 @@ public class ResumeController {
         int result = resumeService.delete(cv_no);
         if (result>0) {
             //파일까지 삭제
-            File file = new File();
+            Files file = new Files();
             file.setParentTable("Resume");
             file.setParentNo(cv_no);
             fileService.deleteByParent(file);

@@ -8,7 +8,7 @@ import lombok.Data;
 
 //파일 정보
 @Data
-public class File {
+public class Files {
 
 
     private int fileNo;

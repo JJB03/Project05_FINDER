@@ -2,6 +2,8 @@ package com.finder.project.recruit.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.finder.project.company.dto.Company;
 
 import lombok.Data;
@@ -25,5 +27,14 @@ public class RecruitPost {
     
     // Company 테이블 참조
     private Company company;
+
+    // 썸네일 이미지 파일
+    MultipartFile thumbnail;
+    
+    // 파일
+    List<MultipartFile> file;
+    
+    // 파일 번호
+    private int fileNo;
     
 }
