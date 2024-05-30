@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Resume;
 import com.finder.project.resume.mapper.ResumeMapper;
 
@@ -17,9 +16,6 @@ public class ResumeServiceImpl implements ResumeService {
     @Autowired
     private ResumeMapper resumeMapper;
 
-    @Autowired
-    private FileService fileService;
-    
     /*
      * 이력서 목록 조회
      */
@@ -33,8 +29,8 @@ public class ResumeServiceImpl implements ResumeService {
      * 이력서 상세 조회
      */
     @Override
-    public Resume select(int user_no) throws Exception {
-        Resume Resume = resumeMapper.select(user_no);
+    public Resume select(int userNo) throws Exception {
+        Resume Resume = resumeMapper.select(userNo);
         return Resume;
     }
 
