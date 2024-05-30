@@ -148,9 +148,7 @@
                             <div class="item d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <!--데이터 불러오기-->
-                                    <span class="mb-3">
-                                        <!-- thtext? -->
-                                        <p th:text="${resume.cvTitle}"></p>
+                                    <span class="mb-3"th:text="${resume.cvTitle}">
                                     </span>
                                 </div>
                             </div>
@@ -159,20 +157,17 @@
                                     <div style="width: 100%;">
 
                                         <!-- 나이 -->
-                                        <span>
-                                            <p th:text="${variable}"></p>
+                                        <span th:text="${user.userBirth}">
                                         </span>
                                         <span>/</span>
 
                                         <!-- 성별 -->
-                                        <span>
-                                            남자
+                                        <span th:text="${user.userGender}">
                                         </span>
                                         <span>/</span>
 
                                         <!-- 이름 -->
-                                        <span>
-                                            홍준범
+                                        <span th:text="${user.userName}">
                                         </span>
                                     </div>
                                 </div>
