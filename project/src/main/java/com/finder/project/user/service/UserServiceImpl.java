@@ -54,51 +54,46 @@ public class UserServiceImpl implements UserService {
     // 사용자 권한 등록
     @Override
     public int join(Users user) throws Exception {
-        String username = user.getUserId();
+        // String username = user.getUserId();
         String password = user.getUserPw();
         String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
         user.setUserPw(encodedPassword);
 
         // 회원 등록
         int result = userMapper.join(user);
+    
+        // if( result > 0 ) {
+        //     // 회원 기본 권한 등록
+        //     // USER 조회 ->  userNo 가져오기
+        //     Users joinedUser = userMapper.select(username);
+        //     int userNo = joinedUser.getUserNo();
 
-        if( result > 0 ) {
-            // 회원 기본 권한 등록
-            // USER 조회 ->  userNo 가져오기
-            Users joinedUser = userMapper.select(username);
-            int userNo = joinedUser.getUserNo();
-
-            UserAuth userAuth = new UserAuth();
-            userAuth.setUserNo(userNo);
-            userAuth.setAuth("ROLE_USER");
-            result = userMapper.insertAuth(userAuth);
-        }
+        //     UserAuth userAuth = new UserAuth();
+        //     userAuth.setUserNo(userNo);
+        //     userAuth.setAuth("ROLE_USER");
+        //     result = userMapper.insertAuth(userAuth);
+        // }
         return result;
     }
 
     // 기업 권한 등록
     @Override
-    public int comJoin(Users user, Company company) throws Exception {
-        String username = user.getUserId();
-        String password = user.getUserPw();
-        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
-        user.setUserPw(encodedPassword);
+    public int comJoin(Company company) throws Exception {
 
         // 회원 등록
-        int result = userMapper.comJoin(user,company);
+        int result = userMapper.comJoin(company);
 
-        // 여기 까지 문제 없음 ~!~!~!~!~!---------------
-        if( result > 0 ) {
-            // 기업 권한 등록
-            // USER 조회 ->  userNo 가져오기
-            Users joinedUser = userMapper.select(username);
-            int userNo = joinedUser.getUserNo();
+        // if( result > 0 && result2 > 0) {
+        //     // 회원 기본 권한 등록
+        //     // USER 조회 ->  userNo 가져오기
+        //     Users joinedUser = userMapper.select(username);
+        //     int userNo = joinedUser.getUserNo();
 
-            UserAuth userAuth = new UserAuth();
-            userAuth.setUserNo(userNo);
-            userAuth.setAuth("ROLE_COMPANY");
-            result = userMapper.insertAuth(userAuth);
-        }
+        //     UserAuth userAuth = new UserAuth();
+        //     userAuth.setUserNo(userNo);
+        //     userAuth.setAuth("ROLE_USER");
+        //     result = userMapper.insertAuth(userAuth);
+        // }
         return result;
     }
 
@@ -113,6 +108,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insertAuth(UserAuth userAuth) throws Exception {
         int result = userMapper.insertAuth(userAuth);
+        return result;
+    }
+
+    @Override
+    public int max() throws Exception {
+        int result = userMapper.max();
         return result;
     }
     

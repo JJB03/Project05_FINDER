@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.company.service.CompanyService;
 import com.finder.project.user.dto.Users;
 import com.finder.project.user.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
-
 
 @Slf4j
 @Controller
@@ -24,7 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
     @Autowired
-    private UserService userService;        // 변수명은 카멜케이스로 (유상준)
+    private UserService userService; // 변수명은 카멜케이스로 (유상준)
+
+    private CompanyService companyService;
 
     @GetMapping("/{page}")
     public String main(@PathVariable("page") String page) {
@@ -38,32 +40,37 @@ public class UserController {
         return "user/join_user";
     }
 
-    
-    
     @PostMapping("/join_com")
-    public String companyjoinPro(@ModelAttribute("user") Users user, @ModelAttribute("company") Company company) throws Exception {
+    public String companyjoinPro(Users user, Company company) throws Exception {
 
-        int result = userService.comJoin(user,company);
+        log.info("join_com Controller실행");
+
+        int result = userService.join(user);                                                   
+        log.info("기업정보 : " + company );
+        
+        int userNo = userService.max();
+        log.info("유저 번호 ~!~!~! : " + userNo);
+
+        // company.setComName(company.getComName()); 
+        // company.setComCategory(company.getComCategory()); 
+        // company.setComAddress(company.getComAddress()); 
+        // company.setComBusiness(company.getComBusiness());
+        company.setUserNo(userNo); 
+
+        log.info("기업정보랑 번호 들어감  ~!~!~! : " + company);
+        int result1 = userService.comJoin(company);
+
+        log.info("회사정보" + company);
         
          // 회원가입 성공
-         if (result > 0) {
+         if (result + result1 > 1) {
             return "redirect:/login";
         }
 
         // 회원가입 실패
+        log.info("회사 회원가입 실패 돌아가~!~!~!");
         return "redirect:/user/join_user";
     }
-    
-    
-    // public class YourController {
-        
-    //     @PostMapping("/yourEndpoint")
-    //     public String yourMethod(@ModelAttribute("object1") Object1 object1, @ModelAttribute("object2") Object2 object2) {
-    //         // object1과 object2를 사용하여 로직 처리
-    //         return "yourView"; // 처리 결과를 보여줄 뷰 이름 반환
-    //     }
-    // }
-    
 
     @PostMapping("/join_user")
     public String userjoinPro(Users users) throws Exception {
@@ -73,7 +80,7 @@ public class UserController {
         // users.setUserBirth(userBirth);
 
         String userEmail = users.getUserEmail();
-        userEmail = userEmail.replace(",","");
+        userEmail = userEmail.replace(",", "");
         users.setUserEmail(userEmail);
 
         log.info("유저정보" + users);
@@ -95,7 +102,7 @@ public class UserController {
         log.info("아이디 중복 확인 : " + userId);
         Users user = userService.select(userId);
         // 아이디 중복
-        if( user != null ) {
+        if (user != null) {
             log.info("중복된 아이디 입니다 - " + userId);
             return new ResponseEntity<>(false, HttpStatus.OK);
         }
@@ -103,11 +110,9 @@ public class UserController {
         log.info("사용 가능한 아이디 입니다." + userId);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
-    
 
-
-//     import org.springframework.stereotype.Controller;
-// import org.springframework.web.bind.annotation.ModelAttribute;
-// import org.springframework.web.bind.annotation.PostMapping;
+    // import org.springframework.stereotype.Controller;
+    // import org.springframework.web.bind.annotation.ModelAttribute;
+    // import org.springframework.web.bind.annotation.PostMapping;
 
 }

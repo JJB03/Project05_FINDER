@@ -16,7 +16,7 @@ public interface UserService {
     public int join(Users user) throws Exception;
 
     // 기업 회원 가입 
-    public int comJoin(Users user, Company company) throws Exception;
+    public int comJoin(Company company) throws Exception;
 
     // 회원 수정
     public int update(Users user) throws Exception;
@@ -24,4 +24,5 @@ public interface UserService {
     // 회원 권한 등록
     public int insertAuth(UserAuth userAuth) throws Exception;
 
+    public int max() throws Exception;
 }
