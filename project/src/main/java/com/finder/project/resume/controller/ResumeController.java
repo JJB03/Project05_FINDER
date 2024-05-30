@@ -8,19 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+
 
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
+
 import com.finder.project.resume.dto.Resume;
 import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
-import com.finder.project.user.service.UserService;
+
 
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -50,9 +51,8 @@ public class ResumeController {
     private FileService fileService;
 
 
-    // 회원정보서비스
-    @Autowired
-    private UserService userService;
+
+
     
     /**
      * 이력서 목록 화면
@@ -84,15 +84,24 @@ public class ResumeController {
         
 
     @GetMapping("/cv_list_user")
-    public String CvList(@SessionAttribute("user") Users user ,Model model) throws Exception {
-        
+    public String CvList(HttpSession session,Model model) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
         int userNo = user.getUserNo();
         log.info(" 이력서 목차는 : " + userNo);
         List<Resume> resumeList = resumeService.resumelist(userNo);
+       
 
         //모델 등록
         model.addAttribute("resumeList", resumeList);
+        model.addAttribute("user", user);
 
+        
         //뷰페이지 지정
         return "resume/cv_list_user";
     }
@@ -141,17 +150,27 @@ public class ResumeController {
      * 파일 요청도 해야함.
      */
     @GetMapping("/cv_read_user")
-    public String cvReadUser(@SessionAttribute("user") Users user
+    public String cvReadUser(HttpSession session
                                 ,Model model) throws Exception{
         // 세션으로 가져온 User 객체의 user_no을 참조해서 service에 넣기
+        Users user = (Users) session.getAttribute("user");
+        
+
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
             // 세션에서 사용자 정보를 가져옴
             int userNo = user.getUserNo();
 
             // 사용자의 이력서 정보를 가져옴
             Resume resume = resumeService.select(userNo);
 
+
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
-            model.addAttribute("Resume", resume);
+            model.addAttribute("resume", resume);
+            model.addAttribute("user", user);
 
             // 이력서 정보가 담긴 화면으로 이동
             return "resume/cv_read_user";
@@ -167,6 +186,7 @@ public class ResumeController {
     public String ReadUserPro(HttpSession session, Resume resume)  throws Exception{
             // 세션에서 사용자 정보를 가져옴
             Users user = (Users) session.getAttribute("user");
+
             if (user == null) {
                 return "redirect:/login"; // 사용자가 로그인되어 있지 않은 경우 로그인 페이지로 이동
             }
@@ -193,10 +213,17 @@ public class ResumeController {
      * @return
      */
     @GetMapping("/cv_read_com")
-    public String ReadCom(@SessionAttribute("user") Users user
+    public String ReadCom(HttpSession session
                             , Model model) throws Exception {
 
             // 세션에서 사용자 정보를 가져옴
+            Users user = (Users) session.getAttribute("user");
+
+            if (user == null) {
+                // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+                return "redirect:/login";
+            }
+
             int userNo = user.getUserNo();
 
             // 사용자의 이력서 정보를 가져옴
@@ -204,6 +231,7 @@ public class ResumeController {
 
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
             model.addAttribute("Resume", resume);
+            model.addAttribute("user", user);
 
             // 화면 이동
             return "resume/cv_read_com";
