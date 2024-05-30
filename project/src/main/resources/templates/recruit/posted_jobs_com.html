@@ -148,13 +148,13 @@
 
                     <th:block th:if="${recruitPosts.isEmpty()}">
                         <div>
-                            <span>조회된 채용공고 정보가 없습니다.</span>
+                            
                         </div>
                     </th:block>
 
                     <th:block th:each="recruit : ${recruitPosts}">
 
-                        <a th:href="|/recruit/post_jobs_read_com?recuitNo=${recruit.recruitNo}|" class="job-item-link">
+                        <a th:href="|/recruit/post_jobs_read_com?recuitNo=${recruit.recruitNo}|" class="job-item-link" th:id="'recruit_' + ${recruit.recruitNo}">
                             <input type="hidden" name="recruitNo" id="recruitNo" th:value="${recruit.recruitNo}">
                             <div class="job-item d-flex flex-column">
                                 <div style="width: 38px; height: 15px;">
@@ -181,7 +181,8 @@
 
                                     <div class="gap-2 d-flex">
                                         <div>
-                                            <button type="button" class="btn-short" id="btn-stop" th:onclick="'deleteRecruit(' + ${recruit.recruitNo} + ', event)'">
+                                            <button type="button" class="btn-short" id="btn-stop"
+                                                th:onclick="'deleteRecruit(' + ${recruit.recruitNo} + ', event)'">
                                                 <strong>삭제</strong>
                                             </button>
                                         </div>
@@ -209,13 +210,18 @@
     </div>
 
     <script>
+
+
         function deleteRecruit(recruitNo, event) {
+            
+
             // let data = {"userId"   : userId}
             event.stopPropagation(); // 이벤트 전파 중지
             event.preventDefault(); // 기본 동작 방지
 
             let request = new XMLHttpRequest()
-            let csrfToken = $('#csrfToken').val();
+            // let csrfToken = $('#csrfToken').val();
+            var csrfToken = "[[${_csrf.token}]]"
 
             request.open("POST", `/recruit/posted_jobs_com/${recruitNo}`, true)
             request.setRequestHeader("Content-Type", "application/json")
@@ -224,31 +230,26 @@
             request.send()
 
             request.onreadystatechange = function () {
-
                 // 요청 성공 시,
                 if (request.readyState == request.DONE && request.status == 200) {
                     // 파일 항목을 화면에서 제거
                     if (request.responseText == 'true') {
-                        alert('삭제 되었습니다.')
+                        alert('삭제 되었습니다.');
+                        // 성공적으로 삭제된 채용공고를 화면에서 숨김
+                        var deletedRecruit = document.getElementById('recruit_' + recruitNo);
+                        if (deletedRecruit) {
+                            deletedRecruit.style.display = 'none';
+                        }
                     }
                     else {
-                        alert('삭제가 불가능합니다!')
+                        alert('삭제가 불가능합니다!');
                     }
                 }
             }
         }
 
-        document.getElementById('btn-stop').addEventListener('click', function (event) {
-            event.stopPropagation();  // 이벤트 전파 중지
-            event.preventDefault();  // 기본 동작 방지
-        });
+     
 
-        function stopEvent(event) {
-            event.stopPropagation(); // 이벤트 전파 중지
-            event.preventDefault();  // 기본 동작 방지
-            // 추가적인 버튼 클릭 동작을 여기서 처리
-            console.log('Button clicked');
-        }
     </script>
 </body>
 

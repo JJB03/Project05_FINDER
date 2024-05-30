@@ -13,19 +13,31 @@
                 </a>
             </div>
             <div class="nav-menu">
-                <!-- 기업이면 기업정보/ 일반회원이면 내정보 -->
-                <a href="/user/update_user">내 정보</a>
-                <!-- 기업이면 제출된 이력서 / 일반회원이면 내 이력서 -->
-                <a href="/resume/cv_list_user">이력서 관리</a>
+
+                <th:block th:if="${#authorization.expression('hasRole(''ROLE_COMPANY'')')}">        
+                    <!-- 기업이면 기업정보/ 일반회원이면 내정보 -->
+                    <a th:href="|/company/introduce_com?userNo=${session.user.userNo}|">기업 정보</a>
+                    <!-- 기업이면 제출된 이력서 / 일반회원이면 내 이력서 -->
+                    <a th:href="|/company/recruit_list_com?userNo=${session.user.userNo}|">제출된 이력서</a>
+                    <!-- 기업일때만 결제 페이지 표시 -->
+                    <a th:href="|/company/credit_com?userNo=${session.user.userNo}|">결제</a>
+                </th:block>
+
+                <th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+                    <!-- 기업이면 기업정보/ 일반회원이면 내정보 -->
+                    <a th:href="|/user/update_user?userNo=${session.user.userNo}|">내 정보</a>
+                    <!-- 기업이면 제출된 이력서 / 일반회원이면 내 이력서 -->
+                    <a th:href="|/resume/cv_list_user?userNo=${session.user.userNo}|">이력서 관리</a>
+                </th:block>
+
                 <!-- 메인 카드뷰 채용공고 페이지 -->
                 <a href="/index">채용공고</a>
-                <!-- 기업일때만 결제 페이지 표시 -->
-                <a href="/company/credit_com">결제</a>
                 <!-- 로그인시 로그아웃으로 표시 -->
                 <!-- 비 로그인 시 -->
                 <th:block sec:authorize="isAnonymous()">
                     <a href="/login">로그인</a>
                 </th:block>
+
                 <!-- 로그인 시 -->
                 <th:block sec:authorize="isAuthenticated()">
                     <form action="/logout" method="post">

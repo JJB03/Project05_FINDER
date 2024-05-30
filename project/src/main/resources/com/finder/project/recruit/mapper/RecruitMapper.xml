@@ -42,7 +42,7 @@
   <select id="recruitList" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    LEFT JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit r ON c.com_no = r.com_no
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
 
   </select>
@@ -61,7 +61,7 @@
   <select id="recruitRead" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    LEFT JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit r ON c.com_no = r.com_no
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.recruit_no = #{recruitNo}
     
@@ -79,7 +79,7 @@
   <select id="postsRecruitList" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    LEFT JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit r ON c.com_no = r.com_no
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.com_no = #{comNo}
   </select>
@@ -89,7 +89,7 @@
   <select id="postsRecruitRead" resultMap="RecruitPostResultMap">
     SELECT c.*, r.*, rk.*
     FROM company c
-    LEFT JOIN recruit r ON c.com_no = r.com_no
+    INNER JOIN recruit r ON c.com_no = r.com_no
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.recruit_no = #{recruitNo}
   </select>
@@ -99,4 +99,20 @@
     WHERE recruit_no = #{recrutNo};
   </delete>
   
+  <update id="updateRecruitRead">
+    UPDATE recruit
+    SET recruit_title = #{recruitTitle},
+    recruit_content = #{recruitContent},
+    recruit_responsibilities = #{recruitResponsibilities},
+    recruit_qualifications = #{recruitQualifications},
+    recruit_preferred_qualifications = #{recruitPreferredQualifications},
+    recruit_reg_date = #{recruitRegDate}
+    WHERE recruit_no = #{recruitNo}
+  </update>
+
+  <delete id="deleteKeyword">
+  DELETE FROM recruit_keyword 
+  WHERE recruit_no = #{recruitNo};
+
+  </delete>
 </mapper>
