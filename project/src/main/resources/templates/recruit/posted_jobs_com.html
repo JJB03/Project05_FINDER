@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>등록한 채용공고</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 
 <body layout:fragment="content">
@@ -123,7 +124,7 @@
                     </li>
                 </ul>
             </nav>
-            
+
 
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
                 <div class="job-listings ">
@@ -145,32 +146,55 @@
                         </div>
                     </form>
 
-                    <a href="/recruit/post_jobs_read_com" class="job-item-link">
-                        <div class="job-item d-flex flex-column">
-                            <div style="width: 38px; height: 15px;">
-                                <!-- new 자리 -->
-                            </div>
-                            <div style="font-size: 12px;">
-                                <span>CANB R&D 연구소</span> <span>|</span> <span>기간: 2024.05.20 ~ 채용시</span>
-                            </div>
-                            <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;">CANB R&D 연구소 부문별 채용
-                            </div>
-                            <div class="item d-flex justify-content-between">
-                                <div class="keyword-span">
-                                    <span>#연구개발</span> <span>#포천시</span> <span>#계약직</span>
-                                </div>
-                                <div class="gap-2 d-flex">
-                                    <div style="width: 70px; height: 34px;">
-                                    </div>
-
-                                    <div class="d-flex justify-content-center m-1">
-                                        <strong style="color: #024FDF;">FINDER</strong>
-                                    </div>
-                                </div>
-                            </div>
+                    <th:block th:if="${recruitPosts.isEmpty()}">
+                        <div>
+                            <span>조회된 채용공고 정보가 없습니다.</span>
                         </div>
-                    </a>
+                    </th:block>
 
+                    <th:block th:each="recruit : ${recruitPosts}">
+
+                        <a th:href="|/recruit/post_jobs_read_com?recuitNo=${recruit.recruitNo}|" class="job-item-link">
+                            <input type="hidden" name="recruitNo" id="recruitNo" th:value="${recruit.recruitNo}">
+                            <div class="job-item d-flex flex-column">
+                                <div style="width: 38px; height: 15px;">
+                                    <!-- new 자리 -->
+                                </div>
+                                <div style="font-size: 12px;">
+                                    <span th:text="${recruit.company.comName}"></span>
+                                    <span>|</span>
+                                    <span>기간 : </span><span th:text="${recruit.recruitRegDate}"></span>
+                                </div>
+                                <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;"
+                                    th:text="${recruit.recruitContent}">
+
+                                </div>
+                                <div class="item d-flex justify-content-between">
+                                    <div class="keyword-span">
+                                        <th:block th:each="keyword : ${recruit.keywordList}">
+                                            <span th:text="${keyword.recruitKeyword}">
+
+                                            </span>
+                                        </th:block>
+                                    </div>
+
+
+                                    <div class="gap-2 d-flex">
+                                        <div>
+                                            <button type="button" class="btn-short" id="btn-stop" th:onclick="'deleteRecruit(' + ${recruit.recruitNo} + ', event)'">
+                                                <strong>삭제</strong>
+                                            </button>
+                                        </div>
+
+
+                                        <div class="d-flex justify-content-center m-1">
+                                            <strong style="color: #024FDF;">FINDER</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </th:block>
 
 
 
@@ -183,6 +207,49 @@
         </div>
 
     </div>
+
+    <script>
+        function deleteRecruit(recruitNo, event) {
+            // let data = {"userId"   : userId}
+            event.stopPropagation(); // 이벤트 전파 중지
+            event.preventDefault(); // 기본 동작 방지
+
+            let request = new XMLHttpRequest()
+            let csrfToken = $('#csrfToken').val();
+
+            request.open("POST", `/recruit/posted_jobs_com/${recruitNo}`, true)
+            request.setRequestHeader("Content-Type", "application/json")
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) // 💍       // 이래야 403 이 안뜬다.
+            // request.send( JSON.stringify( data ) )
+            request.send()
+
+            request.onreadystatechange = function () {
+
+                // 요청 성공 시,
+                if (request.readyState == request.DONE && request.status == 200) {
+                    // 파일 항목을 화면에서 제거
+                    if (request.responseText == 'true') {
+                        alert('삭제 되었습니다.')
+                    }
+                    else {
+                        alert('삭제가 불가능합니다!')
+                    }
+                }
+            }
+        }
+
+        document.getElementById('btn-stop').addEventListener('click', function (event) {
+            event.stopPropagation();  // 이벤트 전파 중지
+            event.preventDefault();  // 기본 동작 방지
+        });
+
+        function stopEvent(event) {
+            event.stopPropagation(); // 이벤트 전파 중지
+            event.preventDefault();  // 기본 동작 방지
+            // 추가적인 버튼 클릭 동작을 여기서 처리
+            console.log('Button clicked');
+        }
+    </script>
 </body>
 
 </html>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
@@ -29,7 +30,8 @@ public class CompanyController {
     // introduce_com 화면 (기업소개)
     // 조회는 세션에서 해주고 있다. (Users에서 Company CompanyDetail 받아옴)
     @GetMapping("/introduce_com")
-    public String introduce_com() throws Exception {
+    public String introduce_com(HttpSession session, Model model) throws Exception {
+        
 
         return "/company/introduce_com";
     }
@@ -38,22 +40,53 @@ public class CompanyController {
 
     // 기업 상세 정보 등록 (기업소개)
     @PostMapping("/insert_detail")
-    public String introduce_com_insertPro(CompanyDetail companyDetail) throws Exception {
+    public String introduceComInsertPro(HttpSession session, CompanyDetail companyDetail) throws Exception {
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
         
-        // 데이터 요청
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        Company company = companyService.selectByUserNo(user.getUserNo());
+
+        
+        // CompanyDetail 객체에 사용자 정보 설정
+        companyDetail.setComNo(company.getComNo());
+
+        // 데이터 삽입 요청
         int result = companyService.insertCompanyDetail(companyDetail);
 
         // 데이터 처리 성공
-        if(result > 0) {
+        if (result > 0) {
+            session.setAttribute("companyDetail", companyDetail);
             return "redirect:/company/introduce_com";
         }
-        // 데이터 처리 실패 
+        // 데이터 처리 실패
         return "redirect:/error";
     }
 
+    
     // 기업 상세 정보 수정 (기업소개)
     @PostMapping("/update_detail")
-    public String introduce_com_updatePro(CompanyDetail companyDetail) throws Exception {
+    public String introduce_com_updatePro(HttpSession session, CompanyDetail companyDetail) throws Exception {
+
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
+        
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        Company company = companyService.selectByUserNo(user.getUserNo());
+
+        // CompanyDetail 객체에 사용자 정보 설정
+        companyDetail.setComNo(company.getComNo());
+
+
+        
 
         // 데이터 요청
         int result = companyService.updateCompanyDetail(companyDetail);
@@ -74,14 +107,7 @@ public class CompanyController {
 
     // 기업 조회 (기업정보)
     @GetMapping("/info_update_com")
-    public String getCompanyById(@RequestParam("no") int no
-                                ,Model model) throws Exception {
-
-        // 데이터 요청
-        Company company = companyService.selectCompanyById(no);
-        
-        // 모델 등록
-        model.addAttribute("company", company);                                            
+    public String getCompanyById() throws Exception {  
 
         return "/company/info_update_com";
     }
@@ -98,6 +124,15 @@ public class CompanyController {
     //     company.setComNo(comNo);
     //     companyService.updateCompany(company);
     // }
+
+    
+
+
+    // 결제 종류 화면
+    @GetMapping("/credit_com")
+    public String credit_com() throws Exception {
+        return "/company/credit_com";
+    }
 
     
 }

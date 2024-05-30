@@ -128,7 +128,7 @@
 
 
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
-                <form action="" method="post" class="job-listings">
+                <form id="recruitForm" action="" method="post" class="job-listings">
                     <input type="hidden" name="comNo" value="1">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <div class="job-header">
@@ -139,7 +139,8 @@
 
                         <div>제목</div>
                         <div>
-                            <input type="text" name="recruitTitle" id="" placeholder="제목을 입력해주세요" class="input-none"
+                            <input type="text" name="recruitTitle" id="" placeholder="제목을 입력해주세요"
+                                class="input-none keyword-main"
                                 style="border: 1px solid var(--bs-border-color); padding: 1rem .75rem; border-radius: 8px;">
                         </div>
                         <div>keyword</div>
@@ -160,24 +161,24 @@
                             <div>
                                 <span>담당업무</span>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control w-100" name="recruitResponsibilities"
-                                        id="floatingInput" placeholder="Example">
+                                    <input type="text" class="form-control w-100 keyword-main"
+                                        name="recruitResponsibilities" id="floatingInput" placeholder="Example">
                                     <label for="floatingInput">Ex : 개발자</label>
                                 </div>
                             </div>
                             <div>
                                 <span>자격조건</span>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control w-100" name="recruitQualifications"
-                                        id="floatingInput" placeholder="Example">
+                                    <input type="text" class="form-control w-100 keyword-main"
+                                        name="recruitQualifications" id="floatingInput" placeholder="Example">
                                     <label for="floatingInput">Ex : 학사졸업</label>
                                 </div>
                             </div>
                             <div>
                                 <span>우대사항</span>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control w-100" name="recruitPreferredQualifications"
-                                        id="floatingInput" placeholder="Example">
+                                    <input type="text" class="form-control w-100 keyword-main"
+                                        name="recruitPreferredQualifications" id="floatingInput" placeholder="Example">
                                     <label for="floatingInput">Ex : 자격증 우대</label>
                                 </div>
                             </div>
@@ -186,17 +187,18 @@
                         <div>
                             <span>기간</span>
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control w-100" name="recruitRegDate" id="floatingInput"
-                                    placeholder="Example">
+                                <input type="text" class="form-control w-100 keyword-main" name="recruitRegDate"
+                                    id="floatingInput" placeholder="Example">
                                 <label for="floatingInput">채용공고 기간을 적어주세요.</label>
                             </div>
                         </div>
 
                         <div>
                             <span>내용</span>
-                            <div class="form-floating" style="height: 500px;">
-                                <textarea class="form-control w-100 h-100" placeholder="Leave a comment here"
-                                    name="recruitContent" id="floatingTextarea2"></textarea>
+                            <div class="form-floating " style="height: 500px;">
+                                <textarea class="form-control w-100 h-100 keyword-main"
+                                    placeholder="Leave a comment here" name="recruitContent"
+                                    id="floatingTextarea2 "></textarea>
                                 <label for="floatingTextarea2">내용을 입력해주세요.</label>
                             </div>
                         </div>
@@ -255,14 +257,34 @@
                             class: 'input-keyword',
                             readonly: true,
                             style: '',
+                            id: 'keywordForm',
                             name: 'keyword',
-                            val: '#' + inputValue
+                            value: '#' + inputValue
                         });
                         $('#outputContainer').append(newSpanElement); // Append the new span to the container
-                        $(this).val(''); // Clear the input field
                     }
+                    $(this).val(''); // Clear the input field
                 }
             });
+        });
+
+        $('#recruitForm').on('submit', function (event) {
+            var allFieldsFilled = true;
+            $('.keyword-main').each(function () {
+                if ($(this).val().trim() === '') {
+                    allFieldsFilled = false;
+                    return false; // Exit the loop
+                }
+            });
+
+            if (!allFieldsFilled) {
+                event.preventDefault(); // Prevent form submission if any input is empty
+                alert('내용를 입력해주세요.'); // Alert the user
+            } else {
+                if ($('.input-keyword').length !== 0) {
+                    $('#keyword').remove(); // Remove the empty input field to avoid submission of empty fields
+                }
+            }
         });
 
 

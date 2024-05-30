@@ -1,5 +1,5 @@
 
--- Active: 1716771409910@@127.0.0.1@3306@joeun
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 
 
 -- 테이블 삭제 ( 총 16개 )
@@ -95,6 +95,7 @@ CREATE TABLE `cv` (
 	`cv_no` int NOT NULL AUTO_INCREMENT,
 	`user_no` int NOT NULL,
 	`cover_letter` text NULL,
+	`cv_title`	VARCHAR(255)	NULL,
 	`cv_reg_date` timestamp NOT NULL DEFAULT now(),
 	`cv_upd_date` timestamp NULL DEFAULT now(),
 	PRIMARY KEY (`cv_no`),
@@ -155,9 +156,6 @@ CREATE TABLE `company` (
 	`com_no` int NOT NULL AUTO_INCREMENT,
 	`com_name` varchar(500) NOT NULL,
 	`com_category` varchar(500) NOT NULL,
-	`com_phone` varchar(500) NOT NULL,
-	`com_email` varchar(500) NOT NULL,
-	`com_employee` int NULL,
 	`com_address` varchar(500) NOT NULL,
 	`com_business` varchar(500) NOT NULL,
 	`user_no` int NOT NULL,
@@ -167,13 +165,13 @@ CREATE TABLE `company` (
 
 -- 채용공고 게시글 테이블
 CREATE TABLE `recruit` (
-	`recruit_no` int NOT NULL AUTO_INCREMENT,
+	`recruit_no` int NOT NULL AUTO_INCREMENT ,
 	`recruit_title` varchar(500) NOT NULL,
 	`recruit_content` text NOT NULL,
 	`com_no` int NOT NULL,
 	`recruit_responsibilities` varchar(500) NULL,
 	`recruit_qualifications` varchar(500) NULL,
-	`reruit_preferred_qualifications` varchar(500) NULL,
+	`recruit_preferred_qualifications` varchar(500) NULL,
 	`recruit_reg_date` varchar(500) NOT NULL,
 	`com_reg_date` timestamp NOT NULL DEFAULT now(),
 	`com_upd_date` timestamp NULL DEFAULT now(),
@@ -187,7 +185,7 @@ CREATE TABLE `recruit_keyword` (
     `recruit_keyword` varchar(500) NOT NULL,
 	`recruit_no` int NOT NULL,
     PRIMARY KEY (`recruit_keyword_no`),
-	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
+	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`) ON DELETE CASCADE
 );
 
 -- 파일 테이블
@@ -213,17 +211,16 @@ CREATE TABLE `file` (
 CREATE TABLE `company_detail` (
 	`com_info_no` int NOT NULL AUTO_INCREMENT,
 	`com_represent` varchar(100) NOT NULL,
-	`com_category` varchar(100) NOT NULL,
 	`com_url` varchar(500) NULL,
 	`com_birth` int NOT NULL,
-	`com_size` enum('대기업','중견기업','중소기업') NOT NULL,
+	-- `com_size` enum('대기업','중견기업','중소기업') NOT NULL,
+	`com_size` varchar(500) NOT NULL,
 	`com_emp_count` int NOT NULL,
 	`com_sales` int NOT NULL,
 	`com_content` text NOT NULL,
-	`com_address` varchar(500) NULL,
 	`com_vision` varchar(500) NULL,
 	`com_welfare` varchar(500) NULL,
-	`com_avg_salary` int NOT NULL,
+	`com_avg_salary` int NULL,
 	`com_no` int NOT NULL,
 	PRIMARY KEY (`com_info_no`),
 	FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
