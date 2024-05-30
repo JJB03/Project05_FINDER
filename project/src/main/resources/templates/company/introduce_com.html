@@ -234,6 +234,7 @@
                         <!-- 작성수정폼 -->
                         <th:block th:if="${session.user.companyDetail != null}">
                             <div class="company-introduce d-flex flex-column w-100">
+                                <input type="hidden" name="comNo" th:value="${session.user.company.comNo}">
                                 <div>
                                     <input type="text" class="w-100 my-4 com-intro-title" name="com_intro_title" th:value="${session.user.company.comName}" readonly>
                                 </div>

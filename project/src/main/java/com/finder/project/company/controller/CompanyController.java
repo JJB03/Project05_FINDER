@@ -67,6 +67,7 @@ public class CompanyController {
         return "redirect:/error";
     }
 
+
     
     // 기업 상세 정보 수정 (기업소개)
     @PostMapping("/update_detail")
@@ -85,8 +86,6 @@ public class CompanyController {
         // CompanyDetail 객체에 사용자 정보 설정
         companyDetail.setComNo(company.getComNo());
 
-
-        
 
         // 데이터 요청
         int result = companyService.updateCompanyDetail(companyDetail);
