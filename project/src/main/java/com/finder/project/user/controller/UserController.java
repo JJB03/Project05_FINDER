@@ -40,49 +40,14 @@ public class UserController {
         return "user/join_user";
     }
 
-    @PostMapping("/join_com")
-    public String companyjoinPro(Users user, Company company) throws Exception {
-
-        log.info("join_com Controller실행");
-
-        int result = userService.join(user);                                                   
-        log.info("기업정보 : " + company );
-        
-        int userNo = userService.max();
-        log.info("유저 번호 ~!~!~! : " + userNo);
-
-        // company.setComName(company.getComName()); 
-        // company.setComCategory(company.getComCategory()); 
-        // company.setComAddress(company.getComAddress()); 
-        // company.setComBusiness(company.getComBusiness());
-        company.setUserNo(userNo); 
-
-        log.info("기업정보랑 번호 들어감  ~!~!~! : " + company);
-        int result1 = userService.comJoin(company);
-
-        log.info("회사정보" + company);
-        
-         // 회원가입 성공
-         if (result + result1 > 1) {
-            return "redirect:/login";
-        }
-
-        // 회원가입 실패
-        log.info("회사 회원가입 실패 돌아가~!~!~!");
-        return "redirect:/user/join_user";
-    }
-
     @PostMapping("/join_user")
     public String userjoinPro(Users users) throws Exception {
-        // 생년월일의 쉼표를 "-"으로 변경
-        // String userBirth = users.getUserBirth();
-        // userBirth = userBirth.replace(",", "-");
-        // users.setUserBirth(userBirth);
 
+        // 이메일에서 오늘 ,지우기
         String userEmail = users.getUserEmail();
         userEmail = userEmail.replace(",", "");
         users.setUserEmail(userEmail);
-
+        // ---
         log.info("유저정보" + users);
 
         int result = userService.join(users);
@@ -93,6 +58,32 @@ public class UserController {
         }
 
         // 회원가입 실패
+        return "redirect:/user/join_user";
+    }
+
+    @PostMapping("/join_com")
+    public String companyjoinPro(Users user, Company company) throws Exception {
+
+        String userEmail = user.getUserEmail();
+        userEmail = userEmail.replace(",", "");
+        user.setUserEmail(userEmail);
+
+        int result = userService.join(user);
+
+        int userNo = userService.max();
+
+        company.setUserNo(userNo);
+
+        int result1 = userService.comJoin(company);
+
+
+        // 회원가입 성공
+        if (result + result1 > 1) {
+            return "redirect:/login";
+        }
+
+        // 회원가입 실패
+        log.info("회사 회원가입 실패 돌아가~!~!~!");
         return "redirect:/user/join_user";
     }
 
