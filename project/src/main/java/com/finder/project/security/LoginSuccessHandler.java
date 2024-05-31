@@ -73,6 +73,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             user.setCompany(company);
             user.setCompanyDetail(companyDetail);
         }
+
         
         // 로그인된 사용자 정보 세션에 등록
         HttpSession session = request.getSession();

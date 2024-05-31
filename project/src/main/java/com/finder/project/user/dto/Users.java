@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.resume.dto.Resume;
 
 import lombok.Data;
 
@@ -27,7 +28,6 @@ public class Users {
 
     Company company;                // 기업 테이블 (info_update_com)
     private CompanyDetail companyDetail;    // 기업 상세 테이블 (introduce_com)
-
 
 
     private List<UserAuth> authList;
