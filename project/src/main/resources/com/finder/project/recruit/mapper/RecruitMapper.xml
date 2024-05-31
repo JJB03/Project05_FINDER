@@ -132,4 +132,29 @@
 
   </delete>
 
+  <!-- 세션에 등록한 set recuitNo 가져오기 -->
+  <select id="selectRecruitsByNos" resultMap="RecruitPostResultMap">
+    <choose>
+      <when test="list != null and list.size() > 0">
+        SELECT c.*, r.*, rk.*
+        FROM company c
+        INNER JOIN recruit r ON c.com_no = r.com_no
+        LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+        WHERE r.recruit_no IN
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </when>
+      <otherwise>
+        SELECT c.*, r.*, rk.*
+        FROM company c
+        INNER JOIN recruit r ON c.com_no = r.com_no
+        LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+        WHERE 1=0
+      </otherwise>
+    </choose>
+  </select>
+  <!-- 세션에 등록한 set recuitNo 가져오기  끝-->
+
+
 </mapper>

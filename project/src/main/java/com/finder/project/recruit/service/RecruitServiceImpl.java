@@ -1,7 +1,11 @@
 package com.finder.project.recruit.service;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,7 @@ import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.mapper.RecruitMapper;
+import com.finder.project.user.dto.Users;
 
 import groovy.util.logging.Slf4j;
 
@@ -145,8 +150,16 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
    
+   
+    @Override
+    public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos) {
+        // TODO Auto-generated method stub
+        return recruitMapper.selectRecruitsByNos(new ArrayList<>(recruitNos));
+    }
+
     
     
+     
 
     
 }

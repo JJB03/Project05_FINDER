@@ -118,36 +118,50 @@
                             </button>
                         </div>
                     </form>
+                    
+                    <th:block th:if="${recruits.isEmpty()}">
+                    
+                    </th:block>
 
-                    <a href="#" class="job-item-link">
-                        <div class="job-item d-flex flex-column">
-                            <div style="width: 38px; height: 15px;">
-                                <!-- new 자리 -->
-                                <div class="d-flex justify-content-center align-items-center"
-                                    style="border-radius: 8px; background-color: #024FDF; color: #fff; width: 38px; font-size: 10px;">
-                                    NEW
-                                </div>
-                            </div>
-                            <div style="font-size: 12px;">
-                                <span>CANB R&D 연구소</span> <span>|</span> <span>기간: 2024.05.20 ~ 채용시</span>
-                            </div>
-                            <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;">CANB R&D 연구소 부문별 채용
-                            </div>
-                            <div class="item d-flex justify-content-between">
-                                <div class="keyword-span">
-                                    <span>#연구개발</span> <span>#포천시</span> <span>#계약직</span>
-                                </div>
-                                <div class="gap-2 d-flex">
-                                    <div style="width: 70px; height: 34px;">
-                                    </div>
-
-                                    <div class="d-flex justify-content-center m-1">
-                                        <strong style="color: #024FDF;">FINDER</strong>
+                    <th:block th:each="recruit : ${recruits}">
+                    
+                        <a th:href="|/recruit/detail_jobs_user?recruitNo=${recruit.recruitNo}|" class="job-item-link" th:id="'recruit_' + ${recruit.recruitNo}">
+                            <input type="hidden" name="recruitNo" id="recruitNo" th:value="${recruit.recruitNo}">
+                            <div class="job-item d-flex flex-column">
+                                <div style="width: 38px; height: 15px;">
+                                    <!-- new 자리 -->
+                                    <div class="d-flex justify-content-center align-items-center"
+                                        style="border-radius: 8px;  width: 38px; font-size: 10px;">
+                                        
                                     </div>
                                 </div>
+                                <div style="font-size: 12px;">
+                                    <span th:text="${recruit.company.comName}"></span>
+                                    <span>|</span>
+                                    <span>기간 : </span><span th:text="${recruit.recruitRegDate}"></span>
+                                </div>
+                                <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;" th:text="${recruit.recruitTitle}">
+                                </div>
+                                <div class="item d-flex justify-content-between">
+                                    <div class="keyword-span">
+                                        <th:block th:each="keyword : ${recruit.keywordList}">
+                                            <span th:text="${keyword.recruitKeyword}">
+
+                                            </span>
+                                        </th:block>
+                                    </div>
+                                    <div class="gap-2 d-flex">
+                                        <div style="width: 70px; height: 34px;">
+                                        </div>
+    
+                                        <div class="d-flex justify-content-center m-1">
+                                            <strong style="color: #024FDF;">FINDER</strong>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </th:block>
                 </div>
             </main>
         </div>

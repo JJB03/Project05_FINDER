@@ -45,4 +45,8 @@ public interface RecruitMapper {
     
     // 키워드 삭제 후 등록 할 때
     public int recruitKeyword(int recruitNo, String recruitKeyword);
+
+    
+    public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos);
+    
 }

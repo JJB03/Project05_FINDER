@@ -37,5 +37,8 @@ public interface RecruitService {
     // 등록 한 채용공고 키워드 삭제 후 수정
     public int updateRecruitRead(RecruitPost recruitPost) throws Exception;
 
+
+    public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos);
+
    
 }
