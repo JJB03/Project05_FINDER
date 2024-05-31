@@ -1,4 +1,4 @@
--- Active: 1716770063195@@127.0.0.1@3306@joeun
+-- Active: 1716818238004@@127.0.0.1@3306@joeun
 
 
 -- 테이블 삭제 ( 총 16개 )
@@ -181,7 +181,7 @@ CREATE TABLE `file` (
     `reg_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `file_code` INT NOT NULL,
-    PRIMARY KEY (`file_no`),
+    PRIMARY KEY (`file_no`)
 );
 
 -- 기업 상세 정보 테이블
