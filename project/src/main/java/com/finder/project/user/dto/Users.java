@@ -25,7 +25,7 @@ public class Users {
     private int enabled;
 
 
-    private Company company;                // 기업 테이블 (info_update_com)
+    Company company;                // 기업 테이블 (info_update_com)
     private CompanyDetail companyDetail;    // 기업 상세 테이블 (introduce_com)
 
 

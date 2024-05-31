@@ -22,6 +22,9 @@
         <collection property="authList" resultMap="authMap"></collection>
     </resultMap>
 
+
+    
+
         
     <resultMap type="UserAuth" id="authMap">
         <result property="authNo" column="auth_no" />
@@ -82,6 +85,9 @@
 
     <!-- 기업회원 조회 -->
 
+
+
+
     <!-- <select id="select" resultMap="userMap">
     SELECT
         u.user_no,
@@ -104,21 +110,19 @@
     FROM
         user u LEFT JOIN company c ON u.user_no = c.com_no
     WHERE
-        u.user_id = #{userId}
-    </select> -->
+
+        u.user_id = #{userId} -->
+    <!-- </select> -->
+
 
     <!-- 기업회원 가입 -->
 
     <insert id="comJoin">
 
-        INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender )
-        VALUES (#{userName}, #{userId}, #{userPw}, #{userBirth}, #{userPhone}, #{userEmail}, #{userGender})
-
-        INSERT INTO company( com_name, com_category, com_address, com_business )
-        VALUES (#{comName}, #{comCategory}, #{comAddress}, #{comBusiness})
+        INSERT INTO company( user_no,com_name, com_category, com_address, com_business )
+        VALUES (#{userNo}, #{comName}, #{comCategory}, #{comAddress}, #{comBusiness})
 
     </insert>
-
 
     <!-- 회원 정보 수정 -->
     <!-- TODO : 회원 컬럼 수정하기 -->
@@ -138,4 +142,9 @@
         VALUES ( #{userNo}, #{auth} )
     </insert>
 
+    <!-- MAX NO 조회 -->
+    <select id="max" resultType="int">
+        SELECT MAX(user_no)
+        FROM user
+    </select>
 </mapper>
