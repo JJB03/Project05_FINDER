@@ -172,7 +172,9 @@
 
                 <!-- 여기부터 기업 ~!~!~!~!~!~!~!~!~!~!~!~-->
 
-                <br> <!-- 공백 주기-->
+                <br>
+
+                <!-- 공백 주기-->
                 <div class="img-file">
                     <div style="text-align: center;">
                         <img class="img2" src="/img/인증서.png" alt="인증서png">
@@ -182,9 +184,11 @@
                         <span id="fileName">파일을 추가해주세요.</span>
                     </div>
                     <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()">
+
                     <!-- <hr style="position: relative ; width: 100%;"> -->
                     <h2 style="color:#787979; border-bottom:1px solid lightgrey; padding-bottom: 10px;">사업자 인증서 제출해주세요
                     </h2>
+
                 </div>
                 <div for="com-name" class="userphone">기업명</div>
                 <input type="text" id="" name="comName" placeholder="기업명" required>
@@ -201,13 +205,57 @@
                 </div>
             </form>
     </div>
-    <!-- 버튼은 수정한 걸로 바꿔주시면 됩니다!-->
+    <!-- 버튼은 수정한 걸로 바꿔주시면 됩니다!-->   
     </main>
 
     <script>
         // 💍 CRSF TOKEN
         var csrfToken = "[[${_csrf.token}]]"
 
+        function checkId() {
+            let userId = document.getElementById('userId').value
+            let request = new XMLHttpRequest()
+
+            request.open("GET", `/user/check/${userId}`, false) // 동기적 요청으로 변경
+            request.setRequestHeader("Content-Type", "application/json")
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken)
+            request.send()
+
+            if (request.status === 200) {
+                if (request.responseText === 'true') {
+                    alert('사용가능한 아이디입니다.')
+                    return true; // 아이디 중복 없음
+                } else {
+                    alert('중복된 아이디입니다.')
+                    return false; // 아이디 중복 발견
+                }
+            } else {
+                alert('이미 사용중인 아이디입니다.')
+                return false; // 서버 오류
+            }
+        }
+        function checkIdForm() {
+            let userId = document.getElementById('userId').value
+            let request = new XMLHttpRequest()
+
+            request.open("GET", `/user/check/${userId}`, false) // 동기적 요청으로 변경
+            request.setRequestHeader("Content-Type", "application/json")
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken)
+            request.send()
+
+            if (request.status === 200) {
+                if (request.responseText === 'true') {
+                    
+                    return true; // 아이디 중복 없음
+                } else {
+                    alert('중복된 아이디입니다.')
+                    return false; // 아이디 중복 발견
+                }
+            } else {
+                alert('이미 사용중인 아이디입니다.')
+                return false; // 서버 오류
+            }
+        }
         //버튼 클릭시 유지하는 js 코드
         function change_btn(event) {
             var buttons = document.querySelectorAll('.gender-btn button');
@@ -260,6 +308,9 @@
 
 
         function validateForm() {
+            var isValid = true;
+
+            isValid = checkIdForm() && isValid; // 아이디 중복 체크
 
             validatePasswordConfirmation(); // 비밀번호 확인
 
@@ -269,18 +320,16 @@
             var genderSelected = document.getElementById('userGender').value;
 
             if (genderSelected === '') { // 성별이 선택되지 않았을 때
-
                 alert('성별을 선택해주세요.'); // 경고 메시지 표시
-
-                return false; // 폼 제출 중단
+                isValid = false; // 폼 제출 중단
             }
 
             if (document.getElementsByName("pw_confirm")[0].checkValidity() === false) {
                 document.getElementsByName("pw_confirm")[0].reportValidity(); // 비밀번호 일치 여부 검사
-                return false;
+                isValid = false;
             }
 
-            return true;
+            return isValid;
         }
 
         // 휴대전화 유효성 검사
@@ -296,30 +345,6 @@
             input.reportValidity();
         }
 
-        function checkId() {
-            let userId = document.getElementById('userId').value
-            // let data = {"userId"	: userId}
-            let request = new XMLHttpRequest()
-
-            request.open("GET", `/user/check/${userId}`, true)
-            request.setRequestHeader("Content-Type", "application/json")
-            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) // 💍       // 이래야 403 이 안뜬다.
-            // request.send( JSON.stringify( data ) )
-            request.send()
-
-            request.onreadystatechange = function () {
-
-                // 요청 성공 시,
-                if (request.readyState == request.DONE && request.status == 200) {
-                    // 파일 항목을 화면에서 제거
-                    if (request.responseText == 'true') {
-                        alert('사용가능한 아이디입니다.')
-                    } else {
-                        alert('중복된 아이디입니다.')
-                    }
-                }
-            }
-        }
 
         document.addEventListener('DOMContentLoaded', function () {
 
