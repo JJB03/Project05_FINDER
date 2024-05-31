@@ -44,7 +44,6 @@
         </div>
 
         <div class="row justify-content-center" style="padding: 0 40px 0 40px;">
-            <th:block sec:authorize="hasRole('ROLE_COMPANY')">
             <nav class="col-12 col-sm-12 col-lg-3 sidebar">
                 <div style="margin: 15px 0 45px 15px;">
                     <strong style="font-size: 24px;">
@@ -151,92 +150,7 @@
                     </li>
                 </ul>
             </nav>
-        </th:block>
-
-        <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
-            <nav class="col-12 col-md-12 col-lg-3 sidebar">
-                <div style="margin: 15px 0 45px 15px;">
-                    <strong style="font-size: 24px;">
-                        마이페이지
-                    </strong>
-                </div>
-                <ul class="nav flex-column ul-header">
-                    <li class="li-header">
-                        <strong class="fs-5">내 정보</strong>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/user/update_user" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/Registration.png" alt="x">
-                                </div>
-                                <div>
-                                    내 정보 수정
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav flex-column ul-header">
-                    <li class="li-header">
-                        <strong class="fs-5">채용공고 관리</strong>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/recruit/applied_jobs_user" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/list.png" alt="x">
-                                </div>
-                                <div>
-                                    지원한 채용공고
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/recruit/new_jobs_user" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/list.png" alt="x">
-                                </div>
-                                <div>
-                                    최근 본 채용공고
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav flex-column ul-header">
-                    <li class="li-header">
-                        <strong class="fs-5">이력서 관리</strong>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/resume/cv_list_user" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/Documents.png" alt="x">
-                                </div>
-                                <div>
-                                    나의 이력서
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/resume/cv_create_user" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/Documents.png" alt="x">
-                                </div>
-                                <div>
-                                    이력서 작성
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </th:block>
+        
 
 
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">

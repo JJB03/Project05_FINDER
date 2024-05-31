@@ -178,7 +178,7 @@ public class CompanyController {
 
 
 
-    // 현재 비밀번호 확인(하는중) ⭕
+    // 현재 비밀번호 확인⭕
     @PostMapping("/update_com_pw_confirm")
     public ResponseEntity<Boolean> pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
         
@@ -190,7 +190,7 @@ public class CompanyController {
     }
 
 
-    // 기업 비밀번호 수정(하는중) ❌
+    // 기업 비밀번호 수정 ⭕
     @PostMapping("/update_com_pw")
     public String updateCompany(HttpSession session 
                                 ,@RequestParam("userPw") String userPw
@@ -237,9 +237,23 @@ public class CompanyController {
     public String credit_com() throws Exception {
         return "/company/credit_com";
     }
+    // 결제 내역 화면
+    @GetMapping("/credit_list_com")
+    public String credit_list_com() throws Exception {
+        return "/company/credit_list_com";
+    }
 
 
+    // 등록된 채용공고 화면
+    @GetMapping("/recruit_list_com")
+    public String recruit_list_com() throws Exception {
+        return "/company/recruit_list_com";
+    }
 
-
+    // AI 평가 화면
+    @GetMapping("/score_com")
+    public String score_com() throws Exception {
+        return "/company/score_com";
+    }
     
 }
