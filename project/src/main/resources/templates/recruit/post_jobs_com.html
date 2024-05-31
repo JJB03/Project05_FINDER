@@ -128,7 +128,7 @@
 
 
             <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
-                <form id="recruitForm" action="" method="post" class="job-listings">
+                <form enctype="multipart/form-data" id="recruitForm" action="" method="post" class="job-listings">
                     <input type="hidden" name="comNo" th:value="${company.comNo}">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <div class="job-header">
@@ -136,6 +136,18 @@
                     </div>
 
                     <div class="post-main">
+                        <div class="d-flex justify-content-start align-items-center" style="height: 75px;">
+
+                            <div style="margin-right: 1rem;">로고</div>
+                            <div class="file-input-wrapper">
+                                <button class="btn-short">선택</button>
+                                <input type="file" name="thumbnail" id="thumbnail" class="file-input" accept="image/*">
+                            </div>
+                            <div style="margin-left: 13.4rem;">
+                                <img id="thumbnailPreview" src="" alt="Image Preview">
+                            </div>
+                        </div>
+
 
                         <div>제목</div>
                         <div>
@@ -209,7 +221,7 @@
                         <div class="file-input-wrapper">
                             <button class="btn-long" id="file-upload-button" style="display: inline-block;">파일
                                 첨부</button>
-                            <input type="file" class="file-input hidden-file-input" id="file-input" multiple>
+                            <input name="file" type="file" class="file-input hidden-file-input" id="file-input" multiple>
                             <div id="file-names" class="mt-2"></div> <!-- 파일 이름들을 표시할 요소 추가 -->
                         </div>
 
@@ -247,7 +259,7 @@
         // });
 
         $(document).ready(function () {
-            
+
             $('#keyword').off('keypress').on('keypress', function (event) {
                 if (event.key === 'Enter') {
                     event.preventDefault(); // Prevent the default form submission
@@ -265,6 +277,19 @@
                         $('#outputContainer').append(newSpanElement); // Append the new span to the container
                     }
                     $(this).val(''); // Clear the input field
+                }
+            });
+
+            $('#thumbnail').on('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#thumbnailPreview').attr('src', e.target.result).show();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    $('#thumbnailPreview').hide();
                 }
             });
         });

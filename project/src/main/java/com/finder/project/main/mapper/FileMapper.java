@@ -3,29 +3,33 @@ package com.finder.project.main.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.finder.project.main.dto.File;
+import com.finder.project.main.dto.Files;
 
 @Mapper
 public interface FileMapper {
     //파일 목록
-    public List<File> list() throws Exception;
+    public List<Files> list() throws Exception;
 
     //파일 조회
-    public File select(int fileNo) throws Exception;
+    public Files select(int fileNo) throws Exception;
 
     //파일 등록
-    public int insert(File file) throws Exception;
+    public int insert(Files file) throws Exception;
 
     //파일 수정
-    public int update(File file) throws Exception;
+    public int update(Files file) throws Exception;
 
     //파일 삭제
     public int delete(int fileNo) throws Exception;
 
     //파일 목록 - 부모기준
-    public List<File> listByParent(File file) throws Exception;
+    public List<Files> listByParent(Files file) throws Exception;
+
+    //파일 조회 - 썸네일
+    public Files listByParentThumbnail(int recruitNo) throws Exception;
     
     // 파일 삭제 - 부모 기준
-    public int deleteByParent(File file) throws Exception;
+    public int deleteByParent(Files file) throws Exception;
 }

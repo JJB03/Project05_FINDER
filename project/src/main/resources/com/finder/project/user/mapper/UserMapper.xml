@@ -84,6 +84,10 @@
     </insert>
 
     <!-- 기업회원 조회 -->
+
+
+
+
     <!-- <select id="select" resultMap="userMap">
     SELECT
         u.user_no,
@@ -106,13 +110,18 @@
     FROM
         user u LEFT JOIN company c ON u.user_no = c.com_no
     WHERE
+
         u.user_id = #{userId} -->
     <!-- </select> -->
 
+
     <!-- 기업회원 가입 -->
+
     <insert id="comJoin">
+
         INSERT INTO company( user_no,com_name, com_category, com_address, com_business )
         VALUES (#{userNo}, #{comName}, #{comCategory}, #{comAddress}, #{comBusiness})
+
     </insert>
 
     <!-- 회원 정보 수정 -->

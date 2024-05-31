@@ -2,6 +2,7 @@ package com.finder.project.resume.dto;
 
 import java.util.Date;
 
+
 import lombok.Data;
 
 @Data

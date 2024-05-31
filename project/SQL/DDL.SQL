@@ -1,4 +1,4 @@
--- Active: 1716771409910@@127.0.0.1@3306@joeun
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 
 
 -- 테이블 삭제 ( 총 16개 )
@@ -135,20 +135,20 @@ CREATE TABLE `apply_employee` (
 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 );
 
--- 썸네일 테이블
-CREATE TABLE `thumbnail` (
-    `thumbnail_no` INT NOT NULL AUTO_INCREMENT,
-    `thumbnail_type` INT NOT NULL,
-    `thumbnail_name` VARCHAR(500) NOT NULL,
-    `thumbnail_size` VARCHAR(500) NOT NULL,
-    `thumbnail_reg_date` TIMESTAMP NOT NULL,
-    `thumbnail_upd_date` TIMESTAMP NOT NULL,
-    `cv_no` INT NULL,
-    `recruit_no` INT NULL,
-    PRIMARY KEY (`thumbnail_no`),
-	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
-	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
-);
+-- 썸네일 테이블 없어도될듯
+-- CREATE TABLE `thumbnail` (
+--     `thumbnail_no` INT NOT NULL AUTO_INCREMENT,
+--     `thumbnail_type` INT NOT NULL,
+--     `thumbnail_name` VARCHAR(500) NOT NULL,
+--     `thumbnail_size` VARCHAR(500) NOT NULL,
+--     `thumbnail_reg_date` TIMESTAMP NOT NULL,
+--     `thumbnail_upd_date` TIMESTAMP NOT NULL,
+--     `cv_no` INT NULL,
+--     `recruit_no` INT NULL,
+--     PRIMARY KEY (`thumbnail_no`),
+-- 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
+-- 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
+-- );
 
 -- 기업 테이블
 CREATE TABLE `company` (
@@ -189,21 +189,21 @@ CREATE TABLE `recruit_keyword` (
 
 -- 파일 테이블
 CREATE TABLE `file` (
-	`file_no` INT NOT NULL AUTO_INCREMENT,
-	`parent_table` varchar(500) NOT NULL,
-	`parent_no` int NOT NULL,
-	`file_name` varchar(500) NOT NULL,
-	`origin_name` varchar(500) NOT NULL,
-	`file_path` varchar(500) NOT NULL,
-	`file_size` int NOT NULL,
-	`reg_date` timestamp NOT NULL,
-	`upd_date` timestamp NOT NULL,
-	`file_code` int NOT NULL,
-	`cv_no` int NOT NULL,
-	`recruit_no` int NOT NULL,
-	PRIMARY KEY (`file_no`),
-	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
-	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
+    `file_no` INT NOT NULL AUTO_INCREMENT,
+    `parent_table` VARCHAR(500) NOT NULL,
+    `parent_no` INT NOT NULL,
+    `file_name` VARCHAR(500) NULL,
+    `origin_name` VARCHAR(500) NOT NULL,
+    `file_path` VARCHAR(500) NOT NULL,
+    `file_size` INT NOT NULL,
+    `reg_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `upd_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `file_code` INT NOT NULL,
+    `cv_no` INT NULL,
+    `recruit_no` INT NULL,
+    PRIMARY KEY (`file_no`),
+    FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`) ON DELETE CASCADE,
+    FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`) ON DELETE CASCADE
 );
 
 -- 기업 상세 정보 테이블

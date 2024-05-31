@@ -48,33 +48,22 @@
   </select>
 
   <!-- 이력서 작성 -->
-<insert id="create" parameterType="Resume" >
-    <!-- Insert into cv -->
-    INSERT INTO `cv` (`user_no`, `cover_letter`, `cv_title`)
-    VALUES (#{userNo}, #{coverLetter}, #{cvTitle});
-
-    <!--  LAST_INSERT_ID() 함수를 사용하여 cv_no를 가져와서 교육 및 경력 기록의 cv_no에 삽입 -->
-    <selectKey keyProperty="cvNo" resultType="int" order="AFTER">
-        SELECT LAST_INSERT_ID() AS cvNo
-    </selectKey>
-    
-    <!-- Insert into employment_history -->
-    <foreach collection="employmentHistoryList" item="employHistory">
-        INSERT INTO `employment_history` (`organization`, `duration`, `duties`, `cv_no`)
-        VALUES (#{employHistory.organization}, #{employHistory.duration}, #{employHistory.duties}, #{cvNo})
-    </foreach>
-
-    <!-- Insert into education -->
-    <foreach collection="educationList" item="education">
-        INSERT INTO `education` (`cv_no`, `university`, `major`, `university_status`)
-        VALUES (#{cvNo}, #{education.university}, #{education.major}, #{education.universityStatus})
-    </foreach>
-</insert>
+  <insert id="create" >
+      <!-- Insert into cv -->
+      INSERT INTO `cv` (`user_no`, `cover_letter`, `cv_title`)
+      VALUES (#{userNo}, #{coverLetter}, #{cvTitle})
+  </insert>
 
   <!-- 이력서 삭제 -->
   <delete id="delete">
     DELETE FROM cv
     WHERE cv_no = #{cv_no}
   </delete>
+
+  <!-- cv 최댓값 -->
+  <select id="maxPk" resultType="int">
+    SELECT MAX(cv_no)
+    FROM cv
+  </select>
 
 </mapper>

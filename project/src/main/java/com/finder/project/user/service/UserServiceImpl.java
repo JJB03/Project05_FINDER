@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
     }
 
     // 기업 권한 등록
+
     @Override
     public int comJoin(Company company) throws Exception {
 

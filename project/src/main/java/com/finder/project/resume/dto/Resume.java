@@ -17,7 +17,7 @@ public class Resume {
     private Timestamp cvRegDate;
     private Timestamp cvUpdDate;
 
-    private List<Education> educationList; // Ensure this is lowercased
-    private List<EmploymentHistory> employmentHistoryList; // Ensure this is lowercased
+    private List<Education> educationList;
+    private List<EmploymentHistory> employmentHistoryList;
 }
 
