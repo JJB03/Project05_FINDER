@@ -74,7 +74,7 @@
 <!-- CSRF 토큰 -->
 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
       <div class="form-group row justify-content-between" style="margin-top: 5px; margin-bottom: 5px;">
-        <label for="title" class="col-sm-2 col-form-label" style="width: 80px;">제목 :</label>
+        <label for="title" class="col-sm-2 col-form-label" style="width: 80px;">제목 : </label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="title">
         </div>
@@ -153,7 +153,6 @@
 
         <div>
           <div class="d-flex w-100 p-2">
-            <div class="w-50"><strong>학력</strong></div>
             <div class="w-50"><strong>경력</strong></div>
           </div>
           <div>
@@ -162,24 +161,14 @@
           <div class="d-flex w-100">
             <div class="w-50">
 
-              <ul class="d-flex justify-content-between p-3">
-                <li>심원고등학교</li>
-                <li>/</li>
-                <li>--</li>
-                <li>/</li>
-                <li>졸업</li>
-              </ul>
+              <span class="birthdate"> <!-- 시작일 -->
+                <input type="date" id="startDate" name="userBirth" class="keyword-main">
+              </span>
+              <span>~</span>
+              <span class="birthdate"> <!-- 끝 -->
+                <input type="date" id="startDate" name="userBirth" class="keyword-main">
+              </span>
 
-            </div>
-            <div class="w-50">
-
-              <ul class="d-flex justify-content-between p-3">
-                <li>더조은 컴퓨터 아카데미</li>
-                <li>/</li>
-                <li>24-01-31 ~ 24-08-01</li>
-                <li>/</li>
-                <li>졸업</li>
-              </ul>
 
             </div>
           </div>

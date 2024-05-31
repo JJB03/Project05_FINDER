@@ -139,6 +139,7 @@ public class ResumeController {
             return "redirect:/resume/cv_list_user";
         }
     
+        log.info("정보 뱉어요");
         // 데이터 처리 실패 시
         return "redirect:/index"; // 실패 사유를 알려주는 등의 처리가 필요
     }
@@ -150,7 +151,7 @@ public class ResumeController {
      * 파일 요청도 해야함.
      */
     @GetMapping("/cv_read_user")
-    public String cvReadUser(HttpSession session
+    public String cvReadUser(@RequestParam("cvNo") int cvNo ,HttpSession session
                                 ,Model model) throws Exception{
         // 세션으로 가져온 User 객체의 user_no을 참조해서 service에 넣기
         Users user = (Users) session.getAttribute("user");
@@ -165,7 +166,7 @@ public class ResumeController {
             int userNo = user.getUserNo();
 
             // 사용자의 이력서 정보를 가져옴
-            Resume resume = resumeService.select(userNo);
+            Resume resume = resumeService.select(cvNo);
 
 
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달

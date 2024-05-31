@@ -4,9 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.finder.project.resume.mapper.EmploymentHistoryMapper">
 
+<!--등록-->
 <insert id="create">
-
-
+INSERT INTO employmentHistory (`organization`, `duration`, `duties`, `cv_no`) VALUES
+(#{organization}, NOW(), #{duties}, #{cvNo})
 </insert>
+
+<!--조회-->
+<select id="select">
+SELECT * FROM employmentHistory
+</select>
+
+
+<!--수정-->
+<update id="update">
+UPDATE employmentHistory
+SET organization = #{organization},
+duration = NOW(),
+duties = #{duties},
+WHERE employment_history_no = #{employmentHistoryNo}
+</update>
+
+<!--삭제-->
+<delete id="delete">
+DELETE FROM employmentHistory
+WHERE employment_history_no = #{employmentHistoryNo}
+</delete>
+
  
 </mapper>
