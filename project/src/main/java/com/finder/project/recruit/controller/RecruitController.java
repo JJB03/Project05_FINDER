@@ -84,9 +84,10 @@ public class RecruitController {
         // 파일 목록 요청
         file.setParentTable("recruit");
         file.setParentNo(recruitNo);
+        
         List<Files> fileList = fileService.listByParent(file);
 
-        Files Thumbnail = fileService.listByParentThumbnail(recruitNo);
+        Files Thumbnail = fileService.listByParentThumbnail(file);
 
         
         model.addAttribute("Thumbnail", Thumbnail);
@@ -121,7 +122,7 @@ public class RecruitController {
 
     // 채용공고 조회/수정/삭제 페이지 ----
     @GetMapping("/post_jobs_read_com")
-    public String getPost_jobs_read_com(@RequestParam("recruitNo") int recruitNo, Model model) throws Exception {
+    public String getPost_jobs_read_com(@RequestParam("recruitNo") int recruitNo, Model model, Files file) throws Exception {
 
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
 
@@ -138,6 +139,19 @@ public class RecruitController {
         // log.info("keywords 정보: {}", keywords);
         // }
 
+            // 파일 목록 요청
+        file.setParentTable("recruit");
+        file.setParentNo(recruitNo);
+        
+        List<Files> fileList = fileService.listByParent(file);
+
+        Files Thumbnail = fileService.listByParentThumbnail(file);
+
+        
+        model.addAttribute("Thumbnail", Thumbnail);
+        model.addAttribute("recruitPost", recruitPost);
+        model.addAttribute("fileList", fileList);
+
         model.addAttribute("recruitPost", recruitPost);
         // model.addAttribute("keywords", keywords);
 
@@ -145,7 +159,7 @@ public class RecruitController {
     }
 
     @PostMapping("/post_jobs_read_com")
-    public String postPost_jobs_read_com(Integer recruitNo) throws Exception {
+    public String postPost_jobs_read_com(int recruitNo) throws Exception {
 
         int result = recruitService.deleteRecruitList(recruitNo);
 
@@ -193,9 +207,16 @@ public class RecruitController {
 
         log.info("채용공고 삭제 : " + recruitNo);
         int result = recruitService.deleteRecruitList(recruitNo);
+        
+        
+
 
         if (result > 0) {
             log.info("삭제되었습니다. ");
+            Files file = new Files();
+            file.setParentTable("recruit");
+            file.setParentNo(recruitNo);
+            fileService.deleteByParent(file);
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
 

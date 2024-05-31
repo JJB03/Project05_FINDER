@@ -25,7 +25,7 @@ public interface FileService {
     public List<Files> listByParent(Files file) throws Exception;
 
     //파일 조회 - 썸네일
-    public Files listByParentThumbnail(int recruitNo) throws Exception;
+    public Files listByParentThumbnail(Files file) throws Exception;
     
     // 파일 삭제 - 부모 기준
     public int deleteByParent(Files file) throws Exception;

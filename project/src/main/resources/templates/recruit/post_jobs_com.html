@@ -139,12 +139,11 @@
                         <div class="d-flex justify-content-start align-items-center" style="height: 75px;">
 
                             <div style="margin-right: 1rem;">로고</div>
-                            <div class="file-input-wrapper">
-                                <button class="btn-short">선택</button>
+                            <div class="thumbnail-wrapper">
+                                <button class="btn-short file-upload-button">선택</button>
                                 <input type="file" name="thumbnail" id="thumbnail" class="file-input" accept="image/*">
-                            </div>
-                            <div style="margin-left: 13.4rem;">
-                                <img id="thumbnailPreview" src="" alt="Image Preview" style="width: 120px;">
+                                <img id="thumbnail-preview" class="thumbnail-preview" src="">
+                                <button id="remove-thumbnail" class="remove-thumbnail">X</button>
                             </div>
                         </div>
 
@@ -219,10 +218,12 @@
                     <div class="d-flex justify-content-between">
 
                         <div class="file-input-wrapper">
-                            <button class="btn-long" id="file-upload-button" style="display: inline-block;">파일
-                                첨부</button>
-                            <input name="file" type="file" class="file-input hidden-file-input" id="file-input" multiple>
-                            <div id="file-names" class="mt-2"></div> <!-- 파일 이름들을 표시할 요소 추가 -->
+                            <button class="btn-long file-upload-button">파일 첨부</button>                           
+                            <div>
+                                <input name="file" type="file" class="file-input hidden-file-input" id="file-input"
+                                    multiple>
+                                <div id="file-names" class="mt-2"></div>
+                            </div>
                         </div>
 
                         <div>
@@ -245,21 +246,8 @@
 
     <script>
 
-
-        // document.getElementById('file-upload-button').addEventListener('click', function () {
-        //     document.getElementById('file-input').click();
-        // });
-
-        // document.getElementById('file-input').addEventListener('change', function () {
-        //     var fileNames = [];
-        //     for (var i = 0; i < this.files.length; i++) {
-        //         fileNames.push(this.files[i].name);
-        //     }
-        //     document.getElementById('file-names').textContent = fileNames.join(', ');
-        // });
-
         $(document).ready(function () {
-
+            // 키워드 입력 처리
             $('#keyword').off('keypress').on('keypress', function (event) {
                 if (event.key === 'Enter') {
                     event.preventDefault(); // Prevent the default form submission
@@ -280,51 +268,94 @@
                 }
             });
 
+            // 파일 선택 버튼 클릭 이벤트
+            $('.file-upload-button').on('click', function (event) {
+                event.preventDefault();
+                if ($(this).siblings('input[type="file"]').attr('id') === 'thumbnail') {
+                    $('#thumbnail').click();
+                } else {
+                    $('#file-input').click();
+                }
+            });
+
+            // 파일 선택 시 썸네일 미리보기 업데이트
             $('#thumbnail').on('change', function (event) {
                 const file = event.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function (e) {
-                        $('#thumbnailPreview').attr('src', e.target.result).show();
+                        $('#thumbnail-preview').attr('src', e.target.result).show();
+                        $('#remove-thumbnail').show();
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    $('#thumbnailPreview').hide();
-                }
-            });
-        });
-
-        $('#recruitForm').on('submit', function (event) {
-            var allFieldsFilled = true;
-            $('.keyword-main').each(function () {
-                if ($(this).val().trim() === '') {
-                    allFieldsFilled = false;
-                    return false; // Exit the loop
+                    $('#thumbnail-preview').hide();
+                    $('#remove-thumbnail').hide();
                 }
             });
 
-            if (!allFieldsFilled) {
-                event.preventDefault(); // Prevent form submission if any input is empty
-                alert('내용를 입력해주세요.'); // Alert the user
-            } else {
-                if ($('.input-keyword').length !== 0) {
-                    $('#keyword').remove(); // Remove the empty input field to avoid submission of empty fields
+            // 썸네일 삭제 버튼 클릭 이벤트
+            $('#remove-thumbnail').on('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                $('#thumbnail-preview').attr('src', '').hide();
+                $('#thumbnail').val('');
+                $(this).hide();
+            });
+
+            // 파일 선택 시 파일 목록 업데이트
+            $('#file-input').on('change', function () {
+                var files = this.files;
+                $('#file-names').empty();
+                for (let i = 0; i < files.length; i++) {
+                    var fileDiv = $('<div class="file-name">').text(files[i].name);
+                    var removeLink = $('<span class="remove-file">X</span>');
+
+                    // Remove file event with stopPropagation and preventDefault
+                    removeLink.on('click', function (event) {
+                        event.preventDefault(); // Prevent default action (file input click)
+                        event.stopPropagation(); // Stop the event from bubbling up to parent elements
+                        $(this).parent().remove(); // Remove the file div from the DOM
+
+                        // Update the files array by creating a new FileList
+                        var newFileList = Array.from(files);
+                        newFileList.splice(i, 1); // Remove the file from the array
+                        document.getElementById('file-input').files = new FileListItems(newFileList);
+                    });
+
+                    fileDiv.append(removeLink);
+                    $('#file-names').append(fileDiv);
                 }
+            });
+
+            // Helper function to create a FileList
+            function FileListItems(files) {
+                var b = new ClipboardEvent("").clipboardData || new DataTransfer();
+                for (var i = 0, len = files.length; i < len; i++) {
+                    b.items.add(files[i]);
+                }
+                return b.files;
             }
-        });
 
+            // 폼 제출 시 입력 필드 확인
+            $('#recruitForm').on('submit', function (event) {
+                var allFieldsFilled = true;
+                $('.keyword-main').each(function () {
+                    if ($(this).val().trim() === '') {
+                        allFieldsFilled = false;
+                        return false; // Exit the loop
+                    }
+                });
 
-        $('#file-upload-button').on('click', function (event) {
-            event.preventDefault(); // Prevent the default form submission
-            $('#file-input').click();
-        });
-
-        $('#file-input').on('change', function () {
-            var fileNames = [];
-            for (var i = 0; i < this.files.length; i++) {
-                fileNames.push(this.files[i].name);
-            }
-            $('#file-names').text(fileNames.join(', '));
+                if (!allFieldsFilled) {
+                    event.preventDefault(); // Prevent form submission if any input is empty
+                    alert('내용를 입력해주세요.'); // Alert the user
+                } else {
+                    if ($('.input-keyword').length !== 0) {
+                        $('#keyword').remove(); // Remove the empty input field to avoid submission of empty fields
+                    }
+                }
+            });
         });
 
     </script>

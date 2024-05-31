@@ -48,6 +48,7 @@ public class MainController {
 
             
         });
+        
         model.addAttribute("recruitList", recruitList);
 
         return "/index";
