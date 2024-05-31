@@ -2,11 +2,7 @@ package com.finder.project.recruit.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
-import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
-import com.finder.project.user.dto.Users;
 
 /**
  * RecruitService
