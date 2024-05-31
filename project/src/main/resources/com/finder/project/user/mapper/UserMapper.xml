@@ -5,7 +5,7 @@
 
 <mapper namespace="com.finder.project.user.mapper.UserMapper">
 
-    <resultMap type="Users" id="userMap">
+   <resultMap type="Users" id="userMap">
         <id property="userNo" column="user_no" />
         <result property="userName" column="user_name" />
         <result property="userId" column="user_id" />
@@ -19,39 +19,53 @@
         <result property="userGender" column="user_gender" />
         <result property="enabled" column="enabled" />
 
-        <collection property="authList" resultMap="authMap"></collection>
-    </resultMap>
+        <collection property="authList" resultMap="authMap" />
+        <!-- <association property="company" resultMap="companyMap" /> -->
+   </resultMap>
 
-
-    
-
-        
-    <resultMap type="UserAuth" id="authMap">
+  <resultMap type="UserAuth" id="authMap">
         <result property="authNo" column="auth_no" />
         <result property="userNo" column="user_no" />
         <result property="auth" column="auth" />
     </resultMap>
 
+   <!-- <resultMap type="Company" id="companyMap">
+        <id property="comNo" column="com_no" />
+        <result property="comName" column="com_name" />
+        <result property="comCategory" column="com_category" />
+        <result property="comAddress" column="com_address" />
+        <result property="comBusiness" column="com_business" />
+   </resultMap> -->
+
+
     <!-- 로그인 - username -->
     <select id="login" resultMap="userMap">
-       SELECT
-            u.user_no ,
-            u.user_name ,
-            u.user_id ,
-            u.user_pw ,
-            u.user_before_pw ,
-            u.user_birth ,
-            u.user_phone ,
-            u.user_email ,
-            u.user_reg_date ,
-            u.user_upd_date ,
-            u.user_gender ,
-            u.enabled ,
-            a.auth_no ,
-            a.auth 
+         SELECT
+            u.user_no,
+            u.user_name,
+            u.user_id,
+            u.user_pw,
+            u.user_before_pw,
+            u.user_birth,
+            u.user_phone,
+            u.user_email,
+            u.user_reg_date,
+            u.user_upd_date,
+            u.user_gender,
+            u.enabled,
+            c.com_no,
+            c.com_name,
+            c.com_category,
+            c.com_address,
+            c.com_business,
+            a.auth_no,
+            a.auth
         FROM
-            user u LEFT JOIN user_auth a ON u.user_no = a.user_no
-        WHERE u.user_id = #{userId}
+            user u
+            LEFT JOIN company c ON u.user_no = c.user_no
+            LEFT JOIN user_auth a ON u.user_no = a.user_no
+        WHERE
+            u.user_id = #{userId}
     </select>
 
 
@@ -77,43 +91,41 @@
         WHERE u.user_id = #{userId}
     </select>
 
+
+    <!-- <select id = "comSelect" resultMap = "userMap">
+       SELECT
+            u.user_no,
+            u.user_name,
+            u.user_id,
+            u.user_pw,
+            u.user_before_pw,
+            u.user_birth,
+            u.user_phone,
+            u.user_email,
+            u.user_reg_date,
+            u.user_upd_date,
+            u.user_gender,
+            u.enabled,
+            c.com_no,
+            c.com_name,
+            c.com_category,
+            c.com_address,
+            c.com_business,
+            a.auth_no,
+            a.auth
+        FROM
+            user u
+            LEFT JOIN company c ON u.user_no = c.user_no
+            LEFT JOIN user_auth a ON u.user_no = a.user_no
+        WHERE
+            u.user_id = #{userId}
+    </select> -->
+
     <!-- 회원 가입 -->
     <insert id="join">
         INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender )
         VALUES (#{userName}, #{userId}, #{userPw}, #{userBirth}, #{userPhone}, #{userEmail}, #{userGender})
     </insert>
-
-    <!-- 기업회원 조회 -->
-
-
-
-
-    <!-- <select id="select" resultMap="userMap">
-    SELECT
-        u.user_no,
-        u.user_name,
-        u.user_id,
-        u.user_pw,
-        u.user_before_pw,
-        u.user_birth,
-        u.user_phone,
-        u.user_email,
-        u.user_reg_date,
-        u.user_upd_date,
-        u.user_gender,
-        u.enabled,
-        c.com_no,
-        c.com_name,
-        c.com_category,
-        c.com_address,
-        c.com_business
-    FROM
-        user u LEFT JOIN company c ON u.user_no = c.com_no
-    WHERE
-
-        u.user_id = #{userId} -->
-    <!-- </select> -->
-
 
     <!-- 기업회원 가입 -->
 
@@ -141,6 +153,13 @@
         INSERT INTO user_auth( user_no, auth )
         VALUES ( #{userNo}, #{auth} )
     </insert>
+
+    <!-- 회원 권한 업데이트 -->
+    <!-- <update id="updateAuth">
+         UPDATE user_auth
+         SET auth = #{auth}
+        WHERE user_no = #{userNo}
+    </update> -->
 
     <!-- MAX NO 조회 -->
     <select id="max" resultType="int">
