@@ -1,6 +1,13 @@
 package com.finder.project.recruit.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,12 +32,6 @@ import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
-
-
-
-
 @Slf4j
 @Controller
 @RequestMapping("/recruit")
@@ -45,11 +46,33 @@ public class RecruitController {
     @Autowired
     FileService fileService;
 
-    
     // 채용공고 상세 페이지 ----
     @GetMapping("/detail_jobs_user")
-    public String getMethodName(@RequestParam("recruitNo") int recruitNo, Model model, Files file) throws Exception {
-        
+    public String getMethodName(@RequestParam("recruitNo") Integer recruitNo, Model model, Files file,
+            HttpSession session) throws Exception {
+
+        Users user = (Users) session.getAttribute("user");
+
+        if (user != null) { // 먼저 user가 null이 아닌지 확인
+            Integer userNo = user.getUserNo(); // user 객체가 유효한 경우에만 userNo를 가져옵니다.
+
+            if (userNo != null) { // userNo가 null이 아닌지 확인
+                // 유저 번호에 해당하는 recruitNo 집합 가져오기
+                Map<Integer, Set<Integer>> userVisitedRecruitNos = (Map<Integer, Set<Integer>>) session.getAttribute("userVisitedRecruitNos");
+                if (userVisitedRecruitNos == null) {
+                    userVisitedRecruitNos = new HashMap<>();
+                    session.setAttribute("userVisitedRecruitNos", userVisitedRecruitNos);
+                }
+
+                Set<Integer> visitedRecruitNos = userVisitedRecruitNos.get(userNo);
+                if (visitedRecruitNos == null) {
+                    visitedRecruitNos = new HashSet<>();
+                    userVisitedRecruitNos.put(userNo, visitedRecruitNos);
+                }
+
+                visitedRecruitNos.add(recruitNo);
+            }
+        } 
 
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
         if (recruitPost == null) {
@@ -65,6 +88,7 @@ public class RecruitController {
 
         Files Thumbnail = fileService.listByParentThumbnail(recruitNo);
 
+        
         model.addAttribute("Thumbnail", Thumbnail);
         model.addAttribute("recruitPost", recruitPost);
         model.addAttribute("fileList", fileList);
@@ -77,14 +101,14 @@ public class RecruitController {
     @GetMapping("/post_jobs_com")
     public String getPost_jobs_com(@SessionAttribute("user") Users user, Model model) {
         Company company = companyService.selectByUserNo(user.getUserNo());
-        
+
         model.addAttribute("company", company);
         return "/recruit/post_jobs_com";
     }
 
     @PostMapping("/post_jobs_com")
     public String postPost_jobs_com(RecruitPost recruitPost) throws Exception {
-        
+
         int result = recruitService.recruitPost(recruitPost);
 
         if (result > 0) {
@@ -98,9 +122,8 @@ public class RecruitController {
     // 채용공고 조회/수정/삭제 페이지 ----
     @GetMapping("/post_jobs_read_com")
     public String getPost_jobs_read_com(@RequestParam("recruitNo") int recruitNo, Model model) throws Exception {
-        
+
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
-        
 
         if (recruitPost == null) {
             log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
@@ -110,9 +133,9 @@ public class RecruitController {
 
         // List<Keyword> keywords = recruitService.recruitReadKeyword(recruitNo);
         // if (keywords == null) {
-        //     log.error("keywords 객체가 null입니다. : ", keywords);
+        // log.error("keywords 객체가 null입니다. : ", keywords);
         // } else {
-        //     log.info("keywords 정보: {}", keywords);
+        // log.info("keywords 정보: {}", keywords);
         // }
 
         model.addAttribute("recruitPost", recruitPost);
@@ -123,9 +146,8 @@ public class RecruitController {
 
     @PostMapping("/post_jobs_read_com")
     public String postPost_jobs_read_com(Integer recruitNo) throws Exception {
-        
+
         int result = recruitService.deleteRecruitList(recruitNo);
-        
 
         if (result > 0) {
             Files file = new Files();
@@ -140,7 +162,7 @@ public class RecruitController {
 
     @PostMapping("/post_jobs_read_com/update")
     public String post_jobs_read_com_update(RecruitPost recruitPost) throws Exception {
-        
+
         int result = recruitService.updateRecruitRead(recruitPost);
 
         if (result > 0) {
@@ -148,15 +170,14 @@ public class RecruitController {
         }
         return "redirect:/recruit/posted_jobs_com";
     }
-    
-    // 채용공고 조회/수정/삭제 페이지 ---- 끝
 
+    // 채용공고 조회/수정/삭제 페이지 ---- 끝
 
     // 기업이 등록 한 채용공고 목록
     @GetMapping("/posted_jobs_com")
-    public String getPosted_jobs_com(@SessionAttribute("user") Users user , Model model) throws Exception {
+    public String getPosted_jobs_com(@SessionAttribute("user") Users user, Model model) throws Exception {
 
-        Company company = companyService.selectByUserNo(user.getUserNo()); 
+        Company company = companyService.selectByUserNo(user.getUserNo());
         int comNo = company.getComNo();
 
         List<RecruitPost> recruitPosts = recruitService.postsRecruitList(comNo);
@@ -164,6 +185,7 @@ public class RecruitController {
 
         return "/recruit/posted_jobs_com";
     }
+
     // 채용공고 삭제 비동기
     @ResponseBody
     @PostMapping("/posted_jobs_com/{recruitNo}")
@@ -171,8 +193,8 @@ public class RecruitController {
 
         log.info("채용공고 삭제 : " + recruitNo);
         int result = recruitService.deleteRecruitList(recruitNo);
-        
-        if( result > 0 ) {
+
+        if (result > 0) {
             log.info("삭제되었습니다. ");
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
@@ -182,7 +204,26 @@ public class RecruitController {
     }
     // 기업이 등록 한 채용공고 페이지 ---- 끝
 
+    //////////////////////////////////////////////////////////////// 유저 채용공고 p
 
-    
+    @GetMapping("/new_jobs_user")
+    public String getMethodName(HttpSession session, Model model) {
+        Users user = (Users) session.getAttribute("user");
+        Integer userNo = user.getUserNo();
+
+        // 세션에서 맵을 가져올 때 명시적으로 캐스팅
+        Map<Integer, Set<Integer>> userVisitedRecruitNos = (Map<Integer, Set<Integer>>) session.getAttribute("userVisitedRecruitNos");
+        Set<Integer> visitedRecruitNos = new HashSet<>(); // 빈 집합으로 초기화
+        if (userVisitedRecruitNos != null) {
+            visitedRecruitNos = userVisitedRecruitNos.get(userNo); // userNo에 해당하는 Set 가져오기
+        }
+
+        // 방문한 채용공고 번호를 사용하여 데이터베이스에서 채용공고 리스트를 가져온다
+        List<Integer> recruitNosList = new ArrayList<>(visitedRecruitNos);
+        List<RecruitPost> recruits = recruitService.selectRecruitsByNos(recruitNosList);
+        model.addAttribute("recruits", recruits);
+        
+        return "/recruit/new_jobs_user";
+    }
 
 }
