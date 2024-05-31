@@ -32,7 +32,9 @@ public interface CompanyService {
     // 기업 정보 삭제는 없음 (기업 정보)
 
 
-    
+    // 유저 비밀번호 변경
+    public int updateUserPw(Users user) throws Exception;
+
 
     // 유저번호로 기업 조회
     public Company selectByUserNo(int userNo);   

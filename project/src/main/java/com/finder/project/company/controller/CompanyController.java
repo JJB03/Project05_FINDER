@@ -34,6 +34,11 @@ public class CompanyController {
     @Autowired
     PasswordEncoder passwordEncoder; 
 
+    // main_com 화면 (기업 메인 메뉴선정화면?)
+    @GetMapping("/main_com")
+    public String main_com() {
+        return "/company/main_com";
+    }
 
     // introduce_com 화면 (기업소개)
     // 조회는 세션에서 해주고 있다. (Users에서 Company CompanyDetail 받아옴)
@@ -58,7 +63,6 @@ public class CompanyController {
         }
 
         Company company = companyService.selectByUserNo(user.getUserNo());
-
         
         // CompanyDetail 객체에 사용자 정보 설정
         companyDetail.setComNo(company.getComNo());
@@ -95,7 +99,6 @@ public class CompanyController {
 
         // CompanyDetail 객체에 사용자 정보 설정
         companyDetail.setComNo(company.getComNo());
-
 
         // 데이터 요청
         int result = companyService.updateCompanyDetail(companyDetail);
@@ -175,19 +178,56 @@ public class CompanyController {
 
 
 
-
-    // 현재 비밀번호 확인 
-    @PostMapping("/update_com_pw")
-    public ResponseEntity pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
+    // 현재 비밀번호 확인(하는중) ⭕
+    @PostMapping("/update_com_pw_confirm")
+    public ResponseEntity<Boolean> pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
         
         // 세션에서 사용자 정보 가져오기
         Users user = (Users) session.getAttribute("user");
-
+        // 현재 비밀번호를 암호화해서, 세션에 암호화된 비밀번호와 비교 (맞으면 1)
         boolean isMatch = passwordEncoder.matches(request.getPassword(), user.getUserPw());
         return ResponseEntity.ok(isMatch);
     }
 
-    
+
+    // 기업 비밀번호 수정(하는중) ❌
+    @PostMapping("/update_com_pw")
+    public String updateCompany(HttpSession session 
+                                ,@RequestParam("userPw") String userPw
+                                ,@RequestParam("userBeforePw") String userBeforePw) throws Exception {
+        
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
+        
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+        
+        user.setUserPw(userPw);
+        user.setUserBeforePw(userBeforePw);
+
+        String password = user.getUserPw();
+        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+        user.setUserPw(encodedPassword);
+
+        String beforePassword = user.getUserBeforePw();
+        String encodedBeforePassword = passwordEncoder.encode(beforePassword);  // 🔒 비밀번호 암호화
+        user.setUserBeforePw(encodedBeforePassword);
+
+        
+        // 데이터 요청
+        int result = companyService.updateUserPw(user);
+
+
+        // 데이터 처리 성공 
+        if( result > 0 ) {
+            session.setAttribute("user", user);
+            return "redirect:/company/info_update_com";
+        }
+        // 데이터 처리 실패
+        return "redirect:/user/error";
+    }
     
 
 

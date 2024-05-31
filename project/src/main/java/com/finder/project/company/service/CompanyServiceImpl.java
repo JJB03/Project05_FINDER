@@ -63,12 +63,16 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 
-    // 비밀번호 암호화해서 받아오기
-
-
-
+    // 비밀번호 변경
+    @Override
+    public int updateUserPw(Users user) throws Exception {
+        int result = companyMapper.updateUserPw(user);
+        return result;
+    }
 
     
+
+
 
 
     // 쌤이랑 한거 userNo로 company 가져오기, comNo 으로 companyDetail 가져오기
@@ -82,5 +86,6 @@ public class CompanyServiceImpl implements CompanyService {
         CompanyDetail companyDetail = companyMapper.selectCompanyDetailByComNo(comNo);
         return companyDetail;
     }
+
 
 }
