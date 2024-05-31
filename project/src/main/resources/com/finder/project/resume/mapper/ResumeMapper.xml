@@ -32,33 +32,23 @@
 
   <!-- 이력서 리스트 조회 -->
   <select id="resumelist" resultMap="CvResultMap">
-  SELECT u.*, c.*, eh.*, ed.* 
-  FROM cv c
-  INNER JOIN employment_history eh ON c.cv_no = eh.cv_no
-  INNER JOIN `user` u ON c.cv_no = u.user_no
-  INNER JOIN education ed ON c.cv_no = ed.cv_no
+      SELECT c.*, eh.*, ed.*
+      FROM cv c
+      INNER JOIN employment_history eh ON c.cv_no = eh.cv_no
+      INNER JOIN education ed ON c.cv_no = ed.cv_no
   </select>
 
-  <!-- 이력서 작성 -->
-  <!-- 유저 테이블 & 이력서 테이블 & 경력 테이블 & 학력 테이블 -->
+  <!-- 이력서 작성, user & resume & education & employmentHistroy -->
   <insert id="create" >
-      INSERT INTO `cv` (`cover_letter`, `cv_title`, `cv_reg_date`)
-      VALUES (#{coverLetter}, #{cvTitle}, NOW())
-      <!--       INSERT INTO `cv` (`cover_letter`, `cv_title`, `cv_reg_date`,
-                        `user_name`, `user_gender`, `user_birth`, `user_email`,
-                        `university`, `major`, `university_status`,
-                        `organization`, `duration`, `duties`)
-      VALUES (#{coverLetter}, #{cvTitle}, NOW(),
-              #{userName}, #{userGender}, #{userBirth}, #{userEmail}, 
-              #{university},#{major}, #{universityStatus},
-              #{organization}, now(), `duties`) -->
+      INSERT INTO `cv` (`user_no`, `cv_reg_date`)
+      VALUES (#{userNo}, NOW())
   </insert>
+
 
   <!-- 이력서 상세 조회 -->
   <select id="select" resultMap="CvResultMap">
-    SELECT u.*, c.*, eh.*, ed.* 
+    SELECT c.*, eh.*, ed.*
       FROM cv c
-      INNER JOIN `user` u ON c.cv_no = u.user_no
       INNER JOIN employment_history eh ON c.cv_no = eh.cv_no
       INNER JOIN education ed ON c.cv_no = ed.cv_no
     WHERE c.cv_no = #{cvNo}
@@ -71,7 +61,7 @@
     UPDATE `cv`
     SET cv_title = #{cvTitle},
         cover_letter = #{coverLetter},
-        cv_upd_date = now 
+        cv_upd_date = now() 
     WHERE cv_no = #{cvNo}
   </update>
 
@@ -81,10 +71,10 @@
     WHERE cv_no = #{cv_no}
   </delete>
 
-  <!-- cv 최댓값 -->
+<!--   cv 최댓값 
   <select id="maxPk" resultType="int">
     SELECT MAX(cv_no)
     FROM cv
-  </select>
+  </select> -->
 
 </mapper>

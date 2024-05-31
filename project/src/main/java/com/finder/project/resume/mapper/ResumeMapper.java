@@ -29,6 +29,6 @@ import com.finder.project.resume.dto.Resume;
     public int delete(int cv_no) throws Exception;
     
     // pk 최댓값
-    public int maxPk() throws Exception;
+/*     public int maxPk() throws Exception; */
 
  }
