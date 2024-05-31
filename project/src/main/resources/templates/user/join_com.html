@@ -215,7 +215,6 @@
         function checkId() {
             let userId = document.getElementById('userId').value
             let request = new XMLHttpRequest()
-
             request.open("GET", `/user/check/${userId}`, false) // 동기적 요청으로 변경
             request.setRequestHeader("Content-Type", "application/json")
             request.setRequestHeader("X-CSRF-TOKEN", csrfToken)

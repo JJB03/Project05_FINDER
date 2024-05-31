@@ -166,4 +166,12 @@
         SELECT MAX(user_no)
         FROM user
     </select>
+
+    <!-- <select id="idCheck" resultMap="Users">
+        SELECT userId, user_email, user_name
+        FROM users
+        WHERE user_email = #{userEmail}
+        AND user_name = #{userName}
+    </select> -->
+
 </mapper>
