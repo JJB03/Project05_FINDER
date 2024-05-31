@@ -27,7 +27,7 @@ public interface CompanyService {
 
 
     // 기업회원 정보 수정 (기업 정보)
-    public int updateUserComInfo(Users user, Company company) throws Exception;
+    public int updateUserInfo(Users user) throws Exception;
 
     // 기업 정보 삭제는 없음 (기업 정보)
 

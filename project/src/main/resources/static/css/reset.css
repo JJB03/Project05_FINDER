@@ -150,6 +150,11 @@ header .nav-menu a {
   text-decoration: none;
 }
 
+header .nav-menu form {
+  display: flex;
+  column-gap: 50px;
+}
+
 header .nav-menu button {  /* 로그아웃 메뉴 */
   color: black;
   font-weight: 1000;

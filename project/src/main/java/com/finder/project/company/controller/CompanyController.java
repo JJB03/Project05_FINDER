@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@Controller
+@Controller("CompanyController")
 @RequestMapping("/company")
 public class CompanyController {
 
@@ -138,8 +138,8 @@ public class CompanyController {
                               ,@RequestParam("userName") String userName,
                                @RequestParam("userBirth") String userBirth,
                                @RequestParam("userPhone") String userPhone,
-                               @RequestParam("userEmail") String userEmail,
-                               @RequestParam("comAddress") String comAddress) throws Exception {
+                               @RequestParam("userEmail") String userEmail
+                               ) throws Exception {
         
         // 세션에서 사용자 정보 가져오기
         Users user = (Users) session.getAttribute("user");
@@ -155,22 +155,22 @@ public class CompanyController {
         user.setUserEmail(userEmail);
 
         
-        company = companyService.selectByUserNo(user.getUserNo());
+        // company = companyService.selectByUserNo(user.getUserNo());
         
-        company = user.getCompany();
-        company.setComAddress(comAddress); // 기업 주소 업데이트
+        // company = user.getCompany();
+        // company.setComAddress(comAddress); // 기업 주소 업데이트
         
 
         // 데이터 요청
-        int result = companyService.updateUserComInfo(user, company);
+        int result = companyService.updateUserInfo(user);
         
         // 데이터 처리 성공 
-        if( result > 1 ) {
+        if( result > 0 ) {
             log.info("User : " + user.getUserBirth());
-            log.info("Company : " + company.getComAddress());
-            user.setCompany(company);
+            // log.info("Company : " + company.getComAddress());
+            // user.setCompany(company);
             // session.setAttribute("user", user);
-            return "redirect:/company/info_update_com";
+            return "redirect:/user/update_user";
         }
         // 데이터 처리 실패
         return "redirect:/user/error";
@@ -194,7 +194,8 @@ public class CompanyController {
     @PostMapping("/update_com_pw")
     public String updateCompany(HttpSession session 
                                 ,@RequestParam("userPw") String userPw
-                                ,@RequestParam("userBeforePw") String userBeforePw) throws Exception {
+                                //,@RequestParam("userBeforePw") String userBeforePw
+                                ) throws Exception {
         
         // 세션에서 사용자 정보 가져오기
         Users user = (Users) session.getAttribute("user");
@@ -205,15 +206,15 @@ public class CompanyController {
         }
         
         user.setUserPw(userPw);
-        user.setUserBeforePw(userBeforePw);
+        // user.setUserBeforePw(userBeforePw);
 
         String password = user.getUserPw();
         String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
         user.setUserPw(encodedPassword);
 
-        String beforePassword = user.getUserBeforePw();
-        String encodedBeforePassword = passwordEncoder.encode(beforePassword);  // 🔒 비밀번호 암호화
-        user.setUserBeforePw(encodedBeforePassword);
+        // String beforePassword = user.getUserBeforePw();
+        // String encodedBeforePassword = passwordEncoder.encode(beforePassword);  // 🔒 비밀번호 암호화
+        // user.setUserBeforePw(encodedBeforePassword);
 
         
         // 데이터 요청
@@ -223,7 +224,7 @@ public class CompanyController {
         // 데이터 처리 성공 
         if( result > 0 ) {
             session.setAttribute("user", user);
-            return "redirect:/company/info_update_com";
+            return "redirect:/user/update_user";
         }
         // 데이터 처리 실패
         return "redirect:/user/error";
@@ -236,6 +237,9 @@ public class CompanyController {
     public String credit_com() throws Exception {
         return "/company/credit_com";
     }
+
+
+
 
     
 }
