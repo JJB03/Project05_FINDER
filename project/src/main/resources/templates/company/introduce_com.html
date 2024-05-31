@@ -166,7 +166,7 @@
                             <div class="d-flex justify-content-end">
                                 <!-- 없으면 등록 -->
                                 <th:block th:if="${session.user.companyDetail == null}">
-                                    <button type="submit" class="btn-long">
+                                    <button onclick="createComDetail()" type="submit" class="btn-long">
                                         등록
                                     </button>
                                 </th:block>
@@ -312,6 +312,11 @@
         function updateComDetail() {
             $('#form').attr('action', '/company/update_detail')
             $('#form').submit()
+            alert('수정이 완료되었습니다.')
+        }
+
+        function createComDetail() {
+            alert('등록이 완료되었습니다.')
         }
     </script>
 

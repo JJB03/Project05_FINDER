@@ -50,9 +50,14 @@
         VALUES (#{comName}, #{comCategory}, #{comAddress}, #{comBusiness}, #{userNo})
     </insert>
 
-    <!-- 비밀번호 변경 -->
-
-    
+    <!-- 비밀번호 변경 ⭕  -->
+    <update id="updateUserPw">
+        UPDATE user
+           SET user_pw = #{userPw}
+              ,user_before_pw = #{userBeforePw}
+              ,user_upd_date = now()
+        WHERE user_no = #{userNo}
+    </update>
 
     <!-- 동시에 한 post매핑에서 수행 -->
     <!-- 기업회원 정보 수정 ⭕ -->
@@ -64,7 +69,6 @@
               ,user_upd_date = now()
         WHERE user_no = #{userNo}
     </update>
-
 
     <!-- 기업 주소 수정 ⭕ -->
     <update id="updateCompanyAddress">
