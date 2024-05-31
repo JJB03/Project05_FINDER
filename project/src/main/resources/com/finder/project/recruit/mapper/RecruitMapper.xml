@@ -15,14 +15,7 @@
     <result property="recruitRegDate" column="recruit_reg_date"/>
     <result property="fileNo" column="file_no"/>
 
-    <association property="file" javaType="com.finder.project.main.dto.Files">
-        <id property="fileNo" column="file_no"/>
-        <result property="fileName" column="file_name"/>
-        <result property="filePath" column="file_path"/>
-        <result property="fileCode" column="file_code"/>
-        <!-- Add other file columns as needed -->
-    </association>
-
+   
     <!-- Company mapping -->
     <association property="company" javaType="com.finder.project.company.dto.Company">
         <id property="comNo" column="com_no"/>
