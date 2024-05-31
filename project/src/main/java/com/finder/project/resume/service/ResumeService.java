@@ -13,7 +13,7 @@ public interface ResumeService {
           public Resume select(int user_no) throws Exception;
       
           // 이력서 등록
-          public int create(Resume Resume) throws Exception;
+          public int create(int userNo) throws Exception;
       
           // 이력서 수정
           public int update(Resume Resume) throws Exception;

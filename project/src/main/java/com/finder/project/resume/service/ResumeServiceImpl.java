@@ -46,30 +46,16 @@ public class ResumeServiceImpl implements ResumeService {
      * 이력서 등록
      */
     @Override
-    public int create(Resume resume) throws Exception {
+    public int create(int userNo) throws Exception {
+    // Resume 객체를 초기화
+    Resume resume = new Resume();
+    // 사용자 번호를 설정
+    resume.setUserNo(userNo);
+    // 이력서 생성 메서드를 호출하여 데이터베이스에 저장
+    int result = resumeMapper.create(resume);
 
-
-        int cvNo = resumeMapper.maxPk() + 1;
-        int result = resumeMapper.create(resume);
-
-        if( result > 0 ) {
-            List<Education> educationList = resume.getEducationList();
-
-            for (Education education : educationList) {
-                education.setCvNo(cvNo);
-                educationService.create(education);
-            }
-
-            List<EmploymentHistory> employmentHistoryList = resume.getEmploymentHistoryList();
-            for (EmploymentHistory employmentHistory : employmentHistoryList) {
-                employmentHistory.setCvNo(cvNo);
-                employmentHistoryService.create(employmentHistory);
-            }
-
-        }
-        return result;
-    }
-
+    return result;
+}
     /*
      * 이력서 수정
      */
