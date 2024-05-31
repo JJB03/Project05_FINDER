@@ -55,10 +55,10 @@ public class CompanyServiceImpl implements CompanyService {
     // 기업회원 정보 수정 (기업 정보)
     @Transactional
     @Override
-    public int updateUserComInfo(Users user, Company company) throws Exception {
-        int resultUserCom = companyMapper.updateUserCom(user);
-        int resultCompany = companyMapper.updateCompanyAddress(company);
-        return resultUserCom + resultCompany;
+    public int updateUserInfo(Users user) throws Exception {
+        int updateUserInfo = companyMapper.updateUserInfo(user);
+        // int resultCompany = companyMapper.updateCompanyAddress(company);
+        return updateUserInfo;
     }
 
 

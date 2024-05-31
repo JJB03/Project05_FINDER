@@ -2,6 +2,8 @@ package com.finder.project.resume.dto;
 
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -12,12 +14,11 @@ import lombok.Data;
 public class Resume {
     private int cvNo;
     private int userNo;
-    private String cvTitle;
     private String coverLetter;
-    private Timestamp cvRegDate;
-    private Timestamp cvUpdDate;
-
-    private List<Education> educationList;
-    private List<EmploymentHistory> employmentHistoryList;
+    private String cvTitle;
+    private Date cvRegDate;
+    private Date cvUpdDate;
+    private List<Education> educationList = new ArrayList<>();
+    private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
 }
 
