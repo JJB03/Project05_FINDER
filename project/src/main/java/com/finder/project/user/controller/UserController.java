@@ -100,8 +100,8 @@ public class UserController {
         // 사용 가능한 아이디입니다.
         log.info("사용 가능한 아이디 입니다." + userId);
         return new ResponseEntity<>(true, HttpStatus.OK);
+    
     }
-
     // import org.springframework.stereotype.Controller;
     // import org.springframework.web.bind.annotation.ModelAttribute;
     // import org.springframework.web.bind.annotation.PostMapping;
