@@ -247,7 +247,7 @@
                     </div>
 
                     <!-- 비밀번호 변경 폼 -->
-                    <form id="myForm" action="/company/update_com_pw" method="post" class="register-form" style="width:100% !important; border-radius: 12px; background-color: #FAFAFA;">
+                    <form id="PwForm" action="/company/update_com_pw" method="post" class="register-form" style="width:100% !important; border-radius: 12px; background-color: #FAFAFA;">
                         <!-- CSRF 토큰 -->
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <div id="id" class="d-flex flex-column">
@@ -274,7 +274,7 @@
 
 
                     <!-- 이름/생년월일/휴대폰/이메일/기업주소 변경 폼 -->
-                    <form action="/company/update_com_info" method="post" class="register-form mt-4" style="border-radius: 12px; background-color: #FAFAFA;">
+                    <form id="InfoForm" action="/company/update_com_info" method="post" class="register-form mt-4" style="border-radius: 12px; background-color: #FAFAFA;">
                         <!-- CSRF 토큰 -->
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <input type="hidden" th:name="userNo" th:value="${session.user.userNo}">
@@ -299,7 +299,7 @@
                         <div for="phone" class="userphone">휴대폰</div>
                         <div class="phone d-flex flex-column">
                             <!-- 휴대폰번호 -->
-                            <input type="text" id="phone" name="userPhone" th:value="${session.user.userPhone}" required >                            
+                            <input type="text" onchange="validatePhone(this)" id="phone" name="userPhone" th:value="${session.user.userPhone}" required >                            
                         </div>
         
                         <div for="email" class="useremail">
@@ -307,7 +307,7 @@
                         </div>
                         <div class="phone d-flex flex-column">
                             <!-- 이메일 -->
-                            <input type="email" id="email" name="userEmail" th:value="${session.user.userEmail}" required >
+                            <input type="email" onchange="validateEmail(this)" id="email" name="userEmail" th:value="${session.user.userEmail}" required >
                         </div>
 
                         <!-- <div for="address" class="useraddress">
@@ -344,7 +344,7 @@
                 $('#female').css('color', 'white')
             }
 
-            $('#myForm').on('keydown', function(event) {
+            $('#PwForm').on('keydown', function(event) {
                 if (event.key === "Enter") {
                     event.preventDefault();
                 }
@@ -352,18 +352,9 @@
 
         });
 
-        // 기업회원 정보 수정 알림 ⭕
-        $(document).ready(function() {
-            $("#UpdateUserComInfo").on("click", function() {
-                alert("개인 정보가 변경되었습니다.");
-            });
-        });
-
-
 
         // 현재 비밀번호 확인 ⭕
         function PW_Confirm() {
-
 
             // 💍 CSRF TOKEN
             var csrfToken = "[[${_csrf.token}]]";
@@ -404,13 +395,9 @@
             });
         }
 
-        
-
         // 비밀번호 유효성 검사 ⭕
         function validatePasswordConfirmation() {
 
-            
-        
             var password = document.getElementsByName("userPw")[0].value;
             var confirmPassword = document.getElementsByName("confirm-password")[0].value;
             var UpdatePw = $('#UpdatePw');
@@ -422,18 +409,63 @@
                     "비밀번호는 8~16자리의 영문 대소문자, 숫자, 특수문자를 모두 포함해야 합니다.");
             } else {
                 document.getElementsByName("userPw")[0].setCustomValidity("");
-            }
 
-            // 비밀번호와 확인 비밀번호가 일치하는지 검사
-            if (password != confirmPassword) {
-                document.getElementsByName("confirm-password")[0].setCustomValidity("비밀번호와 일치하지 않습니다.");
-                return
-            } else {
-                document.getElementsByName("confirm-password")[0].setCustomValidity("");
-                alert('비밀번호가 변경되었습니다.') // 비밀번호 변경 완료
+
+                // 비밀번호와 확인 비밀번호가 일치하는지 검사
+                if (password != confirmPassword) {
+                    document.getElementsByName("confirm-password")[0].setCustomValidity("비밀번호와 일치하지 않습니다.");
+                    return
+                } else {
+                    document.getElementsByName("confirm-password")[0].setCustomValidity("");
+                    alert('비밀번호가 변경되었습니다.') // 비밀번호 변경 완료
+                }
             }
         }
 
+
+
+        // 기업회원 정보 수정 알림 ⭕
+        $(document).ready(function() {
+            // 폼 제출 이벤트 핸들러 설정
+            $("#InfoForm").on("submit", function(event) {
+                event.preventDefault(); // 기본 제출 이벤트를 방지
+                
+                // 각 입력 필드 객체를 찾아 함수에 전달
+                var emailInput = document.getElementById('email');
+                var phoneInput = document.getElementById('phone');
+
+                validateEmail(emailInput);
+                validatePhone(phoneInput);
+
+                // 두 유효성 검사가 모두 통과했는지 확인
+                if(emailInput.checkValidity() && phoneInput.checkValidity()) {
+                    alert("정보가 변경되었습니다.");
+                    this.submit(); // 유효성 검사 통과 후 폼 제출
+                }
+            });
+        });
+
+        // 이메일 유효성 검사 ⭕
+        function validateEmail(input) {
+            var email = input.value;
+            if(!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(email)) {
+                input.setCustomValidity("이메일 형식이 아닙니다.");
+            } else {
+                input.setCustomValidity(""); // 유효성 오류 메시지를 클리어
+            }
+            input.reportValidity();
+        }
+
+        // 전화번호 유효성 검사 ⭕
+        function validatePhone(input) {
+            var phone = input.value;
+            if (phone.length !== 11 || !/^[0-9]+$/.test(phone)) {
+                input.setCustomValidity("휴대전화번호 형식이 아닙니다.");
+            } else {
+                input.setCustomValidity(""); // 유효성 오류 메시지를 클리어
+            }
+            input.reportValidity();
+        }
         
     </script>
 
