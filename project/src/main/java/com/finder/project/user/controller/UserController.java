@@ -113,9 +113,8 @@ public class UserController {
         log.info("이메일 파라미터 : " + userEamil); 
         log.info("유저 이름 파라미터 : " +  userName); 
         Users user = new Users();
-        user.setUserEmail(userName);
+        user.setUserEmail(userEamil);
         user.setUserName(userName);
-        
 
         String userId = userService.findId(user);
         log.info("유저아이디 : " +  userId); 

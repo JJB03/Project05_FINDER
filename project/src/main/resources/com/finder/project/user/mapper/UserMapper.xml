@@ -175,7 +175,7 @@
     </select> -->
 
     <!-- 아이디 찾기 -->
-    <select id="findId" resultType="Users">
+   <select id="findId" resultType="string" parameterType="com.finder.project.user.dto.Users">
         SELECT user_id
         FROM user
         WHERE user_email = #{userEmail} AND user_name = #{userName}
