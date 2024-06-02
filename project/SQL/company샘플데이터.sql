@@ -12,7 +12,7 @@ INSERT INTO company (com_name, com_category, com_address, com_business, user_no)
 
 
 
-INSERT INTO `product` (`product_name`, `product_option`, `product_price`, `product_duration`)
+INSERT INTO `product` (`product_name`, `product_count`, `product_price`, `product_duration`)
 VALUES 
 ('10만원', 30, 100000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH)),
 ('30만원', 80, 300000, DATE_ADD(CURDATE(), INTERVAL 3 MONTH)),
