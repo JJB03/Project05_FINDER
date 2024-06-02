@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.user.dto.Users;
+import com.finder.project.user.service.EmailService;
 import com.finder.project.user.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class UserController {
     private UserService userService; // 변수명은 카멜케이스로 (유상준)
 
     private CompanyService companyService;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/{page}")
     public String main(@PathVariable("page") String page) {
@@ -106,25 +110,51 @@ public class UserController {
     }
 
     // --- 아이디 비번 찾기 하는중 -----------------------------------------
+    // @ResponseBody
+    // @PostMapping("/find_user")
+    // public String findId(@RequestParam("userEmail") String userEmail , @RequestParam("userName") String userName) throws Exception {
+        
+    //     log.info("이메일 파라미터 : " + userEmail); 
+    //     log.info("유저 이름 파라미터 : " +  userName); 
+    //     Users user = new Users();
+    //     user.setUserEmail(userEmail);
+    //     user.setUserName(userName);
+
+    //     String userId = userService.findId(user);
+    //     log.info("유저아이디 : " +  userId); 
+
+    //     if (userId != null) {
+    //         return "<script>alert('Your ID is " + userId + "'); location.href='/login';</script>";
+    //     } else {
+    //         return "<script>alert('No user found with that username and email'); history.back();</script>";
+    //     }
+    // }
+
+
+    // 아이디 이메일로 전송 하는중 이거는 확실하지는 않음
     @ResponseBody
     @PostMapping("/find_user")
-    public String findId(@RequestParam("userEamil") String userEamil , @RequestParam("userName") String userName) throws Exception {
-        
-        log.info("이메일 파라미터 : " + userEamil); 
-        log.info("유저 이름 파라미터 : " +  userName); 
+    public String findId(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName) throws Exception {
+        log.info("이메일 파라미터 : " + userEmail); 
+        log.info("유저 이름 파라미터 : " + userName); 
+
         Users user = new Users();
-        user.setUserEmail(userEamil);
+        user.setUserEmail(userEmail);
         user.setUserName(userName);
 
         String userId = userService.findId(user);
-        log.info("유저아이디 : " +  userId); 
+        log.info("유저아이디 : " + userId); 
 
         if (userId != null) {
-            return "<script>alert('Your ID is " + userId + "'); location.href='/login';</script>";
+            String subject = "Your User ID";
+            String text = "Your user ID is: " + userId;
+            emailService.sendSimpleMessage(userEmail, subject, text);
+            return "<script>alert('Your ID has been sent to your email.'); location.href='/login';</script>";
         } else {
             return "<script>alert('No user found with that username and email'); history.back();</script>";
         }
     }
+
 
     // @GetMapping("/reset-password")
     // public String resetPasswordForm() {
