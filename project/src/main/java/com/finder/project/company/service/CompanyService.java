@@ -45,6 +45,6 @@ public interface CompanyService {
 
 
     
-    public Product selectByProductNo(int productNo) throws Exception;
+    public Product selecProduct(int productNo) throws Exception;
 
 }
