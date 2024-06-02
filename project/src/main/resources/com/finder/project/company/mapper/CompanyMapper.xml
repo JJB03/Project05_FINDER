@@ -93,9 +93,9 @@
 
 
     <!-- 상품 조회 -->
-    <select id="selectByProductNo" resultType="Product">
+    <select id="selecProduct" resultType="Product">
         SELECT * FROM product
-        WHERE = product_no = #{productNo}
+        WHERE product_no = #{productNo}
     </select>
     
 </mapper>

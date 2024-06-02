@@ -209,7 +209,7 @@ CREATE TABLE `product` (
 	`product_name` varchar(100) NOT NULL,
 	`product_count` int NOT NULL,
 	`product_price` int NOT NULL,
-	`product_duration` timestamp NULL,
+	`product_duration`	int	NULL DEFAULT 0 COMMENT '개월수(ex)1,2,3,4,5)',
 	PRIMARY KEY (`product_no`)
 );
 
@@ -224,6 +224,7 @@ CREATE TABLE `order` (
 	`ordered_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
 	`created_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
 	`updated_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+	`exparation_date`  timestamp NULL COMMENT '상품 만료',
 	PRIMARY KEY (`order_no`),
 	FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`),
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)

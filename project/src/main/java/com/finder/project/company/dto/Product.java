@@ -11,6 +11,6 @@ public class Product {
     private String productName;
     private int productCount;
     private int productPrice;
-    private Date productDuration;
+    private int productDuration;    // 그냥 상품기간 (개월수 ex) 1개월 = 1)
     
 }

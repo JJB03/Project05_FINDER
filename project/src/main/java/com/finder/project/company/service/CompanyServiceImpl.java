@@ -95,9 +95,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     // 상품 조회
     @Override
-    public Product selectByProductNo(int productNo) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'selectByProductNo'");
+    public Product selecProduct(int productNo) throws Exception {
+        Product product = companyMapper.selecProduct(productNo);
+        return product;
     }
 
 
