@@ -59,7 +59,6 @@
         WHERE user_no = #{userNo}
     </update>
 
-
     <!-- 회원 정보 수정(일반/기업 모두) ⭕ -->
     <update id="updateUserInfo">
         UPDATE user
@@ -70,12 +69,6 @@
         WHERE user_no = #{userNo}
     </update>
 
-    <!-- 기업 주소 수정 ⭕ -->
-    <!-- <update id="updateCompanyAddress">
-        UPDATE company
-        SET com_address = #{comAddress}
-        WHERE user_no = #{userNo}
-    </update> -->
 
 
 
@@ -95,4 +88,14 @@
         FROM company_detail
         WHERE com_no = #{comNo}
     </select>
+
+
+
+
+    <!-- 상품 조회 -->
+    <select id="selectByProductNo" resultType="Product">
+        SELECT * FROM product
+        WHERE = product_no = #{productNo}
+    </select>
+    
 </mapper>

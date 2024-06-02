@@ -2,6 +2,7 @@ package com.finder.project.company.service;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Product;
 import com.finder.project.user.dto.Users;
 
 public interface CompanyService {
@@ -40,4 +41,10 @@ public interface CompanyService {
     public Company selectByUserNo(int userNo);   
     // 기업번호로 기업상세 조회
     public CompanyDetail selectCompanyDetailByComNo(int comNo);
+
+
+
+    
+    public Product selectByProductNo(int productNo) throws Exception;
+
 }

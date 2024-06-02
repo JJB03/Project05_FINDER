@@ -232,12 +232,20 @@ public class CompanyController {
     
 
 
-    // 결제 종류 화면
+    // 결제 상품 목록 화면
     @GetMapping("/credit_com")
     public String credit_com() throws Exception {
         return "/company/credit_com";
     }
-    // 결제 내역 화면
+
+    // 상품 세부 화면
+    @GetMapping("/credit_detail_com")
+    public String getMethodName() {
+        return "company/credit_detail_com";
+    }
+    
+
+    // 결제 목록 내역 화면
     @GetMapping("/credit_list_com")
     public String credit_list_com() throws Exception {
         return "/company/credit_list_com";
