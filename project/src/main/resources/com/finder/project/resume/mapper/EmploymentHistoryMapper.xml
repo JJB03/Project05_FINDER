@@ -6,8 +6,8 @@
 
   <!-- 등록 -->
   <insert id="create">
-    INSERT INTO employment_history (organization, duration, duties, cv_no)
-    VALUES (#{organization}, #{duration}, #{duties}, #{cvNo})
+    INSERT INTO employment_history (organization, start_date, end_date, duties, cv_no)
+    VALUES (#{organization}, #{startDate}, #{endDate}, #{duties}, #{cvNo})
   </insert>
 
   <!-- 조회 -->
@@ -19,7 +19,8 @@
   <update id="update">
     UPDATE employment_history
     SET organization = #{organization},
-        duration = #{duration},
+        start_date = #{startDate},
+        end_date = #{endDate},
         duties = #{duties}
     WHERE employment_history_no = #{employmentHistoryNo}
   </update>
