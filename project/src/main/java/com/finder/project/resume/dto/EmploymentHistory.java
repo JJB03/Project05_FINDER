@@ -9,7 +9,8 @@ import lombok.Data;
 public class EmploymentHistory {
     private int employmentHistoryNo;
     private String organization;
-    private Date duration;
+    private Date startDate;
+    private Date endDate;
     private String duties;
     private int cvNo;
 }

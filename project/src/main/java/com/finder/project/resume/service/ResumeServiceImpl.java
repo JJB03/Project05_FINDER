@@ -20,7 +20,7 @@ public class ResumeServiceImpl implements ResumeService {
 
 
     /*
-     * 이력서 목록 조회
+     * 이력서 목록 조회⭕
      */
     @Override
     public List<Resume> resumelist(int userNo) throws Exception {
@@ -29,7 +29,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
     
     /*
-     * 이력서 첫 페이지 만들기
+     * 이력서 첫 페이지 만들기⭕
      */
     @Override
     public int create(int userNo) throws Exception {
@@ -53,7 +53,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     /*
-     * 이력서 내용 업로드하기
+     * 이력서 내용 업로드하기⭕
      */
     @Override
     public int update(Resume resume) throws Exception {
@@ -62,7 +62,7 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     /*
-     이력서 삭제
+     이력서 삭제⭕
      */
     @Override
     public int delete(int cvNo) throws Exception {
@@ -77,6 +77,7 @@ public class ResumeServiceImpl implements ResumeService {
         return resume;
     }
 
+    // ⭕
     @Override
     public int maxPk() throws Exception {
         
