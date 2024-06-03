@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.user.dto.UserAuth;
@@ -42,10 +43,11 @@ public interface UserMapper {
     public String findId(Users user) throws Exception;
 
     // 비밀번호 찾기
-    public Users findPw(@Param("id") int id, @Param("username") String username, @Param("email") String email) throws Exception;
+    @Select("SELECT * FROM user WHERE user_id = #{userId}")
+    public Users findUserById(String userId) throws Exception;
  
     // 비밀번호 수정하기
-    public int updatePw(@Param("id") int id, @Param("password") String password) throws Exception;
+    public int updatePw(Users userPw) throws Exception;
 
 
 

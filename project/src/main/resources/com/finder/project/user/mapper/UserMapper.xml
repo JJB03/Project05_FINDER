@@ -191,8 +191,8 @@
     <!-- 비밀번호 업데이트 -->
     <update id="updatePw" parameterType="map">
         UPDATE user
-        SET user_pw = #{password}
-        WHERE id = #{id}
+        SET user_pw = #{userPw}
+        WHERE user_id = #{userId}
     </update>
     
 </mapper>

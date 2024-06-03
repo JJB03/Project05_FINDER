@@ -100,22 +100,20 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    // 아이디 비번 찾기 하는중 ---------------------------------------
+    // 비밀번호 찾기 하는중 ---------------------------------------
+
+    @Override
+    public Users getUserById(String userId) throws Exception {
+        return userMapper.findUserById(userId);
+    }
+
 
     @Override
     public String findId(Users user) throws Exception {
         return userMapper.findId(user);
     }
 
-    @Override
-    public Users findPw(int id, String username, String email) throws Exception{
-        return userMapper.findPw(id, username, email);
-    }
 
-    @Override
-    public boolean updatePw(int id, String newPassword) throws Exception{
-        return userMapper.updatePw(id, newPassword) > 0;
-    }
 
     @Override
     public int update(Users user) throws Exception {
@@ -132,6 +130,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int max() throws Exception {
         int result = userMapper.max();
+        return result;
+    }
+
+    @Override
+    public int updatePw(Users userPw) throws Exception{
+        int result = userMapper.updatePw(userPw);
+
         return result;
     }
 

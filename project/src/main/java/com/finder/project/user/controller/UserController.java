@@ -1,24 +1,23 @@
 package com.finder.project.user.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.service.CompanyService;
+import com.finder.project.user.dto.InformationCheck;
 import com.finder.project.user.dto.Users;
 import com.finder.project.user.service.EmailService;
 import com.finder.project.user.service.UserService;
@@ -33,7 +32,14 @@ public class UserController {
     @Autowired
     private UserService userService; // 변수명은 카멜케이스로 (유상준)
 
+
+
     private CompanyService companyService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder; 
+
+
 
     @Autowired
     private EmailService emailService;
@@ -50,6 +56,7 @@ public class UserController {
         return "user/join_user";
     }
 
+    // 사용자 회원가입
     @PostMapping("/join_user")
     public String userjoinPro(Users users) throws Exception {
 
@@ -70,7 +77,8 @@ public class UserController {
         // 회원가입 실패
         return "redirect:/user/join_user";
     }
-
+     
+    // 기업 회원가입
     @PostMapping("/join_com")
     public String companyjoinPro(Users user, Company company) throws Exception {
 
@@ -96,6 +104,7 @@ public class UserController {
         return "redirect:/user/join_user";
     }
 
+    // 아이디 중복확인
     @ResponseBody
     @GetMapping("/check/{userId}")
     public ResponseEntity<Boolean> userCheck(@PathVariable("userId") String userId) throws Exception {
@@ -112,7 +121,8 @@ public class UserController {
 
     }
 
-    // --- 아이디 비번 찾기 하는중 -----------------------------------------
+
+    // alert로 띄우는거 보류    
     // @ResponseBody
     // @PostMapping("/find_user")
     // public String findId(@RequestParam("userEmail") String userEmail , @RequestParam("userName") String userName) throws Exception {
@@ -134,7 +144,7 @@ public class UserController {
     // }
 
 
-    // 아이디 이메일로 전송 하는중 이거는 확실하지는 않음
+    // 아이디 이메일로 전송 완료
     @ResponseBody
     @PostMapping("/find_user")
     public String findId(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName) throws Exception {
@@ -157,25 +167,64 @@ public class UserController {
             return "<script>alert('해당 이메일을 찾을 수 없습니다.'); history.back();</script>";
         }
     }
-
-
-    // @GetMapping("/reset-password")
-    // public String resetPasswordForm() {
-    //     return "reset-password";
+    // 아직 하는중
+    // @ResponseBody
+    // @PostMapping("/reset-password")
+    // public String resetPassword(@RequestParam int id, @RequestParam String username, @RequestParam String email,
+    //         @RequestParam String newPassword) throws Exception {
+    //     Users user = userService.findPw(id, username, email);
+    //     if (user != null) {
+    //         userService.updatePw(id, newPassword);
+    //         return "<script>alert('Password updated successfully'); location.href='/login';</script>";
+    //     } else {
+    //         return "<script>alert('No user found with that information'); history.back();</script>";
+    //     }
     // }
 
-    @ResponseBody
-    @PostMapping("/reset-password")
-    public String resetPassword(@RequestParam int id, @RequestParam String username, @RequestParam String email,
-            @RequestParam String newPassword) throws Exception {
-        Users user = userService.findPw(id, username, email);
-        if (user != null) {
-            userService.updatePw(id, newPassword);
-            return "<script>alert('Password updated successfully'); location.href='/login';</script>";
-        } else {
-            return "<script>alert('No user found with that information'); history.back();</script>";
+    // 정보 확인⭕
+    @PostMapping("/info_check")
+    public ResponseEntity<Boolean> infoCheck(@RequestBody InformationCheck request) throws Exception {
+        
+        // 데이터베이스에서 사용자 정보 가져오기
+        Users user = userService.getUserById(request.getId());
+
+        if (user == null) {
+            // 사용자가 존재하지 않는 경우 false 반환
+            return ResponseEntity.ok(false);
         }
+
+        // 사용자 정보 비교
+        boolean isMatch = request.getEmail().equals(user.getUserEmail()) &&
+                          request.getName().equals(user.getUserName());
+        
+        return ResponseEntity.ok(isMatch);
     }
+
+    // 비밀번호 수정 ⭕
+    @PostMapping("/update_pw")
+    public String updateCompany(@RequestParam("userPw") String userPw,@RequestParam("userId") String userId) throws Exception {
+        
+        Users user = new Users();
+        user.setUserPw(userPw);
+        user.setUserId(userId);
+
+        log.info("내가입력한 비밀번호" + userPw);
+        
+        String password = user.getUserPw();
+        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+        user.setUserPw(encodedPassword);
+        
+        int result = userService.updatePw(user);
+
+        // 데이터 처리 성공 
+        if( result > 0 ) {
+
+            return "redirect:/login";
+        }
+        // 데이터 처리 실패
+        return "redirect:/user/error";
+    }
+
 
     // import org.springframework.stereotype.Controller;
     // import org.springframework.web.bind.annotation.ModelAttribute;
