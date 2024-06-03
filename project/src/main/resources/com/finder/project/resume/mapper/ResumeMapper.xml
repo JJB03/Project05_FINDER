@@ -32,13 +32,14 @@
 
   <!-- 이력서 리스트 조회 -->
   <select id="resumelist" resultMap="CvResultMap">
-      SELECT c.*, eh.*, ed.*
-      FROM cv c
-      INNER JOIN employment_history eh ON c.cv_no = eh.cv_no
-      INNER JOIN education ed ON c.cv_no = ed.cv_no
+     SELECT c.*, u.*
+        FROM cv c
+        INNER JOIN user u ON c.user_no = u.user_no
+    WHERE u.user_no = #{user_no};
+
   </select>
 
-  <!-- 이력서 작성, user & resume & education & employmentHistroy ⭕ -->
+  <!-- 이력서 작성,  ⭕ -->
   <insert id="create" >
       INSERT INTO `cv` (`user_no`, `cv_reg_date`)
       VALUES (#{userNo}, NOW())
@@ -46,11 +47,11 @@
 
   <!--이력서 수정 ⭕-->
   <update id="update">
-    UPDATE `cv`
-    SET cv_title = #{cvTitle},
-        cover_letter = #{coverLetter},
-        cv_upd_date = now() 
-    WHERE cv_no = #{cvNo}
+        UPDATE `cv`
+        SET cv_title = #{cvTitle},
+            cover_letter = #{coverLetter},
+            cv_upd_date = now()
+        WHERE cv_no = #{cvNo}
   </update>
 
   <!-- 백승헌이 이력서 제목,자기소개서 넣겠다고 만든거 🔍 -->
@@ -60,14 +61,15 @@
     WHERE user_no = #{userNo} AND cv_no = #{cvNo}
   </select>
 
-  <!-- 이력서 상세 조회 -->
-  <!-- <select id="select" resultMap="CvResultMap">
-    SELECT c.*, eh.*, ed.*
+
+
+  <!-- 이력서 상세 조회 ⭕-->
+  <select id="select" resultMap="CvResultMap">
+    SELECT c.*, u.*
       FROM cv c
-      INNER JOIN employment_history eh ON c.cv_no = eh.cv_no
-      INNER JOIN education ed ON c.cv_no = ed.cv_no
-    WHERE c.cv_no = #{cvNo}
-  </select> -->
+        INNER JOIN user u ON c.user_no = u.user_no
+    WHERE c.cv_no = #{cv_no}
+  </select>
 
 
 

@@ -10,10 +10,10 @@ public interface ResumeService {
           public List<Resume> resumelist(int userNo) throws Exception;
 
           // 이력서 조회
-          public Resume select(int user_no) throws Exception;
+          public Resume select(int cvNo) throws Exception;
       
           // 이력서 등록
-          public int create(int userNo) throws Exception;
+          public int create(int cvNo) throws Exception;
       
           // 이력서 수정
           public int update(Resume resume) throws Exception;

@@ -24,6 +24,8 @@ import com.finder.project.user.dto.Users;
 
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -93,17 +95,19 @@ public class ResumeController {
         }
 
         int userNo = user.getUserNo();
-        log.info(" 이력서 목차는 : " + userNo);
+        log.info(" 유저번호는 : " + userNo);
         List<Resume> resumeList = resumeService.resumelist(userNo);
        
-
-        //모델 등록
+        if( resumeList != null){
+            log.info("이력서 목록이 있구나 : " + resumeList.size() +"건");
+             //모델 등록
         model.addAttribute("resumeList", resumeList);
         model.addAttribute("user", user);
-
-        
         //뷰페이지 지정
         return "resume/cv_list_user";
+        }
+        log.info("실패 - userController Get_list ");
+        return "redirect:/login";
     }
     
 
@@ -122,7 +126,7 @@ public class ResumeController {
         
 
         if( result >0){
-            log.info("성공했어요");
+            log.info("이력서 만드는 걸 성공했어요");
             return "/resume/cv_create_user";
         }
         return "redirect:/resume/cv_list_user?error";
@@ -151,14 +155,14 @@ public class ResumeController {
      */
 
     /**
-     * 구직자 게시글 상세 조회/수정 화면
+     * 구직자 게시글 조회/수정 화면
      * @param param
      * @return
      * 파일 요청도 해야함.
      */
     @GetMapping("/cv_read_user")
     public String cvReadUser(HttpSession session
-                                ,Model model) throws Exception{
+                                ,Model model, @RequestParam("cvNo") int cvNo) throws Exception{
         // 세션으로 가져온 User 객체의 user_no을 참조해서 service에 넣기
         Users user = (Users) session.getAttribute("user");
         
@@ -168,37 +172,34 @@ public class ResumeController {
             return "redirect:/login";
         }
 
-            // 세션에서 사용자 정보를 가져옴
-            int userNo = user.getUserNo();
-
             // 사용자의 이력서 정보를 가져옴
-            Resume resume = resumeService.select(userNo);
+            Resume resume = resumeService.select(cvNo);
 
+        if( resume != null ){
+            
+                        // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
+                        model.addAttribute("resume", resume);
+                        model.addAttribute("user", user);
+                        log.info("이력서 번호는 : " + cvNo + "번으로 이동했어요");
+                        // 이력서 정보가 담긴 화면으로 이동
+                        return "/resume/cv_read_user";
 
-            // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
-            model.addAttribute("resume", resume);
-            model.addAttribute("user", user);
-
-            // 이력서 정보가 담긴 화면으로 이동
-            return "/resume/cv_read_user";
+        }
+                    log.info("리스트 -> 이력서로 안 넘어갔다.");
+        return "redirect:/resume/cv_list_user?error";
     }
     
     /**
-     * 구직자 게시글 수정 처리
+     * 구직자 게시글 처음 입력처리
      * @param Resume
      * @return
      * @throws Exception
      */
     @PostMapping("/cv_update_user")
     public String updateUserPro(HttpSession session, Resume resume)  throws Exception{
-            // 세션에서 사용자 정보를 가져옴
-            Users user = (Users) session.getAttribute("user");
-
-            if (user == null) {
-                return "redirect:/login"; // 사용자가 로그인되어 있지 않은 경우 로그인 페이지로 이동
-            }
             int cvNo = resumeService.maxPk();
             
+            //maxPk 오류 막기 위해
             if (cvNo == 0) {
                 cvNo = 1;
             }
@@ -210,13 +211,32 @@ public class ResumeController {
 
             // 데이터 처리 성공 시
             if (result > 0) {
-                log.info("정보가 수정되었어요.");
+                log.info(cvNo + "번의 정보가 처음 입력되었어요.");
                 return "redirect:/resume/cv_list_user"; // 성공 시 이력서를 다시 읽는 페이지로 리다이렉트
             }
             
             // 데이터 처리 실패 시
             return "redirect:/resume/cv_create_user?cvNo=" + cvNo + "&error"; // 실패 시 오류 메시지와 함께 이력서 읽는 페이지로 리다이렉트
         }
+
+
+    
+    
+    @PostMapping("/cv_read_user")
+    public String updateUserPro2(HttpSession session, Resume resume) throws Exception {
+
+        int result = resumeService.update(resume);
+
+        if (result > 0) {
+           log.info("이력서 수정 성공했어요");
+            return "redirect:/resume/cv_list_user";
+        }
+        
+        // 데이터 처리 실패 
+        log.info("이력서 수정 실패했어요");
+        return "redirect:/resume/cv_read_user?cvNo&error"; 
+    }
+    
     
 
 

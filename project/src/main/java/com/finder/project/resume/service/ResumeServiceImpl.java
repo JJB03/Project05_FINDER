@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.finder.project.resume.dto.Education;
-import com.finder.project.resume.dto.EmploymentHistory;
+
 import com.finder.project.resume.dto.Resume;
 import com.finder.project.resume.mapper.ResumeMapper;
 
@@ -18,11 +17,7 @@ public class ResumeServiceImpl implements ResumeService {
     @Autowired
     private ResumeMapper resumeMapper;
 
-    @Autowired
-    private EducationService educationService;
 
-    @Autowired
-    private EmploymentHistoryService employmentHistoryService;
 
     /*
      * 이력서 목록 조회
@@ -32,18 +27,9 @@ public class ResumeServiceImpl implements ResumeService {
         List<Resume> resumeList = resumeMapper.resumelist(userNo);
         return resumeList;
     }
-
+    
     /*
-     * 이력서 상세 조회
-     */
-    @Override
-    public Resume select(int userNo) throws Exception {
-        Resume Resume = resumeMapper.select(userNo);
-        return Resume;
-    }
-
-    /*
-     * 이력서 등록
+     * 이력서 첫 페이지 만들기
      */
     @Override
     public int create(int userNo) throws Exception {
@@ -55,9 +41,19 @@ public class ResumeServiceImpl implements ResumeService {
     int result = resumeMapper.create(userNo);
 
     return result;
-}
+    }
+    
     /*
-     * 이력서 수정
+     * 이력서 상세 조회
+     */
+    @Override
+    public Resume select(int cvNo) throws Exception {
+        Resume Resume = resumeMapper.select(cvNo);
+        return Resume;
+    }
+
+    /*
+     * 이력서 내용 업로드하기
      */
     @Override
     public int update(Resume resume) throws Exception {
