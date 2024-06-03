@@ -177,8 +177,6 @@ public class CompanyController {
         return "redirect:/user/error";
     }
 
-
-
     // 현재 비밀번호 확인⭕
     @PostMapping("/update_com_pw_confirm")
     public ResponseEntity<Boolean> pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
@@ -189,7 +187,6 @@ public class CompanyController {
         boolean isMatch = passwordEncoder.matches(request.getPassword(), user.getUserPw());
         return ResponseEntity.ok(isMatch);
     }
-
 
     // 기업 비밀번호 수정 ⭕
     @PostMapping("/update_com_pw")
@@ -233,35 +230,54 @@ public class CompanyController {
     
 
 
+    // 토스 페이먼츠 메인
+    @GetMapping("/credit/checkout")
+    public String checkout(@RequestParam("productNo") int productNo, Model model) throws Exception {
+        
+        Product product = companyService.selecProduct(productNo);
+        
+        model.addAttribute("product", product);
+        return "/company/credit/checkout";
+    }
+    // 토스 페이먼츠 success
+    @GetMapping("/credit/success")
+    public String success() {
+        return "/company/credit/success";
+    }
+    // 토스 페이먼츠 fail
+    @GetMapping("/credit/fail")
+    public String fail() {
+        return "/company/credit/fail";
+    }
+
+
     // 결제상품 목록 화면
-    @GetMapping("/credit_com")
+    @GetMapping("/credit/credit_com")
     public String credit_com() throws Exception {
-        return "/company/credit_com";
+        return "/company/credit/credit_com";
     }
 
     // 결제상품 세부 화면
-    @GetMapping("/credit_detail_com")
+    @GetMapping("/credit/credit_detail_com")
     public String credit_detail_com(@RequestParam("productNo") int productNo, Model model, Product product) throws Exception {
 
         product.setProductNo(productNo);
         product = companyService.selecProduct(productNo);
 
         model.addAttribute("product", product);
-        return "company/credit_detail_com";
-    }
-    
-    // 결제 완료 화면
-    @GetMapping("/credit_complete_com")
-    public String credit_complete_com() throws Exception {
-
-        return "company/credit_complete_com";
+        return "company/credit/credit_detail_com";
     }
 
     // 결제 목록 내역 화면
-    @GetMapping("/credit_list_com")
+    @GetMapping("/credit/credit_list_com")
     public String credit_list_com() throws Exception {
-        return "/company/credit_list_com";
+        return "/company/credit/credit_list_com";
     }
+
+
+
+
+
 
 
     // 등록된 채용공고 화면

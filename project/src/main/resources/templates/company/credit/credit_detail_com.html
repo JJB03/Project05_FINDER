@@ -122,7 +122,7 @@
                     <!-- 넘겨줄 데이터 -->
                     <input type="hidden" name="product_price" id="product_price" th:value="${product.productPrice}"> <!-- 상품 가격 -->
                     <input type="hidden" name="product_name" id="product_name" th:value="${product.productName}"> <!-- 상품 이름 -->
-                    <input type="hidden" name="com_name" id="com_name" th:value="${session.user.userName}"> <!-- 결제자 -->
+                    <input type="hidden" name="user_name" id="user_name" th:value="${session.user.userName}"> <!-- 결제자 -->
 
                     <p>할인</p>
                     <p>결제 금액 : <span th:text="${product.productPrice}"></span>원</p>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="align-self-end">
                         <a id="tossURL" href="#" type="button" class="btn-long disabled">신용카드 결제</a>
-                        <a href="/company/credit_com" type="button" class="btn-long">취소</a>
+                        <a href="/company/credit/credit_com" type="button" class="btn-long">취소</a>
                     </div>
                   </div>
               </form>
@@ -160,7 +160,7 @@
                 $('#buyCheck').css('backgroundColor', 'green'); // 구매 동의 버튼의 배경색 변경
 
                 // 신용카드 결제 버튼 활성화
-                $('#tossURL').prop('href', '/toss_payments');
+                $('#tossURL').prop('href', '/company/credit/checkout');
                 $('#tossURL').removeClass('disabled');
             }
 
