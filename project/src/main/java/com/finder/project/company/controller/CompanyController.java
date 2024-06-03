@@ -1,8 +1,11 @@
 package com.finder.project.company.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.PasswordConfirmRequest;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
@@ -234,16 +238,69 @@ public class CompanyController {
     @GetMapping("/credit/checkout")
     public String checkout(@RequestParam("productNo") int productNo, Model model) throws Exception {
         
-        Product product = companyService.selecProduct(productNo);
+        Product product = companyService.selectProduct(productNo);
         
         model.addAttribute("product", product);
         return "/company/credit/checkout";
     }
-    // 토스 페이먼츠 success
+    // 토스 페이먼츠 success [GET]
     @GetMapping("/credit/success")
-    public String success() {
+    public String success(@RequestParam("productNo") int productNo, Model model) throws Exception {
+
+        Product product = companyService.selectProduct(productNo);
+
+        model.addAttribute("product", product);
         return "/company/credit/success";
     }
+    // // // 토스 페이먼츠 success [POST]
+    // @PostMapping("/credit/success")
+    // public String successPro() throws Exception {
+
+    //     // int result = companyService.insertOrder(order);
+
+    //     // if(result > 0) {
+    //     //     return "/company/credit/success";
+    //     // }
+    //     return "/company/credit/fail";    
+    // }
+
+     // 결제 확인 및 데이터베이스 저장
+     @PostMapping("/confirm")
+     public ResponseEntity<?> confirmPayment( HttpSession session
+                                             ,@RequestBody Map<String, Object> paymentData) throws Exception {
+
+        // String paymentKey = (String) paymentData.get("paymentKey");
+        // String orderId = (String) paymentData.get("orderId");
+        int amount = (int) paymentData.get("amount");
+        int productNo = (int) paymentData.get("productNo");
+        // int userNo = (int) paymentData.get("userNo");
+        int totalQuantity = (int) paymentData.get("total_quantity");
+
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
+ 
+         // 결제 성공 시 주문 데이터를 데이터베이스에 저장
+         Order order = new Order();
+         Product product = companyService.selectProduct(productNo);
+         
+         order.setUserNo(user.getUserNo()); /* session이나 다른 방식으로 userNo 설정 */
+         order.setProductNo(product.getProductNo());
+         order.setTotalQuantity(totalQuantity); // 필요한 경우 적절히 설정
+         order.setTotalPrice(amount);
+         order.setOrderStatus("PAID");
+ 
+         int result = companyService.insertOrder(order);
+ 
+         if (result > 0) {
+             return ResponseEntity.ok().body("Payment confirmed and order saved.");
+         } else {
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save order.");
+         }
+     }
+
+    
+
+
     // 토스 페이먼츠 fail
     @GetMapping("/credit/fail")
     public String fail() {
@@ -251,28 +308,31 @@ public class CompanyController {
     }
 
 
+
+
     // 결제상품 목록 화면
     @GetMapping("/credit/credit_com")
     public String credit_com() throws Exception {
         return "/company/credit/credit_com";
     }
-
     // 결제상품 세부 화면
     @GetMapping("/credit/credit_detail_com")
     public String credit_detail_com(@RequestParam("productNo") int productNo, Model model, Product product) throws Exception {
 
         product.setProductNo(productNo);
-        product = companyService.selecProduct(productNo);
+        product = companyService.selectProduct(productNo);
 
         model.addAttribute("product", product);
         return "company/credit/credit_detail_com";
     }
-
     // 결제 목록 내역 화면
     @GetMapping("/credit/credit_list_com")
     public String credit_list_com() throws Exception {
         return "/company/credit/credit_list_com";
     }
+
+
+
 
 
 

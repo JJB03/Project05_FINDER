@@ -12,6 +12,11 @@ a img {border: none;}
 a:focus {outline: none}
 button:focus {outline: none}
 
+html {
+  scroll-behavior: smooth;
+}
+
+
 body { 
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
@@ -95,6 +100,10 @@ body {
 /* 1440px로 메인화면 통일테스트 */
 .main-content2 {
   max-width: 1440px;
+}
+
+.container {
+  min-height: calc(100vh - 20rem);
 }
 
 

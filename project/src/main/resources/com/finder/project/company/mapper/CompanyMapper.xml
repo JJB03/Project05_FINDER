@@ -93,9 +93,31 @@
 
 
     <!-- 상품 조회 -->
-    <select id="selecProduct" resultType="Product">
+    <select id="selectProduct" resultType="Product">
         SELECT * FROM product
         WHERE product_no = #{productNo}
     </select>
     
+    <!-- 주문 가져오기 -->
+    <select id="selectOrder" resultType="Order">
+        SELECT * FROM `order`
+        WHERE order_no = #{orderNo}
+    </select>
+
+
+
+    <!-- 주문 등록 -->
+    <insert id="insertOrder" parameterType="Order">
+        INSERT INTO `order` (user_no, product_no, total_quantity, total_price, ordered_date, created_date, updated_date, expiration_date)
+        VALUES (#{userNo}, #{productNo}, #{totalQuantity}, #{totalPrice}, NOW(), NOW(), NOW(), NOW())
+    </insert>
+
+    <!-- 결제 등록 -->
+    <insert id="insertCredit" parameterType="Credit">
+        INSERT INTO `credit` (order_no, credit_method, credit_status, credit_code, credit_date)
+        VALUES (#{orderNo}, #{creditMethod}, #{creditStatus}, #{creditCode}, NOW())
+    </insert>
+
+
+
 </mapper>
