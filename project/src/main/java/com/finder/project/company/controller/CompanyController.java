@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.dto.PasswordConfirmRequest;
+import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.user.dto.Users;
 
@@ -24,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@Controller
+@Controller("CompanyController")
 @RequestMapping("/company")
 public class CompanyController {
 
@@ -138,8 +139,8 @@ public class CompanyController {
                               ,@RequestParam("userName") String userName,
                                @RequestParam("userBirth") String userBirth,
                                @RequestParam("userPhone") String userPhone,
-                               @RequestParam("userEmail") String userEmail,
-                               @RequestParam("comAddress") String comAddress) throws Exception {
+                               @RequestParam("userEmail") String userEmail
+                               ) throws Exception {
         
         // 세션에서 사용자 정보 가져오기
         Users user = (Users) session.getAttribute("user");
@@ -155,22 +156,22 @@ public class CompanyController {
         user.setUserEmail(userEmail);
 
         
-        company = companyService.selectByUserNo(user.getUserNo());
+        // company = companyService.selectByUserNo(user.getUserNo());
         
-        company = user.getCompany();
-        company.setComAddress(comAddress); // 기업 주소 업데이트
+        // company = user.getCompany();
+        // company.setComAddress(comAddress); // 기업 주소 업데이트
         
 
         // 데이터 요청
-        int result = companyService.updateUserComInfo(user, company);
+        int result = companyService.updateUserInfo(user);
         
         // 데이터 처리 성공 
-        if( result > 1 ) {
+        if( result > 0 ) {
             log.info("User : " + user.getUserBirth());
-            log.info("Company : " + company.getComAddress());
-            user.setCompany(company);
+            // log.info("Company : " + company.getComAddress());
+            // user.setCompany(company);
             // session.setAttribute("user", user);
-            return "redirect:/company/info_update_com";
+            return "redirect:/user/update_user";
         }
         // 데이터 처리 실패
         return "redirect:/user/error";
@@ -178,7 +179,7 @@ public class CompanyController {
 
 
 
-    // 현재 비밀번호 확인(하는중) ⭕
+    // 현재 비밀번호 확인⭕
     @PostMapping("/update_com_pw_confirm")
     public ResponseEntity<Boolean> pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
         
@@ -190,11 +191,12 @@ public class CompanyController {
     }
 
 
-    // 기업 비밀번호 수정(하는중) ❌
+    // 기업 비밀번호 수정 ⭕
     @PostMapping("/update_com_pw")
     public String updateCompany(HttpSession session 
                                 ,@RequestParam("userPw") String userPw
-                                ,@RequestParam("userBeforePw") String userBeforePw) throws Exception {
+                                //,@RequestParam("userBeforePw") String userBeforePw
+                                ) throws Exception {
         
         // 세션에서 사용자 정보 가져오기
         Users user = (Users) session.getAttribute("user");
@@ -205,15 +207,15 @@ public class CompanyController {
         }
         
         user.setUserPw(userPw);
-        user.setUserBeforePw(userBeforePw);
+        // user.setUserBeforePw(userBeforePw);
 
         String password = user.getUserPw();
         String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
         user.setUserPw(encodedPassword);
 
-        String beforePassword = user.getUserBeforePw();
-        String encodedBeforePassword = passwordEncoder.encode(beforePassword);  // 🔒 비밀번호 암호화
-        user.setUserBeforePw(encodedBeforePassword);
+        // String beforePassword = user.getUserBeforePw();
+        // String encodedBeforePassword = passwordEncoder.encode(beforePassword);  // 🔒 비밀번호 암호화
+        // user.setUserBeforePw(encodedBeforePassword);
 
         
         // 데이터 요청
@@ -223,7 +225,7 @@ public class CompanyController {
         // 데이터 처리 성공 
         if( result > 0 ) {
             session.setAttribute("user", user);
-            return "redirect:/company/info_update_com";
+            return "redirect:/user/update_user";
         }
         // 데이터 처리 실패
         return "redirect:/user/error";
@@ -231,11 +233,47 @@ public class CompanyController {
     
 
 
-    // 결제 종류 화면
+    // 결제상품 목록 화면
     @GetMapping("/credit_com")
     public String credit_com() throws Exception {
         return "/company/credit_com";
     }
 
+    // 결제상품 세부 화면
+    @GetMapping("/credit_detail_com")
+    public String credit_detail_com(@RequestParam("productNo") int productNo, Model model, Product product) throws Exception {
+
+        product.setProductNo(productNo);
+        product = companyService.selecProduct(productNo);
+
+        model.addAttribute("product", product);
+        return "company/credit_detail_com";
+    }
+    
+    // 결제 완료 화면
+    @GetMapping("/credit_complete_com")
+    public String credit_complete_com() throws Exception {
+
+        return "company/credit_complete_com";
+    }
+
+    // 결제 목록 내역 화면
+    @GetMapping("/credit_list_com")
+    public String credit_list_com() throws Exception {
+        return "/company/credit_list_com";
+    }
+
+
+    // 등록된 채용공고 화면
+    @GetMapping("/recruit_list_com")
+    public String recruit_list_com() throws Exception {
+        return "/company/recruit_list_com";
+    }
+
+    // AI 평가 화면
+    @GetMapping("/score_com")
+    public String score_com() throws Exception {
+        return "/company/score_com";
+    }
     
 }

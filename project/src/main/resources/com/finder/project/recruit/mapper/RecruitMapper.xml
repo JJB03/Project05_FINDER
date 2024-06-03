@@ -122,7 +122,11 @@
     recruit_responsibilities = #{recruitResponsibilities},
     recruit_qualifications = #{recruitQualifications},
     recruit_preferred_qualifications = #{recruitPreferredQualifications},
-    recruit_reg_date = #{recruitRegDate}
+    recruit_reg_date = now()
+              <if test="parentNo != 0">
+                ,parent_no = #{parentNo}
+              </if>
+              ,recruit_reg_date = now()
     WHERE recruit_no = #{recruitNo}
   </update>
 

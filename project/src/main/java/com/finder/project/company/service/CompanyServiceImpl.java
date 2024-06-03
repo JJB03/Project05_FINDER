@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Product;
 import com.finder.project.company.mapper.CompanyMapper;
 import com.finder.project.user.dto.Users;
 
@@ -55,10 +56,10 @@ public class CompanyServiceImpl implements CompanyService {
     // 기업회원 정보 수정 (기업 정보)
     @Transactional
     @Override
-    public int updateUserComInfo(Users user, Company company) throws Exception {
-        int resultUserCom = companyMapper.updateUserCom(user);
-        int resultCompany = companyMapper.updateCompanyAddress(company);
-        return resultUserCom + resultCompany;
+    public int updateUserInfo(Users user) throws Exception {
+        int updateUserInfo = companyMapper.updateUserInfo(user);
+        // int resultCompany = companyMapper.updateCompanyAddress(company);
+        return updateUserInfo;
     }
 
 
@@ -85,6 +86,18 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDetail selectCompanyDetailByComNo(int comNo) {
         CompanyDetail companyDetail = companyMapper.selectCompanyDetailByComNo(comNo);
         return companyDetail;
+    }
+
+
+    
+
+
+
+    // 상품 조회
+    @Override
+    public Product selecProduct(int productNo) throws Exception {
+        Product product = companyMapper.selecProduct(productNo);
+        return product;
     }
 
 

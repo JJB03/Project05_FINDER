@@ -109,19 +109,16 @@
                                 th:text="${recruitPost.recruitPreferredQualifications}"></span>
                         </div>
                     </div>
-                    <div style="margin: 44px 26px; height: auto;" class="d-flex justify-content-start">
+                    <div style="margin: 44px 26px; height: auto;" class="row d-flex justify-content-start" >
                         <!-- <img src="/img/poly.png" alt=""> -->
                         <div>
                             <p th:text="${recruitPost.recruitContent}"></p>
                         </div>
                         <th:block th:each="file : ${fileList}">
                             <div>
-                                <!-- 썸네일 이미지 -->
+                                
                                 <img th:src="|/file/img/${file.fileNo}|" alt="썸네일" style=" max-width: 948px">
-                                <!-- 파일명 (다운로드) -->
-                                <a th:href="|/file/${file.fileNo}|" th:text="${file.originName}"></a>
-                                <!-- 파일 삭제 -->
-                                <button type="button" th:onclick="|deleteFile(this, ${file.fileNo})|">삭제</button>
+                                
                             </div>
                         </th:block>
                     </div>
@@ -139,7 +136,7 @@
                         지원하기
                     </button>
 
-                    <a href="#" class="detail-form w-100"
+                    <a href="javascript:history.back()" class="detail-form w-100"
                         style="background-color: #fff; color: #000000E6; border: 1px solid #000; font-weight: bold; border: 1px solid #aaa;">뒤로가기</a>
                 </div>
             </div>

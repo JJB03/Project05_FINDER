@@ -54,14 +54,13 @@
     <update id="updateUserPw">
         UPDATE user
            SET user_pw = #{userPw}
-              ,user_before_pw = #{userBeforePw}
+              <!-- ,user_before_pw = #{userBeforePw} -->
               ,user_upd_date = now()
         WHERE user_no = #{userNo}
     </update>
 
-    <!-- 동시에 한 post매핑에서 수행 -->
-    <!-- 기업회원 정보 수정 ⭕ -->
-    <update id="updateUserCom">
+    <!-- 회원 정보 수정(일반/기업 모두) ⭕ -->
+    <update id="updateUserInfo">
         UPDATE user
            SET user_birth = #{userBirth}
               ,user_phone = #{userPhone}
@@ -70,12 +69,6 @@
         WHERE user_no = #{userNo}
     </update>
 
-    <!-- 기업 주소 수정 ⭕ -->
-    <update id="updateCompanyAddress">
-        UPDATE company
-        SET com_address = #{comAddress}
-        WHERE user_no = #{userNo}
-    </update>
 
 
 
@@ -95,4 +88,14 @@
         FROM company_detail
         WHERE com_no = #{comNo}
     </select>
+
+
+
+
+    <!-- 상품 조회 -->
+    <select id="selecProduct" resultType="Product">
+        SELECT * FROM product
+        WHERE product_no = #{productNo}
+    </select>
+    
 </mapper>
