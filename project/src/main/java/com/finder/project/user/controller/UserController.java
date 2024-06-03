@@ -115,7 +115,6 @@ public class UserController {
         return new ResponseEntity<>(true, HttpStatus.OK);
 
     }
-
     // alert로 띄우는거 보류
     // @ResponseBody
     // @PostMapping("/find_user")
@@ -164,21 +163,23 @@ public class UserController {
             return "<script>alert('해당 이메일을 찾을 수 없습니다.'); history.back();</script>";
         }
     }
-    // 아직 하는중
+
+    // 회원가입 할때 이메일 인증
     // @ResponseBody
-    // @PostMapping("/reset-password")
-    // public String resetPassword(@RequestParam int id, @RequestParam String
-    // username, @RequestParam String email,
-    // @RequestParam String newPassword) throws Exception {
-    // Users user = userService.findPw(id, username, email);
-    // if (user != null) {
-    // userService.updatePw(id, newPassword);
-    // return "<script>alert('Password updated successfully');
-    // location.href='/login';</script>";
-    // } else {
-    // return "<script>alert('No user found with that information');
-    // history.back();</script>";
-    // }
+    // @PostMapping("/find_user")
+    // public String emailCheck(@RequestParam("userEmail") String userEmail)
+    //         throws Exception {
+    //     log.info("이메일 파라미터 : " + userEmail);
+
+
+    //     if (userEmail != null) {
+    //         String subject = "FINDER의 이메일 인증";
+    //         String text = "이메일 인증 코드 : " + userId;
+    //         emailService.sendSimpleMessage(userEmail, subject, text);
+    //         return "<script>alert('해당 이메일로 코드를 발송하였습니다.'); location.href='/login';</script>";
+    //     } else {
+    //         return "<script>alert('해당 이메일을 찾을 수 없습니다.'); history.back();</script>";
+    //     }
     // }
 
     // 사용자 정보 확인⭕
