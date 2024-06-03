@@ -1,4 +1,6 @@
--- Active: 1716771409910@@127.0.0.1@3306@joeun
+
+-- Active: 1716536339109@@127.0.0.1@3306@joeun
+
 
 
 -- 테이블 삭제 ( 총 16개 )
@@ -218,13 +220,13 @@ CREATE TABLE `order` (
 	`order_no` int NOT NULL AUTO_INCREMENT,
 	`user_no` int NOT NULL,
 	`product_no` int NOT NULL,
-	`total_quantitiy`	int	NOT NULL  DEFAULT 1,
+	`total_quantity`	int	NOT NULL  DEFAULT 1,
 	`total_price`	int	NOT NULL  DEFAULT 0,
 	`order_status` ENUM('PENDING','PAID','CANCELLED') NOT NULL DEFAULT 'PENDING' COMMENT '결제대기,결제완료,주문취소',
 	`ordered_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
 	`created_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
 	`updated_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-	`exparation_date`  timestamp NULL COMMENT '상품 만료',
+	`expiration_date`  timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '상품 만료',
 	PRIMARY KEY (`order_no`),
 	FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`),
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)

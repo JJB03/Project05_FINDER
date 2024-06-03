@@ -25,6 +25,7 @@ public class EducationServiceImpl implements EducationService {
         return education;
     }
 
+    // 만들기
     @Override
     public int create(Education education) throws Exception {
         int result = educationMapper.create(education);
@@ -38,8 +39,8 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public int delete(int cv_no) throws Exception {
-        int result = educationMapper.delete(cv_no);
+    public int delete(int cvNo) throws Exception {
+        int result = educationMapper.delete(cvNo);
         return result;
     }
 
