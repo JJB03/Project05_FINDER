@@ -93,7 +93,7 @@
 
     <div class="d-flex flex-column container main-content align-items-center">
 
-        <h1 class="mb-5">상품을 선택하셨습니다.</h1>
+        <h1 class="my-5">상품을 선택하셨습니다.</h1>
 
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="card text-center">
@@ -120,9 +120,10 @@
                 <div class="credit_user_info">
 
                     <!-- 넘겨줄 데이터 -->
-                    <input type="hidden" name="product_price" id="product_price" th:value="${product.productPrice}"> <!-- 상품 가격 -->
-                    <input type="hidden" name="product_name" id="product_name" th:value="${product.productName}"> <!-- 상품 이름 -->
-                    <input type="hidden" name="user_name" id="user_name" th:value="${session.user.userName}"> <!-- 결제자 -->
+                    <input type="hidden" name="productNo" id="productNo" th:value="${product.productNo}">
+                    <!-- <input type="hidden" name="productPrice" id="productPrice" th:value="${product.productPrice}"> 상품 가격 -->
+                    <!-- <input type="hidden" name="productName" id="productName" th:value="${product.productName}"> 상품 이름 -->
+                    <!-- <input type="hidden" name="userName" id="userName" th:value="${session.user.userName}"> 결제자 -->
 
                     <p>할인</p>
                     <p>결제 금액 : <span th:text="${product.productPrice}"></span>원</p>
@@ -152,20 +153,21 @@
     </div>
 
     <script>
-
         $('#tossURL').attr('disabled', 'disabled'); // 구매 동의 버튼 비활성화
-
 
         function BuyCheck() {
                 $('#buyCheck').css('backgroundColor', 'green'); // 구매 동의 버튼의 배경색 변경
 
+                // 상품 번호 가져오기
+                var productNo = document.getElementById('productNo').value;
+
                 // 신용카드 결제 버튼 활성화
-                $('#tossURL').prop('href', '/company/credit/checkout');
-                $('#tossURL').removeClass('disabled');
+                var tossURL = document.getElementById('tossURL');
+                tossURL.href = '/company/credit/checkout?productNo=' + productNo;
+                tossURL.classList.remove('disabled');
             }
 
     </script>
 
 </body>
-
 </html>

@@ -2,6 +2,8 @@ package com.finder.project.company.service;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Credit;
+import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.Product;
 import com.finder.project.user.dto.Users;
 
@@ -44,7 +46,14 @@ public interface CompanyService {
 
 
 
-    
-    public Product selecProduct(int productNo) throws Exception;
+    // 상품 조회
+    public Product selectProduct(int productNo) throws Exception;
 
+
+
+    // 주문등록
+    public int insertOrder(Order order) throws Exception;
+
+    // 결제등록
+    public int insertCredit(Credit credit) throws Exception;
 }
