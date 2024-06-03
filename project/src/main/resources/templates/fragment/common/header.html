@@ -20,7 +20,7 @@
                     <!-- 기업이면 제출된 이력서 / 일반회원이면 내 이력서 -->
                     <a th:href="|/company/recruit_list_com?userNo=${session.user.userNo}|">제출된 이력서</a>
                     <!-- 기업일때만 결제 페이지 표시 -->
-                    <a th:href="|/company/credit_com?userNo=${session.user.userNo}|">결제</a>
+                    <a th:href="|/company/credit/credit_com?userNo=${session.user.userNo}|">결제</a>
                     <!-- 기업이면 담당자 정보 -->
                     <a th:href="|/user/update_user?userNo=${session.user.userNo}|">담당자 정보</a>
                 </th:block>

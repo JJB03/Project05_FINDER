@@ -29,6 +29,12 @@
         <result property="userNo" column="user_no"/>
     </association>
 
+    <association property="option" javaType="com.finder.project.main.dto.Option">
+      <result property="code" column="your_code_column_name"/>
+      <result property="keyword" column="your_keyword_column_name"/>
+    </association>
+
+
     <!-- Keywords mapping -->
     <collection property="keywordList" ofType="com.finder.project.recruit.dto.Keyword">
         <id property="recruitKeywordNo" column="recruit_keyword_no"/>
@@ -60,6 +66,26 @@
             WHERE parent_table = 'recruit'
               AND file_code = 1
         ) f ON r.recruit_no = f.parent_no
+        <where> 
+        <if test="option.code == 0">
+            r.recruit_title LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+
+        <if test="option.code == 1">
+            c.com_name LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 2">
+            rk.recruit_keyword LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 3">
+            c.com_category LIKE CONCAT('%', #{option.keyword}, '%')
+            
+        </if>
+    </where>
+        ORDER BY r.com_reg_date DESC
+        LIMIT #{page.index}, #{page.rows}
 
   </select>
 
@@ -159,6 +185,37 @@
     </choose>
   </select>
   <!-- 세션에 등록한 set recuitNo 가져오기  끝-->
+
+  <!-- 연관검색어 회사 -->
+  <select id="selectCompanyNameList" resultType="string">
+      SELECT com_name
+      FROM company
+  </select>
+
+   <!-- 데이터 개수 조회 -->
+  <!-- 메서드 이름이 count 인 -->
+  <select id="count" resultType="int">
+    SELECT COUNT(DISTINCT r.recruit_no)
+    FROM recruit r
+    JOIN company c ON r.com_no = c.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    <where>
+        <if test="option.code == 0">
+            r.recruit_title LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        <if test="option.code == 1">
+            c.com_name LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        <if test="option.code == 2">
+            rk.recruit_keyword LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        <if test="option.code == 3">
+            c.com_category LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+    </where>
+</select>
+
+
 
 
 </mapper>

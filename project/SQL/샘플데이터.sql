@@ -1,5 +1,5 @@
 
--- Active: 1716818238004@@127.0.0.1@3306@joeun
+-- Active: 1716536339109@@127.0.0.1@3306@joeun
 
 # 회원 컬럼 나열
 -- user_no, user_name, user_id, user_pw, user_before_pw, user_birth, user_phone, user_email, user_like_job, user_reg_date, user_upd_date, user_gender, enabled
@@ -19,6 +19,9 @@ VALUES ('정주빈', 'jjb', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9
 
 INSERT INTO user_auth (user_no, auth) VALUES (1, 'ROLE_USER');
 ## 기업
+
+## mail 샘플 데이터 ~!~!~!
+INSERT INTO `mail` (`mail_key`, `user_no`) VALUES ('mailkeyvalue', 26);
 
 
 

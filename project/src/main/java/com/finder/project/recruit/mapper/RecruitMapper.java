@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.finder.project.main.dto.Option;
+import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
 
@@ -12,7 +14,7 @@ import com.finder.project.recruit.dto.RecruitPost;
 public interface RecruitMapper {
 
     // 채용공고 목록
-    public List<RecruitPost> recruitList() throws Exception;
+    public List<RecruitPost> recruitList(@Param("page") Page page, @Param("option") Option option) throws Exception;
 
     // 채용공고 등록
     public int recruitPost(RecruitPost recruitPost) throws Exception;
@@ -49,4 +51,9 @@ public interface RecruitMapper {
     
     public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos);
     
+    // 연관검색
+    public List<String> selectCompanyNameList();
+
+    // 공고 갯수
+    public int count(@Param("option") Option option);
 }

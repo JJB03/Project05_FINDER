@@ -6,18 +6,18 @@
 
   <!-- 등록 -->
   <insert id="create">
-    INSERT INTO employmentHistory (organization, duration, duties, cv_no)
+    INSERT INTO employment_history (organization, duration, duties, cv_no)
     VALUES (#{organization}, #{duration}, #{duties}, #{cvNo})
   </insert>
 
   <!-- 조회 -->
   <select id="select" resultType="com.finder.project.resume.dto.EmploymentHistory">
-    SELECT * FROM employmentHistory
+    SELECT * FROM employment_history
   </select>
 
   <!-- 수정 -->
   <update id="update">
-    UPDATE employmentHistory
+    UPDATE employment_history
     SET organization = #{organization},
         duration = #{duration},
         duties = #{duties}
@@ -26,7 +26,7 @@
 
   <!-- 삭제 -->
   <delete id="delete">
-    DELETE FROM employmentHistory
+    DELETE FROM employment_history
     WHERE employment_history_no = #{employmentHistoryNo}
   </delete>
 

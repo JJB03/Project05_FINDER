@@ -12,11 +12,12 @@ public interface EducationMapper {
     public List<Education> educationList(int cvNo) throws Exception;
     //이력서 조회
     public Education select(int cvNo) throws Exception;
-    //이력서 등록
+
+    //이력서 만들기
     public int create(Education education) throws Exception;
     //이력서 수정
     public int update(Education education) throws Exception;
     //이력서 삭제
-    public int delete(int cv_no) throws Exception;
+    public int delete(int cvNo) throws Exception;
     
 }

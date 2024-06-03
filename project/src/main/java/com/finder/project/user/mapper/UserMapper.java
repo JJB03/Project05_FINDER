@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.user.dto.UserAuth;
@@ -35,17 +36,19 @@ public interface UserMapper {
 
     public int max() throws Exception;
 
+    // 기업 비밀번호 찾기
+    @Select("SELECT * FROM company WHERE com_name = #{comName}")
+    public Company getComName(String comName) throws Exception;
 
-    // 아이디 비번 찾기 하는중
-    
     // 아이디 찾기
     public String findId(Users user) throws Exception;
 
-    // 비밀번호 찾기
-    public Users findPw(@Param("id") int id, @Param("username") String username, @Param("email") String email) throws Exception;
+    // 사용자 비밀번호 찾기
+    @Select("SELECT * FROM user WHERE user_id = #{userId}")
+    public Users findUserById(String userId) throws Exception;
  
     // 비밀번호 수정하기
-    public int updatePw(@Param("id") int id, @Param("password") String password) throws Exception;
+    public int updatePw(Users userPw) throws Exception;
 
 
 

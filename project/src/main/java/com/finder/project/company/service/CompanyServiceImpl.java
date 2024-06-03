@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Credit;
+import com.finder.project.company.dto.Order;
+import com.finder.project.company.dto.Product;
 import com.finder.project.company.mapper.CompanyMapper;
 import com.finder.project.user.dto.Users;
 
@@ -85,6 +88,33 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDetail selectCompanyDetailByComNo(int comNo) {
         CompanyDetail companyDetail = companyMapper.selectCompanyDetailByComNo(comNo);
         return companyDetail;
+    }
+
+
+    
+
+
+
+    // 상품 조회
+    @Override
+    public Product selectProduct(int productNo) throws Exception {
+        Product product = companyMapper.selectProduct(productNo);
+        return product;
+    }
+
+
+
+    // 주문 등록
+    @Override
+    public int insertOrder(Order order) throws Exception {
+        int result = companyMapper.insertOrder(order);
+        return result;
+    }
+    // 결제 등록
+    @Override
+    public int insertCredit(Credit credit) throws Exception {
+        int result = companyMapper.insertCredit(credit);
+        return result;
     }
 
 

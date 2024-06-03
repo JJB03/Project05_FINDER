@@ -1,4 +1,6 @@
--- Active: 1716818238004@@127.0.0.1@3306@joeun
+
+-- Active: 1716536339109@@127.0.0.1@3306@joeun
+
 
 
 -- 테이블 삭제 ( 총 16개 )
@@ -86,10 +88,10 @@ CREATE TABLE `cv` (
 -- 경력사항 테이블
 CREATE TABLE `employment_history` (
 	`employment_history_no` int NOT NULL AUTO_INCREMENT,
+	`cv_no` int NOT NULL,
 	`organization` varchar(500) NULL,
 	`duration` timestamp NULL,
 	`duties` varchar(500) NULL,
-	`cv_no` int NOT NULL,
 	PRIMARY KEY (`employment_history_no`),
     FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
 );
@@ -135,11 +137,11 @@ CREATE TABLE `apply_employee` (
 -- 기업 테이블
 CREATE TABLE `company` (
 	`com_no` int NOT NULL AUTO_INCREMENT,
+	`user_no` int NOT NULL,
 	`com_name` varchar(500) NOT NULL,
 	`com_category` varchar(500) NOT NULL,
 	`com_address` varchar(500) NOT NULL,
 	`com_business` varchar(500) NOT NULL,
-	`user_no` int NOT NULL,
 	PRIMARY KEY (`com_no`),
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
 );
@@ -147,9 +149,9 @@ CREATE TABLE `company` (
 -- 채용공고 게시글 테이블
 CREATE TABLE `recruit` (
 	`recruit_no` int NOT NULL AUTO_INCREMENT ,
+	`com_no` int NOT NULL,
 	`recruit_title` varchar(500) NOT NULL,
 	`recruit_content` text NOT NULL,
-	`com_no` int NOT NULL,
 	`recruit_responsibilities` varchar(500) NULL,
 	`recruit_qualifications` varchar(500) NULL,
 	`recruit_preferred_qualifications` varchar(500) NULL,
@@ -187,6 +189,7 @@ CREATE TABLE `file` (
 -- 기업 상세 정보 테이블
 CREATE TABLE `company_detail` (
 	`com_info_no` int NOT NULL AUTO_INCREMENT,
+	`com_no` int NOT NULL,
 	`com_represent` varchar(100) NOT NULL,
 	`com_url` varchar(500) NULL,
 	`com_birth` int NOT NULL,
@@ -198,7 +201,6 @@ CREATE TABLE `company_detail` (
 	`com_vision` varchar(500) NULL,
 	`com_welfare` varchar(500) NULL,
 	`com_avg_salary` int NULL,
-	`com_no` int NOT NULL,
 	PRIMARY KEY (`com_info_no`),
 	FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
 );
@@ -207,31 +209,37 @@ CREATE TABLE `company_detail` (
 CREATE TABLE `product` (
 	`product_no` int NOT NULL AUTO_INCREMENT COMMENT 'auto_increment',
 	`product_name` varchar(100) NOT NULL,
-	`product_option` varchar(500) NULL,
+	`product_count` int NOT NULL,
 	`product_price` int NOT NULL,
+	`product_duration`	int	NULL DEFAULT 0 COMMENT '개월수(ex)1,2,3,4,5)',
 	PRIMARY KEY (`product_no`)
 );
 
 -- 주문 테이블
 CREATE TABLE `order` (
 	`order_no` int NOT NULL AUTO_INCREMENT,
+	`user_no` int NOT NULL,
 	`product_no` int NOT NULL,
-	`type` enum('order','refund') NOT NULL,
-	`process_date` timestamp NOT NULL DEFAULT now(),
-	`com_no` int NOT NULL,
+	`total_quantity`	int	NOT NULL  DEFAULT 1,
+	`total_price`	int	NOT NULL  DEFAULT 0,
+	`order_status` ENUM('PENDING','PAID','CANCELLED') NOT NULL DEFAULT 'PENDING' COMMENT '결제대기,결제완료,주문취소',
+	`ordered_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+	`created_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+	`updated_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+	`expiration_date`  timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '상품 만료',
 	PRIMARY KEY (`order_no`),
 	FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`),
-	FOREIGN KEY (`com_no`) REFERENCES `company`(`com_no`)
+	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
 );
 
 -- 결제내역 테이블
 CREATE TABLE `credit` (
     `credit_no` INT NOT NULL AUTO_INCREMENT,
-    `credit_method` INT NOT NULL,
-    `credit_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `credit_money` VARCHAR(100) NOT NULL,
-    `order_code` VARCHAR(500) NOT NULL,
     `order_no` INT NOT NULL,
+    `credit_method` INT NULL,
+	`credit_status` ENUM('PENDING','PAID','REFUND') NOT NULL DEFAULT 'PENDING' COMMENT '결제대기,결제완료,환불',
+    `credit_code` VARCHAR(500) NULL,
+	`credit_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`credit_no`),
 	FOREIGN KEY (`order_no`) REFERENCES `order`(`order_no`)
 );	

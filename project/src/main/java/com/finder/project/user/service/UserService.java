@@ -26,14 +26,17 @@ public interface UserService {
 
     public int max() throws Exception;
 
+    // 사용자 비밀번호 찾기 할때 정보를 확인
+    public Users getUserById(String userId) throws Exception;  
+
+    // 기업 비밀번호 찾기 할때 정보를 확인
+    public Company getComName(String comName) throws Exception;
+
     // --- 아직 하는중
 
     // 아이디 찾기
     public String findId(Users user) throws Exception;
 
-    // 비밀번호 찾기
-    public Users findPw(int id, String username, String email) throws Exception;
-
     // 비밀번호 수정하기
-    public boolean updatePw(int id, String newPassword) throws Exception;
+    public int updatePw(Users userPw) throws Exception;
 }
