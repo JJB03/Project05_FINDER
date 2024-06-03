@@ -13,12 +13,16 @@ public interface ResumeService {
           public Resume select(int user_no) throws Exception;
       
           // 이력서 등록
-          public int create(Resume Resume) throws Exception;
+          public int create(int userNo) throws Exception;
       
           // 이력서 수정
-          public int update(Resume Resume) throws Exception;
+          public int update(Resume resume) throws Exception;
       
           // 이력서 삭제
           public int delete(int cv_no) throws Exception;
 
+        // 회원번호로 이력서 조회 ⭕
+         public Resume selectCV(int user_no) throws Exception;   
+
+         public int maxPk() throws Exception;
 }

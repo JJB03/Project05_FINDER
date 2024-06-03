@@ -149,8 +149,8 @@ public class FileServiceImpl implements FileService{
     }
 
     @Override
-    public Files listByParentThumbnail(int recruitNo) throws Exception {
-        Files Thumbnail = fileMapper.listByParentThumbnail(recruitNo);
+    public Files listByParentThumbnail(Files file) throws Exception {
+        Files Thumbnail = fileMapper.listByParentThumbnail(file);
 
         return Thumbnail;
     }

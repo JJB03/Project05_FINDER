@@ -1,4 +1,4 @@
--- Active: 1716771409910@@127.0.0.1@3306@joeun
+-- Active: 1716818238004@@127.0.0.1@3306@joeun
 
 
 -- 테이블 삭제 ( 총 16개 )
@@ -65,7 +65,7 @@ CREATE TABLE `user_auth` (
 
 -- 메일인증 테이블
 CREATE TABLE `mail` (
-	`mail_key` bigint NOT NULL,
+	`mail_key` varchar(500) NOT NULL,
 	`user_no` int NOT NULL,
 	PRIMARY KEY (`mail_key`),
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
@@ -181,11 +181,7 @@ CREATE TABLE `file` (
     `reg_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `upd_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `file_code` INT NOT NULL,
-    `cv_no` INT NULL,
-    `recruit_no` INT NULL,
-    PRIMARY KEY (`file_no`),
-    FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`) ON DELETE CASCADE,
-    FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`) ON DELETE CASCADE
+    PRIMARY KEY (`file_no`)
 );
 
 -- 기업 상세 정보 테이블

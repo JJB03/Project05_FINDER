@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="listByParentThumbnail" resultType="Files">
         SELECT *
         FROM file
-        WHERE parent_table = 'recruit'
+        WHERE parent_table = #{parentTable}
           AND parent_no = #{recruitNo}
           AND file_code = 1
     </select>

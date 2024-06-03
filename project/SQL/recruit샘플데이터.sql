@@ -1,3 +1,4 @@
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 SELECT c.*, r.*, rk.*
     FROM company c
     INNER JOIN recruit r ON c.com_no = r.com_no
@@ -130,3 +131,13 @@ SELECT c.*
     -- FROM company c
     -- INNER JOIN recruit r ON c.com_no = r.com_no
     -- LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+
+    SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND parent_no = 42
+          AND file_code = 1
+
+SELECT *
+        FROM file
+        WHERE file_no = 40;

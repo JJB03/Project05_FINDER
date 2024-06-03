@@ -46,36 +46,22 @@ public class ResumeServiceImpl implements ResumeService {
      * 이력서 등록
      */
     @Override
-    public int create(Resume resume) throws Exception {
+    public int create(int userNo) throws Exception {
+    // Resume 객체를 초기화
+    Resume resume = new Resume();
+    // 사용자 번호를 설정
+    resume.setUserNo(userNo);
+    // 이력서 생성 메서드를 호출하여 데이터베이스에 저장
+    int result = resumeMapper.create(userNo);
 
-
-        int cvNo = resumeMapper.maxPk() + 1;
-        int result = resumeMapper.create(resume);
-
-        if( result > 0 ) {
-            List<Education> educationList = resume.getEducationList();
-
-            for (Education education : educationList) {
-                education.setCvNo(cvNo);
-                educationService.create(education);
-            }
-
-            List<EmploymentHistory> employmentHistoryList = resume.getEmploymentHistoryList();
-            for (EmploymentHistory employmentHistory : employmentHistoryList) {
-                employmentHistory.setCvNo(cvNo);
-                employmentHistoryService.create(employmentHistory);
-            }
-
-        }
-        return result;
-    }
-
+    return result;
+}
     /*
      * 이력서 수정
      */
     @Override
-    public int update(Resume Resume) throws Exception {
-        int result = resumeMapper.update(Resume);
+    public int update(Resume resume) throws Exception {
+        int result = resumeMapper.update(resume);
         return result;
     }
 
@@ -86,6 +72,20 @@ public class ResumeServiceImpl implements ResumeService {
     public int delete(int cv_no) throws Exception {
         int result = resumeMapper.delete(cv_no);
         return result;
+    }
+
+    // 회원번호로 이력서 조회 ⭕
+    @Override
+    public Resume selectCV(int user_no) throws Exception {
+        Resume resume = resumeMapper.selectCV(user_no);
+        return resume;
+    }
+
+    @Override
+    public int maxPk() throws Exception {
+        
+        int maxPk = resumeMapper.maxPk();
+        return maxPk;
     }
 
 
