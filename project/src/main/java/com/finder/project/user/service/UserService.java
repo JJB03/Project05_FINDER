@@ -26,8 +26,11 @@ public interface UserService {
 
     public int max() throws Exception;
 
-    // 비밀번호 찾기 할때 정보를 확인
-    public Users getUserById(String userId) throws Exception;    
+    // 사용자 비밀번호 찾기 할때 정보를 확인
+    public Users getUserById(String userId) throws Exception;  
+
+    // 기업 비밀번호 찾기 할때 정보를 확인
+    public Company getComName(String comName) throws Exception;
 
     // --- 아직 하는중
 
