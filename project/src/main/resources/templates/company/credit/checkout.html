@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/payments_layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>토스페이먼츠</title>
+  <!-- 결제위젯 SDK 추가 -->
+  <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+</head>
+
+<body layout:fragment="content">
+
+  <!-- CSRF 토큰 -->
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+  <!-- 담을 데이터 -->  
+
+  <!-- 주문서 영역 -->
+    <div class="box_section d-flex flex-column" style="padding: 40px 30px 50px 30px; margin-top: 30px; margin-bottom: 50px">
+      <!-- 결제 UI -->
+      <div id="payment-method"></div>
+      <!-- 이용약관 UI -->
+      <div id="agreement"></div>
+
+      <!-- 결제하기 버튼 -->
+      <button class="button btn-long align-self-center" id="payment-button" style="margin-top: 30px" disabled>결제하기</button>
+    </div>
+
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const button = document.getElementById("payment-button");
+      const csrfToken = document.querySelector('input[name="_csrf"]').value; // CSRF 토큰 가져오기
+      const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
+      
+      var amount = 50000; // 총 결제금액과 일치하도록 설정
+      // var productName = document.getElementById("product_name").value;
+      // var customerName = document.getElementById("user_name").value;
+
+      console.log("결제 위젯 초기화 시작");
+      // 결제위젯 초기화
+      const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; // 실제 클라이언트 키로 변경하세요.
+      const customerKey = generateRandomString();
+      const paymentWidget = PaymentWidget(clientKey, customerKey);
+
+      // 결제 UI 렌더링
+      const paymentMethodWidget = paymentWidget.renderPaymentMethods(
+        "#payment-method",
+        { value: amount },
+        { variantKey: "DEFAULT" }
+      );
+
+      // 이용약관 UI 렌더링
+      paymentWidget.renderAgreement('#agreement', { variantKey: 'DEFAULT' });
+
+      // 결제 UI 렌더링 완료 이벤트
+      paymentMethodWidget.on("ready", function () {
+        console.log("결제 위젯 렌더링 완료");
+        button.disabled = false;
+      });
+
+      // 결제하기 버튼 누르면 결제창 띄우기
+      button.addEventListener("click", function () {
+        console.log("결제 요청 시작");
+        paymentWidget.requestPayment({
+          orderId: generateRandomString(),
+          orderName: "토스 티셔츠 외 2건",
+          successUrl: window.location.origin + "/company/credit/success",
+          failUrl: window.location.origin + "/company/credit/fail",
+          customerEmail: "customer123@gmail.com",
+          customerName: "김토스",
+          customerMobilePhone: "01012341234",
+          headers: {
+            'X-CSRF-TOKEN': csrfToken // CSRF 토큰을 헤더에 포함
+          }
+        });
+      });
+    });
+
+  </script>
+</body>
+
+</html>

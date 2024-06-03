@@ -60,10 +60,4 @@ public class MainController {
         return "/login";
     }
 
-    // 토스 결제 모듈
-    @GetMapping("/toss_payments")
-    public String toss() {
-        return "/toss_payments";
-    }
-
 }

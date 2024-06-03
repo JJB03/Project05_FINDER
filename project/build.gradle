@@ -41,6 +41,11 @@ dependencies {
 	
 	// 타임리프 다이얼렉트 레이아웃
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	// 토스페이먼츠 json 종속성 추가
+	implementation 'org.json:json:20240303'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
 }
 
 tasks.named('test') {
