@@ -17,6 +17,6 @@ public interface EducationMapper {
     //이력서 수정
     public int update(Education education) throws Exception;
     //이력서 삭제
-    public int delete(int cv_no) throws Exception;
+    public int delete(int cvNo) throws Exception;
     
 }
