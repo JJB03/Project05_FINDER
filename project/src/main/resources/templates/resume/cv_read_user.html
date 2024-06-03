@@ -107,13 +107,13 @@
                 th:value="${resume.cvTitle}">
             </div>
             <div class="form-group col-12 form-group2">
-              <input type="text" class="form-control" id="name" placeholder="이름" th:value="${user.userName}">
+              <p type="text" class="form-control" id="name" placeholder="이름" th:text="${user.userName}">
             </div>
             <div class="form-group col-12 form-group2">
-              <input type="text" class="form-control" id="age" placeholder="나이">
+              <p type="text" class="form-control" id="age" placeholder="나이" th:text="${user.userBirth}">
             </div>
             <div class="form-group col-12 form-group2">
-              <input type="text" class="form-control" id="email" placeholder="이메일">
+              <p type="text" class="form-control" id="email" placeholder="이메일" th:text="${user.userEmail}">
             </div>
           </div>
 
@@ -127,7 +127,9 @@
 
           <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
             <h5>학력</h5>
-            <button class="btn-short"><span class="fs-2" style="">+</span></button>
+            <button class="btn-short" onclick="educationBtn()">
+              <span class="fs-2" style="">+</span>
+            </button>
           </div>
 
           <div>
@@ -174,8 +176,8 @@
         <div class="col-sm-12  border bg-light rounded-3 mt-3" style="min-height: 250px;">
 
           <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
-            <h5>학력</h5>
-            <button class="btn-short"><span class="fs-2" style="">+</span></button>
+            <h5>경력</h5>
+            <button class="btn-short" onclick="employmentHistoryBtn()"><span class="fs-2" style="">+</span></button>
           </div>
 
           <div>
@@ -261,7 +263,7 @@
 
 
   <script>
-
+    
     let form = document.getElementById('form')
 
     function moveToList() {
@@ -275,6 +277,87 @@
               form.submit()
             }
     }
+    
+    //ajax로 그것들 부르기
+    var csrfToken = "[[${_csrf.token}]]";
+
+    //xhr 선언
+ /*    var xhr = new XMLHttpRequest();
+    xhr.open("post", "/resume/cv_update_user", true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        //readyState : unsent, opened, headers_received, loading, done
+        var responseData = JSON.parse(xhr.responseText);
+        //responseData 응답 결과 데이터
+      } else {
+        console.error("post요청 실패했습니다.")
+      }
+    };
+    xhr.send(); */
+
+    //jQuery로 요청하기
+
+ /*    //경력 ajax
+    function employmentHistoryBtn(employmentHistoryNo, organization, duration, duties) {
+      $.ajax({
+        type: 'post', // 요청 메소드
+        url: '/resume/cv_Emupdate_user', // 요청 경로 - 컨트롤러 URL 
+        data: JSON.stringify({
+          "employmentHistoryNo": employmentHistoryNo,
+          "organization": organization,
+          "duration": duration,
+          "duties": duties
+        }), // 요청 데이터
+        contentType: 'application/json', // 요청 데이터 타입
+        dataType: 'html', // 응답 데이터 타입
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        },
+        // 요청 성공
+        success: function(response, status) {
+          console.log("성공했습니다");
+          let result = JSON.parse(response);
+          // 그외 할 것
+        },
+        // 에러 발생
+        error: function(xhr, status) {
+          console.error('에러 발생:', status);
+          alert('에러 발생');
+        }
+      });
+    }
+      
+  //학력 ajax
+  function educationBtn() {
+    $.ajax({
+      type: 'post', //요청메소드
+      url : '/resume/cv_Edupdate_user', //요청경로 - 컨트롤러url 
+      data: JSON.stringify({
+        "educationNo"        : educationNo,
+        "university"         : university,
+        "major"              : major,
+        "universityStatus"   : universityStatus
+      }), //요청 데이터
+      contentType: 'application/json', //요청데이터 타입
+      dataType: 'html', //응답데이터 타입
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+      },
+
+      
+      //요청 성공             응답데이터 응답상태
+      success: function name(response, status) {
+        console.log("학력 정보가 들어갔습니다.")
+        let result = JSON.parse(response)
+        //그외 할 것 
+      },
+      //에러 발생
+      error: function(xhr, status){
+        alert('에러 발생')
+      }
+    })
+  } */
+    
 
     //이미지 파일 미리보기 업
     document.getElementById('file').addEventListener('change', function (event) {

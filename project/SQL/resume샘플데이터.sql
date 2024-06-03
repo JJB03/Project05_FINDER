@@ -43,5 +43,6 @@ SET cv_title = '바뀌는게 맞나요?',
     cv_upd_date = now()
 WHERE cv_no = 51;
 
+select * FROM employment_history
 
 

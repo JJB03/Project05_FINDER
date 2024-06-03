@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
-
+import com.finder.project.resume.dto.Education;
+import com.finder.project.resume.dto.EmploymentHistory;
 import com.finder.project.resume.dto.Resume;
+import com.finder.project.resume.service.EducationService;
+import com.finder.project.resume.service.EmploymentHistoryService;
 import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
@@ -53,7 +56,11 @@ public class ResumeController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private EducationService educationService;
 
+    @Autowired
+    private EmploymentHistoryService employmentHistoryService;
 
 
     
@@ -163,7 +170,8 @@ public class ResumeController {
      */
     @GetMapping("/cv_read_user")
     public String cvReadUser(HttpSession session
-                                ,Model model, @RequestParam("cvNo") int cvNo) throws Exception{
+                                ,Model model,
+                                @RequestParam("cvNo") int cvNo) throws Exception{
         // 세션으로 가져온 User 객체의 user_no을 참조해서 service에 넣기
         Users user = (Users) session.getAttribute("user");
         
@@ -175,12 +183,16 @@ public class ResumeController {
 
             // 사용자의 이력서 정보를 가져옴
             Resume resume = resumeService.select(cvNo);
+            Education education = educationService.select(cvNo);
+            EmploymentHistory employmentHistory = employmentHistoryService.select(cvNo);
 
         if( resume != null ){
             
                         // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
                         model.addAttribute("resume", resume);
                         model.addAttribute("user", user);
+                        model.addAttribute("education", education);
+                        model.addAttribute("employmentHistory", employmentHistory);
                         log.info("이력서 번호는 : " + cvNo + "번으로 이동했어요");
                         // 이력서 정보가 담긴 화면으로 이동
                         return "/resume/cv_read_user";
@@ -192,12 +204,17 @@ public class ResumeController {
     
     /**
      * 구직자 게시글 처음 입력처리
+     * 
      * @param Resume
      * @return
      * @throws Exception
      */
     @PostMapping("/cv_update_user")
     public String updateUserPro(HttpSession session, Resume resume)  throws Exception{
+
+            
+            resume.setCvNo(resumeService.maxPk());
+
             int cvNo = resume.getCvNo();
 
             
@@ -214,7 +231,42 @@ public class ResumeController {
             return "redirect:/resume/cv_create_user?cvNo=" + cvNo + "&error"; // 실패 시 오류 메시지와 함께 이력서 읽는 페이지로 리다이렉트
         }
 
+    
+    @PostMapping("/cv_Emupdate_user")
+    public String postMethodName(HttpSession session, EmploymentHistory employmentHistory) throws Exception {
+        int cvNo =  employmentHistory.getCvNo();
+        
+        //사용자의 경력 이력서 정보 업데이트
+        int result = employmentHistoryService.update(employmentHistory);
 
+        //데이터처리 성공시
+        if (result > 0 ) {
+            log.info(employmentHistory + "가 추가되었어요"); 
+            return "redirect:/resume/cv_read_user?"+cvNo+"cvNo"; //다시 그 화면으로 이동
+        }
+        // 데이터 처리 실패 시
+        log.info("경력 정보 등록 실패");
+        return "redirect:/resume/cv_create_user?cvNo=" + cvNo + "&error"; // 실패 시 오류 메시지와 함께 이력서 읽는 페이지로 리다이렉트
+    }
+
+    @PostMapping("/cv_Edupdate_user")
+    public String postMethodName(HttpSession session, Education education) throws Exception {
+        int cvNo = education.getCvNo();
+
+        //사용자의 경력 이력서 정보 업데이트
+        int result = educationService.update(education);
+
+        //데이터 처리 성공시
+        if (result>0) {
+            log.info(education + "가 추가되었어요.");
+            return "redirect:/resume/cv_read_user?"+cvNo+"cvNo"; //다시 그 화면으로 이동
+        }
+        // 데이터 처리 실패 시
+        log.info("학력 정보");
+        return "redirect:/resume/cv_create_user?cvNo=" + cvNo + "&error"; // 실패 시 오류 메시지와 함께 이력서 읽는 페이지로 리다이렉트
+    }
+    
+    
     
     
     @PostMapping("/cv_read_user")
@@ -232,7 +284,7 @@ public class ResumeController {
         return "redirect:/resume/cv_read_user?cvNo&error"; 
     }
     
-    
+
 
 
     /**
