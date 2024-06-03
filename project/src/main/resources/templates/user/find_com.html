@@ -22,55 +22,74 @@
                     <form action="/user/find_user" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <div class="form-group">
-                          <label for="email" style="margin-top: 20px;"><strong>이메일</strong></label>
-                          <div class="d-flex">
-                            <!-- 이메일 입력 태그 -->
-                            <input type="text" class="form-control" id="email" placeholder="이메일을 입력해주세요." name="userEmail">
-            
-                            <span class="mx-2">@</span>
-                            <select class="form-control">
-                              <option value="@gmail.com">gmail.com</option>
-                              <option value="@naver.com">naver.com</option>
-                              <option value="@daum.net">daum.net</option>
-                              <option value="@gmail.com">gmail.com</option>
-                              <option value="@naver.com">naver.com</option>
-                              <option value="@daum.net">daum.net</option>
-                            </select>
-                          </div>
+                            <label for="email" style="margin-top: 20px;"><strong>이메일</strong></label>
+                            <div class="d-flex">
+                                <!-- 이메일 입력 태그 -->
+                                <input type="text" class="form-control" placeholder="이메일을 입력해주세요." name="firstEmail"
+                                    id="firstEmail">
+
+                                <span class="mx-2">@</span>
+                                <select class="form-control" name="lastEmail" id="lastEmail">
+                                    <option value="gmail.com">gmail.com</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="daum.net">daum.net</option>
+                                </select>
+                                <input type="hidden" id="userEmail" name="userEmail">
+                            </div>
                         </div>
                         <div class="form-group" style="margin-top: 10px;">
-                          <label for="username"><strong>사용자명</strong></label>
-                          <div class="d-flex justify-content-between">
-                            <!-- 사용자명 입력태그 -->
-                            <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요." name="userName">
-            
-                            <button type="submit" class="btn btn-primary" style="width: 16% !important; margin-left: 15px;">확인</button>
-                          </div>
+                            <label for="username"><strong>사용자명</strong></label>
+                            <div class="d-flex justify-content-between">
+                                <!-- 사용자명 입력태그 -->
+                                <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요."
+                                    name="userName">
+
+                                <button type="submit" class="btn btn-primary"
+                                    style="width: 16% !important; margin-left: 15px;"
+                                    onclick="combineEmail()">확인</button>
+                            </div>
                         </div>
-                      </form> 
+                    </form>
                 </div>
 
                 <div class="divider"></div>
 
                 <div class="col-md-6">
                     <h4><strong>비밀번호 찾기</strong></h4>
-                    <form action="user/find_com" method="post">
+                    <form action="/user/info_com_check" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <div class="form-group">
                             <label for="user-id" style="margin-top: 20px;"><strong>아이디</strong></label>
-                            <input type="text" class="form-control" id="user-id" placeholder="아이디를 입력해주세요">
+
+                            <!-- 아이디 입력 태그 -->
+                            <input type="text" class="form-control" id="userId" placeholder="아이디를 입력해주세요" name="userId">
                         </div>
-                        <div class="form-group"  style="margin-top:10px;">
-                            <label for="email"><strong>사업체명</strong></label>
+                        <div class="form-group" style="margin-top:10px;">
+                            <label for="email"><strong>기업명</strong></label>
                             <div class="d-flex justify-content-between">
-                                <input type="text" class="form-control" id="email" placeholder="사업체명을 입력해주세요.">
-                                <button type="submit" class="btn btn-primary" style="width: 16% !important; margin-left: 15px;">확인</button>
-                            </div>  
+                                <!-- 사업체명 입력 태그 -->
+                                <input type="text" class="form-control" id="comName" placeholder="사업체명을 입력해주세요."
+                                    naem="comName">
+                                <button type="button" class="btn btn-primary"
+                                    style="width: 16% !important; margin-left: 15px;" onclick="PW_Confirm()">확인</button>
+                            </div>
+                            <div id="passwordChange" class="d-flex flex-column" style="display: none !important;">
+                                <input type="password" id="userPw" name="userPw" class="form-control"
+                                    placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required style="margin-top: 10px;">
+                                <input type="password" id="confirm-password" name="confirm-password"
+                                    class="form-control" required placeholder="비밀번호 확인" style="margin-top: 10px;">
+                                <div class=" d-flex justify-content-end">
+                                    <button onclick="validatePasswordConfirmation()" id="UpdatePw" type="submit"
+                                        class="btn btn-primary"
+                                        style="width: 16% !important; margin-left: 15px; margin-top: 10px;">변경</button>
+                                </div>
+                                <br>
+                            </div>
                         </div>
-                        <div class="form-group"  style="margin: 10px 0px 20px 0px; ">
+                        <!-- <div class="form-group"  style="margin: 10px 0px 20px 0px; ">
                             <label for="username"><strong>대표자명</strong></label>
                             <input type="text" class="form-control" id="username" placeholder="대표자명을 입력해주세요.">
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>
@@ -80,6 +99,63 @@
             <p>아이디는 이메일과 사용자명이 맞아야 전송됩니다. 비밀번호는 아이디/이메일/사용자명 모두 맞아야 전송됩니다.</p>
         </div>
     </div>
+
+
+
+    <script>
+        // 이메일 서버로 보내는거
+        function combineEmail() {
+            var firstEmail = document.getElementById('firstEmail').value;
+            var lastEmail = document.getElementById('lastEmail').value;
+            var userEmail = firstEmail + "@" + lastEmail;
+            document.getElementById('userEmail').value = userEmail;
+        }
+
+        // 사용자가 입력한 정보 서버랑 비교
+        function PW_Confirm() {
+
+            // 💍 CSRF TOKEN    
+            var csrfToken = "[[${_csrf.token}]]";
+            let url = "/user/info_com_check";
+            var userId = document.getElementById('userId').value;
+            // var userEmail = document.getElementById('userEmail2').value;
+            var comName = document.getElementById('comName').value;
+
+            // jQuery 로 AJAX 요청
+            $.ajax({
+                type: 'POST', // 요청 메소드 - GET, POST, PUT, DELETE
+                url: url, // 요청 URL
+                data: JSON.stringify({ // 요청 데이터를 JSON 문자열로 변환
+                    userId: userId,
+                    comName: comName
+                }),
+                contentType: 'application/json', // 요청 데이터 타입
+                dataType: 'json', // 응답 데이터 타입
+                beforeSend: function (xhr) {
+                    // 💍 CSRF 토큰을 요청 헤더에 추가
+                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                },
+                // 요청 성공 
+                success: function (response, status) {
+                    // response : 응답 데이터
+                    // status   : 응답 상태
+                    if (response) {
+                        alert('사용자 정보랑 일치합니다.');
+                        $('#passwordChange').css('display', 'flex') // 현재 비밀번호 확인 후 변경 폼 보여주기
+                    } else {
+                        alert('입력하신 사용자 정보가 없습니다.');
+                        $('#passwordChange').css('display', 'none !important')
+                    }
+                },
+                // 에러
+                error: function (xhr, status) {
+                    // xhr      : XMLHttpRequest 객체
+                    // status   : 응답 상태
+                    alert('에러 발생');
+                }
+            });
+        }
+    </script>
 
 </body>
 

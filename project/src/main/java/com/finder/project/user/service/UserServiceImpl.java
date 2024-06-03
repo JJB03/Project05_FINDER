@@ -140,4 +140,15 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+
+    @Override
+    public Company getComName(String comName) throws Exception {
+
+        Company company = userMapper.getComName(comName);
+        
+        return company;
+
+    }
+
+
 }

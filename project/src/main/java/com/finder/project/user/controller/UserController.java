@@ -1,7 +1,5 @@
 package com.finder.project.user.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.service.CompanyService;
+import com.finder.project.user.dto.CompanyUserRequest;
 import com.finder.project.user.dto.InformationCheck;
 import com.finder.project.user.dto.Users;
 import com.finder.project.user.service.EmailService;
@@ -32,14 +31,10 @@ public class UserController {
     @Autowired
     private UserService userService; // 변수명은 카멜케이스로 (유상준)
 
-
-
     private CompanyService companyService;
 
     @Autowired
-    PasswordEncoder passwordEncoder; 
-
-
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private EmailService emailService;
@@ -77,7 +72,7 @@ public class UserController {
         // 회원가입 실패
         return "redirect:/user/join_user";
     }
-     
+
     // 기업 회원가입
     @PostMapping("/join_com")
     public String companyjoinPro(Users user, Company company) throws Exception {
@@ -121,42 +116,44 @@ public class UserController {
 
     }
 
-
-    // alert로 띄우는거 보류    
+    // alert로 띄우는거 보류
     // @ResponseBody
     // @PostMapping("/find_user")
-    // public String findId(@RequestParam("userEmail") String userEmail , @RequestParam("userName") String userName) throws Exception {
-        
-    //     log.info("이메일 파라미터 : " + userEmail); 
-    //     log.info("유저 이름 파라미터 : " +  userName); 
-    //     Users user = new Users();
-    //     user.setUserEmail(userEmail);
-    //     user.setUserName(userName);
+    // public String findId(@RequestParam("userEmail") String userEmail ,
+    // @RequestParam("userName") String userName) throws Exception {
 
-    //     String userId = userService.findId(user);
-    //     log.info("유저아이디 : " +  userId); 
+    // log.info("이메일 파라미터 : " + userEmail);
+    // log.info("유저 이름 파라미터 : " + userName);
+    // Users user = new Users();
+    // user.setUserEmail(userEmail);
+    // user.setUserName(userName);
 
-    //     if (userId != null) {
-    //         return "<script>alert('Your ID is " + userId + "'); location.href='/login';</script>";
-    //     } else {
-    //         return "<script>alert('No user found with that username and email'); history.back();</script>";
-    //     }
+    // String userId = userService.findId(user);
+    // log.info("유저아이디 : " + userId);
+
+    // if (userId != null) {
+    // return "<script>alert('Your ID is " + userId + "');
+    // location.href='/login';</script>";
+    // } else {
+    // return "<script>alert('No user found with that username and email');
+    // history.back();</script>";
     // }
-
+    // }
 
     // 아이디 이메일로 전송 완료
     @ResponseBody
     @PostMapping("/find_user")
-    public String findId(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName) throws Exception {
-        log.info("이메일 파라미터 : " + userEmail); 
-        log.info("유저 이름 파라미터 : " + userName); 
+    public String findId(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName)
+            throws Exception {
+        log.info("이메일 파라미터 : " + userEmail);
+        log.info("유저 이름 파라미터 : " + userName);
 
         Users user = new Users();
         user.setUserEmail(userEmail);
         user.setUserName(userName);
 
         String userId = userService.findId(user);
-        log.info("유저아이디 : " + userId); 
+        log.info("유저아이디 : " + userId);
 
         if (userId != null) {
             String subject = "FINDER의 아이디 찾기";
@@ -170,21 +167,24 @@ public class UserController {
     // 아직 하는중
     // @ResponseBody
     // @PostMapping("/reset-password")
-    // public String resetPassword(@RequestParam int id, @RequestParam String username, @RequestParam String email,
-    //         @RequestParam String newPassword) throws Exception {
-    //     Users user = userService.findPw(id, username, email);
-    //     if (user != null) {
-    //         userService.updatePw(id, newPassword);
-    //         return "<script>alert('Password updated successfully'); location.href='/login';</script>";
-    //     } else {
-    //         return "<script>alert('No user found with that information'); history.back();</script>";
-    //     }
+    // public String resetPassword(@RequestParam int id, @RequestParam String
+    // username, @RequestParam String email,
+    // @RequestParam String newPassword) throws Exception {
+    // Users user = userService.findPw(id, username, email);
+    // if (user != null) {
+    // userService.updatePw(id, newPassword);
+    // return "<script>alert('Password updated successfully');
+    // location.href='/login';</script>";
+    // } else {
+    // return "<script>alert('No user found with that information');
+    // history.back();</script>";
+    // }
     // }
 
-    // 정보 확인⭕
+    // 사용자 정보 확인⭕
     @PostMapping("/info_check")
-    public ResponseEntity<Boolean> infoCheck(@RequestBody InformationCheck request) throws Exception {
-        
+    public ResponseEntity<Boolean> infoUserCheck(@RequestBody InformationCheck request) throws Exception {
+
         // 데이터베이스에서 사용자 정보 가져오기
         Users user = userService.getUserById(request.getId());
 
@@ -195,36 +195,56 @@ public class UserController {
 
         // 사용자 정보 비교
         boolean isMatch = request.getEmail().equals(user.getUserEmail()) &&
-                          request.getName().equals(user.getUserName());
-        
+                request.getName().equals(user.getUserName());
+
+        return ResponseEntity.ok(isMatch);
+    }
+
+    // 기업 정보 확인
+    @PostMapping("/info_com_check")
+    public ResponseEntity<Boolean> infoCompanyCheck(@RequestBody CompanyUserRequest request) throws Exception {
+
+        // 데이터베이스에서 사용자 정보 가져오기
+        Company company = userService.getComName(request.getComName());
+        Users users = userService.getUserById(request.getUserId());
+
+        if (company == null) {
+            // 사용자가 존재하지 않는 경우 false 반환
+            return ResponseEntity.ok(false);
+        }
+
+        // 사용자 정보 비교
+        boolean isMatch = request.getComName().equals(company.getComName()) &&
+                request.getUserId().equals(users.getUserId());
+
         return ResponseEntity.ok(isMatch);
     }
 
     // 비밀번호 수정 ⭕
     @PostMapping("/update_pw")
-    public String updateCompany(@RequestParam("userPw") String userPw,@RequestParam("userId") String userId) throws Exception {
-        
+    public String updateCompany(@RequestParam("userPw") String userPw, @RequestParam("userId") String userId)
+            throws Exception {
+
         Users user = new Users();
         user.setUserPw(userPw);
         user.setUserId(userId);
 
         log.info("내가입력한 비밀번호" + userPw);
-        
+
         String password = user.getUserPw();
-        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password); // 🔒 비밀번호 암호화
         user.setUserPw(encodedPassword);
-        
+
         int result = userService.updatePw(user);
 
-        // 데이터 처리 성공 
-        if( result > 0 ) {
+        // 데이터 처리 성공
+        if (result > 0) {
 
             return "redirect:/login";
         }
         // 데이터 처리 실패
         return "redirect:/user/error";
     }
-
 
     // import org.springframework.stereotype.Controller;
     // import org.springframework.web.bind.annotation.ModelAttribute;
