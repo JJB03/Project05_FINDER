@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Product;
 import com.finder.project.user.dto.Users;
 
 @Mapper
@@ -49,5 +50,12 @@ public interface CompanyMapper {
     public Company selectByUserNo(int userNo);   
     // 기업번호로 기업상세 조회 ⭕
     public CompanyDetail selectCompanyDetailByComNo(int comNo);
+
+
+
+
+
+    // 상품 조회
+    public Product selecProduct(int productNo) throws Exception;
 }
 

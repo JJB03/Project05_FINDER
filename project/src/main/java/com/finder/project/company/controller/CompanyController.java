@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.dto.PasswordConfirmRequest;
+import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.user.dto.Users;
 
@@ -232,12 +233,31 @@ public class CompanyController {
     
 
 
-    // 결제 종류 화면
+    // 결제상품 목록 화면
     @GetMapping("/credit_com")
     public String credit_com() throws Exception {
         return "/company/credit_com";
     }
-    // 결제 내역 화면
+
+    // 결제상품 세부 화면
+    @GetMapping("/credit_detail_com")
+    public String credit_detail_com(@RequestParam("productNo") int productNo, Model model, Product product) throws Exception {
+
+        product.setProductNo(productNo);
+        product = companyService.selecProduct(productNo);
+
+        model.addAttribute("product", product);
+        return "company/credit_detail_com";
+    }
+    
+    // 결제 완료 화면
+    @GetMapping("/credit_complete_com")
+    public String credit_complete_com() throws Exception {
+
+        return "company/credit_complete_com";
+    }
+
+    // 결제 목록 내역 화면
     @GetMapping("/credit_list_com")
     public String credit_list_com() throws Exception {
         return "/company/credit_list_com";
