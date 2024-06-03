@@ -1,6 +1,9 @@
 package com.finder.project.user.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.user.dto.UserAuth;
@@ -31,4 +34,19 @@ public interface UserMapper {
     // public int updateAuth(UserAuth userAuth) throws Exception;
 
     public int max() throws Exception;
+
+
+    // 아이디 비번 찾기 하는중
+    
+    // 아이디 찾기
+    public String findId(Users user) throws Exception;
+
+    // 비밀번호 찾기
+    public Users findPw(@Param("id") int id, @Param("username") String username, @Param("email") String email) throws Exception;
+ 
+    // 비밀번호 수정하기
+    public int updatePw(@Param("id") int id, @Param("password") String password) throws Exception;
+
+
+
 }

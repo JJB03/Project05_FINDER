@@ -19,23 +19,29 @@
       <div class="d-flex justify-content-center w-100">
         <div class="col-6">
           <h4><strong>아이디 찾기</strong></h4>
-          <form>
+
+          <form action="/user/find_user" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <div class="form-group">
               <label for="email" style="margin-top: 20px;"><strong>이메일</strong></label>
               <div class="d-flex">
-                <input type="text" class="form-control" id="email" placeholder="이메일을 입력해주세요.">
+                <!-- 이메일 입력 태그 -->
+                <input type="text" class="form-control" id="email" placeholder="이메일을 입력해주세요." name="userEmail">
+
                 <span class="mx-2">@</span>
                 <select class="form-control">
-                  <option value="gmail.com">gmail.com</option>
-                  <option value="naver.com">naver.com</option>
-                  <option value="daum.net">daum.net</option>
+                  <option value="@gmail.com">gmail.com</option>
+                  <option value="@naver.com">naver.com</option>
+                  <option value="@daum.net">daum.net</option>
                 </select>
               </div>
             </div>
             <div class="form-group" style="margin-top: 10px;">
               <label for="username"><strong>사용자명</strong></label>
               <div class="d-flex justify-content-between">
-                <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요.">
+                <!-- 사용자명 입력태그 -->
+                <input type="text" class="form-control" id="username" placeholder="이름을 입력해주세요." name="userName">
+
                 <button type="submit" class="btn btn-primary" style="width: 16% !important; margin-left: 15px;">확인</button>
               </div>
             </div>
@@ -47,6 +53,7 @@
         <div class="col-6">
           <h4><strong>비밀번호 찾기</strong></h4>
           <form>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <div class="form-group">
               <label for="user-id" style="margin-top: 20px;"><strong>아이디</strong></label>
               <input type="text" class="form-control" id="user-id" placeholder="아이디를 입력해주세요.">
