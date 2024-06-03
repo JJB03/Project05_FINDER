@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Files;
+import com.finder.project.main.dto.Option;
 import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
@@ -32,8 +33,8 @@ public class RecruitServiceImpl implements RecruitService {
     
     // 채용공고 List
     @Override
-    public List<RecruitPost> recruitList() throws Exception {
-        List<RecruitPost> recruitList = recruitMapper.recruitList();
+    public List<RecruitPost> recruitList(Option option) throws Exception {
+        List<RecruitPost> recruitList = recruitMapper.recruitList(option);
         
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + recruitList);
         return recruitList;
@@ -155,6 +156,13 @@ public class RecruitServiceImpl implements RecruitService {
     public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos) {
         // TODO Auto-generated method stub
         return recruitMapper.selectRecruitsByNos(new ArrayList<>(recruitNos));
+    }
+
+    //연관검색
+    @Override
+    public List<String> selectCompanyNameList() {
+        // TODO Auto-generated method stub
+        return recruitMapper.selectCompanyNameList();
     }
 
     

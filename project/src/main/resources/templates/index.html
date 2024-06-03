@@ -25,27 +25,27 @@
         <span style="padding: 15px; font-size: 1.6em;" class="job-index-header-title">채용공고</span>
       </div>
 
-      <div class="d-flex align-items-center w-75 mb-3 mt-3">
+      <form action="/index" method="get" class="w-75 d-flex align-items-center justify-content-end">
+        <div class="d-flex align-items-center w-75 mb-3 mt-3">
 
-        <div class="form-floating w-75 "
-          style="background-color: white; height: 40px; padding-left: 15px; line-height: 40px; border-top-left-radius: 8px; border-bottom-left-radius: 8px;">
+          <div class="custom-form-floating">
+            <input type="text" id="customDropdownMenuInput" class="custom-input" placeholder="기업, 채용공고를 검색해보세요." name="keyword" th:value="${param.keyword}" autocomplete="off">
+            <div class="custom-dropdown-menu" id="customDropdownMenu">
 
-          <input type="text" name="" id="" class="job-index-input input-none" placeholder="기업, 채용공고를 검색해보세요.">
+            </div>
+          </div>
+
+          <div class="form-floating w-25 " style=" height: 40px; margin-left: 1px;">
+            <select name="code" class="form-select " id="floatingSelectGrid"
+              style="box-shadow: none; --bs-border-width: -8px; padding: 5px 5px 5px 5px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+              <option th:each="item : ${optionList}" th:value="${item.code}" th:selected="${item.code == option.code}"
+                th:text="${item.keyword}">
+              </option>
+            </select>
+          </div>
 
         </div>
-
-        <div class="form-floating w-25 " style=" height: 40px; margin-left: 1px;">
-          <select class="form-select " id="floatingSelectGrid"
-            style="box-shadow: none; --bs-border-width: -8px; padding: 5px 5px 5px 5px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-            <option selected>최근 날짜</option>
-            <option value="1">one</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-
-        </div>
-
-      </div>
+      </form>
     </div>
     <div style="margin: 15px 0 15px 0;">
       <strong>총 <span style="color: blue;" th:text="${recruitList.size()}"></span>개의 정보를 탐색 하였습니다.</strong>
@@ -66,7 +66,7 @@
             <div class="card-body d-flex flex-column justify-content-between">
               <div>
                 <div class="card-title">
-                  <img th:src="|/file/img/${recruit.fileNo}|" alt="썸네일" style=" width: 75px;" >
+                  <img th:src="|/file/img/${recruit.fileNo}|" alt="썸네일" style=" width: 75px;">
                 </div>
                 <input type="hidden" name="recruitNo" th:value="${recruit.recruitNo}">
                 <p class="card-text" style=" font-size: 12px;" th:text="${recruit.company.comName}"></p>
@@ -75,15 +75,15 @@
 
               </strong>
 
-              <div class="keyword-span d-flex justify-content-start ">
+              <div class="keyword-span">
                 <th:block th:if="${recruit.keywordList.isEmpty()}">
                   <p>키워드가 존재하지 않습니다.</p>
                 </th:block>
 
-                  <th:block th:each="keyword : ${recruit.keywordList}">
-                    <span th:text="${keyword.recruitKeyword}">
-                    </span>
-                  </th:block>
+                <th:block th:each="keyword : ${recruit.keywordList}" class="span-wrapper">
+                  <span th:text="${keyword.recruitKeyword}">
+                  </span>
+                </th:block>
               </div>
 
               <div class="d-flex justify-content-between ">
@@ -110,7 +110,70 @@
   </div>
 
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const input = document.getElementById('customDropdownMenuInput');
+      const dropdown = document.getElementById('customDropdownMenu');
 
+      input.addEventListener('input', function () {
+        const query = input.value.toLowerCase();
+        dropdown.innerHTML = '';
+
+        if (query) {
+          fetch(`/search?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(filteredItems => {
+              filteredItems.forEach(item => {
+                const div = document.createElement('div');
+                div.classList.add('custom-dropdown-item');
+
+                // Create <a> element
+                const anchor = document.createElement('a');
+                anchor.textContent = item;
+                anchor.href = '#'; // Add href attribute for styling purposes
+
+                // Add click event listener to <a> element
+                anchor.addEventListener('click', function (event) {
+                  event.preventDefault(); // Prevent default anchor behavior (e.g., navigation)
+                  input.value = item;
+                  dropdown.classList.remove('show');
+
+                  // Redirect to the desired URL
+                  window.location.href = `/your-redirect-url?item=${encodeURIComponent(item)}`;
+                });
+
+                // Append <a> element to <div> element
+                div.appendChild(anchor);
+
+                // Append <div> element to dropdown
+                dropdown.appendChild(div);
+              });
+
+              if (filteredItems.length > 0) {
+                dropdown.classList.add('show');
+              } else {
+                dropdown.classList.remove('show');
+              }
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+            });
+        } else {
+          dropdown.classList.remove('show');
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.remove('show');
+        }
+      });
+
+      dropdown.addEventListener('mousedown', function (e) {
+        e.preventDefault();  // Prevent input blur when clicking on dropdown items
+      });
+    });
+  </script>
 </body>
 
 </html>

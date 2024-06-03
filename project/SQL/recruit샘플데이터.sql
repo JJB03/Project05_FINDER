@@ -141,3 +141,88 @@ SELECT c.*
 SELECT *
         FROM file
         WHERE file_no = 40;
+
+
+
+
+-- user 테이블 예제 데이터 삽입
+-- 비밀번호는 미리 암호화하여 저장
+INSERT INTO user (user_name, user_id, user_pw, user_before_pw, user_birth, user_phone, user_email, user_reg_date, user_upd_date, user_gender, ENABLED)
+VALUES
+('사용자1', 'user1', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-01', '010-1111-1111', 'user1@example.com', now(), now(), '남자', 1),
+('사용자2', 'user2', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-02', '010-2222-2222', 'user2@example.com', now(), now(), '여자', 1),
+('사용자3', 'user3', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-03', '010-3333-3333', 'user3@example.com', now(), now(), '남자', 1),
+('사용자4', 'user4', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-04', '010-4444-4444', 'user4@example.com', now(), now(), '여자', 1),
+('사용자5', 'user5', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-05', '010-5555-5555', 'user5@example.com', now(), now(), '남자', 1),
+('사용자6', 'user6', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-06', '010-6666-6666', 'user6@example.com', now(), now(), '여자', 1),
+('사용자7', 'user7', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-07', '010-7777-7777', 'user7@example.com', now(), now(), '남자', 1),
+('사용자8', 'user8', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-08', '010-8888-8888', 'user8@example.com', now(), now(), '여자', 1),
+('사용자9', 'user9', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-09', '010-9999-9999', 'user9@example.com', now(), now(), '남자', 1),
+('사용자10', 'user10', '$2a$10$0FfQj7wfxEe.IhG5HLPvhO/p6hQRnT2lpLqgCrJiD6dJbC1dXoQf2', null, '1990-01-10', '010-1010-1010', 'user10@example.com', now(), now(), '여자', 1);
+
+
+-- user_auth 테이블 예제 데이터 삽입
+INSERT INTO `user_auth` (`auth`, `user_no`)
+SELECT 'ROLE_COMPANY', `user_no`
+FROM `user`;
+
+
+
+
+        INSERT INTO `company` (`user_no`, `com_name`, `com_category`, `com_address`, `com_business`)
+VALUES 
+    (16, '삼성전자', '전자제품', '서울 강남구 테헤란로', '스마트폰, TV, 가전제품 제조 및 판매'),
+    (17, 'LG전자', '전자제품', '서울 영등포구 여의대로', '스마트폰, TV, 가전제품 제조 및 판매'),
+    (18, '현대자동차', '자동차', '서울 영등포구 여의대로', '자동차 제조 및 판매'),
+    (19, '기아자동차', '자동차', '서울 영등포구 여의대로', '자동차 제조 및 판매'),
+    (20, 'SK텔레콤', '통신', '서울 강남구 역삼로', '이동통신, 브로드밴드 서비스 제공'),
+    (21, 'KT', '통신', '서울 중구 종로', '이동통신, 브로드밴드 서비스 제공'),
+    (22, '네이버', '인터넷', '경기 성남시 판교로', '포털 서비스, 온라인 광고, 인터넷 서비스'),
+    (23, '카카오', '인터넷', '경기 성남시 분당구 대왕판교로', '모바일 메신저, 인터넷 서비스'),
+    (24, '포스코', '철강', '경기 구리시 아차산로', '철강 제조 및 판매'),
+    (25, 'LG화학', '화학', '서울 종로구 종로', '화학 제품 제조 및 판매');
+
+
+INSERT INTO `recruit` (`com_no`, `recruit_title`, `recruit_content`, `recruit_responsibilities`, `recruit_qualifications`, `recruit_preferred_qualifications`, `recruit_reg_date`)
+VALUES 
+    (32, '소프트웨어 엔지니어 포지션', '우리는 Java 및 Spring Boot 경험이 있는 소프트웨어 엔지니어를 찾고 있습니다.', '소프트웨어 응용 프로그램을 개발하고 유지 관리합니다.', '컴퓨터 과학 또는 관련 분야의 학사 학위.', 'RESTful API 및 마이크로서비스 아키텍처 경험.', '2024-06-03'),
+    (33, '데이터 과학자 포지션', '우리 팀에 합류할 데이터 과학자를 찾고 있습니다.', '복잡한 데이터 세트를 분석하고 해석합니다.', '데이터 과학 또는 관련 분야의 석사 학위.', '머신러닝 알고리즘 경험.', '2024-06-03'),
+    (34, '웹 개발자 모집', '저희 회사에서는 웹 개발자를 모집합니다. HTML, CSS 및 JavaScript에 능숙한 분을 찾고 있습니다.', '웹 사이트 및 웹 애플리케이션 개발', '웹 개발 관련 학위 또는 자격증', '프론트엔드 및 백엔드 프레임워크 경험', '2024-06-03'),
+    (35, '데이터베이스 관리자 모집', '데이터베이스 관리자를 채용합니다. SQL 쿼리 및 데이터베이스 성능 최적화에 능숙한 분을 찾습니다.', '데이터베이스 설치, 구성 및 유지 관리', '컴퓨터 과학 또는 관련 분야의 학사 학위', '관계형 및 NoSQL 데이터베이스 관리 경험', '2024-06-03'),
+    (36, '프로젝트 매니저 채용', '프로젝트 매니저를 모집합니다. 프로젝트 일정 및 예산 관리에 능숙한 분을 찾습니다.', '프로젝트 팀 관리 및 리소스 할당', '프로젝트 관리 관련 자격증', '소프트웨어 개발 및 배포 프로세스 이해', '2024-06-03'),
+    (37, 'UI/UX 디자이너 채용', 'UI/UX 디자이너를 모집합니다. 사용자 경험에 초점을 둔 디자인을 만들 수 있는 분을 찾습니다.', '웹 및 모바일 애플리케이션 디자인', 'UI/UX 디자인 관련 학위 또는 자격증', 'Adobe Creative Suite 및 Sketch 등의 디자인 도구 경험', '2024-06-03'),
+    (38, '시스템 엔지니어 채용', '시스템 엔지니어를 모집합니다. 서버 및 네트워크 인프라를 구성하고 유지 관리할 수 있는 분을 찾습니다.', '시스템 아키텍처 설계 및 구현', '컴퓨터 과학 또는 관련 분야의 학사 학위', '클라우드 플랫폼 및 가상화 기술 경험', '2024-06-03'),
+    (39, '보안 엔지니어 채용', '보안 엔지니어를 모집합니다. 정보 보안 시스템을 설계하고 구현할 수 있는 분을 찾습니다.', '네트워크 보안 및 데이터 보호', '정보 보안 관련 자격증', 'SIEM 및 IDS/IPS 시스템 관리 경험', '2024-06-03'),
+    (40, 'QA 엔지니어 채용', '품질 보증 엔지니어를 모집합니다. 제품 및 서비스의 품질을 확인하는 역할을 수행할 수 있는 분을 찾습니다.', '소프트웨어 테스트 계획 및 실행', '소프트웨어 테스팅 관련 자격증', '자동화 테스트 도구 사용 경험', '2024-06-03'),
+    (41, '데이터 엔지니어 채용', '데이터 엔지니어를 모집합니다. 대규모 데이터 처리 및 분석 시스템을 구축할 수 있는 분을 찾습니다.', '데이터 파이프라인 설계 및 구현', '데이터 엔지니어링 또는 관련 분야의 학사 학위', '빅데이터 및 데이터베이스 기술 경험', '2024-06-03');
+
+ INSERT INTO `recruit_keyword` (`recruit_keyword`, `recruit_no`) VALUES
+('Java', 83),
+('Spring Boot', 83),
+('데이터 과학자', 84),
+('데이터 분석', 84),
+('머신러닝', 84),
+('웹 개발자', 85),
+('HTML', 85),
+('CSS', 85),
+('JavaScript', 85),
+('데이터베이스 관리자', 86),
+('SQL', 86),
+('데이터베이스 성능 최적화', 86),
+('프로젝트 매니저', 87),
+('프로젝트 일정 관리', 87),
+('UI/UX 디자이너', 88),
+('사용자 경험', 88),
+('디자인 도구', 88),
+('시스템 엔지니어', 89),
+('서버 인프라', 89),
+('네트워크 구성', 89),
+('보안 엔지니어', 90),
+('정보 보안', 90),
+('보안 시스템 설계', 90),
+('QA 엔지니어', 91),
+('소프트웨어 테스트', 91),
+('자동화 테스트', 91),
+('데이터 엔지니어', 92),
+('대규모 데이터 처리', 92),
+('데이터 분석 시스템', 92);
