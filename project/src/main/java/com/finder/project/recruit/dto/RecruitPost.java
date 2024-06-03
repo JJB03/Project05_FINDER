@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.main.dto.Option;
 
 import lombok.Data;
 
@@ -36,5 +37,7 @@ public class RecruitPost {
     
     // 파일 번호
     private int fileNo;
+
+    private Option option;
     
 }

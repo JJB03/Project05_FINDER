@@ -1,5 +1,6 @@
 package com.finder.project.main.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.finder.project.main.dto.Files;
+import com.finder.project.main.dto.Option;
 import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.service.RecruitService;
@@ -27,11 +29,12 @@ public class MainController {
 
     // 메인페이지 (채용공고)
     @GetMapping({ "/index", "" })
-    public String main(Model model, Files file) throws Exception {
+    public String main(Model model, Files file, Option option) throws Exception {
         log.info("메인 화면...");
+        log.info("옵션옵션옵션옵션옵션옵션옵션옵션옵션옵션옵션옵션" + option);
 
-        List<RecruitPost> recruitList = recruitService.recruitList();
-        log.info(recruitList+"");
+        List<RecruitPost> recruitList = recruitService.recruitList(option);
+        log.info(recruitList + "");
         for (RecruitPost recruitPost : recruitList) {
 
             log.info("Keyword list: " + recruitPost.getKeywordList());
@@ -44,11 +47,19 @@ public class MainController {
 
             }
             log.info("파일값 나오냐 안나오냐 나와라!!!!!!" + recruit.getFileNo());
-           
 
-            
         });
+
+        List<Option> optionList = new ArrayList<Option>();
         
+        optionList.add(new Option(0,"제목"));
+        optionList.add(new Option(1,"#키워드"));
+        optionList.add(new Option(2,"제목+내용"));
+        
+        model.addAttribute("optionList", optionList);
+
+        model.addAttribute("option", option);
+
         model.addAttribute("recruitList", recruitList);
 
         return "/index";
