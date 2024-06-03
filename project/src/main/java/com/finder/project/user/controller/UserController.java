@@ -1,5 +1,7 @@
 package com.finder.project.user.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.user.dto.CompanyUserRequest;
+import com.finder.project.user.dto.EmailVerification;
 import com.finder.project.user.dto.InformationCheck;
 import com.finder.project.user.dto.Users;
 import com.finder.project.user.service.EmailService;
@@ -166,21 +169,63 @@ public class UserController {
 
     // 회원가입 할때 이메일 인증
     // @ResponseBody
-    // @PostMapping("/find_user")
-    // public String emailCheck(@RequestParam("userEmail") String userEmail)
-    //         throws Exception {
+    // @PostMapping("/find_users")
+    // public String emailCheck(@RequestParam("userEmail") String userEmail,
+    // @RequestParam("mailKey") String mailKey)
+    // throws Exception {
+    // log.info("이메일 파라미터 : " + userEmail);
+    // EmailCheck requestEamil = new EmailCheck();
+    // requestEamil.setMailKey(mailKey);
+    // String key = userService.selectMailKey(requestEamil);
+
+    // log.info("이메일 키가 들어가 있니?" + key);
+
+    // if (key != null) {
+    // String subject = "FINDER의 이메일 인증";
+    // String text = "이메일 인증 코드 : " + key;
+    // emailService.sendSimpleMessage(userEmail, subject, text);
+    // return "<script>alert('해당 이메일로 코드를 발송하였습니다.');
+    // location.href='/login';</script>";
+    // } else {
+    // return "<script>alert('해당 이메일을 찾을 수 없습니다.'); history.back();</script>";
+    // }
+    // }
+
+
+    // 🤣이메일 자동코드 생성하다가 막힘
+    // @ResponseBody
+    // @PostMapping("/find_users")
+    // public String emailCheck(@RequestParam("userEmail") String userEmail) throws Exception {
     //     log.info("이메일 파라미터 : " + userEmail);
 
+    //     // 랜덤한 인증 코드 생성
+    //     String mailKey = generateRandomKey(); // 임의의 인증 코드 생성하는 메소드 호출
 
-    //     if (userEmail != null) {
-    //         String subject = "FINDER의 이메일 인증";
-    //         String text = "이메일 인증 코드 : " + userId;
-    //         emailService.sendSimpleMessage(userEmail, subject, text);
-    //         return "<script>alert('해당 이메일로 코드를 발송하였습니다.'); location.href='/login';</script>";
-    //     } else {
-    //         return "<script>alert('해당 이메일을 찾을 수 없습니다.'); history.back();</script>";
-    //     }
+    //     EmailVerification emailVerification = new EmailVerification();
+    //     emailVerification.setEmail(userEmail);
+    //     emailVerification.setVerificationCode(mailKey);
+
+
+
+    //     // 이메일로 인증 코드 전송
+    //     String subject = "FINDER의 이메일 인증";
+    //     String text = "이메일 인증 코드 : " + mailKey;
+    //     emailService.sendSimpleMessage(userEmail, subject, text);
+
+    //     // 인증 코드 발송 메시지 반환
+    //     return "해당 이메일로 코드를 발송하였습니다.";
     // }
+
+    // // 랜덤한 인증 코드 생성 메소드
+    // private String generateRandomKey() {
+    //     UUID uuid = UUID.randomUUID();
+    //     // 생성된 UUID에서 앞의 8자리만 가져와 출력
+    //     String shortUuid = uuid.toString().substring(0, 8);
+
+    //     return shortUuid;
+
+    // }
+
 
     // 사용자 정보 확인⭕
     @PostMapping("/info_check")

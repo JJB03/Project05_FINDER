@@ -1,9 +1,6 @@
 package com.finder.project.user.mapper;
 
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.finder.project.company.dto.Company;
@@ -49,6 +46,8 @@ public interface UserMapper {
  
     // 비밀번호 수정하기
     public int updatePw(Users userPw) throws Exception;
+
+    // 이메일 코드 받아오기
 
 
 

@@ -1,5 +1,5 @@
 
--- Active: 1716536339109@@127.0.0.1@3306@joeun
+-- Active: 1717080256825@@127.0.0.1@3306@joeun
 
 
 
@@ -39,6 +39,14 @@ DROP TABLE IF EXISTS credit;	-- 결제내역 테이블
 
 
 -- 테이블 생성 ( 총 16개 )
+
+-- 메일 인증 실험 테이블
+
+CREATE TABLE email_verification (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    verification_code VARCHAR(255) NOT NULL
+);
 
 -- 회원 테이블
 CREATE TABLE `user` (
