@@ -24,7 +24,8 @@
     <collection property="employmentHistoryList" ofType="com.finder.project.resume.dto.EmploymentHistory">
         <id property="employmentHistoryNo" column="employment_history_no"/>
         <result property="organization" column="organization"/>
-        <result property="duration" column="duration"/>
+        <result property="startDate" column="startDate"/>
+        <result property="endDate" column="endDate"/>
         <result property="duties" column="duties"/>
         <result property="cvNo" column="cv_no"/>
     </collection>
