@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Option;
+import com.finder.project.main.dto.Page;
 import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
@@ -21,7 +22,7 @@ import com.finder.project.user.dto.Users;
 
 import groovy.util.logging.Slf4j;
 
-@Slf4j
+@lombok.extern.slf4j.Slf4j
 @Service
 public class RecruitServiceImpl implements RecruitService {
 
@@ -33,10 +34,12 @@ public class RecruitServiceImpl implements RecruitService {
     
     // 채용공고 List
     @Override
-    public List<RecruitPost> recruitList(Option option) throws Exception {
-        List<RecruitPost> recruitList = recruitMapper.recruitList(option);
+    public List<RecruitPost> recruitList(Page page, Option option) throws Exception {
         
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + recruitList);
+        int total = recruitMapper.count(option);
+        page.setTotal(total);
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + total);
+        List<RecruitPost> recruitList = recruitMapper.recruitList(page, option);
         return recruitList;
     } 
 
@@ -165,6 +168,9 @@ public class RecruitServiceImpl implements RecruitService {
         return recruitMapper.selectCompanyNameList();
     }
 
+
+
+    
     
     
      
