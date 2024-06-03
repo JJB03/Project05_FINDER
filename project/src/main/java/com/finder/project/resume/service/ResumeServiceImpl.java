@@ -65,8 +65,8 @@ public class ResumeServiceImpl implements ResumeService {
      이력서 삭제
      */
     @Override
-    public int delete(int cv_no) throws Exception {
-        int result = resumeMapper.delete(cv_no);
+    public int delete(int cvNo) throws Exception {
+        int result = resumeMapper.delete(cvNo);
         return result;
     }
 

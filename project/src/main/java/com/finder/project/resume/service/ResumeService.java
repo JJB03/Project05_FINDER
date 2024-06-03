@@ -19,7 +19,7 @@ public interface ResumeService {
           public int update(Resume resume) throws Exception;
       
           // 이력서 삭제
-          public int delete(int cv_no) throws Exception;
+          public int delete(int cvNo) throws Exception;
 
         // 회원번호로 이력서 조회 ⭕
          public Resume selectCV(int user_no) throws Exception;   

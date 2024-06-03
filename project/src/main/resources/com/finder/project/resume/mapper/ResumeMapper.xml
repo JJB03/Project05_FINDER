@@ -68,7 +68,7 @@
     SELECT c.*, u.*
       FROM cv c
         INNER JOIN user u ON c.user_no = u.user_no
-    WHERE c.cv_no = #{cv_no}
+    WHERE c.cv_no = #{cvNo}
   </select>
 
 
@@ -76,7 +76,7 @@
   <!-- 이력서 삭제 -->
   <delete id="delete">
     DELETE FROM cv
-    WHERE cv_no = #{cv_no}
+    WHERE cv_no = #{cvNo}
   </delete>
 
   <!-- cv 최댓값  -->

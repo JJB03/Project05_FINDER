@@ -23,7 +23,7 @@ import com.finder.project.resume.dto.Resume;
           public int update(Resume resume) throws Exception;
       
           // 이력서 삭제
-          public int delete(int cv_no) throws Exception;
+          public int delete(int cvNo) throws Exception;
 
 
          // 회원번호로 이력서 조회 ⭕

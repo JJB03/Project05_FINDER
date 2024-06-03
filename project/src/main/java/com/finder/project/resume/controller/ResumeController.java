@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -197,14 +198,8 @@ public class ResumeController {
      */
     @PostMapping("/cv_update_user")
     public String updateUserPro(HttpSession session, Resume resume)  throws Exception{
-            int cvNo = resumeService.maxPk();
-            
-            //maxPk 오류 막기 위해
-            if (cvNo == 0) {
-                cvNo = 1;
-            }
+            int cvNo = resume.getCvNo();
 
-            resume.setCvNo(cvNo);
             
             // 사용자의 이력서 정보를 업데이트
             int result = resumeService.update(resume);
@@ -270,37 +265,22 @@ public class ResumeController {
             return "resume/cv_read_com";
     }
 
-    /**
-     * 사업가 게시글 수정 처리
-     * @param Resume
-     * @return
-     * @throws Exception
-     */
-/*     @PostMapping("/cv_read_com")
-    public String ReadComPro(Resume Resume) throws Exception{
-        int result = resumeService.update(Resume);
-        if (result>0) {
-            return "redirect:/resume/cv_read_com";
-        }
-        //실패시
-        int cv_no = Resume.getCvNo();
-        return "redirect:/resume/cv_read_com=" + cv_no + "&error";
-    } */
 
     @PostMapping("/delete")
-    public String deletePro(@RequestParam("cv_no") int cv_no) throws Exception {
-        int result = resumeService.delete(cv_no);
+    public String deletePro(@RequestParam("cvNo") int cvNo) throws Exception {
+        int result = resumeService.delete(cvNo);
         if (result>0) {
             //파일까지 삭제
-            Files file = new Files();
+/*             Files file = new Files();
             file.setParentTable("Resume");
-            file.setParentNo(cv_no);
-            fileService.deleteByParent(file);
+            file.setParentNo(cvNo);
+            fileService.deleteByParent(file); */
             
+            log.info(cvNo + "번 이력서 삭제되었습니다.");
             return "redirect:/resume/cv_list_user";
         }
-        
-        return "redirect:/resume/cv_read?no=" + cv_no + "&error";
+        log.info("삭제 안 돼");
+        return "redirect:/resume/cv_read?no=" + cvNo + "&error";
     }
     
 }
