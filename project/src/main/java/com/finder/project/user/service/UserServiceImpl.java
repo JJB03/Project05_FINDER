@@ -13,35 +13,37 @@ import com.finder.project.user.dto.UserAuth;
 import com.finder.project.user.dto.Users;
 import com.finder.project.user.mapper.UserMapper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private AuthenticationManager authenticationManager;
-    
+
     @Override
     public boolean login(Users user) throws Exception {
         // // 💍 토큰 생성
-        String username = user.getUserId();    // 아이디
-        String password = user.getUserPw();    // 암호화되지 않은 비밀번호
-        UsernamePasswordAuthenticationToken token 
-            = new UsernamePasswordAuthenticationToken(username, password);
-        
-            // 토큰을 이용하여 인증
-            Authentication authentication = authenticationManager.authenticate(token);
+        String username = user.getUserId(); // 아이디
+        String password = user.getUserPw(); // 암호화되지 않은 비밀번호
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+
+        // 토큰을 이용하여 인증
+        Authentication authentication = authenticationManager.authenticate(token);
 
         // 인증 여부 확인
         boolean result = authentication.isAuthenticated();
 
         // 시큐리티 컨텍스트에 등록
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        
+
         return result;
     }
 
@@ -56,15 +58,15 @@ public class UserServiceImpl implements UserService {
     public int join(Users user) throws Exception {
         String username = user.getUserId();
         String password = user.getUserPw();
-        String encodedPassword = passwordEncoder.encode(password);  // 🔒 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password); // 🔒 비밀번호 암호화
         user.setUserPw(encodedPassword);
 
         // 회원 등록
         int result = userMapper.join(user);
-    
-        if( result > 0 ) {
+
+        if (result > 0) {
             // 회원 기본 권한 등록
-            // USER 조회 ->  userNo 가져오기
+            // USER 조회 -> userNo 가져오기
             Users joinedUser = userMapper.select(username);
             int userNo = joinedUser.getUserNo();
 
@@ -79,15 +81,15 @@ public class UserServiceImpl implements UserService {
     // 기업 회원가입
     @Override
     public int comJoin(Company company) throws Exception {
-        
+
         // 회원 등록
         int result = userMapper.comJoin(company);
-        
-        if( result > 0) {
+
+        if (result > 0) {
             // 회원 기본 권한 등록
-            // USER 조회 ->  userNo 가져오기
+            // USER 조회 -> userNo 가져오기
             int userNo = company.getUserNo();
-            
+
             // 기업 권한 등록
             UserAuth userAuth = new UserAuth();
             userAuth.setUserNo(userNo);
@@ -96,6 +98,19 @@ public class UserServiceImpl implements UserService {
             // result = userMapper.updateAuth(userAuth);
         }
         return result;
+    }
+
+    // 비밀번호 찾기 하는중 ---------------------------------------
+
+    @Override
+    public Users getUserById(String userId) throws Exception {
+        return userMapper.findUserById(userId);
+    }
+
+
+    @Override
+    public String findId(Users user) throws Exception {
+        return userMapper.findId(user);
     }
 
 
@@ -118,5 +133,11 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    
+    @Override
+    public int updatePw(Users userPw) throws Exception{
+        int result = userMapper.updatePw(userPw);
+
+        return result;
+    }
+
 }
