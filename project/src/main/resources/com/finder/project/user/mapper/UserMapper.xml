@@ -181,12 +181,12 @@
         WHERE user_email = #{userEmail} AND user_name = #{userName}
     </select>
 
-    <!-- 비밀번호 찾기 -->
-    <!-- <select id="findPw" parameterType="map" resultType="com.example.model.User">
-        SELECT *
-        FROM user
-        WHERE id = #{id} AND user_name = #{username} AND user_email = #{email}
-    </select> -->
+
+    <!-- 이메일과 인증 코드를 저장하는 쿼리 -->
+    <!-- <insert id="saveEmailVerification" parameterType="com.project.dto.EmailVerification">
+        INSERT INTO email_verification (email, verification_code) VALUES (#{email}, #{verificationCode})
+    </insert>
+    -->
 
     <!-- 비밀번호 업데이트 -->
     <update id="updatePw" parameterType="map">

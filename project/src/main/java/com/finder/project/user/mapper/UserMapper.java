@@ -1,12 +1,11 @@
 package com.finder.project.user.mapper;
 
-import java.util.Map;
-
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.user.dto.EmailVerification;
 import com.finder.project.user.dto.UserAuth;
 import com.finder.project.user.dto.Users;
 
@@ -50,6 +49,13 @@ public interface UserMapper {
     // 비밀번호 수정하기
     public int updatePw(Users userPw) throws Exception;
 
+    // 이메일이랑 자동생성된 값 넣기
+    @Insert("INSERT INTO email_verification (email, verification_code) VALUES (#{email}, #{verificationCode})")
+    void saveEmailVerification(EmailVerification emailVerification);
+
+    // 사용자가 입력한 인증코드랑 db에 인증코드랑 비교하기
+    @Select("SELECT verification_code FROM email_verification WHERE verification_code = #{checkCode}")
+    public String checkCode(String checkCode) throws Exception;
 
 
 }

@@ -32,11 +32,11 @@ public interface UserService {
     // 기업 비밀번호 찾기 할때 정보를 확인
     public Company getComName(String comName) throws Exception;
 
-    // --- 아직 하는중
-
     // 아이디 찾기
     public String findId(Users user) throws Exception;
 
     // 비밀번호 수정하기
     public int updatePw(Users userPw) throws Exception;
+
+    // 메일 코드 조회
 }
