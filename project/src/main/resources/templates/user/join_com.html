@@ -243,11 +243,12 @@
                 success: function (response, status) {
                     // response : 응답 데이터
                     // status   : 응답 상태
+
                     if (response) {
-                        alert('인증성공!.');
+                        alert('코드인증에 성공하였습니다.');
                         $('#joinbutton').css('display', 'flex') 
                     } else {
-                        alert('인증 실패');
+                        alert('코드인증에 실패하였습니다.');
                     }
                 },
                 // 에러
@@ -355,7 +356,6 @@
 
             var clickedButton = event.target;
             clickedButton.classList.add('selected');
-
             var gender = clickedButton.value;
             document.getElementById('userGender').value = gender;
         }
