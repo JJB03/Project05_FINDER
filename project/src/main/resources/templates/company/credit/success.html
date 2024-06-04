@@ -3,6 +3,9 @@
     layout:decorate="~{/layout/payments_layout}">
   <head>
     <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   </head>
   <link rel="stylesheet" href="/css/credit.css">
   <style>
@@ -65,28 +68,27 @@
       <h1 class="mb-5">결제가 완료되었습니다.</h1>
       <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="card text-center">
-            <div class="card-body d-flex flex-column credit-body">
+            <div class="card-body d-flex flex-column credit-body" style="margin: 10px !important; row-gap:20px !important">
                 <h3>
                     <span style="font-size: 30px;" th:text="${product.productName}"></span>
                     <span th:text=" ' / ' + ${product.productDuration} + '개월 ' + ${product.productCount} + 건"></span>
                 </h3>
                 <ul class="credit-list-info">
-                    <li>채용공고 작성 건수</li>   
-                    <th:block th:if="${product.productName} != 10만원">
-                        <li>AI 평가 사용</li> 
-                    </th:block>
-                    <li>건당 <span th:text="${product.productDuration}"></span>개월 유지 가능</li>
-                </ul>
+                  <li>채용공고 작성 건수</li>   
+                  <th:block th:if="${product.productName} != 10만원">
+                      <li>AI 평가 사용</li> 
+                  </th:block>
+                  <li>건당 <span th:text="${product.productDuration}"></span>개월 유지 가능</li>
+              </ul>
             </div>
         </div>
-    </div>
+      </div>
 
       <div class="container mt-5 payment-form-wrap">
           <div class="payment-form">
             <form class="d-flex flex-column justify-content-between">
               <!-- Add your form elements here -->
               <div class="credit_user_info">
-                  <p id="paymentKey"></p>
                   <p id="orderId"></p>
                   <p>결제 날짜: <span th:text="${session.user.userName}"></span></p>
                   <p id="amount"></p>
@@ -111,14 +113,12 @@
           </div>
       </div>
 
-      <input type="hidden" name="productNo" id="productNo" th:value="${product.productNo}">
-      <input type="hidden" name="productPrice" id="productPrice" th:value="${product.productPrice}"> <!-- 상품 가격 -->
-      <input type="hidden" name="productCount" id="productCount" th:value="${product.productCount}"> <!-- 상품 횟수 -->
-      <input type="hidden" name="productDuration" id="productDuration" th:value="${product.productDuration}"> <!-- 상품 기간 -->
-      <input type="hidden" name="userNo" id="userNo" th:value="${session.user.userNo}"> <!-- 전화번호 -->
-
-  </div>
-
+    </div>
+    <input type="hidden" name="productNo" id="productNo" th:value="${product.productNo}">
+    <input type="hidden" name="productPrice" id="productPrice" th:value="${product.productPrice}"> <!-- 상품 가격 -->
+    <input type="hidden" name="productCount" id="productCount" th:value="${product.productCount}"> <!-- 상품 횟수 -->
+    <input type="hidden" name="productDuration" id="productDuration" th:value="${product.productDuration}"> <!-- 상품 기간 -->
+    <input type="hidden" name="userNo" id="userNo" th:value="${session.user.userNo}"> 
 
     <script>
       // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
@@ -127,51 +127,54 @@
       const paymentKey = urlParams.get("paymentKey");
       const orderId = urlParams.get("orderId");
       const amount = urlParams.get("amount"); // 총가격
+      const productNo = urlParams.get("productNo");
+      const orderNo = urlParams.get("orderNo");
 
-      let productCount = document.getElementById('productCount').value
-      let productDuration = document.getElementById('productDuration').value
-      let userNo = document.getElementById('userNo').value
-      let productNo = urlParams.get("productNo");
+      var csrfToken = $("meta[name='_csrf']").attr("content");
+      var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
-      async function confirm() {
-        const requestData = {
-          paymentKey: paymentKey,
-          orderId: orderId,
-          amount: amount,
-          userNo: userNo,
-          productNo: productNo,
-          total_quantity: productCount
-        };
+      var headers = {};
+      headers[csrfHeader] = csrfToken;
 
-        const response = await fetch("/confirm", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value // CSRF 토큰을 헤더에 포함
+      function confirm() {
+
+      // paymentKey 필수
+      var requestData = {
+        paymentKey: urlParams.get("paymentKey"), 
+        orderId: urlParams.get("orderId"),
+        price: urlParams.get("amount"),
+        productNo: urlParams.get("productNo"),
+        orderNo: urlParams.get("orderNo")
+      };
+
+      return new Promise(function (resolve, reject) {
+
+
+        $.ajax({
+          type: "POST",
+          url: "/company/credit/success",
+          headers: headers,
+          data: requestData,
+          success: function (result) {
+            console.log("Payment confirmed successfully:", result);
+            resolve(result); // 성공 시 Promise를 이행하고 결과 전달
           },
-          body: JSON.stringify(requestData)
+          error: function (xhr, status, error) {
+            console.error("Error confirming payment:", error);
+            reject(error); // 실패 시 Promise를 거부하고 에러 전달
+          }
         });
+      });
 
-        const json = await response.json();
-
-        if (!response.ok) {
-          // 결제 실패 비즈니스 로직을 구현하세요.
-          console.log(json);
-          window.location.href = `/fail?message=${json.message}&code=${json.code}`;
-        }
-
-        // 결제 성공 비즈니스 로직을 구현하세요.
-        console.log(json);
       }
+
       confirm();
 
-      const paymentKeyElement = document.getElementById("paymentKey");
       const orderIdElement = document.getElementById("orderId");
       const amountElement = document.getElementById("amount");
 
       orderIdElement.textContent = "주문번호: " + orderId;
       amountElement.textContent = "결제 금액: " + amount;
-      paymentKeyElement.textContent = "paymentKey: " + paymentKey;
 
 
     </script>

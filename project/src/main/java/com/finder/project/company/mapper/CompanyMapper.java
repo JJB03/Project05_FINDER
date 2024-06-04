@@ -57,16 +57,7 @@ public interface CompanyMapper {
 
 
 
-    // 상품 조회
-    public Product selectProduct(int productNo) throws Exception;
 
-
-
-    // 주문등록
-    public int insertOrder(Order order) throws Exception;
-
-    // 결제등록
-    public int insertCredit(Credit credit) throws Exception;
     
 }
 

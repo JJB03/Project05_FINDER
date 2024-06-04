@@ -1,6 +1,8 @@
 package com.finder.project.company.dto;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,6 +18,9 @@ public class Order {
     private Timestamp orderedDate;
     private Timestamp createdDate;
     private Timestamp updatedDate;
-    private Timestamp expirationDate;
+    private Date expirationDate;
+
+
+    private List<Credit> credits;
 
 }

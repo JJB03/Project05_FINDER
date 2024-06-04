@@ -33,38 +33,56 @@
                           margin-top: 10px;
                           justify-content: center;
                         }
+
+        .table-credit {
+            width: 100%;
+        }
+    
+        th {
+            text-align: center;
+            width: auto;
+        }
+
+        td {
+            text-align: center;
+            width: auto;
+            padding: 15px 0;
+        }
+
     </style>
     <title>결제 내역</title>
 </head>
 
 <body layout:fragment="content">
 
-     <!-- Modal -->
-     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">결제내역 상세 안내</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="text-align: center;">
-                    <strong>
-                        결제 날짜: 2024/06/02
-                    </strong>
-                    <br>
-                    <br>
-                    유상준님의 결제 내역입니다<br>
-                    상품 옵션은 12개월이며 <br>
-                    결제 금액은 500000원입니다.<br>
-                    <hr>
-                    구매해주셔서 감사합니다.<br>
-                    주문처리 일자: 2024/06/02<br>
-                </div>
-                <div class="modal-footer">
+    <th:block th:each="order : ${orderCreditList}">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">결제내역 상세 안내</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <strong>
+                            결제 날짜: <span th:each="credit : ${order.credits}" th:text="${#dates.format( credit.creditDate, 'yyyy/MM/dd' )}"></span>
+                        </strong>
+                        <br>
+                        <br>
+                        <span th:text="${session.user.userName}"></span>님의 결제 내역입니다<br>
+                        상품 옵션은 개월이며 <br>
+                        결제 금액은 500000원입니다.<br>
+                        <hr>
+                        구매해주셔서 감사합니다.<br>
+                        주문처리 일자: 2024/06/02<br>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </th:block>
 
     <div class="container-fluid container">
         <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
@@ -204,34 +222,33 @@
                     </div>
                     <div class="container-line">
                         <table class="table-credit">
-                            <tr style="text-align: center;">
-                                    <th>결제번호</th>
-                                    <th>결제수단</th>
-                                    <th>결제날짜</th>
-                                    <th>결제금액</th>
-                                    <th>결제코드</th>
-                                    <th>결제번호</th>
-                                    <th style="width: 80px;">상세보기</th>
-                            </tr>
+                            <thead>
+                                <tr style="text-align: center;">
+                                        <th>주문번호</th>
+                                        <th>결제수단</th>
+                                        <th>결제일시</th>
+                                        <th>결제금액</th>
+                                        <th>결제상태</th>
+                                        <th style="width: 80px;">상세보기</th>
+                                </tr>
+                            </thead>
 
-                            <!-- 임시 페이지-->
-                            <tr class="td-st">
-                                <td>203123123123</td>
-                                <td>계좌이체</td>
-                                <td>2024/06/02</td>
-                                <td>500000</td>
-                                <td>89052532</td>
-                                <td>1231242</td>
-                                <td>
-                                    <a data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" style="cursor: pointer;">
-                                        <strong>상세조회</strong>
-                                    </a>
-                                </td>
-                            </tr>
-                        
-                            <!--실제로 넣을 테이블-->
-                            
+                            <th:block th:each="order : ${orderCreditList}">
+                                <tr class="td-st">
+                                    <td th:text="${order.orderNo}"></td>
+                                    <td th:each="credit : ${order.credits}" th:text="${credit.creditMethod}"></td>
+                                    <td th:each="credit : ${order.credits}" th:text="${credit.creditDate}"></td>
+                                    <td th:text="${order.totalPrice}"></td>
+                                    <th:block th:if="${order.orderStatus eq 'PAID'}">
+                                        <td>결제완료</td>
+                                    </th:block>                                    
+                                    <td>
+                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
+                                            <strong>상세조회</strong>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </th:block>
 
                         </table>
                     </div>

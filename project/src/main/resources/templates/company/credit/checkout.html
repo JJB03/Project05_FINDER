@@ -10,6 +10,7 @@
   <title>토스페이먼츠</title>
   <!-- 결제위젯 SDK 추가 -->
   <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </head>
 
 <body layout:fragment="content">
@@ -88,27 +89,23 @@
 
 
   <script>
-    let productName = document.getElementById('productName').value
-    let productPrice = document.getElementById('productPrice').value
-    let productCount = document.getElementById('productCount').value
-    let productDuration = document.getElementById('productDuration').value
-    let userName = document.getElementById('userName').value
-    let userEmail = document.getElementById('userEmail').value
-    let userPhone = document.getElementById('userPhone').value
-
-
 
     document.addEventListener("DOMContentLoaded", function () {
+
+      let productName = document.getElementById('productName').value
+      let productPrice = document.getElementById('productPrice').value
+      let productCount = document.getElementById('productCount').value
+      let productDuration = document.getElementById('productDuration').value
+
       const button = document.getElementById("payment-button");
       const csrfToken = document.querySelector('input[name="_csrf"]').value; // CSRF 토큰 가져오기
       const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
       
-      // var amount = 50000; // 총 결제금액과 일치하도록 설정
+      var amount = productPrice; // 총 결제금액과 일치하도록 설정
 
       // productNo 값 가져오기
       const productNo = document.getElementById('productNo').value;
-      const successUrl = `${window.location.origin}/company/credit/success?productNo=${productNo}`;
-
+      console.log(productNo)
 
       console.log("결제 위젯 초기화 시작");
       // 결제위젯 초기화
@@ -119,7 +116,7 @@
       // 결제 UI 렌더링
       const paymentMethodWidget = paymentWidget.renderPaymentMethods(
         "#payment-method",
-        { value: productPrice },
+        { value: amount },
         { variantKey: "DEFAULT" }
       );
 
@@ -135,21 +132,24 @@
       // 결제하기 버튼 누르면 결제창 띄우기
       button.addEventListener("click", function () {
         console.log("결제 요청 시작");
+
+        // orderNo 값 가져오기
+        const orderNo = document.getElementById('orderNo').value;
+
         paymentWidget.requestPayment({
           orderId: generateRandomString(),
           orderName: productName,
-          successUrl: successUrl,
+          successUrl: window.location.origin + `/company/credit/success?productNo=${productNo}&orderNo=${orderNo}`,
           failUrl: window.location.origin + "/company/credit/fail",
-          customerEmail: userEmail,
-          customerName: userName,
-          customerMobilePhone: userPhone,
           productDuration: productDuration,
           productCount: productCount,
+          productNo: productNo,
           headers: {
             'X-CSRF-TOKEN': csrfToken // CSRF 토큰을 헤더에 포함
           }
         });
       });
+
     });
 
   </script>
