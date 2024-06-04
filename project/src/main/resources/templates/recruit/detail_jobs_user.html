@@ -72,7 +72,8 @@
                 <div class="wrapper d-flex flex-column  ">
                     <div class="detail-header">
                         <div class="detail-logo d-flex justify-content-start ">
-                            <img th:src="|/file/img/${Thumbnail.fileNo}|" alt="썸네일" width="100px">
+                            <img th:src="|/file/img/${Thumbnail.fileNo}|" alt="썸네일" width="100px" height="100px" th:if="${Thumbnail != null}">
+                            <img src="/img/no-image.png" alt="썸네일" width="100px" height="100px" th:if="${Thumbnail == null}">
                         </div>
                         <div>
                             <span style="font-size: 14px;" th:text="${recruitPost.company.comName}"></span>
