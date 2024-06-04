@@ -319,7 +319,7 @@ public class CompanyController {
         int creditResult = companyService.insertCredit(credit);
 
         if (creditResult > 0) {
-            return "redirect:/company/credit/success?";
+            return "redirect:/company/credit/success";
         } else {
             return "redirect:/company/credit/fail?error";
         }
