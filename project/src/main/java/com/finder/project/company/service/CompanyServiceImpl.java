@@ -137,6 +137,13 @@ public class CompanyServiceImpl implements CompanyService {
         return result;
     }
 
+    // 결제완료 후 주문테이블 수정
+    @Override
+    public int updateOrder(Order order) throws Exception {
+        int result = creditMapper.updateOrder(order);
+        return result;
+    }
+
 
 
 

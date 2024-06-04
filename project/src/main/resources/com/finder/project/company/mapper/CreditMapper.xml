@@ -56,5 +56,12 @@
     </insert>
 
 
+    <update id="updateOrder" parameterType="Order">
+        UPDATE `order`
+        SET order_status = 'PAID',
+            expiration_date = #{expirationDate},
+            updated_date = now()
+        WHERE order_no = #{order_no}
+    </update>
 
 </mapper>
