@@ -127,10 +127,10 @@
                                 onclick="combineEmail()">인증</button>
                         </div>
 
-                        <div id="passwordChange" class="d-flex flex-column" style="display: none !important;">
+                        <div id="passwordChange" class="d-flex flex-column" style="visibility: hidden !important;">
                             <div class="check-btn" >
-                                <input type="text" class="username_input" name="checkCode" id="checkCode"
-                                    placeholder="이메일 인증코드를 입력해주세요" required />
+                                <input type="text" class="username_input" name="emailCode" id="emailCode"
+                                    placeholder="이메일 인증코드를 입력해주세요" />
                                 <button type="button" class="btn-male" 
                                     style="background-color: #007bff; color: white; margin-left: 15px;" onclick="email_Code()">확인</button>
                             </div>
@@ -146,6 +146,7 @@
 
     <script>
 
+        // ✅ 이메일 코드를 보내는 함수
         function email_Code() {
             var checkCode = document.getElementById('checkCode').value;
         
@@ -183,7 +184,7 @@
         }
 
 
-        // 이메일 합치는 함수
+        // ✅ 이메일 통합
         function combineEmail() {
             var firstEmail = document.getElementById('firstEmail').value;
             var lastEmail = document.getElementById('lastEmail').value;                                                                          
@@ -225,7 +226,7 @@
         // 💍 CRSF TOKEN
         var csrfToken = "[[${_csrf.token}]]"
 
-        //버튼 클릭시 유지하는 js 코드
+        // ✅ 버튼 클릭시 유지하는 js 코드
         function change_btn(event) {
             var buttons = document.querySelectorAll('.gender-btn button');
             buttons.forEach(function (button) {
@@ -239,7 +240,7 @@
             document.getElementById('userGender').value = gender;
         }
 
-        // 아이디 유효성 검사
+        // ✅ 아이디 유효성 검사
         function validateId(input) {
             var id = input.value;
             // 4~20자리
@@ -254,7 +255,7 @@
             input.reportValidity();
         }
 
-        // 비밀번호 확인
+        // ✅ 비밀번호 유효성검사
         function validatePasswordConfirmation() {
             var password = document.getElementsByName("userPw")[0].value;
             var confirmPassword = document.getElementsByName("pw_confirm")[0].value;
@@ -276,6 +277,7 @@
         }
 
 
+        // ✅ 회원가입 할때 마지막으로 확인하는 유효성 검사
         function validateForm() {
             var isValid = true;
 
@@ -298,11 +300,16 @@
                 isValid = false;
             }
 
+            const emailCode = document.getElementById("emailCode").value
+            if (emailCode == null) {
+                isValid = false
+                alert('이메일 인증을 해주세요!!')
+            }
             return isValid;
         }
 
 
-        // 휴대전화 유효성 검사
+        // ✅ 휴대전화 유효성 검사
         function validatePhone(input) {
             var phone = input.value;
             // 휴대폰 번호가 11자리인지 확인
@@ -315,6 +322,7 @@
             input.reportValidity();
         }
 
+        // ✅ 처음에 인증버튼 눌렀을때 하는 유효성 검사
         function checkId() {
             let userId = document.getElementById('userId').value
             let request = new XMLHttpRequest()
@@ -338,6 +346,7 @@
             }
         }
 
+        // ✅ 중복을 검사 안하고 제출할때 하는 유효성 검사
         function checkIdForm() {
             let userId = document.getElementById('userId').value
             let request = new XMLHttpRequest()
