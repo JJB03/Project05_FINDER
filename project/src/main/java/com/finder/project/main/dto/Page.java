@@ -20,7 +20,7 @@ import lombok.Data;
 public class Page {
    // 페이징 기본값
    private static final int PAGE_NUM = 1;   // 현재 페이지 번호 기본값
-   private static final int ROWS    = 16;   // 현재 페이지 번호 기본값
+   private static final int ROWS    = 12;   // 현재 페이지 번호 기본값
    private static final int COUNT   = 10;   // 현재 페이지 번호 기본값
    // ✅ 필수 정보
    private int page;    // 페이지 번호

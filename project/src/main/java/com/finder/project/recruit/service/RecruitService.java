@@ -18,6 +18,8 @@ public interface RecruitService {
     // 채용공고 등록
     public int recruitPost(RecruitPost recruitPost) throws Exception;
     
+    public int recruitUpdate(RecruitPost recruitPost) throws Exception;
+    
     // 채용공고 상세조회
     public RecruitPost recruitRead(int recruitNo) throws Exception;
     // public List<Keyword> recruitReadKeyword(int recruitNo) throws Exception;
