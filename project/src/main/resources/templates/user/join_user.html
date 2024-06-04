@@ -140,40 +140,43 @@
     <script>
         // 이메일 합치는 함수
         function combineEmail() {
-            const firstEmail = document.getElementById('firstEmail').value;
-            const lastEmail = document.getElementById('lastEmail').value;
-            const fullEmail = firstEmail + '@' + lastEmail;
+            var firstEmail = document.getElementById('firstEmail').value;
+            var lastEmail = document.getElementById('lastEmail').value;
+            var email = firstEmail + "@" + lastEmail;
+            document.getElementById('userEmail').value = email;
+            alert(email);
 
-            document.getElementById('userEmail').value = fullEmail;
+            var csrfToken = "[[${_csrf.token}]]";
+            let url = "/user/find_users";
 
-            // 이메일 인증을 위한 AJAX 요청 보내기
-            fetch('/user/find_users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: email, // 이메일 주소를 문자열로 전송
+                contentType: 'text/plain', // 데이터의 타입을 명시
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
                 },
-                body: JSON.stringify({ userEmail: fullEmail }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('이메일이 인증되었습니다.');
+                // 요청 성공 
+                success: function (response, status) {
+                    // response : 응답 데이터
+                    // status   : 응답 상태
+                    if (response) {
+                        alert('사용자 정보랑 일치합니다.');
+                        // $('#passwordChange').css('display', 'flex') // 현재 비밀번호 확인 후 변경 폼 보여주기
                     } else {
-                        alert('이메일 인증에 실패하였습니다.');
+                        alert('입력하신 사용자 정보가 없습니다.');
+                        // $('#passwordChange').css('display', 'none !important')
                     }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+                },
+                // 에러
+                error: function (xhr, status) {
+                    // xhr      : XMLHttpRequest 객체
+                    // status   : 응답 상태
+                    alert('에러 발생');
+                }
+            });
         }
-
-
-
-
-
-
-
-
 
 
 

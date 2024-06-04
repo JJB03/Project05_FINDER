@@ -1,9 +1,11 @@
 package com.finder.project.user.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.user.dto.EmailVerification;
 import com.finder.project.user.dto.UserAuth;
 import com.finder.project.user.dto.Users;
 
@@ -47,7 +49,10 @@ public interface UserMapper {
     // 비밀번호 수정하기
     public int updatePw(Users userPw) throws Exception;
 
-    // 이메일 코드 받아오기
+    // 이메일이랑 자동생성된 값 넣기
+    @Insert("INSERT INTO email_verification (email, verification_code) VALUES (#{email}, #{verificationCode})")
+    void saveEmailVerification(EmailVerification emailVerification);
+
 
 
 
