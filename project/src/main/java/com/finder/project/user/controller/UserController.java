@@ -193,7 +193,7 @@ public class UserController {
         String code = userMapper.checkCode(checkCode);
     
         if (code == null) {
-            return ResponseEntity.ok("인증에 실패하였습니다");
+            return ResponseEntity.ok(null);
         } else {
             return ResponseEntity.ok("성공하였습니다");
         }
