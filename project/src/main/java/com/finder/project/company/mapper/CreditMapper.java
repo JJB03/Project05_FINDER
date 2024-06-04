@@ -29,4 +29,6 @@ public interface CreditMapper {
     // 결제등록
     public int insertCredit(Credit credit) throws Exception;
 
+    // 결제완료 후 주문테이블 수정
+    public int updateOrder(Order order) throws Exception;
 }

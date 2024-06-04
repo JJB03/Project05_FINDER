@@ -193,14 +193,9 @@
                 success: function(response, status) {
                     // response : 응답 데이터
                     // status   : 응답 상태
-                    if(response) {
-                        // orderNo를 hidden input에 설정
-                        var orderNoInput = document.createElement('input');
-                        orderNoInput.type = 'hidden';
-                        orderNoInput.name = 'orderNo';
-                        orderNoInput.id = 'orderNo';
-                        orderNoInput.value = response.orderNo;
-                        document.body.appendChild(orderNoInput);
+                    if(response.success) {
+                        var orderNo = response.orderNo;
+                        window.location.href = `/company/credit/checkout?orderNo=${orderNo}&productNo=${productNo}`;
                     } else {
                         window.location.href = '/company/credit/fail?error';
                     }

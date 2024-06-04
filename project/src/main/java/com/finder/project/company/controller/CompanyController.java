@@ -242,20 +242,29 @@ public class CompanyController {
 
     // 토스 페이먼츠 메인 [GET]
     @GetMapping("/credit/checkout")
-    public String checkout(@RequestParam("productNo") int productNo, Model model) throws Exception {
+    public String checkout(@RequestParam("productNo") int productNo
+                          ,@RequestParam("orderNo") int orderNo 
+                          ,Model model) throws Exception {
         
+        Order order = companyService.selectOrder(orderNo);  // orderNo로 주문 정보 조회
         Product product = companyService.selectProduct(productNo);
+        log.info("order :: " + order);
         
+        model.addAttribute("order", order);
         model.addAttribute("product", product);
         return "/company/credit/checkout";
     }
 
     // 토스 페이먼츠 success [GET]
     @GetMapping("/credit/success")
-    public String success(@RequestParam("productNo") int productNo, Model model) throws Exception {
+    public String success(@RequestParam("productNo") int productNo
+                         ,@RequestParam("orderNo") int orderNo
+                         ,Model model) throws Exception {
 
         Product product = companyService.selectProduct(productNo);
+        Order order = companyService.selectOrder(orderNo);
 
+        model.addAttribute("order", order);
         model.addAttribute("product", product);
         return "/company/credit/success";
     }
@@ -279,22 +288,38 @@ public class CompanyController {
                               @RequestParam("orderId") String orderId,
                               @RequestParam("price") int price,
                               @RequestParam("productNo") int productNo,
-                              @RequestParam("orderNo") int orderNo) throws Exception {
+                              //@RequestParam("orderNo") int orderNo
+                              @RequestParam("orderNo") int orderNo
+                              ) throws Exception {
      
         // 세션에서 사용자 정보 가져오기
-        //  Users user = (Users) session.getAttribute("user");
-     
+        // Users user = (Users) session.getAttribute("user");
      
         Credit credit = new Credit();
         credit.setOrderNo(orderNo);
         credit.setCreditCode(orderId);
         credit.setCreditMethod("간편결제");
         credit.setCreditStatus("PAID");
+
+        Order order = companyService.selectOrder(orderNo);
+        log.info("order : " + order);
+        Product product = companyService.selectProduct(productNo);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, product.getProductDuration());
+        log.info("만료일" + product.getProductDuration());
+        log.info("만료일" + calendar.getTime());
+
+        
+        order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+
+        companyService.updateOrder(order);
      
+
         int creditResult = companyService.insertCredit(credit);
 
         if (creditResult > 0) {
-            return "redirect:/company/credit/success";
+            return "redirect:/company/credit/success?";
         } else {
             return "redirect:/company/credit/fail?error";
         }

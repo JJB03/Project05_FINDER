@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   </head>
   <link rel="stylesheet" href="/css/credit.css">
   <style>
@@ -119,6 +119,7 @@
     <input type="hidden" name="productCount" id="productCount" th:value="${product.productCount}"> <!-- 상품 횟수 -->
     <input type="hidden" name="productDuration" id="productDuration" th:value="${product.productDuration}"> <!-- 상품 기간 -->
     <input type="hidden" name="userNo" id="userNo" th:value="${session.user.userNo}"> 
+    <input type="hidden" name="orderNo" id="orderNo" th:value="${order.orderNo}">
 
     <script>
       // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
@@ -128,6 +129,7 @@
       const orderId = urlParams.get("orderId");
       const amount = urlParams.get("amount"); // 총가격
       const productNo = urlParams.get("productNo");
+      // const orderNo = urlParams.get("orderNo");
       const orderNo = urlParams.get("orderNo");
 
       var csrfToken = $("meta[name='_csrf']").attr("content");
@@ -144,6 +146,7 @@
         orderId: urlParams.get("orderId"),
         price: urlParams.get("amount"),
         productNo: urlParams.get("productNo"),
+        // orderNo: urlParams.get("orderNo")
         orderNo: urlParams.get("orderNo")
       };
 
