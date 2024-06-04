@@ -36,13 +36,16 @@ SELECT * FROM `cv` WHERE user_no = 1;
         INNER JOIN user u ON c.user_no = u.user_no
     WHERE c.cv_no = 51
 
--- 문법은 맞음
-UPDATE `cv`
-SET cv_title = '바뀌는게 맞나요?',
-    cover_letter = '저는 잘 모르겠어요. 일단 에스퀴엘이 맞는지 확인 저는 잘 모르겠어요. 일단 에스퀴엘이 맞는지 확인 저는 잘 모르겠어요. 일단 에스퀴엘이 맞는지 확인',
-    cv_upd_date = now()
-WHERE cv_no = 51;
-
-select * FROM employment_history
 
 
+--문법 확인
+    INSERT INTO employment_history (organization, start_date, end_date, duties, cv_no)
+    VALUES ('조은기관', 20240101, 20240801, '학생', 7)
+
+-- 문법 확인2
+    UPDATE employment_history
+    SET organization = '강제등록기관',
+        start_date = 20240101,
+        end_date = 20240802,
+        duties = '백수'
+    WHERE employment_history_no = 1

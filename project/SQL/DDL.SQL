@@ -90,8 +90,8 @@ CREATE TABLE `employment_history` (
 	`employment_history_no` int NOT NULL AUTO_INCREMENT,
 	`cv_no` int NOT NULL,
 	`organization` varchar(500) NULL,
-	`start_date` timestamp NULL,
-	`end_date` timestamp NULL,
+	`start_date` DATE NULL,
+	`end_date` DATE NULL,
 	`duties` varchar(500) NULL,
 	PRIMARY KEY (`employment_history_no`),
     FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
