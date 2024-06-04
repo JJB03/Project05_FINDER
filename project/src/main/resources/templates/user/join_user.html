@@ -127,7 +127,7 @@
                                 onclick="combineEmail()">인증</button>
                         </div>
 
-                        <div id="passwordChange" class="d-flex flex-column" style="visibility: hidden !important;">
+                        <div id="passwordChange" class="d-flex flex-column" style="display: none !important;">
                             <div class="check-btn" >
                                 <input type="text" class="username_input" name="emailCode" id="emailCode"
                                     placeholder="이메일 인증코드를 입력해주세요" />
@@ -135,7 +135,7 @@
                                     style="background-color: #007bff; color: white; margin-left: 15px;" onclick="email_Code()">확인</button>
                             </div>
                         </div>
-                        <div class="d-grid gap-2">
+                        <div class="d-grid gap-2" id="joinbutton" style="display: none !important;">
                             <button class="btn mt-4" type="submit"
                                 style="background-color: var(--main-color); color: #fff; ">회원가입</button>
                         </div>
@@ -148,11 +148,10 @@
 
         // ✅ 이메일 코드를 보내는 함수
         function email_Code() {
-            var checkCode = document.getElementById('checkCode').value;
+            var checkCode = document.getElementById('emailCode').value;
         
             var csrfToken = "[[${_csrf.token}]]";
             let url = "/user/email_code_check";
-        
         
             alert('이메일코드: '+ checkCode);
         
@@ -170,6 +169,7 @@
                     // status   : 응답 상태
                     if (response) {
                         alert('인증성공!.');
+                        $('#joinbutton').css('display', 'flex') 
                     } else {
                         alert('인증 실패');
                     }
@@ -190,7 +190,7 @@
             var lastEmail = document.getElementById('lastEmail').value;                                                                          
             var email = firstEmail + "@" + lastEmail;
             document.getElementById('userEmail').value = email;
-            alert(email);
+            alert('인증코드를 발송하였습니다.');
 
             var csrfToken = "[[${_csrf.token}]]";
             let url = "/user/find_users";
@@ -208,7 +208,7 @@
                     // response : 응답 데이터
                     // status   : 응답 상태
                     if (response) {
-                        alert('이메일 인증코드를 발송하였습니다.');
+                        alert('이메일 인증코드를 확인해주세요.');
                         $('#passwordChange').css('display', 'flex') 
                     } else {
                         alert('이메일 인증코드 오류발생.');
@@ -305,9 +305,11 @@
                 isValid = false
                 alert('이메일 인증을 해주세요!!')
             }
+
+
+
             return isValid;
         }
-
 
         // ✅ 휴대전화 유효성 검사
         function validatePhone(input) {
