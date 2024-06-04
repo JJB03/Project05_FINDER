@@ -1,5 +1,5 @@
-package com.finder.project.resume.service;
 
+package com.finder.project.resume.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +13,17 @@ public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
     @Autowired
     private EmploymentHistoryMapper employmentHistoryMapper;
     
+    
     @Override
-    public List<EmploymentHistory> employmentHistoryList(int userNo) throws Exception {
-       List<EmploymentHistory> employmentHistoryList = employmentHistoryMapper.employmentHistoryList(userNo);
-       return employmentHistoryList; 
+    public List<EmploymentHistory> employmentHistoryList(int cvNo) throws Exception {
+        List<EmploymentHistory> employmentHistoryList = employmentHistoryMapper.listByCvNo(cvNo);
+        return employmentHistoryList; 
     }
 
+    
     @Override
-    public EmploymentHistory select(int userNo) throws Exception {
-        EmploymentHistory employmentHistory = employmentHistoryMapper.select(userNo);
+    public EmploymentHistory select(int employmentHistoryNo) throws Exception {
+        EmploymentHistory employmentHistory = employmentHistoryMapper.select(employmentHistoryNo);
         return employmentHistory;
     }
 
@@ -30,16 +32,24 @@ public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
         int result = employmentHistoryMapper.create(employmentHistory);
         return result;
     }
-
+    
     @Override
     public int update(EmploymentHistory employmentHistory) throws Exception {
         int result = employmentHistoryMapper.update(employmentHistory);
         return result;
     }
 
+
     @Override
     public int delete(int cvNo) throws Exception {
         int result = employmentHistoryMapper.delete(cvNo);
+        return result;
+    }
+
+    
+    @Override
+    public int maxPk() throws Exception {
+        int result = employmentHistoryMapper.maxPk();
         return result;
     }
     

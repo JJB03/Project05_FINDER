@@ -5,8 +5,14 @@
 <mapper namespace="com.finder.project.resume.mapper.EducationMapper">
 
   <!-- 조회 -->
+  <select id="listByCvNo" resultType="com.finder.project.resume.dto.Education">
+    SELECT * FROM education
+    WHERE cv_no = #{cvNo}
+  </select>
+
   <select id="select" resultType="com.finder.project.resume.dto.Education">
     SELECT * FROM education
+    WHERE education_no = #{educationNo}
   </select>
 
   <!-- 생성 -->
@@ -29,5 +35,10 @@
     DELETE FROM education
     WHERE education_no = #{educationNo}
   </delete>
+
+  <!-- 이력서 번호 -->
+  <select id="maxPk" resultType="int">
+    SELECT MAX(education_no) FROM education
+  </select>
 
 </mapper>
