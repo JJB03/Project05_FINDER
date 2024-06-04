@@ -1,5 +1,7 @@
 package com.finder.project.company.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import com.finder.project.company.dto.Credit;
 import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.mapper.CompanyMapper;
+import com.finder.project.company.mapper.CreditMapper;
 import com.finder.project.user.dto.Users;
 
 @Service
@@ -17,6 +20,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyMapper companyMapper;
+    @Autowired
+    private CreditMapper creditMapper;
 
 
     // 기업 상세 정보 조회 (기업 소개)
@@ -98,8 +103,22 @@ public class CompanyServiceImpl implements CompanyService {
     // 상품 조회
     @Override
     public Product selectProduct(int productNo) throws Exception {
-        Product product = companyMapper.selectProduct(productNo);
+        Product product = creditMapper.selectProduct(productNo);
         return product;
+    }
+
+    // 주문 조회
+    @Override
+    public Order selectOrder(int orderNo) throws Exception {
+        Order order = creditMapper.selectOrder(orderNo);
+        return order;
+    }
+
+    // 주문/결제 목록 조회(조인)
+    @Override
+    public List<Order> orderCreditList() throws Exception {
+        List<Order> orderCreditList = creditMapper.orderCreditList();
+        return orderCreditList;
     }
 
 
@@ -107,15 +126,18 @@ public class CompanyServiceImpl implements CompanyService {
     // 주문 등록
     @Override
     public int insertOrder(Order order) throws Exception {
-        int result = companyMapper.insertOrder(order);
-        return result;
+        // 주문내역에 넣으면서 주문 번호 반환
+        creditMapper.insertOrder(order);
+        return order.getOrderNo();
     }
     // 결제 등록
     @Override
     public int insertCredit(Credit credit) throws Exception {
-        int result = companyMapper.insertCredit(credit);
+        int result = creditMapper.insertCredit(credit);
         return result;
     }
+
+
 
 
 }

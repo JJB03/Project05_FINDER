@@ -64,6 +64,7 @@
         }
 
       </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </head>
 
 <body layout:fragment="content">
@@ -141,7 +142,7 @@
                         <p style="margin: 0;">결제 수단 :</p>
                     </div>
                     <div class="align-self-end">
-                        <a id="tossURL" href="#" type="button" class="btn-long disabled">신용카드 결제</a>
+                        <a id="tossURL" href="#" type="button" onclick="postOrder()" class="btn-long disabled">신용카드 결제</a>
                         <a href="/company/credit/credit_com" type="button" class="btn-long">취소</a>
                     </div>
                   </div>
@@ -166,6 +167,55 @@
                 tossURL.href = '/company/credit/checkout?productNo=' + productNo;
                 tossURL.classList.remove('disabled');
             }
+
+
+        function postOrder() {
+
+            // 💍 CSRF TOKEN
+            var csrfToken = "[[${_csrf.token}]]";
+            let url = "/company/credit/checkout";
+            const productNo = document.getElementById('productNo').value;
+
+            // jQuery 로 AJAX 요청
+            $.ajax({
+                type: 'POST',               // 요청 메소드 - GET, POST, PUT, DELETE
+                url: url,                   // 요청 URL
+                data: JSON.stringify({      // 요청 데이터를 JSON 문자열로 변환
+                    productNo: productNo
+                }),
+                contentType: 'application/json',     // 요청 데이터 타입
+                dataType: 'json',                   // 응답 데이터 타입
+                beforeSend: function(xhr) {
+                    // 💍 CSRF 토큰을 요청 헤더에 추가
+                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                },
+                // 요청 성공 
+                success: function(response, status) {
+                    // response : 응답 데이터
+                    // status   : 응답 상태
+                    if(response) {
+                        // orderNo를 hidden input에 설정
+                        var orderNoInput = document.createElement('input');
+                        orderNoInput.type = 'hidden';
+                        orderNoInput.name = 'orderNo';
+                        orderNoInput.id = 'orderNo';
+                        orderNoInput.value = response.orderNo;
+                        document.body.appendChild(orderNoInput);
+                    } else {
+                        window.location.href = '/company/credit/fail?error';
+                    }
+                },
+                // 에러
+                error: function(xhr, status) {
+                    // xhr      : XMLHttpRequest 객체
+                    // status   : 응답 상태
+                    alert('에러 발생');
+                }
+            });
+
+        }
+
+            
 
     </script>
 

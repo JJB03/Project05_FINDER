@@ -1,5 +1,7 @@
 package com.finder.project.company.service;
 
+import java.util.List;
+
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.dto.Credit;
@@ -11,28 +13,20 @@ public interface CompanyService {
 
     // 기업 상세 정보 조회 (기업 소개)
     public CompanyDetail selectCompanyDetail(int comInfoNo) throws Exception;
-
     // 기업 상세 정보 등록 (기업 소개)
     public int insertCompanyDetail(CompanyDetail companyDetail) throws Exception;
-
     // 기업 상세 정보 수정 (기업 소개)
     public int updateCompanyDetail(CompanyDetail companyDetail) throws Exception;
 
-    // 기업 상세 정보 삭제는 없음 (기업 소개)
-
-    
+ 
 
     // 기업 정보 조회 (기업 정보)
     public Company selectCompanyByComNo(int comNo) throws Exception;
-
     // 기업 정보 등록 (기업 정보)
     public int insertCompany(Company company) throws Exception;
-
-
     // 기업회원 정보 수정 (기업 정보)
     public int updateUserInfo(Users user) throws Exception;
 
-    // 기업 정보 삭제는 없음 (기업 정보)
 
 
     // 유저 비밀번호 변경
@@ -48,12 +42,12 @@ public interface CompanyService {
 
     // 상품 조회
     public Product selectProduct(int productNo) throws Exception;
-
-
-
+    // 주문 조회
+    public Order selectOrder(int orderNo) throws Exception;
+    // 주문/결제 목록 조회 (조인)
+    public List<Order> orderCreditList() throws Exception;
     // 주문등록
     public int insertOrder(Order order) throws Exception;
-
     // 결제등록
     public int insertCredit(Credit credit) throws Exception;
 }
