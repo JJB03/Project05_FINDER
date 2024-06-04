@@ -19,6 +19,8 @@ public interface RecruitMapper {
     // 채용공고 등록
     public int recruitPost(RecruitPost recruitPost) throws Exception;
 
+    public int recruitUpdate(RecruitPost recruitPost) throws Exception;
+
     // keyword
     public int max() throws Exception;
     // public int recruitKeyword(@Param("recruitNo") int recruitNo, @Param("recruitKeyword") String keyword);

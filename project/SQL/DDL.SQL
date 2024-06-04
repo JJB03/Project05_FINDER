@@ -1,5 +1,4 @@
 
--- Active: 1716771409910@@127.0.0.1@3306@joeun
 
 
 
@@ -98,8 +97,8 @@ CREATE TABLE `employment_history` (
 	`employment_history_no` int NOT NULL AUTO_INCREMENT,
 	`cv_no` int NOT NULL,
 	`organization` varchar(500) NULL,
-	`start_date` timestamp NULL,
-	`end_date` timestamp NULL,
+	`start_date` DATE NULL,
+	`end_date` DATE NULL,
 	`duties` varchar(500) NULL,
 	PRIMARY KEY (`employment_history_no`),
     FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
@@ -231,11 +230,11 @@ CREATE TABLE `order` (
 	`product_no` int NOT NULL,
 	`total_quantity`	int	NOT NULL  DEFAULT 1,
 	`total_price`	int	NOT NULL  DEFAULT 0,
-	`order_status` ENUM('PENDING','PAID','CANCELLED') NOT NULL DEFAULT 'PENDING' COMMENT '결제대기,결제완료,주문취소',
+	`order_status` ENUM('PENDING','PAID','CANCELLED') NOT NULL DEFAULT 'PAID' COMMENT '결제대기,결제완료,주문취소',
 	`ordered_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
 	`created_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
 	`updated_date`	timestamp	NOT NULL  DEFAULT CURRENT_TIMESTAMP,
-	`expiration_date`  timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '상품 만료',
+	`expiration_date`  DATE NULL COMMENT '상품 만료',
 	PRIMARY KEY (`order_no`),
 	FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`),
 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
@@ -245,9 +244,9 @@ CREATE TABLE `order` (
 CREATE TABLE `credit` (
     `credit_no` INT NOT NULL AUTO_INCREMENT,
     `order_no` INT NOT NULL,
-    `credit_method` INT NULL,
-	`credit_status` ENUM('PENDING','PAID','REFUND') NOT NULL DEFAULT 'PENDING' COMMENT '결제대기,결제완료,환불',
-    `credit_code` VARCHAR(500) NULL,
+    `credit_method` varchar(500) NULL,
+	`credit_status` ENUM('PENDING','PAID','REFUND') NOT NULL DEFAULT 'PAID' COMMENT '결제대기,결제완료,환불',
+    `credit_code` VARCHAR(500) NULL, -- 토스페이먼츠 order_id 랜덤 주문번호
 	`credit_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`credit_no`),
 	FOREIGN KEY (`order_no`) REFERENCES `order`(`order_no`)

@@ -1,11 +1,14 @@
 package com.finder.project.company.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Credit;
 import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.PasswordConfirmRequest;
 import com.finder.project.company.dto.Product;
@@ -29,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@Controller("CompanyController")
+@Controller
 @RequestMapping("/company")
 public class CompanyController {
 
@@ -234,7 +239,8 @@ public class CompanyController {
     
 
 
-    // 토스 페이먼츠 메인
+
+    // 토스 페이먼츠 메인 [GET]
     @GetMapping("/credit/checkout")
     public String checkout(@RequestParam("productNo") int productNo, Model model) throws Exception {
         
@@ -243,6 +249,7 @@ public class CompanyController {
         model.addAttribute("product", product);
         return "/company/credit/checkout";
     }
+
     // 토스 페이먼츠 success [GET]
     @GetMapping("/credit/success")
     public String success(@RequestParam("productNo") int productNo, Model model) throws Exception {
@@ -264,39 +271,76 @@ public class CompanyController {
     //     return "/company/credit/fail";    
     // }
 
-     // 결제 확인 및 데이터베이스 저장
-     @PostMapping("/confirm")
-     public ResponseEntity<?> confirmPayment( HttpSession session
-                                             ,@RequestBody Map<String, Object> paymentData) throws Exception {
-
-        // String paymentKey = (String) paymentData.get("paymentKey");
-        // String orderId = (String) paymentData.get("orderId");
-        int amount = (int) paymentData.get("amount");
-        int productNo = (int) paymentData.get("productNo");
-        // int userNo = (int) paymentData.get("userNo");
-        int totalQuantity = (int) paymentData.get("total_quantity");
-
+     // 결제 테이블 추가
+     @ResponseBody
+     @PostMapping("/credit/success")
+     public String successPro(HttpSession session,
+                              @RequestParam("paymentKey") String paymentKey,
+                              @RequestParam("orderId") String orderId,
+                              @RequestParam("price") int price,
+                              @RequestParam("productNo") int productNo,
+                              @RequestParam("orderNo") int orderNo) throws Exception {
+     
         // 세션에서 사용자 정보 가져오기
-        Users user = (Users) session.getAttribute("user");
- 
-         // 결제 성공 시 주문 데이터를 데이터베이스에 저장
-         Order order = new Order();
-         Product product = companyService.selectProduct(productNo);
-         
-         order.setUserNo(user.getUserNo()); /* session이나 다른 방식으로 userNo 설정 */
-         order.setProductNo(product.getProductNo());
-         order.setTotalQuantity(totalQuantity); // 필요한 경우 적절히 설정
-         order.setTotalPrice(amount);
-         order.setOrderStatus("PAID");
- 
-         int result = companyService.insertOrder(order);
- 
-         if (result > 0) {
-             return ResponseEntity.ok().body("Payment confirmed and order saved.");
-         } else {
-             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save order.");
-         }
+        //  Users user = (Users) session.getAttribute("user");
+     
+     
+        Credit credit = new Credit();
+        credit.setOrderNo(orderNo);
+        credit.setCreditCode(orderId);
+        credit.setCreditMethod("간편결제");
+        credit.setCreditStatus("PAID");
+     
+        int creditResult = companyService.insertCredit(credit);
+
+        if (creditResult > 0) {
+            return "redirect:/company/credit/success";
+        } else {
+            return "redirect:/company/credit/fail?error";
+        }
+
      }
+
+
+     // 주문 테이블 추가
+    @ResponseBody
+    @PostMapping("/credit/checkout")
+    public Map<String, Object> successPro(HttpSession session,
+                                      @RequestBody Map<String, Integer> requestBody) throws Exception {
+    int productNo = requestBody.get("productNo");
+
+    // 세션에서 사용자 정보 가져오기
+    Users user = (Users) session.getAttribute("user");
+
+    // 결제 성공 시 주문 데이터를 데이터베이스에 저장
+    Order order = new Order();
+    Product product = companyService.selectProduct(productNo);
+
+    order.setUserNo(user.getUserNo()); /* session이나 다른 방식으로 userNo 설정 */
+    order.setProductNo(product.getProductNo());
+    order.setTotalQuantity(product.getProductCount()); // 필요한 경우 적절히 설정
+    order.setTotalPrice(product.getProductPrice());
+    order.setOrderStatus("PENDING");
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.MONTH, product.getProductDuration());
+    log.info("만료일" + product.getProductDuration());
+    log.info("만료일" + calendar.getTime());
+
+    order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+
+    // order_no를 반환하는 insertOrder 메서드 호출
+    int orderNo = companyService.insertOrder(order);
+
+    Map<String, Object> response = new HashMap<>();
+    if (orderNo > 0) {
+        response.put("success", true);
+        response.put("orderNo", orderNo);
+    } else {
+        response.put("success", false);
+    }
+    return response;
+}
 
     
 
@@ -310,11 +354,12 @@ public class CompanyController {
 
 
 
-    // 결제상품 목록 화면
+    // 결제상품 화면
     @GetMapping("/credit/credit_com")
     public String credit_com() throws Exception {
         return "/company/credit/credit_com";
     }
+    
     // 결제상품 세부 화면
     @GetMapping("/credit/credit_detail_com")
     public String credit_detail_com(@RequestParam("productNo") int productNo, Model model, Product product) throws Exception {
@@ -325,9 +370,17 @@ public class CompanyController {
         model.addAttribute("product", product);
         return "company/credit/credit_detail_com";
     }
+
+
+
     // 결제 목록 내역 화면
     @GetMapping("/credit/credit_list_com")
-    public String credit_list_com() throws Exception {
+    public String credit_list_com(Model model) throws Exception {
+
+    List<Order> orderCreditList = companyService.orderCreditList();
+
+    model.addAttribute("orderCreditList", orderCreditList);
+
         return "/company/credit/credit_list_com";
     }
 

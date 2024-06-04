@@ -14,14 +14,14 @@ public class EducationServiceImpl implements EducationService {
     private EducationMapper educationMapper;
 
     @Override
-    public List<Education> educationList(int userNo) throws Exception {
-        List<Education> educationList = educationMapper.educationList(userNo);
+    public List<Education> educationList(int cvNo) throws Exception {
+        List<Education> educationList = educationMapper.listByCvNo(cvNo);
         return educationList;
     }
 
     @Override
-    public Education select(int userNo) throws Exception {
-        Education education = educationMapper.select(userNo);
+    public Education select(int educationNo) throws Exception {
+        Education education = educationMapper.select(educationNo);
         return education;
     }
 
@@ -41,6 +41,12 @@ public class EducationServiceImpl implements EducationService {
     @Override
     public int delete(int cvNo) throws Exception {
         int result = educationMapper.delete(cvNo);
+        return result;
+    }
+
+    @Override
+    public int maxPk() throws Exception {
+        int result = educationMapper.maxPk();
         return result;
     }
 
