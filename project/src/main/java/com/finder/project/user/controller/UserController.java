@@ -122,29 +122,6 @@ public class UserController {
         return new ResponseEntity<>(true, HttpStatus.OK);
 
     }
-    // alert로 띄우는거 보류
-    // @ResponseBody
-    // @PostMapping("/find_user")
-    // public String findId(@RequestParam("userEmail") String userEmail ,
-    // @RequestParam("userName") String userName) throws Exception {
-
-    // log.info("이메일 파라미터 : " + userEmail);
-    // log.info("유저 이름 파라미터 : " + userName);
-    // Users user = new Users();
-    // user.setUserEmail(userEmail);
-    // user.setUserName(userName);
-
-    // String userId = userService.findId(user);
-    // log.info("유저아이디 : " + userId);
-
-    // if (userId != null) {
-    // return "<script>alert('Your ID is " + userId + "');
-    // location.href='/login';</script>";
-    // } else {
-    // return "<script>alert('No user found with that username and email');
-    // history.back();</script>";
-    // }
-    // }
 
     // 아이디 이메일로 전송 완료
     @ResponseBody
@@ -171,31 +148,7 @@ public class UserController {
         }
     }
 
-    // 회원가입 할때 이메일 인증
-    // @ResponseBody
-    // @PostMapping("/find_users")
-    // public String emailCheck(@RequestParam("userEmail") String userEmail,
-    // @RequestParam("mailKey") String mailKey)
-    // throws Exception {
-    // log.info("이메일 파라미터 : " + userEmail);
-    // EmailCheck requestEamil = new EmailCheck();
-    // requestEamil.setMailKey(mailKey);
-    // String key = userService.selectMailKey(requestEamil);
-
-    // log.info("이메일 키가 들어가 있니?" + key);
-
-    // if (key != null) {
-    // String subject = "FINDER의 이메일 인증";
-    // String text = "이메일 인증 코드 : " + key;
-    // emailService.sendSimpleMessage(userEmail, subject, text);
-    // return "<script>alert('해당 이메일로 코드를 발송하였습니다.');
-    // location.href='/login';</script>";
-    // } else {
-    // return "<script>alert('해당 이메일을 찾을 수 없습니다.'); history.back();</script>";
-    // }
-    // }
-
-    // 🤣이메일 자동코드 생성하다가 막힘
+    // ✅ 이메일 자동생성 완료
     @ResponseBody
     @PostMapping("/find_users")
     public String emailCheck(@RequestBody String userEmail) throws Exception {
@@ -203,7 +156,7 @@ public class UserController {
         if (userEmail == null) {
             log.info("이메일 파라미터 : " + userEmail);
         }
-        
+
         // 랜덤한 인증 코드 생성
         String mailKey = generateRandomKey(); // 임의의 인증 코드 생성하는 메소드 호출
         EmailVerification emailVerification = new EmailVerification();
@@ -230,6 +183,20 @@ public class UserController {
 
         return shortUuid;
 
+    }
+
+    // db에 있는 자동생성된 code랑 사용자가 입력한 코드랑 비교
+    @PostMapping("/email_code_check")
+    public ResponseEntity<String> codeCheck(@RequestBody String checkCode) throws Exception {
+        log.info("이메일 인증 코드 불러오나요?  " + checkCode);
+    
+        String code = userMapper.checkCode(checkCode);
+    
+        if (code == null) {
+            return ResponseEntity.ok("인증에 실패하였습니다");
+        } else {
+            return ResponseEntity.ok("성공하였습니다");
+        }
     }
 
     // 사용자 정보 확인⭕

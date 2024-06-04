@@ -53,7 +53,9 @@ public interface UserMapper {
     @Insert("INSERT INTO email_verification (email, verification_code) VALUES (#{email}, #{verificationCode})")
     void saveEmailVerification(EmailVerification emailVerification);
 
-
+    // 사용자가 입력한 인증코드랑 db에 인증코드랑 비교하기
+    @Select("SELECT verification_code FROM email_verification WHERE verification_code = #{checkCode}")
+    public String checkCode(String checkCode) throws Exception;
 
 
 }
