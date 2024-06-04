@@ -57,16 +57,16 @@
         ,f.file_name
         ,f.file_path
         ,f.file_code
-        FROM company c
-        INNER JOIN recruit r ON c.com_no = r.com_no
-        LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
-        LEFT JOIN (
-            SELECT *
-            FROM file
-            WHERE parent_table = 'recruit'
-              AND file_code = 1
-        ) f ON r.recruit_no = f.parent_no
-        <where> 
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN (
+        SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND file_code = 1
+    ) f ON r.recruit_no = f.parent_no
+    <where> 
         <if test="option.code == 0">
             r.recruit_title LIKE CONCAT('%', #{option.keyword}, '%')
         </if>
@@ -81,13 +81,11 @@
         
         <if test="option.code == 3">
             c.com_category LIKE CONCAT('%', #{option.keyword}, '%')
-            
         </if>
     </where>
-        ORDER BY r.com_reg_date DESC
-        LIMIT #{page.index}, #{page.rows}
-
-  </select>
+    ORDER BY r.com_reg_date DESC
+    LIMIT #{page.index}, #{page.rows}
+</select>
 
   <insert id="recruitPost">
     INSERT INTO recruit (recruit_title, recruit_content, com_no, recruit_responsibilities, recruit_qualifications, recruit_preferred_qualifications, recruit_reg_date)
@@ -141,7 +139,7 @@
     WHERE recruit_no = #{recrutNo};
   </delete>
   
-  <update id="updateRecruitRead">
+  <update id="recruitUpdate">
     UPDATE recruit
     SET recruit_title = #{recruitTitle},
     recruit_content = #{recruitContent},
@@ -149,10 +147,6 @@
     recruit_qualifications = #{recruitQualifications},
     recruit_preferred_qualifications = #{recruitPreferredQualifications},
     recruit_reg_date = now()
-              <if test="parentNo != 0">
-                ,parent_no = #{parentNo}
-              </if>
-              ,recruit_reg_date = now()
     WHERE recruit_no = #{recruitNo}
   </update>
 
@@ -213,7 +207,7 @@
             c.com_category LIKE CONCAT('%', #{option.keyword}, '%')
         </if>
     </where>
-</select>
+  </select>
 
 
 

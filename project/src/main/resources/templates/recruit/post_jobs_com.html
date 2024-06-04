@@ -137,12 +137,18 @@
 
                     <div class="post-main">
                         <div class="d-flex justify-content-start align-items-center" style="height: 75px;">
-
-                            <div style="margin-right: 1rem;">로고</div>
-                            <div class="thumbnail-wrapper">
-                                <button class="btn-short file-upload-button">선택</button>
-                                <input type="file" name="thumbnail" id="thumbnail" class="file-input" accept="image/*">
-                                <img id="thumbnail-preview" class="thumbnail-preview" src="">
+                            <div class="d-flex align-items-center me-5">
+                                <div style="margin-right: 1rem;">
+                                    로고
+                                </div>
+                                <div>
+                                    <button class="btn-short file-upload-button">선택</button>
+                                </div>
+                            </div>
+                            <div class="thumbnail-wrapper d-flex">
+                                <input type="file" name="thumbnail" id="thumbnail" class="file-input" accept="image/*"
+                                    style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;">
+                                <img id="thumbnail-preview" class="thumbnail-preview" src="" style="width: 75px; height: 75px; cursor: pointer;">
                                 <button id="remove-thumbnail" class="remove-thumbnail">X</button>
                             </div>
                         </div>
@@ -218,7 +224,7 @@
                     <div class="d-flex justify-content-between">
 
                         <div class="file-input-wrapper">
-                            <button class="btn-long file-upload-button">파일 첨부</button>                           
+                            <button class="btn-long file-upload-button">파일 첨부</button>
                             <div>
                                 <input name="file" type="file" class="file-input hidden-file-input" id="file-input"
                                     multiple>
@@ -271,7 +277,7 @@
             // 파일 선택 버튼 클릭 이벤트
             $('.file-upload-button').on('click', function (event) {
                 event.preventDefault();
-                if ($(this).siblings('input[type="file"]').attr('id') === 'thumbnail') {
+                if ($(this).hasClass('btn.short')) {
                     $('#thumbnail').click();
                 } else {
                     $('#file-input').click();

@@ -52,6 +52,7 @@ public class RecruitController {
             HttpSession session) throws Exception {
 
         Users user = (Users) session.getAttribute("user");
+        log.info(file + "??????????????????????????????????????????");
 
         if (user != null) { // 먼저 user가 null이 아닌지 확인
             Integer userNo = user.getUserNo(); // user 객체가 유효한 경우에만 userNo를 가져옵니다.
@@ -86,6 +87,7 @@ public class RecruitController {
         file.setParentNo(recruitNo);
         
         List<Files> fileList = fileService.listByParent(file);
+        
 
         Files Thumbnail = fileService.listByParentThumbnail(file);
 
@@ -125,12 +127,13 @@ public class RecruitController {
     public String getPost_jobs_read_com(@RequestParam("recruitNo") int recruitNo, Model model, Files file) throws Exception {
 
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
+       log.info(file + "??????????????????????????????????????????");
 
-        if (recruitPost == null) {
-            log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
-        } else {
-            log.info("RecruitPost 정보: {}", recruitPost);
-        }
+        // if (recruitPost == null) {
+        //     log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
+        // } else {
+        //     log.info("RecruitPost 정보: {}", recruitPost);
+        // }
 
         // List<Keyword> keywords = recruitService.recruitReadKeyword(recruitNo);
         // if (keywords == null) {
@@ -144,6 +147,15 @@ public class RecruitController {
         file.setParentNo(recruitNo);
         
         List<Files> fileList = fileService.listByParent(file);
+
+        if (fileList == null) {
+            log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+
+        for (Files files : fileList) {
+            log.info("files@@@@@@@@@@@@@@@@@@@@@@@정보!!!!!!!!!!!!!!!!!!!", files);
+        }
+
 
         Files Thumbnail = fileService.listByParentThumbnail(file);
 
@@ -177,7 +189,7 @@ public class RecruitController {
     @PostMapping("/post_jobs_read_com/update")
     public String post_jobs_read_com_update(RecruitPost recruitPost) throws Exception {
 
-        int result = recruitService.updateRecruitRead(recruitPost);
+        int result = recruitService.recruitUpdate(recruitPost);
 
         if (result > 0) {
             log.info(" update 성공 ");
@@ -207,9 +219,6 @@ public class RecruitController {
 
         log.info("채용공고 삭제 : " + recruitNo);
         int result = recruitService.deleteRecruitList(recruitNo);
-        
-        
-
 
         if (result > 0) {
             log.info("삭제되었습니다. ");
