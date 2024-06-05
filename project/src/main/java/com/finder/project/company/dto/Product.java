@@ -1,7 +1,5 @@
 package com.finder.project.company.dto;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data

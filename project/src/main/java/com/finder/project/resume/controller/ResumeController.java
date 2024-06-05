@@ -11,26 +11,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Education;
 import com.finder.project.resume.dto.EmploymentHistory;
 import com.finder.project.resume.dto.Resume;
-import com.finder.project.resume.mapper.EducationMapper;
 import com.finder.project.resume.service.EducationService;
 import com.finder.project.resume.service.EmploymentHistoryService;
 import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * /resume 경로로 요청 왔을 때 처리
@@ -229,12 +225,7 @@ public class ResumeController {
 
     /**
      * 경력 등록하기
-<<<<<<< HEAD
      * -employmentHistory 테이블에 insert
-=======
-     * -employmenthistory 테이블에 insert
-     * 
->>>>>>> YSJ
      * @param employmentHistory
      * @return
      * @throws Exception
@@ -416,7 +407,6 @@ public class ResumeController {
         log.info("###############################" + employmentHistoryNo);
         //데이터 db에 저장
         try {
-<<<<<<< HEAD
             int result = employmentHistoryService.delete(employmentHistoryNo);
  
             if( result > 0 ) {
@@ -425,15 +415,6 @@ public class ResumeController {
                 log.info("실패했다" + result);
                 
             } 
-=======
-            // 데이터 db에 저장
-            int result = educationService.delete(employmentHistoryNo);
-            if (result > 0) {
-                return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-            } else {
-                log.info("실패했다" + result);
-            }
->>>>>>> YSJ
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("경력 삭제시, 에러 발생");
