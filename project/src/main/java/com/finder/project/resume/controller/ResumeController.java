@@ -63,7 +63,7 @@ public class ResumeController {
     private EducationService educationService;
 
     @Autowired
-    private EmploymentHistoryService employmentHistoryService;
+    EmploymentHistoryService employmentHistoryService;
 
 
     
@@ -237,7 +237,7 @@ public class ResumeController {
 
     /**
      * 경력 등록하기
-     * -employmenthistory 테이블에 insert
+     * -employmentHistory 테이블에 insert
      * @param employmentHistory
      * @return
      * @throws Exception
@@ -275,7 +275,7 @@ public class ResumeController {
         model.addAttribute("employmentHistoryList", employmentHistoryList);
         log.info("::::::::::: 경력 리스트 :::::::::: ");
         log.info(employmentHistoryList.toString());
-        return "/resume/employmenthistory/list";
+        return "/resume/employmentHistory/list";
     }
 
     /**
@@ -326,8 +326,6 @@ public class ResumeController {
 
     //경력 수정
 
-    
-    
     @PostMapping("/cv_read_user")
     public String updateUserPro2(HttpSession session, Resume resume) throws Exception {
 
@@ -408,7 +406,7 @@ public class ResumeController {
     /**
      * 경력 삭제
      * - employmentHistoryNo 받아옴
-     * - employmenthistory 테이블에서 delete
+     * - employmentHistory 테이블에서 delete
      * - 응답
      *  - 성공 ⭕ ➡ "SUCCESS" 객체
      *  - 실패 ❌ ➡ "FAIL"
@@ -421,13 +419,15 @@ public class ResumeController {
     public ResponseEntity<String> deleteEmpploymentHistory(@RequestParam("employmentHistoryNo")
                                      int employmentHistoryNo) throws Exception {
         log.info("###############################" + employmentHistoryNo);
+        //데이터 db에 저장
         try {
-            //데이터 db에 저장
-            int result = educationService.delete(employmentHistoryNo);
+            int result = employmentHistoryService.delete(employmentHistoryNo);
+ 
             if( result > 0 ) {
                 return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
             } else {
                 log.info("실패했다" + result);
+                
             } 
         } catch (Exception e) {
             e.printStackTrace();

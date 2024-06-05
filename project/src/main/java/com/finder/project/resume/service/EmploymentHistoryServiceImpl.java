@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import com.finder.project.resume.dto.EmploymentHistory;
 import com.finder.project.resume.mapper.EmploymentHistoryMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+
+@Slf4j
 @Service
 public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
     @Autowired
@@ -41,8 +46,10 @@ public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
 
 
     @Override
-    public int delete(int cvNo) throws Exception {
-        int result = employmentHistoryMapper.delete(cvNo);
+    public int delete(int employmentHistoryNo) throws Exception {
+        int result = employmentHistoryMapper.delete(employmentHistoryNo);
+
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ result값 : " + result);
         return result;
     }
 

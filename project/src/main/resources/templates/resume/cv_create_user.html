@@ -239,7 +239,7 @@
 
               <div class="col-12 p-2">
                 <!-- 학력 리스트 -->
-                <div id="employmenthistory-list">
+                <div id="employmentHistory-list">
 
 <!--                 <div class="d-flex w-100 d-flex justify-content-between">
                   <div class="flex-column col-4">
@@ -417,7 +417,7 @@
           document.getElementById('duties').value = "";
 
           // 경력 목록 갱신
-          employmenthistoryList();
+          employmentHistoryList();
         },
         // 에러 발생
         error: function (xhr, status) {
@@ -433,7 +433,7 @@
      *  경력 리스트 조회
      * - cvNo 로 조회 
      */
-     function employmenthistoryList() {
+     function employmentHistoryList() {
       // alert(`경력 리스트 갱신`)
       $.ajax({
         type: 'get', //요청메소드
@@ -447,7 +447,7 @@
         //요청 성공             응답데이터 응답상태
         success: function name(response, status) {
           let employmentHistoryList = response
-          $("#employmenthistory-list").html(employmentHistoryList)
+          $("#employmentHistory-list").html(employmentHistoryList)
 
         },
         //에러 발생

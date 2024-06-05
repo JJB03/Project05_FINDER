@@ -19,7 +19,7 @@ public interface EmploymentHistoryService {
     public int update (EmploymentHistory employmentHistory) throws Exception;
 
     //경력사항 삭제
-    public int delete (int cvNo) throws Exception;
+    public int delete (int employmentHistoryNo) throws Exception;
 
     //이력서 번호
     public int maxPk() throws Exception;
