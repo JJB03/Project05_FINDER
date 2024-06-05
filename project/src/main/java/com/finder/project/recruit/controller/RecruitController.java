@@ -256,4 +256,11 @@ public class RecruitController {
         return "/recruit/new_jobs_user";
     }
 
+    @GetMapping("/applied_jobs_user")
+    public String getMethodName() {
+
+        return "/recruit/applied_jobs_user";
+    }
+    
+
 }
