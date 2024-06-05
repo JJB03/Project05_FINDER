@@ -127,15 +127,16 @@
                                 onclick="combineEmail()">인증</button>
                         </div>
 
-                        <div id="passwordChange" class="d-flex flex-column" style="visibility: hidden !important;">
-                            <div class="check-btn" >
+                        <div id="passwordChange" class="d-flex flex-column" style="display: none !important;">
+                            <div class="check-btn">
                                 <input type="text" class="username_input" name="emailCode" id="emailCode"
                                     placeholder="이메일 인증코드를 입력해주세요" />
-                                <button type="button" class="btn-male" 
-                                    style="background-color: #007bff; color: white; margin-left: 15px;" onclick="email_Code()">확인</button>
+                                <button type="button" class="btn-male"
+                                    style="background-color: #007bff; color: white; margin-left: 15px;"
+                                    onclick="email_Code()">확인</button>
                             </div>
                         </div>
-                        <div class="d-grid gap-2">
+                        <div class="d-grid gap-2" id="joinbutton" style="display: none !important;">
                             <button class="btn mt-4" type="submit"
                                 style="background-color: var(--main-color); color: #fff; ">회원가입</button>
                         </div>
@@ -145,33 +146,34 @@
     </div>
 
     <script>
-
-        // ✅ 이메일 코드를 보내는 함수
+        // ✅ 사용자가 입력안 코드를 db에 검사하는 함수
         function email_Code() {
-            var checkCode = document.getElementById('checkCode').value;
-        
+            var verificationCode = document.getElementById('emailCode').value;
+
             var csrfToken = "[[${_csrf.token}]]";
             let url = "/user/email_code_check";
-        
-        
-            alert('이메일코드: '+ checkCode);
-        
+
             $.ajax({
                 type: 'POST',
                 url: url,
-                data: checkCode, // 이메일 주소를 문자열로 전송
-                contentType: 'text/plain', // 데이터의 타입을 명시
+                data: JSON.stringify({
+                    verificationCode: verificationCode
+                }), // 데이터를 JSON 문자열로 변환하여 전송
+                contentType: 'application/json; charset=UTF-8', // 전송 데이터 타입을 JSON으로 설정
+                dataType: 'text', // 응답 데이터 타입을 텍스트로 지정
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);                                       
+                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
                 },
                 // 요청 성공 
                 success: function (response, status) {
                     // response : 응답 데이터
                     // status   : 응답 상태
-                    if (response) {
-                        alert('인증성공!.');
+
+                    if (response === "성공") {
+                        alert('코드인증에 성공하였습니다.');
+                        $('#joinbutton').css('display', 'flex');
                     } else {
-                        alert('인증 실패');
+                        alert('코드인증에 실패하였습니다.');
                     }
                 },
                 // 에러
@@ -183,14 +185,13 @@
             });
         }
 
-
-        // ✅ 이메일 통합
+        // ✅ 이메일 통합 하고 이메일에 코드를 보내는 함수 
         function combineEmail() {
             var firstEmail = document.getElementById('firstEmail').value;
-            var lastEmail = document.getElementById('lastEmail').value;                                                                          
+            var lastEmail = document.getElementById('lastEmail').value;
             var email = firstEmail + "@" + lastEmail;
             document.getElementById('userEmail').value = email;
-            alert(email);
+            alert('이메일 확인중..');
 
             var csrfToken = "[[${_csrf.token}]]";
             let url = "/user/find_users";
@@ -207,12 +208,11 @@
                 success: function (response, status) {
                     // response : 응답 데이터
                     // status   : 응답 상태
-                    if (response) {
-                        alert('이메일 인증코드를 발송하였습니다.');
-                        $('#passwordChange').css('display', 'flex') 
+                    if (response === "1") {
+                        alert('이메일에서 인증코드를 확인해주세요.');
+                        $('#passwordChange').css('display', 'flex');
                     } else {
-                        alert('이메일 인증코드 오류발생.');
-                        $('#passwordChange').css('display', 'none !important')
+                        alert('에러~!~!@~!@~!#!~#~!@~!@~!@~@!~@~@~!@');
                     }
                 },
                 // 에러
@@ -261,7 +261,8 @@
             var confirmPassword = document.getElementsByName("pw_confirm")[0].value;
 
             // 비밀번호가 8~16자리이고 영문 대소문자, 숫자, 특수문자를 모두 포함하는지 검사
-            if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}[\]:;"'<script>,.?\\/]).{8,16}$/.test(password)) {
+            if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}[\]:;"'<script>,.?\\/]).{8,16}$/.test(
+                    password)) {
                 document.getElementsByName("userPw")[0].setCustomValidity(
                     "비밀번호는 8~16자리의 영문 대소문자, 숫자, 특수문자를 모두 포함해야 합니다.");
             } else {
@@ -300,14 +301,8 @@
                 isValid = false;
             }
 
-            const emailCode = document.getElementById("emailCode").value
-            if (emailCode == null) {
-                isValid = false
-                alert('이메일 인증을 해주세요!!')
-            }
             return isValid;
         }
-
 
         // ✅ 휴대전화 유효성 검사
         function validatePhone(input) {
@@ -369,6 +364,14 @@
                 return false; // 서버 오류
             }
         }
-    </script>        
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error') && urlParams.get('error') === 'emailExists') {
+                alert('이미 가입한 이메일이 있습니다');
+            }
+        };
+    </script>
 </body>
+
 </html>
