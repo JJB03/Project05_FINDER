@@ -26,7 +26,6 @@ import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -117,23 +116,29 @@ public class ResumeController {
      * 
      * @return
      */
-    @GetMapping("/cv_create_user")
-    public String CvCreate(Model model, HttpSession session) throws Exception {
-        Users user = (Users) session.getAttribute("user");
 
-        // insert 한 서비스로 insert수행
-        int useruno = user.getUserNo();
-        int result = resumeService.create(useruno);
-        // 새 이력서 등록하고 이력서 번호 가져와야함
-        int cvNo = resumeService.maxPk();
-        log.info("cvNo : " + cvNo);
-        model.addAttribute("cvNo", cvNo);
-        if (result > 0) {
-            log.info("이력서 만드는 걸 성공했어요");
-            return "/resume/cv_create_user";
-        }
-        return "redirect:/resume/cv_list_user?error";
+    @GetMapping("cv_create_user")
+    public String CvCreate() {
+        return "/resume/cv_create_user";
     }
+
+    // @GetMapping("/cv_create_user")
+    // public String CvCreate(Model model, HttpSession session) throws Exception {
+    // Users user = (Users) session.getAttribute("user");
+
+    // // insert 한 서비스로 insert수행
+    // int useruno = user.getUserNo();
+    // int result = resumeService.create(useruno);
+    // // 새 이력서 등록하고 이력서 번호 가져와야함
+    // int cvNo = resumeService.maxPk();
+    // log.info("cvNo : " + cvNo);
+    // model.addAttribute("cvNo", cvNo);
+    // if (result > 0) {
+    // log.info("이력서 만드는 걸 성공했어요");
+    // return "/resume/cv_create_user";
+    // }
+    // return "redirect:/resume/cv_list_user?error";
+    // }
 
     /*
      * @PostMapping("/cv_create_user")
@@ -408,7 +413,7 @@ public class ResumeController {
     public ResponseEntity<String> deleteEmpploymentHistory(@RequestParam("employmentHistoryNo") int employmentHistoryNo)
             throws Exception {
         log.info("###############################" + employmentHistoryNo);
-        //데이터 db에 저장
+        // 데이터 db에 저장
         try {
             // 데이터 db에 저장
             int result = educationService.delete(employmentHistoryNo);
