@@ -24,37 +24,65 @@
                     </strong>
                     <br>
 
-                    <a href="#" class="job-item-link modal-list">
-                        <div class="job-item d-flex flex-column " tabindex="0">
-                            <div style="width: 38px; height: 15px;">
-                                <!-- new 자리 -->
-                            </div>
-                            <div style="font-size: 12px;" class="d-flex justify-content-start">
-                                <span>CANB R&D 연구소</span> <span>|</span> <span>기간: 2024.05.20 ~ 채용시</span>
-                            </div>
-                            <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold; "
-                                class="d-flex justify-content-start">
-                                <span>CANB R&D 연구소 부문별 채용</span>
-                            </div>
-                            <div class="item d-flex justify-content-between">
-                                <div class="keyword-span">
-                                    <span>#연구개발</span> <span>#포천시</span> <span>#계약직</span>
+                    <th:block th:each="resume : ${resumeList}">
+                        <a href="#" class="job-item-link modal-list">
+                            <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
+                            <div class="job-item d-flex flex-column " tabindex="0">
+                                <div style="width: 38px; height: 15px;">
+                                    <!-- new 자리 -->
                                 </div>
-                                <div class="gap-2 d-flex">
-                                    <div>
-                                        <button type="button" class="btn-short" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
-                                            <strong>삭제</strong>
-                                        </button>
-                                    </div>
+                                <div style="font-size: 16px;" class="row">
+                                    <div class="d-flex">
+                                        <div style="width: 100%;">
+                                            <!-- 나이 -->
+                                            <span th:text="${user.userBirth}">
+                                            </span>
+                                            <span>/</span>
 
-                                    <div class="d-flex justify-content-center m-1">
-                                        <strong style="color: #024FDF;">FINDER</strong>
+                                            <!-- 성별 -->
+                                            <span th:text="${user.userGender}">
+                                            </span>
+                                            <span>/</span>
+
+                                            <!-- 이름 -->
+                                            <span th:text="${user.userName}">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <!--데이터 불러오기-->
+                                        <span class="mb-3" th:text="${resume.cvTitle}">
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="item d-flex justify-content-between">
+                                    <div class="keyword-span">
+                                        <th:block th:each="keyword : ${recruitPost.keywordList}">
+                                            <span th:text="${keyword.recruitKeyword}">
+
+                                            </span>
+                                        </th:block>
+                                    </div>
+                                    <div class="gap-2 d-flex">
+                                        <div>
+                                            <button type="button" class="btn-short" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" th:onclick="|deleteCv(${resume.cvNo}, event)|">
+                                                <strong>삭제</strong>
+                                            </button>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center m-1">
+                                            <strong style="color: #024FDF;">FINDER</strong>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </th:block>
 
 
                 </div>
@@ -72,8 +100,10 @@
                 <div class="wrapper d-flex flex-column  ">
                     <div class="detail-header">
                         <div class="detail-logo d-flex justify-content-start ">
-                            <img th:src="|/file/img/${Thumbnail.fileNo}|" alt="썸네일" width="100px" height="100px" th:if="${Thumbnail != null}">
-                            <img src="/img/no-image.png" alt="썸네일" width="100px" height="100px" th:if="${Thumbnail == null}">
+                            <img th:src="|/file/img/${Thumbnail.fileNo}|" alt="썸네일" width="100px" height="100px"
+                                th:if="${Thumbnail != null}">
+                            <img src="/img/no-image.png" alt="썸네일" width="100px" height="100px"
+                                th:if="${Thumbnail == null}">
                         </div>
                         <div>
                             <span style="font-size: 14px;" th:text="${recruitPost.company.comName}"></span>
@@ -110,16 +140,16 @@
                                 th:text="${recruitPost.recruitPreferredQualifications}"></span>
                         </div>
                     </div>
-                    <div style="margin: 44px 26px; height: auto;" class="row d-flex justify-content-start" >
+                    <div style="margin: 44px 26px; height: auto;" class="row d-flex justify-content-start">
                         <!-- <img src="/img/poly.png" alt=""> -->
                         <div>
                             <p th:text="${recruitPost.recruitContent}"></p>
                         </div>
                         <th:block th:each="file : ${fileList}">
                             <div>
-                                
+
                                 <img th:src="|/file/img/${file.fileNo}|" alt="썸네일" style=" max-width: 948px">
-                                
+
                             </div>
                         </th:block>
                     </div>
@@ -149,22 +179,38 @@
         </div>
     </div>
     <script>
-        function deleteFile(element, no) {
-            // alert(no)
+       
+        function deleteCv(cvNo, event) {
 
-            // AJAX 비동기 요청
+            // let data = {"userId"   : userId}
+            event.stopPropagation(); // 이벤트 전파 중지
+            event.preventDefault(); // 기본 동작 방지
+
             let request = new XMLHttpRequest()
+            // let csrfToken = $('#csrfToken').val();
+            var csrfToken = "[[${_csrf.token}]]"
 
-            // 요청 세팅
-            // request.open(요청메소드, URL)
-            request.open('DELETE', '/file/' + no)
+            request.open("POST", `/recruit/posted_jobs_com/${cvNo}`, true)
+            request.setRequestHeader("Content-Type", "application/json")
+            request.setRequestHeader("X-CSRF-TOKEN", csrfToken) // 💍       // 이래야 403 이 안뜬다.
+            // request.send( JSON.stringify( data ) )
             request.send()
 
             request.onreadystatechange = function () {
+                // 요청 성공 시,
                 if (request.readyState == request.DONE && request.status == 200) {
-                    console.log('파일 삭제 성공!');
-                    // 파일 항목 제거
-                    element.parentNode.remove();
+                    // 파일 항목을 화면에서 제거
+                    if (request.responseText == 'true') {
+                        alert('삭제 되었습니다.');
+                        // 성공적으로 삭제된 채용공고를 화면에서 숨김
+                        var deletedRecruit = document.getElementById('recruit_' + recruitNo);
+                        if (deletedRecruit) {
+                            deletedRecruit.style.display = 'none';
+                        }
+                    }
+                    else {
+                        alert('삭제가 불가능합니다!');
+                    }
                 }
             }
         }

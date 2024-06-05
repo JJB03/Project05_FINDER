@@ -1,4 +1,4 @@
--- Active: 1711633953173@@127.0.0.1@3306@joeun
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 SELECT c.*, r.*, rk.*
     FROM company c
     INNER JOIN recruit r ON c.com_no = r.com_no
@@ -66,6 +66,7 @@ VALUES ('홍준범', 'hjb', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9
 
 
 INSERT INTO user_auth (user_no, auth) VALUES (1, 'ROLE_COMPANY');
+INSERT INTO user_auth (user_no, auth) VALUES (2, 'ROLE_USER');
 
 
 
