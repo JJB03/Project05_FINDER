@@ -147,15 +147,24 @@
 
                 <div class="social-login row flex-column row-gap-3">
                     <button class="social-btn google w-100">Google</button>
-                    <button class="social-btn kakao w-100">카카오 간편 로그인</button>
+                    <button id="kakao-login" class="social-btn kakao w-100">카카오 간편 로그인</button>
+                    <a href="/oauth2/authorization/kakao">카카오로그인</a>
                     <button class="social-btn naver w-100">네이버 아이디로 로그인</button>
                 </div>
 
+                <th:block sec:authorize="isAuthenticated()">
+                    <span sec:authentication="principal"></span>
+                </th:block>
 
             </div>
     </div>
 
+
+
     <script>
+
+
+
         // 일반/기업 버튼 전환
         // 회원가입 / 아이디 비밀번호 찾기도 전환된다
         function switchUser() {
