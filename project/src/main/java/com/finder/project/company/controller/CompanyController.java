@@ -346,40 +346,38 @@ public class CompanyController {
     @PostMapping("/credit/checkout")
     public Map<String, Object> successPro(HttpSession session,
                                       @RequestBody Map<String, Integer> requestBody) throws Exception {
-    int productNo = requestBody.get("productNo");
+        int productNo = requestBody.get("productNo");
 
-    // 세션에서 사용자 정보 가져오기
-    Users user = (Users) session.getAttribute("user");
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
 
-    // 결제 성공 시 주문 데이터를 데이터베이스에 저장
-    Order order = new Order();
-    Product product = companyService.selectProduct(productNo);
+        // 결제 성공 시 주문 데이터를 데이터베이스에 저장
+        Order order = new Order();
+        Product product = companyService.selectProduct(productNo);
 
-    order.setUserNo(user.getUserNo()); /* session이나 다른 방식으로 userNo 설정 */
-    order.setProductNo(product.getProductNo());
-    order.setTotalQuantity(product.getProductCount()); // 필요한 경우 적절히 설정
-    order.setTotalPrice(product.getProductPrice());
-    order.setOrderStatus("PENDING");
+        order.setUserNo(user.getUserNo()); /* session이나 다른 방식으로 userNo 설정 */
+        order.setProductNo(product.getProductNo());
+        order.setTotalQuantity(product.getProductCount()); // 필요한 경우 적절히 설정
+        order.setTotalPrice(product.getProductPrice());
+        order.setOrderStatus("PENDING");
 
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.MONTH, product.getProductDuration());
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, product.getProductDuration());
 
-    order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+        order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
 
-    // order_no를 반환하는 insertOrder 메서드 호출
-    int orderNo = companyService.insertOrder(order);
+        // order_no를 반환하는 insertOrder 메서드 호출
+        int orderNo = companyService.insertOrder(order);
 
-    Map<String, Object> response = new HashMap<>();
-    if (orderNo > 0) {
-        response.put("success", true);
-        response.put("orderNo", orderNo);
-    } else {
-        response.put("success", false);
+        Map<String, Object> response = new HashMap<>();
+        if (orderNo > 0) {
+            response.put("success", true);
+            response.put("orderNo", orderNo);
+        } else {
+            response.put("success", false);
+        }
+        return response;
     }
-    return response;
-}
-
-    
 
 
     // 토스 페이먼츠 fail
@@ -387,9 +385,6 @@ public class CompanyController {
     public String fail() {
         return "/company/credit/fail";
     }
-
-
-
 
     // 결제상품 화면
     @GetMapping("/credit/credit_com")
@@ -407,7 +402,6 @@ public class CompanyController {
         model.addAttribute("product", product);
         return "company/credit/credit_detail_com";
     }
-
 
     // 결제 목록 내역 화면
     @GetMapping("/credit/credit_list_com")
