@@ -3,3 +3,12 @@
 
 .gradle
 **/.gradle
+
+*.class
+**/.class
+
+bin
+**/bin
+
+build
+**/build
