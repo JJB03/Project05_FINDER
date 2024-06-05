@@ -28,6 +28,7 @@
         SELECT o.*, c.*
         FROM `order` o
         LEFT JOIN `credit` c ON o.order_no = c.order_no;
+        LIMIT #{page.index}, #{page.rows}
     </select>
 
     <resultMap id="OrderCreditMap" type="Order">

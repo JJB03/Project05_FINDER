@@ -36,16 +36,16 @@
 
         .table-credit {
             width: 100%;
-        }
+        }   
     
         th {
             text-align: center;
-            width: auto;
+            
         }
 
         td {
             text-align: center;
-            width: auto;
+            
             padding: 15px 0;
         }
 
@@ -221,7 +221,7 @@
                         </div>
                     </div>
                     <div class="container-line">
-                        <table class="table-credit">
+                        <table class="table-credit" style="width: auto;">
                             <thead>
                                 <tr style="text-align: center;">
                                         <th>주문번호</th>
@@ -234,7 +234,7 @@
                             </thead>
 
                             <th:block th:each="order : ${orderCreditList}">
-                                <tr class="td-st">
+                                <tr class="">
                                     <td th:text="${order.orderNo}"></td>
                                     <td th:each="credit : ${order.credits}" th:text="${credit.creditMethod}"></td>
                                     <td th:each="credit : ${order.credits}" th:text="${credit.creditDate}"></td>

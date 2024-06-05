@@ -3,10 +3,12 @@ package com.finder.project.company.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.finder.project.company.dto.Credit;
 import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.Product;
+import com.finder.project.main.dto.Page;
 
 @Mapper
 public interface CreditMapper {
@@ -21,7 +23,7 @@ public interface CreditMapper {
     public Credit selectCredit(int orderNo) throws Exception;
     
     // 주문/결제 목록 조회 (조인)
-    public List<Order> orderCreditList() throws Exception;
+    public List<Order> orderCreditList(@Param("page") Page page) throws Exception;
 
 
 

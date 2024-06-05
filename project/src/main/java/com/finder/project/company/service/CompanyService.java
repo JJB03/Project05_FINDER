@@ -2,11 +2,14 @@ package com.finder.project.company.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.dto.Credit;
 import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.Product;
+import com.finder.project.main.dto.Page;
 import com.finder.project.user.dto.Users;
 
 public interface CompanyService {
@@ -48,7 +51,7 @@ public interface CompanyService {
     public Credit selectCredit(int orderNo) throws Exception;
 
     // 주문/결제 목록 조회 (조인)
-    public List<Order> orderCreditList() throws Exception;
+    public List<Order> orderCreditList(Page page) throws Exception;
     // 주문등록
     public int insertOrder(Order order) throws Exception;
     // 결제등록

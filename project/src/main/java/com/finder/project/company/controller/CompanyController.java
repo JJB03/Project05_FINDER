@@ -26,6 +26,7 @@ import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.PasswordConfirmRequest;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
+import com.finder.project.main.dto.Page;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
@@ -410,11 +411,16 @@ public class CompanyController {
 
     // 결제 목록 내역 화면
     @GetMapping("/credit/credit_list_com")
-    public String credit_list_com(Model model) throws Exception {
+    public String credit_list_com(Model model, Page page) throws Exception {
 
-    List<Order> orderCreditList = companyService.orderCreditList();
+    List<Order> orderCreditList = companyService.orderCreditList(page);
+
+    // 페이징
+    log.info("page : " + page);
+
 
     model.addAttribute("orderCreditList", orderCreditList);
+    model.addAttribute("page", page);
 
         return "/company/credit/credit_list_com";
     }
