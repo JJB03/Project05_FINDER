@@ -39,6 +39,7 @@ public class MainController {
             @RequestParam(value = "keyword", required = false) String keyword) throws Exception {
         Option option = new Option(code != null ? code : 0, keyword != null ? keyword : "");
 
+        
         List<RecruitPost> recruitList = recruitService.recruitList(page, option);
         int count = recruitMapper.count(option);
         // log.info("옵션값 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + option.getCode() + "@@@@"

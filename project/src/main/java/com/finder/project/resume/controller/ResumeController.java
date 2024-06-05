@@ -11,12 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
-=======
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
->>>>>>> main
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,12 +25,10 @@ import com.finder.project.resume.service.EmploymentHistoryService;
 import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
-<<<<<<< HEAD
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-=======
-import lombok.extern.slf4j.Slf4j;
->>>>>>> main
 
 /**
  * /resume 경로로 요청 왔을 때 처리
@@ -234,12 +227,8 @@ public class ResumeController {
 
     /**
      * 경력 등록하기
-<<<<<<< HEAD
      * -employmenthistory 테이블에 insert
      * 
-=======
-     * -employmentHistory 테이블에 insert
->>>>>>> main
      * @param employmentHistory
      * @return
      * @throws Exception
@@ -419,26 +408,17 @@ public class ResumeController {
     public ResponseEntity<String> deleteEmpploymentHistory(@RequestParam("employmentHistoryNo") int employmentHistoryNo)
             throws Exception {
         log.info("###############################" + employmentHistoryNo);
+
+        
         //데이터 db에 저장
         try {
-<<<<<<< HEAD
             // 데이터 db에 저장
-            int result = educationService.delete(employmentHistoryNo);
+            int result = employmentHistoryService.delete(employmentHistoryNo);
             if (result > 0) {
                 return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
             } else {
                 log.info("실패했다" + result);
             }
-=======
-            int result = employmentHistoryService.delete(employmentHistoryNo);
- 
-            if( result > 0 ) {
-                return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-            } else {
-                log.info("실패했다" + result);
-                
-            } 
->>>>>>> main
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("경력 삭제시, 에러 발생");

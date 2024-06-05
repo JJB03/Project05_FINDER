@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.finder.project.main.dto.Option;
 
 import lombok.Data;
 
@@ -18,5 +21,10 @@ public class Resume {
     private Date cvUpdDate;
     private List<Education> educationList = new ArrayList<>();
     private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
+    
+    //파일
+    List<MultipartFile> file;
+    private int fileNo;
+    private Option option;
 }
 
