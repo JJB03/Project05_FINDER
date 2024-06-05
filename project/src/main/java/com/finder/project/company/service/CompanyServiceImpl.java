@@ -121,13 +121,6 @@ public class CompanyServiceImpl implements CompanyService {
         return orderCreditList;
     }
 
-    // 결제 조회 
-    @Override
-    public Credit selectCredit(int orderNo) throws Exception {
-        Credit credit = creditMapper.selectCredit(orderNo);
-        return credit;
-    }
-
 
 
     // 주문 등록
@@ -143,16 +136,6 @@ public class CompanyServiceImpl implements CompanyService {
         int result = creditMapper.insertCredit(credit);
         return result;
     }
-
-    // 결제완료 후 주문테이블 수정
-    @Override
-    public int updateOrder(Order order) throws Exception {
-        int result = creditMapper.updateOrder(order);
-        return result;
-    }
-
-
-
 
 
 

@@ -326,6 +326,8 @@ public class ResumeController {
 
     //경력 수정
 
+    
+    
     @PostMapping("/cv_read_user")
     public String updateUserPro2(HttpSession session, Resume resume) throws Exception {
 
@@ -421,7 +423,7 @@ public class ResumeController {
         log.info("###############################" + employmentHistoryNo);
         try {
             //데이터 db에 저장
-            int result = employmentHistoryService.delete(employmentHistoryNo);
+            int result = educationService.delete(employmentHistoryNo);
             if( result > 0 ) {
                 return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
             } else {

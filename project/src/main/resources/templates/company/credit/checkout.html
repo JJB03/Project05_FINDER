@@ -6,8 +6,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
-  <meta name="_csrf" th:content="${_csrf.token}"/>
-  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>토스페이먼츠</title>
   <!-- 결제위젯 SDK 추가 -->
@@ -56,9 +54,6 @@
                   <input type="hidden" name="userName" id="userName" th:value="${session.user.userName}"> <!-- 결제자 -->
                   <input type="hidden" name="userEmail" id="userEmail" th:value="${session.user.userEmail}"> <!-- 이메일 -->
                   <input type="hidden" name="userPhone" id="userPhone" th:value="${session.user.userPhone}"> <!-- 전화번호 -->
-
-                  <!-- orderNo 받아오기 -->
-                  <input type="hidden" name="orderNo" id="orderNo" th:value="${order.orderNo}">
 
                   <p>결제 금액 : <span th:text="${product.productPrice}"></span>원</p>
                   <hr>
@@ -109,12 +104,8 @@
       var amount = productPrice; // 총 결제금액과 일치하도록 설정
 
       // productNo 값 가져오기
-      let productNo = document.getElementById('productNo').value;
+      const productNo = document.getElementById('productNo').value;
       console.log(productNo)
-      // orderNo 값 가져오기
-      let orderNo = document.getElementById('orderNo').value;
-      console.log(orderNo)
-
 
       console.log("결제 위젯 초기화 시작");
       // 결제위젯 초기화
@@ -142,14 +133,16 @@
       button.addEventListener("click", function () {
         console.log("결제 요청 시작");
 
+        // orderNo 값 가져오기
+        const orderNo = document.getElementById('orderNo').value;
+
         paymentWidget.requestPayment({
           orderId: generateRandomString(),
           orderName: productName,
-          successUrl: window.location.origin + `/company/credit/process?orderNo=${orderNo}&productNo=${productNo}`,
+          successUrl: window.location.origin + `/company/credit/success?productNo=${productNo}&orderNo=${orderNo}`,
           failUrl: window.location.origin + "/company/credit/fail",
           productDuration: productDuration,
           productCount: productCount,
-          orderNo: orderNo,
           productNo: productNo,
           headers: {
             'X-CSRF-TOKEN': csrfToken // CSRF 토큰을 헤더에 포함

@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <meta name="_csrf" th:content="${_csrf.token}"/>
-  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   </head>
   <link rel="stylesheet" href="/css/credit.css">
   <style>
@@ -114,8 +114,67 @@
       </div>
 
     </div>
-    
+    <input type="hidden" name="productNo" id="productNo" th:value="${product.productNo}">
+    <input type="hidden" name="productPrice" id="productPrice" th:value="${product.productPrice}"> <!-- 상품 가격 -->
+    <input type="hidden" name="productCount" id="productCount" th:value="${product.productCount}"> <!-- 상품 횟수 -->
+    <input type="hidden" name="productDuration" id="productDuration" th:value="${product.productDuration}"> <!-- 상품 기간 -->
+    <input type="hidden" name="userNo" id="userNo" th:value="${session.user.userNo}"> 
+
     <script>
+      // 쿼리 파라미터 값이 결제 요청할 때 보낸 데이터와 동일한지 반드시 확인하세요.
+      // 클라이언트에서 결제 금액을 조작하는 행위를 방지할 수 있습니다.
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentKey = urlParams.get("paymentKey");
+      const orderId = urlParams.get("orderId");
+      const amount = urlParams.get("amount"); // 총가격
+      const productNo = urlParams.get("productNo");
+      const orderNo = urlParams.get("orderNo");
+
+      var csrfToken = $("meta[name='_csrf']").attr("content");
+      var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+      var headers = {};
+      headers[csrfHeader] = csrfToken;
+
+      function confirm() {
+
+      // paymentKey 필수
+      var requestData = {
+        paymentKey: urlParams.get("paymentKey"), 
+        orderId: urlParams.get("orderId"),
+        price: urlParams.get("amount"),
+        productNo: urlParams.get("productNo"),
+        orderNo: urlParams.get("orderNo")
+      };
+
+      return new Promise(function (resolve, reject) {
+
+
+        $.ajax({
+          type: "POST",
+          url: "/company/credit/success",
+          headers: headers,
+          data: requestData,
+          success: function (result) {
+            console.log("Payment confirmed successfully:", result);
+            resolve(result); // 성공 시 Promise를 이행하고 결과 전달
+          },
+          error: function (xhr, status, error) {
+            console.error("Error confirming payment:", error);
+            reject(error); // 실패 시 Promise를 거부하고 에러 전달
+          }
+        });
+      });
+
+      }
+
+      confirm();
+
+      const orderIdElement = document.getElementById("orderId");
+      const amountElement = document.getElementById("amount");
+
+      orderIdElement.textContent = "주문번호: " + orderId;
+      amountElement.textContent = "결제 금액: " + amount;
 
 
     </script>

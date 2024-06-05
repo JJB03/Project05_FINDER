@@ -14,5 +14,4 @@ public class Credit {
     private String creditCode;
     private Timestamp creditDate;
 
-
 }
