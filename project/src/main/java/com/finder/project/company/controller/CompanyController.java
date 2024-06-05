@@ -242,67 +242,106 @@ public class CompanyController {
 
     // 토스 페이먼츠 메인 [GET]
     @GetMapping("/credit/checkout")
-    public String checkout(@RequestParam("productNo") int productNo, Model model) throws Exception {
+    public String checkout(@RequestParam("productNo") int productNo
+                          ,@RequestParam("orderNo") int orderNo 
+                          ,Model model) throws Exception {
         
+        Order order = companyService.selectOrder(orderNo);  // orderNo로 주문 정보 조회
         Product product = companyService.selectProduct(productNo);
         
+        model.addAttribute("order", order);
         model.addAttribute("product", product);
         return "/company/credit/checkout";
     }
 
+    // 토스 페이먼츠 중간 프로세스 [GET]
+    @GetMapping("/credit/process")
+    public String process() throws Exception {
+        
+        return "/company/credit/process";
+    }
+
     // 토스 페이먼츠 success [GET]
     @GetMapping("/credit/success")
-    public String success(@RequestParam("productNo") int productNo, Model model) throws Exception {
+    public String success(@RequestParam("productNo") int productNo
+                         ,@RequestParam("orderNo") int orderNo
+                         ,Model model) throws Exception {
 
         Product product = companyService.selectProduct(productNo);
+        Order order = companyService.selectOrder(orderNo);
+        Credit credit = companyService.selectCredit(orderNo);
+        log.info(credit.toString());
+        log.info(order.toString());
+        log.info(product.toString());
 
+        model.addAttribute("credit", credit);
+        model.addAttribute("order", order);
         model.addAttribute("product", product);
         return "/company/credit/success";
     }
-    // // // 토스 페이먼츠 success [POST]
-    // @PostMapping("/credit/success")
-    // public String successPro() throws Exception {
 
-    //     // int result = companyService.insertOrder(order);
-
-    //     // if(result > 0) {
-    //     //     return "/company/credit/success";
-    //     // }
-    //     return "/company/credit/fail";    
-    // }
 
      // 결제 테이블 추가
      @ResponseBody
-     @PostMapping("/credit/success")
-     public String successPro(HttpSession session,
+     @PostMapping("/credit/process")
+     public ResponseEntity<Map<String, Object>> successPro(HttpSession session,
                               @RequestParam("paymentKey") String paymentKey,
                               @RequestParam("orderId") String orderId,
                               @RequestParam("price") int price,
                               @RequestParam("productNo") int productNo,
-                              @RequestParam("orderNo") int orderNo) throws Exception {
+                              @RequestParam("orderNo") int orderNo
+                              ) throws Exception {
      
         // 세션에서 사용자 정보 가져오기
-        //  Users user = (Users) session.getAttribute("user");
-     
+        // Users user = (Users) session.getAttribute("user");
+        log.info("Received data: paymentKey = " + paymentKey + ", orderId = " + orderId + ", price = " + price + ", productNo = " + productNo + ", orderNo = " + orderNo);
+
+        log.info("orderNo : " + orderNo);
+
+        Order order = companyService.selectOrder(orderNo);
+        log.info("order : " + order);
+        Product product = companyService.selectProduct(productNo);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, product.getProductDuration());
+        log.info("개월수" + product.getProductDuration());
+        log.info("현재 날짜" + calendar.getTime());
+        order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+
+        log.info(order.toString());
+
+        int result = companyService.updateOrder(order);
+
+        if(result>0){
+            log.info("성공했어요!~");
+        }else{
+            log.info("실패했어용");
+        }
      
         Credit credit = new Credit();
         credit.setOrderNo(orderNo);
         credit.setCreditCode(orderId);
         credit.setCreditMethod("간편결제");
         credit.setCreditStatus("PAID");
-     
+
         int creditResult = companyService.insertCredit(credit);
 
-        if (creditResult > 0) {
-            return "redirect:/company/credit/success";
-        } else {
-            return "redirect:/company/credit/fail?error";
-        }
+        Map<String, Object> response = new HashMap<>();
 
+        if(creditResult > 0) {
+            response.put("status", "success");
+        } else {
+            response.put("status", "fail");
+        }
+        
+        response.put("productNo", productNo);
+        response.put("orderNo", orderNo);
+
+        return ResponseEntity.ok(response);
      }
 
 
-     // 주문 테이블 추가
+    // 주문 테이블 추가
     @ResponseBody
     @PostMapping("/credit/checkout")
     public Map<String, Object> successPro(HttpSession session,
@@ -324,8 +363,6 @@ public class CompanyController {
 
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.MONTH, product.getProductDuration());
-    log.info("만료일" + product.getProductDuration());
-    log.info("만료일" + calendar.getTime());
 
     order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
 
@@ -370,7 +407,6 @@ public class CompanyController {
         model.addAttribute("product", product);
         return "company/credit/credit_detail_com";
     }
-
 
 
     // 결제 목록 내역 화면
