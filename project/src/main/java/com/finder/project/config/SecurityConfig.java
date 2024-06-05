@@ -51,6 +51,7 @@ public class SecurityConfig {
                                      .successHandler(loginSuccessHandler)
                                      
                                      );
+                                     
 
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);
@@ -59,6 +60,13 @@ public class SecurityConfig {
         http.rememberMe(me -> me.key("aloha")
                                 .tokenRepository(tokenRepository())
                                 .tokenValiditySeconds(60 * 60 * 24 * 7));
+
+        
+        // OAuth 로그인 설정
+        http.oauth2Login(login -> login
+                                    .loginPage("/login")
+                        );
+        
 
         return http.build();
     }
@@ -101,5 +109,5 @@ public class SecurityConfig {
         }
         return repositoryImpl;
     }
-    
+  
 }
