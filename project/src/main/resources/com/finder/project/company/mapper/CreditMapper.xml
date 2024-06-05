@@ -17,6 +17,12 @@
         WHERE order_no = #{orderNo}
     </select>
 
+    <!-- 주문 조회 -->
+    <select id="selectCredit" resultType="Credit">
+        SELECT * FROM credit
+        WHERE order_no = #{orderNo} <!-- order_no 으로 받음 주의 ⭐ -->
+    </select>
+
     <!-- 결제 목록 조회 -->
     <select id="orderCreditList" resultMap="OrderCreditMap">
         SELECT o.*, c.*
@@ -61,7 +67,7 @@
         SET order_status = 'PAID',
             expiration_date = #{expirationDate},
             updated_date = now()
-        WHERE order_no = #{order_no}
+        WHERE order_no = #{orderNo}
     </update>
 
 </mapper>

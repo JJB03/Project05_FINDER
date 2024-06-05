@@ -109,10 +109,10 @@
       var amount = productPrice; // 총 결제금액과 일치하도록 설정
 
       // productNo 값 가져오기
-      const productNo = document.getElementById('productNo').value;
+      let productNo = document.getElementById('productNo').value;
       console.log(productNo)
       // orderNo 값 가져오기
-      const orderNo = document.getElementById('orderNo').value;
+      let orderNo = document.getElementById('orderNo').value;
       console.log(orderNo)
 
 
@@ -145,10 +145,12 @@
         paymentWidget.requestPayment({
           orderId: generateRandomString(),
           orderName: productName,
-          successUrl: window.location.origin + `/company/credit/success?orderNo=${orderNo}&productNo=${productNo}`,
+          successUrl: window.location.origin + `/company/credit/process?orderNo=${orderNo}&productNo=${productNo}`,
           failUrl: window.location.origin + "/company/credit/fail",
           productDuration: productDuration,
           productCount: productCount,
+          orderNo: orderNo,
+          productNo: productNo,
           headers: {
             'X-CSRF-TOKEN': csrfToken // CSRF 토큰을 헤더에 포함
           }
