@@ -60,52 +60,40 @@ public class UserController {
 
     // 사용자 회원가입
     @PostMapping("/join_user")
-    public String userjoinPro(Users users) throws Exception {
+public String userjoinPro(Users users) throws Exception {
 
-        // 이메일에서 오늘 ,지우기
-        String userEmail = users.getUserEmail();
-        userEmail = userEmail.replace(",", "");
-        users.setUserEmail(userEmail);
-        // ---
-        log.info("유저정보" + users);
+    String userEmail = users.getUserEmail();
+    String checkEmail = userMapper.checkEmail(userEmail);
 
-        int result = userService.join(users);
+    log.info("db에서 가져오는 이메일" + checkEmail);
 
+    if (checkEmail == null) {
         // 회원가입 성공
-        if (result > 0) {
-            return "redirect:/login";
-        }
-
-        // 회원가입 실패
-        return "redirect:/user/join_user";
+        userService.join(users);
+        return "redirect:/login";
     }
+    // 회원가입 실패
+    return "redirect:/user/join_user?error=emailExists";
+}
 
     // 기업 회원가입
     @PostMapping("/join_com")
-    public String companyjoinPro(Users user, Company company) throws Exception {
+    public String companyjoinPro(Users users, Company company) throws Exception {
 
-        String userEmail = user.getUserEmail();
-        userEmail = userEmail.replace(",", "");
-        user.setUserEmail(userEmail);
+        String userEmail = users.getUserEmail();
+        String checkEmail = userMapper.checkEmail(userEmail);
 
-        int result = userService.join(user);
-
-        int userNo = userService.max();
-
-        company.setUserNo(userNo);
-
-        int result1 = userService.comJoin(company);
-
-        // 회원가입 성공
-        if (result + result1 > 1) {
+        if (checkEmail == null) {
+            // 회원가입 성공
+            userService.join(users);
+            int userNo = userService.max();
+            company.setUserNo(userNo);
+            userService.comJoin(company);
             return "redirect:/login";
         }
-
         // 회원가입 실패
-        log.info("회사 회원가입 실패 돌아가~!~!~!");
-        return "redirect:/user/join_user";
+        return "redirect:/user/join_user?error=emailExists";
     }
-
     // 아이디 중복확인
     @ResponseBody
     @GetMapping("/check/{userId}")
@@ -123,7 +111,7 @@ public class UserController {
 
     }
 
-    // 아이디 이메일로 전송 완료
+    // 아이디 찾기 이메일로 전송 완료
     @ResponseBody
     @PostMapping("/find_user")
     public String findId(@RequestParam("userEmail") String userEmail, @RequestParam("userName") String userName)
@@ -153,26 +141,20 @@ public class UserController {
     @PostMapping("/find_users")
     public String emailCheck(@RequestBody String userEmail) throws Exception {
 
-        if (userEmail == null) {
-            log.info("이메일 파라미터 : " + userEmail);
-        }
-
         // 랜덤한 인증 코드 생성
         String mailKey = generateRandomKey(); // 임의의 인증 코드 생성하는 메소드 호출
         EmailVerification emailVerification = new EmailVerification();
-
         emailVerification.setEmail(userEmail);
         emailVerification.setVerificationCode(mailKey);
 
         userMapper.saveEmailVerification(emailVerification);
-
         // 이메일로 인증 코드 전송
         String subject = "FINDER의 이메일 인증";
         String text = "이메일 인증 코드 : " + mailKey;
         emailService.sendSimpleMessage(userEmail, subject, text);
 
-        // 인증 코드 발송 메시지 반환
-        return "해당 이메일로 코드를 발송하였습니다.";
+
+        return "1";
     }
 
     // 랜덤한 인증 코드 생성 메소드
@@ -185,17 +167,18 @@ public class UserController {
 
     }
 
-    // db에 있는 자동생성된 code랑 사용자가 입력한 코드랑 비교
+    // ✅ db에 있는 자동생성된 code랑 사용자가 입력한 코드랑 비교
     @PostMapping("/email_code_check")
-    public ResponseEntity<String> codeCheck(@RequestBody String checkCode) throws Exception {
-        log.info("이메일 인증 코드 불러오나요?  " + checkCode);
-    
+    public ResponseEntity<String> codeCheck(@RequestBody EmailVerification request) throws Exception {
+
+        String checkCode = request.getVerificationCode();
         String code = userMapper.checkCode(checkCode);
-    
-        if (code == null) {
-            return ResponseEntity.ok("인증에 실패하였습니다");
+        log.info("이메일 인증 코드 데이터베이스에서 불러오나요?  " + code);
+
+        if (code != null) {
+            return ResponseEntity.ok("성공"); // 코드 인증 성공
         } else {
-            return ResponseEntity.ok("성공하였습니다");
+            return ResponseEntity.ok(null); // 코드 인증 실패
         }
     }
 
