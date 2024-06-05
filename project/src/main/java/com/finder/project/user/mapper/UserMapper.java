@@ -51,11 +51,14 @@ public interface UserMapper {
 
     // 이메일이랑 자동생성된 값 넣기
     @Insert("INSERT INTO email_verification (email, verification_code) VALUES (#{email}, #{verificationCode})")
-    void saveEmailVerification(EmailVerification emailVerification);
+    void saveEmailVerification(EmailVerification emailVerification) throws Exception;
 
     // 사용자가 입력한 인증코드랑 db에 인증코드랑 비교하기
     @Select("SELECT verification_code FROM email_verification WHERE verification_code = #{checkCode}")
     public String checkCode(String checkCode) throws Exception;
 
+    // 사용자가 입력한 이메일이 중복인지 아닌지 확인하기
+    @Select("SELECT email FROM email_verification WHERE email = #{checkEmail}")
+    public String checkEmail(String checkEmail) throws Exception;
 
 }

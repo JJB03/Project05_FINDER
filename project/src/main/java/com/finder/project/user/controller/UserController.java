@@ -153,10 +153,6 @@ public class UserController {
     @PostMapping("/find_users")
     public String emailCheck(@RequestBody String userEmail) throws Exception {
 
-        if (userEmail == null) {
-            log.info("이메일 파라미터 : " + userEmail);
-        }
-
         // 랜덤한 인증 코드 생성
         String mailKey = generateRandomKey(); // 임의의 인증 코드 생성하는 메소드 호출
         EmailVerification emailVerification = new EmailVerification();
@@ -164,16 +160,22 @@ public class UserController {
         emailVerification.setEmail(userEmail);
         emailVerification.setVerificationCode(mailKey);
 
-        userMapper.saveEmailVerification(emailVerification);
+        String dd = userMapper.checkEmail(userEmail);
 
-        // 이메일로 인증 코드 전송
-        String subject = "FINDER의 이메일 인증";
-        String text = "이메일 인증 코드 : " + mailKey;
-        emailService.sendSimpleMessage(userEmail, subject, text);
-
-        // 인증 코드 발송 메시지 반환
-        return "해당 이메일로 코드를 발송하였습니다.";
+        if (dd == null) {
+                    userMapper.saveEmailVerification(emailVerification);
+                    // 중복아님
+                    // 이메일로 인증 코드 전송
+                    String subject = "FINDER의 이메일 인증";
+                    String text = "이메일 인증 코드 : " + mailKey;
+                    emailService.sendSimpleMessage(userEmail, subject, text);
+                    // 인증 코드 발송 메시지 반환
+        } else {
+            return "1";
+        } 
+    return "sd";
     }
+        
 
     // 랜덤한 인증 코드 생성 메소드
     private String generateRandomKey() {
@@ -185,17 +187,18 @@ public class UserController {
 
     }
 
-    // db에 있는 자동생성된 code랑 사용자가 입력한 코드랑 비교
+    // ✅ db에 있는 자동생성된 code랑 사용자가 입력한 코드랑 비교
     @PostMapping("/email_code_check")
-    public ResponseEntity<String> codeCheck(@RequestBody String checkCode) throws Exception {
-        log.info("이메일 인증 코드 불러오나요?  " + checkCode);
-    
+    public ResponseEntity<String> codeCheck(@RequestBody EmailVerification request) throws Exception {
+
+        String checkCode = request.getVerificationCode();
         String code = userMapper.checkCode(checkCode);
-    
-        if (code == null) {
-            return ResponseEntity.ok(null);
+        log.info("이메일 인증 코드 데이터베이스에서 불러오나요?  " + code);
+
+        if (code != null ) {
+            return ResponseEntity.ok("성공"); // 코드 인증 성공
         } else {
-            return ResponseEntity.ok("성공하였습니다");
+            return ResponseEntity.ok(null); // 코드 인증 실패
         }
     }
 
