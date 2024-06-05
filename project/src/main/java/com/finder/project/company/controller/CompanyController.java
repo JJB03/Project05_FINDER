@@ -255,7 +255,7 @@ public class CompanyController {
         return "/company/credit/checkout";
     }
 
-    // 토스 페이먼츠 메인 [GET]
+    // 토스 페이먼츠 중간 프로세스 [GET]
     @GetMapping("/credit/process")
     public String process() throws Exception {
         
@@ -270,7 +270,7 @@ public class CompanyController {
 
         Product product = companyService.selectProduct(productNo);
         Order order = companyService.selectOrder(orderNo);
-        log.info("order :: " + order);
+        log.info("order ::: " + order);
 
         model.addAttribute("order", order);
         model.addAttribute("product", product);
@@ -293,21 +293,19 @@ public class CompanyController {
      // 결제 테이블 추가
      @ResponseBody
      @PostMapping("/credit/success")
-     public String successPro(HttpSession session,
+     public ResponseEntity<Map<String, Object>> successPro(HttpSession session,
                               @RequestParam("paymentKey") String paymentKey,
                               @RequestParam("orderId") String orderId,
                               @RequestParam("price") int price,
                               @RequestParam("productNo") int productNo,
-                              //@RequestParam("orderNo") int orderNo
                               @RequestParam("orderNo") int orderNo
                               ) throws Exception {
      
         // 세션에서 사용자 정보 가져오기
         // Users user = (Users) session.getAttribute("user");
-        
-        log.info("orderNo : " + orderNo);
+        log.info("Received data: paymentKey = " + paymentKey + ", orderId = " + orderId + ", price = " + price + ", productNo = " + productNo + ", orderNo = " + orderNo);
 
-        
+        log.info("orderNo : " + orderNo);
 
         Order order = companyService.selectOrder(orderNo);
         log.info("order : " + order);
@@ -329,8 +327,6 @@ public class CompanyController {
             log.info("실패했어용");
         }
      
-
-
         Credit credit = new Credit();
         credit.setOrderNo(orderNo);
         credit.setCreditCode(orderId);
@@ -339,12 +335,18 @@ public class CompanyController {
 
         int creditResult = companyService.insertCredit(credit);
 
-        if (creditResult > 0) {
-            return "redirect:/company/credit/success";
-        } else {
-            return "redirect:/company/credit/fail?error";
-        }
+        Map<String, Object> response = new HashMap<>();
 
+        if(creditResult > 0) {
+            response.put("status", "success");
+        } else {
+            response.put("status", "fail");
+        }
+        
+        response.put("productNo", productNo);
+        response.put("orderNo", orderNo);
+
+        return ResponseEntity.ok(response);
      }
 
 
