@@ -11,26 +11,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
+=======
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+>>>>>>> main
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Education;
 import com.finder.project.resume.dto.EmploymentHistory;
 import com.finder.project.resume.dto.Resume;
-import com.finder.project.resume.mapper.EducationMapper;
 import com.finder.project.resume.service.EducationService;
 import com.finder.project.resume.service.EmploymentHistoryService;
 import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+=======
+import lombok.extern.slf4j.Slf4j;
+>>>>>>> main
 
 /**
  * /resume 경로로 요청 왔을 때 처리
@@ -58,7 +63,7 @@ public class ResumeController {
     private EducationService educationService;
 
     @Autowired
-    private EmploymentHistoryService employmentHistoryService;
+    EmploymentHistoryService employmentHistoryService;
 
     /**
      * 이력서 목록 화면
@@ -229,8 +234,12 @@ public class ResumeController {
 
     /**
      * 경력 등록하기
+<<<<<<< HEAD
      * -employmenthistory 테이블에 insert
      * 
+=======
+     * -employmentHistory 테이블에 insert
+>>>>>>> main
      * @param employmentHistory
      * @return
      * @throws Exception
@@ -267,7 +276,7 @@ public class ResumeController {
         model.addAttribute("employmentHistoryList", employmentHistoryList);
         log.info("::::::::::: 경력 리스트 :::::::::: ");
         log.info(employmentHistoryList.toString());
-        return "/resume/employmenthistory/list";
+        return "/resume/employmentHistory/list";
     }
 
     /**
@@ -396,7 +405,7 @@ public class ResumeController {
     /**
      * 경력 삭제
      * - employmentHistoryNo 받아옴
-     * - employmenthistory 테이블에서 delete
+     * - employmentHistory 테이블에서 delete
      * - 응답
      * - 성공 ⭕ ➡ "SUCCESS" 객체
      * - 실패 ❌ ➡ "FAIL"
@@ -410,7 +419,9 @@ public class ResumeController {
     public ResponseEntity<String> deleteEmpploymentHistory(@RequestParam("employmentHistoryNo") int employmentHistoryNo)
             throws Exception {
         log.info("###############################" + employmentHistoryNo);
+        //데이터 db에 저장
         try {
+<<<<<<< HEAD
             // 데이터 db에 저장
             int result = educationService.delete(employmentHistoryNo);
             if (result > 0) {
@@ -418,6 +429,16 @@ public class ResumeController {
             } else {
                 log.info("실패했다" + result);
             }
+=======
+            int result = employmentHistoryService.delete(employmentHistoryNo);
+ 
+            if( result > 0 ) {
+                return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+            } else {
+                log.info("실패했다" + result);
+                
+            } 
+>>>>>>> main
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("경력 삭제시, 에러 발생");

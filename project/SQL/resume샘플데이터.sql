@@ -49,3 +49,4 @@ SELECT * FROM `cv` WHERE user_no = 1;
         end_date = 20240802,
         duties = '백수'
     WHERE employment_history_no = 1
+

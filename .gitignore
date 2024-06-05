@@ -1,2 +1,14 @@
 .vscode/settings.json
 .vscode/*
+
+.gradle
+**/.gradle
+
+*.class
+**/.class
+
+bin
+**/bin
+
+build
+**/build
