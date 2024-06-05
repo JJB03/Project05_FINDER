@@ -255,6 +255,13 @@ public class CompanyController {
         return "/company/credit/checkout";
     }
 
+    // 토스 페이먼츠 메인 [GET]
+    @GetMapping("/credit/process")
+    public String process() throws Exception {
+        
+        return "/company/credit/process";
+    }
+
     // 토스 페이먼츠 success [GET]
     @GetMapping("/credit/success")
     public String success(@RequestParam("productNo") int productNo
@@ -263,11 +270,14 @@ public class CompanyController {
 
         Product product = companyService.selectProduct(productNo);
         Order order = companyService.selectOrder(orderNo);
+        log.info("order :: " + order);
 
         model.addAttribute("order", order);
         model.addAttribute("product", product);
         return "/company/credit/success";
     }
+
+
     // // // 토스 페이먼츠 success [POST]
     // @PostMapping("/credit/success")
     // public String successPro() throws Exception {
@@ -294,12 +304,10 @@ public class CompanyController {
      
         // 세션에서 사용자 정보 가져오기
         // Users user = (Users) session.getAttribute("user");
-     
-        Credit credit = new Credit();
-        credit.setOrderNo(orderNo);
-        credit.setCreditCode(orderId);
-        credit.setCreditMethod("간편결제");
-        credit.setCreditStatus("PAID");
+        
+        log.info("orderNo : " + orderNo);
+
+        
 
         Order order = companyService.selectOrder(orderNo);
         log.info("order : " + order);
@@ -307,14 +315,27 @@ public class CompanyController {
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, product.getProductDuration());
-        log.info("만료일" + product.getProductDuration());
-        log.info("만료일" + calendar.getTime());
-
-        
+        log.info("개월수" + product.getProductDuration());
+        log.info("현재 날짜" + calendar.getTime());
         order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
 
-        companyService.updateOrder(order);
+        log.info(order.toString());
+
+        int result = companyService.updateOrder(order);
+
+        if(result>0){
+            log.info("성공했어요!~");
+        }else{
+            log.info("실패했어용");
+        }
      
+
+
+        Credit credit = new Credit();
+        credit.setOrderNo(orderNo);
+        credit.setCreditCode(orderId);
+        credit.setCreditMethod("간편결제");
+        credit.setCreditStatus("PAID");
 
         int creditResult = companyService.insertCredit(credit);
 
@@ -327,7 +348,7 @@ public class CompanyController {
      }
 
 
-     // 주문 테이블 추가
+    // 주문 테이블 추가
     @ResponseBody
     @PostMapping("/credit/checkout")
     public Map<String, Object> successPro(HttpSession session,
