@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.finder.project.main.dto.User;
+
 import lombok.Data;
 
 // 이력서 정보
@@ -17,4 +19,5 @@ public class Resume {
     private Date cvUpdDate;             // 수정일자
     private List<Education> educationList = new ArrayList<>();
     private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
+    private User user;
 }
