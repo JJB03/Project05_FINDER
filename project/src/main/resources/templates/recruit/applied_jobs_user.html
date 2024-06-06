@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>지원한 채용공고</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 
 <body layout:fragment="content">
@@ -140,7 +141,8 @@
                                 style="color: #828282; padding: 3px 12px 3px 12px;">
                                 <option value="1">최근 날짜</option>
                             </select>
-                            <input class="form-control form_input"  type="text" name="search_filter" id="search_filter" placeholder="검색어를 입력해주세요">
+                            <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
+                                placeholder="검색어를 입력해주세요">
                             <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
                                 찾기
                             </button>
@@ -149,35 +151,57 @@
 
 
 
-                    <a href="#" class="job-item-link">
-                        <div class="job-item d-flex flex-column">
-                            <div style="width: 38px; height: 15px;">
-                                <!-- new 자리 -->
-                            </div>
-                            <div style="font-size: 12px;">
-                                <span>CANB R&D 연구소</span> <span>|</span> <span>기간: 2024.05.20 ~ 채용시</span>
-                            </div>
-                            <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;">CANB R&D 연구소 부문별 채용
-                            </div>
-                            <div class="item d-flex justify-content-between">
-                                <div class="keyword-span">
-                                    <span>#연구개발</span> <span>#포천시</span> <span>#계약직</span>
+                    <th:block th:if="${recruitPosts.isEmpty()}">
+                        <div>
+
+                        </div>
+                    </th:block>
+
+                    <th:block th:each="recruit : ${recruitPosts}">
+
+                        <a th:href="|/recruit/detail_jobs_user?recruitNo=${recruit.recruitNo}|" class="job-item-link"
+                            th:id="'recruit_' + ${recruit.recruitNo}">
+                            <input type="hidden" name="recruitNo" id="recruitNo" th:value="${recruit.recruitNo}">
+                            <div class="job-item d-flex flex-column">
+                                <div style="width: 38px; height: 15px;">
+                                    <!-- new 자리 -->
                                 </div>
-                                <div class="gap-2 d-flex">
-                                    <div>
-                                        <button type="button" class="btn-short" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" id="btn-stop">
-                                            <strong>조회</strong>
-                                        </button>
+                                <div style="font-size: 12px;">
+                                    <span th:text="${recruit.company.comName}"></span>
+                                    <span>|</span>
+                                    <span>기간 : </span><span th:text="${recruit.recruitRegDate}"></span>
+                                </div>
+                                <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;"
+                                    th:text="${recruit.recruitTitle}">
+
+                                </div>
+                                <div class="item d-flex justify-content-between">
+                                    <div class="keyword-span">
+                                        <th:block th:each="keyword : ${recruit.keywordList}">
+                                            <span th:text="${keyword.recruitKeyword}">
+
+                                            </span>
+                                        </th:block>
                                     </div>
 
-                                    <div class="d-flex justify-content-center m-1">
-                                        <strong style="color: #024FDF;">FINDER</strong>
+
+                                    <div class="gap-2 d-flex">
+                                        <div>
+                                            <button type="button" class="btn-short " id="btn-stop" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">
+                                                <strong>합격조회</strong>
+                                            </button>
+                                        </div>
+
+
+                                        <div class="d-flex justify-content-center m-1">
+                                            <strong style="color: #024FDF;">FINDER</strong>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </th:block>
 
 
                 </div>
@@ -186,11 +210,14 @@
 
     </div>
 
-    
+
     <script>
-        document.getElementById('button').addEventListener('click', function(event) {
+        $(document).ready(function() {
+        $('#btn-stop').click(function(event) {
             event.stopPropagation();  // 이벤트 전파 중지
+            event.preventDefault(); // 기본 동작 방지
         });
+    });
     </script>
 </body>
 
