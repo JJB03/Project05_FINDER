@@ -114,25 +114,25 @@ public class RecruitController {
         return "/recruit/detail_jobs_user";
     }
 
-    @ResponseBody
-    @PostMapping("/posted_jobs_com/{recruitNo}")
-    public ResponseEntity<Boolean> deleteCvNo(@PathVariable("cvNo") int cvNo) throws Exception {
+    // @ResponseBody
+    // @PostMapping("/posted_jobs_com/{recruitNo}")
+    // public ResponseEntity<Boolean> deleteCvNo(@PathVariable("cvNo") int cvNo) throws Exception {
 
-        log.info("채용공고 삭제 : " + cvNo);
-        int result = recruitService.deleteCvList(cvNo);
+    //     log.info("채용공고 삭제 : " + cvNo);
+    //     int result = recruitService.deleteCvList(cvNo);
 
-        if (result > 0) {
-            log.info("삭제되었습니다. ");
-            Files file = new Files();
-            file.setParentTable("recruit");
-            file.setParentNo(cvNo);
-            fileService.deleteByParent(file);
-            return new ResponseEntity<>(true, HttpStatus.OK);
-        }
+    //     if (result > 0) {
+    //         log.info("삭제되었습니다. ");
+    //         Files file = new Files();
+    //         file.setParentTable("recruit");
+    //         file.setParentNo(cvNo);
+    //         fileService.deleteByParent(file);
+    //         return new ResponseEntity<>(true, HttpStatus.OK);
+    //     }
 
-        log.info("삭제가 불가능합니다.");
-        return new ResponseEntity<>(false, HttpStatus.OK);
-    }
+    //     log.info("삭제가 불가능합니다.");
+    //     return new ResponseEntity<>(false, HttpStatus.OK);
+    // }
     // 채용공고 상세 페이지 ---- 끝
 
     // 채용공고 등록 페이지 ----
