@@ -26,6 +26,7 @@ import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.main.dto.Files;
+import com.finder.project.main.dto.Page;
 import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.service.RecruitService;
@@ -34,7 +35,6 @@ import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Slf4j
@@ -329,7 +329,7 @@ public class RecruitController {
 
     // 등록된 채용공고 화면
     @GetMapping("/recruit_list_com")
-    public String recruit_list_com(Model model , HttpSession session) throws Exception {
+    public String recruit_list_com(Model model , HttpSession session, Page page) throws Exception {
         Users user = (Users) session.getAttribute("user");
         
         if (user == null) {
@@ -343,7 +343,7 @@ public class RecruitController {
         int comNo = company.getComNo(); // 31
         log.info(comNo+ "comNO???????@@!@#!@#@!#?!@#?!@?#?!#");
 
-        List<Resume> applyCvList = recruitService.applyCom(comNo);
+        List<Resume> applyCvList = recruitService.applyCom(comNo, page);
 
         for (Resume resume : applyCvList) {
             
@@ -351,6 +351,7 @@ public class RecruitController {
         }
         
         model.addAttribute("resumeList", applyCvList);
+        model.addAttribute("page", page);
 
         return "/recruit/recruit_list_com";
     }

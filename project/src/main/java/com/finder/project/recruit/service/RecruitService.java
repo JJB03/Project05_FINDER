@@ -56,7 +56,7 @@ public interface RecruitService {
     public List<RecruitPost> applyCvList(int userNo) throws Exception;
 
     // 제출된 이력서
-    public List<Resume> applyCom(int comNo) throws Exception;
+    public List<Resume> applyCom(int comNo, Page page) throws Exception;
 
     // userNo 으로 com
     public Company userNoToCom(int userNo) throws Exception;

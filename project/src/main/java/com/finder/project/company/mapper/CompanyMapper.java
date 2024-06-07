@@ -4,9 +4,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
-import com.finder.project.company.dto.Credit;
-import com.finder.project.company.dto.Order;
-import com.finder.project.company.dto.Product;
 import com.finder.project.user.dto.Users;
 
 @Mapper
