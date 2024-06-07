@@ -39,6 +39,20 @@ CREATE TABLE email_verification (
     verification_code VARCHAR(255) NOT NULL
 );
 
+-- 소셜 테이블
+
+CREATE TABLE user_social (
+    `ID` CHAR(36) PRIMARY KEY,
+    `USERNAME` VARCHAR(100) NOT NULL,
+    `PROVIDER` VARCHAR(50) NOT NULL,
+    `SOCIAL_ID` VARCHAR(255) NOT NULL,
+    `NAME` VARCHAR(100) NOT NULL,
+    `EMAIL` VARCHAR(200) DEFAULT NULL,
+    `PICTURE` TEXT DEFAULT NULL,
+    `CREATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `UPDATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- 회원 테이블
 CREATE TABLE `user` (
     `user_no` int NOT NULL AUTO_INCREMENT,
@@ -89,7 +103,7 @@ CREATE TABLE `employment_history` (
 );
 
 -- 학력 테이블
-CREATE TABLE `education` (
+CREATE TABLE `education` ( 
 
     `education_no` int NOT NULL AUTO_INCREMENT,
     `cv_no` int NOT NULL,
@@ -99,7 +113,6 @@ CREATE TABLE `education` (
     PRIMARY KEY (`education_no`),
     FOREIGN KEY (`cv_no`) REFERENCES `cv` (`cv_no`)
 );
-
 
 -- 기업 테이블
 CREATE TABLE `company` (
@@ -247,4 +260,3 @@ CREATE TABLE `credit` (
 -- 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
 -- 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 -- );
-
