@@ -413,10 +413,12 @@ public class ResumeController {
     public ResponseEntity<String> deleteEmpploymentHistory(@RequestParam("employmentHistoryNo") int employmentHistoryNo)
             throws Exception {
         log.info("###############################" + employmentHistoryNo);
-        // 데이터 db에 저장
+
+        
+        //데이터 db에 저장
         try {
             // 데이터 db에 저장
-            int result = educationService.delete(employmentHistoryNo);
+            int result = employmentHistoryService.delete(employmentHistoryNo);
             if (result > 0) {
                 return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
             } else {
