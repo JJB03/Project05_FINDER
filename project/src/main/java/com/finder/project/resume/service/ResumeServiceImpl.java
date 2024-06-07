@@ -1,13 +1,12 @@
 package com.finder.project.resume.service;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finder.project.main.dto.Files;
 import com.finder.project.main.mapper.FileMapper;
 import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Resume;
@@ -131,6 +130,17 @@ public class ResumeServiceImpl implements ResumeService {
         
         int maxPk = resumeMapper.maxPk();
         return maxPk;
+    }
+
+    @Override
+    public int resumeProfileUpload(Files file) throws Exception {
+
+        boolean result = fileService.upload(file);
+        int fileNo = 0;
+        if( result ) {
+            fileNo = fileService.maxPk();
+        }
+        return fileNo;
     }
 
 

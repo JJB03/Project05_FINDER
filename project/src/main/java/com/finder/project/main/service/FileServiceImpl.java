@@ -155,5 +155,10 @@ public class FileServiceImpl implements FileService{
         return Thumbnail;
     }
 
+    @Override
+    public int maxPk() throws Exception {
+        return fileMapper.maxPk();
+    }
+
     
 }

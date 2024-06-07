@@ -1,5 +1,6 @@
 package com.finder.project.resume.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -351,41 +352,25 @@ public class ResumeController {
         this.fileService = fileService;
     }
 
+
+    //문서/이미지 파일 업데이트
+    @ResponseBody
     @PostMapping("/cv_FileUpdate_user")
-    public String fileUpdate(@RequestParam("cvNo") int cvNo,
-                             @RequestParam("file") MultipartFile file,
-                             Model model) throws Exception {
-        // 이력서를 가져와서 업데이트할 파일을 설정합니다.
-        Resume resume = resumeService.select(cvNo);
-        resume.setThumbnail(file);
+    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
+    public ResponseEntity<Integer> uploadFiles(Resume resume) throws Exception {
+        log.info("::::::::::::::::::::: resume :::::::::::::::::::::");
+        log.info(resume.toString());
 
-        // 파일 업데이트 호출
-        resumeService.update(resume);
-
-        // 파일 목록 요청
-        Files files = new Files();
-        files.setParentTable("resume");
-        files.setParentNo(cvNo);
-
-        List<Files> fileList = fileService.listByParent(files);
-
-        if (fileList == null) {
-            System.out.println("파일목록이 없다");
-        } else {
-            for (Files fileItem : fileList) {
-                System.out.println("파일 정보: " + fileItem.toString());
-            }
-        }
-
-        // 목록 요청
-        Files thumbnail = fileService.listByParentThumbnail(files);
-
-        model.addAttribute("resume", resume);
-        model.addAttribute("Thumbnail", thumbnail);
-        model.addAttribute("fileList", fileList);
-
-        return "resume/cv_read_user";
+        Files file = new Files();
+        file.setParentNo(resume.getCvNo());
+        file.setParentTable("resume");
+        file.setFile(resume.getThumbnail());
+        file.setFileCode(1);
+        // fileService.upload(file);
+        int fileNo = resumeService.resumeProfileUpload(file);
+        return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
+    
     
 
 

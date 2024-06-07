@@ -35,4 +35,8 @@ public interface FileService {
 
     //파일 다운로드
     public Files downFile(int fileNo) throws Exception;
+
+    // 파일 번호 최댓값
+    public int maxPk() throws Exception;
+
 }
