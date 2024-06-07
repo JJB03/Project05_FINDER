@@ -13,6 +13,7 @@ import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.mapper.CompanyMapper;
 import com.finder.project.company.mapper.CreditMapper;
+import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.user.dto.Users;
 
@@ -117,9 +118,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     // 주문/결제 목록 조회(조인)
     @Override
-    public List<Order> orderCreditList(Page page) throws Exception {
+    public List<Order> orderCreditList(int userNo, Page page) throws Exception {
 
-        List<Order> orderCreditList = creditMapper.orderCreditList(page);
+        int total = creditMapper.count(userNo);
+        page.setTotal(total);
+
+        List<Order> orderCreditList = creditMapper.orderCreditList(userNo, page);
         return orderCreditList;
     }
 

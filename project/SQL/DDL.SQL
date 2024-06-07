@@ -90,6 +90,7 @@ CREATE TABLE `employment_history` (
 
 -- 학력 테이블
 CREATE TABLE `education` (
+
     `education_no` int NOT NULL AUTO_INCREMENT,
     `cv_no` int NOT NULL,
     `university` varchar(500) NULL,
@@ -98,6 +99,7 @@ CREATE TABLE `education` (
     PRIMARY KEY (`education_no`),
     FOREIGN KEY (`cv_no`) REFERENCES `cv` (`cv_no`)
 );
+
 
 -- 기업 테이블
 CREATE TABLE `company` (
@@ -221,6 +223,7 @@ CREATE TABLE `credit` (
     PRIMARY KEY (`credit_no`),
     FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`)
 );
+
 -- 메일인증 테이블
 -- CREATE TABLE `mail` (
 -- 	`mail_key` varchar(500) NOT NULL,
@@ -243,3 +246,4 @@ CREATE TABLE `credit` (
 -- 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
 -- 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 -- );
+

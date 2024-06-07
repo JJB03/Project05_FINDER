@@ -7,19 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
 
-        th {
-            /* text-align: left; */
-            font-size: var(--text-normal);
-            width: 120px;
-        }
-
-        .pagination-container {
-            display: flex;
-            margin-top: 10px;
-            justify-content: center;
-        }
-
-
         .table-wrap {
             min-height: 400px;
             border: 1px solid #ccc;
@@ -46,8 +33,8 @@
             padding: 0 5px !important;
         }
         
-
     </style>
+    <link rel="stylesheet" href="/css/pagination.css">
     <title>결제 내역</title>
 </head>
 
@@ -280,26 +267,46 @@
                         </table>
                     </div>
 
-                    <!-- 페이징 html, page dto 만들어야 함.-->
-                    <nav aria-label="Page navigation example" class="pagination-container">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next" style="cursor: pointer;">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <!-- 페이지네이션 -->
+                    <div class="pagination-container justify-content-center d-flex mt-4">
+                        <div class="pagination d-flex">
+
+                            <!-- [ 처음 ] -->
+                            <a class="page-item page-first" th:href="|/company/credit/credit_list_com?page=${page.first}|" ><i class="fa-solid fa-angles-left"></i></a>        
+                            
+                            <!-- [ 이전 ] -->
+                            <th:block th:if="${page.page != page.first}">
+                                <a class="page-item" th:href="|/company/credit/credit_list_com?page=${page.prev}|" ><i class="fa-solid fa-angle-left"></i></a>
+                            </th:block>
+
+                            <!-- 페이지 번호 -->
+                            <!-- 
+                                #numbers.sequence(시작번호, 끝번호) 
+                                : 시작번호부터 끝번호까지 번호 리스트를 생성
+                            -->
+                            <th:block th:each="no : ${#numbers.sequence(page.start, page.end)}">
+                                <!-- 현재 페이지 -->
+                                <th:block th:if="${page.page == no}">
+                                    <b>
+                                        <span th:text="${no}"></span>
+                                    </b>
+                                </th:block>
+                                <th:block th:if="${page.page != no}">
+                                    <a th:href="|/company/credit/credit_list_com?page=${no}|" th:text="${no}"></a>
+                                </th:block>
+                            </th:block>
+
+                            <!-- [ 다음 ] -->
+                            <th:block th:if="${page.page != page.last}">
+                                <a class="page-item" th:href="|/company/credit/credit_list_com?page=${page.next}|" ><i class="fa-solid fa-angle-right"></i></a>
+                            </th:block>
+                            
+                            <!-- [ 마지막 ] -->
+                            <a class="page-item page-end" th:href="|/company/credit/credit_list_com?page=${page.last}|" ><i class="fa-solid fa-angles-right"></i></a>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

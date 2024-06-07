@@ -8,6 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Option;
 
+import com.finder.project.user.dto.Users;
+
+
 import lombok.Data;
 
 // 이력서 정보
@@ -21,7 +24,10 @@ public class Resume {
     private Date cvUpdDate;             // 수정일자
     private List<Education> educationList = new ArrayList<>();
     private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
+    private Users user;
     
+    private User user;
+
     //파일
     List<MultipartFile> file;
     private int fileNo;

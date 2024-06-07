@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import com.finder.project.user.dto.Users;
+
 import lombok.Data;
 
 @Data
@@ -19,7 +21,8 @@ public class Order {
     private Timestamp createdDate;
     private Timestamp updatedDate;
     private Date expirationDate;
-
+    
+    private Users user;
 
     private List<Credit> credits;
 

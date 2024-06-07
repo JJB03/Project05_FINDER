@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.Keyword;
@@ -32,6 +33,8 @@ public interface RecruitMapper {
     // 채용공고 상세조회
     public RecruitPost recruitRead(int recruitNo) throws Exception;
     // public List<Keyword> recruitReadKeyword(int recruitNo) throws Exception;
+    // 채용공고 회사정보
+    public CompanyDetail selectCompanyDetailsWithRecruit(int comNo) throws Exception;
     // 채용공고 상세조회 끝
 
     // 등록 한 채용공고 목록
@@ -70,4 +73,10 @@ public interface RecruitMapper {
     public List<Resume> applyCom(int comNo) throws Exception;
 
     public Company userNoToCom(int userNo) throws Exception;
+
+    public Company recruitToCom(int comNo) throws Exception;
+
+    public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception;
+
+
 }

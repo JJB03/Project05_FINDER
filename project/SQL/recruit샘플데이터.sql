@@ -1,4 +1,4 @@
--- Active: 1711633953173@@127.0.0.1@3306@joeun
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 SELECT c.*, r.*, rk.*
 FROM
     company c
@@ -628,3 +628,32 @@ JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
 JOIN cv ON apply_employee.cv_no = cv.cv_no
 JOIN user ON cv.user_no = user.user_no
 WHERE recruit.com_no = 31;
+
+
+SELECT
+    c.com_no,
+    c.com_name,
+    c.com_category,
+    c.com_address,
+    c.com_business,
+    cd.com_info_no,
+    cd.com_represent,
+    cd.com_url,
+    cd.com_birth,
+    cd.com_size,
+    cd.com_emp_count,
+    cd.com_sales,
+    cd.com_content,
+    cd.com_vision,
+    cd.com_welfare,
+    cd.com_avg_salary
+FROM
+    recruit r
+JOIN
+    company c ON r.com_no = c.com_no
+JOIN
+    company_detail cd ON cd.com_no = 3;
+
+    SELECT c.*
+FROM company c
+JOIN recruit r ON c.com_no = 3;
