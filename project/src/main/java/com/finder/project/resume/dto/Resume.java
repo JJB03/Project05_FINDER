@@ -31,4 +31,7 @@ public class Resume {
     List<MultipartFile> file;
     private int fileNo;
     private Option option;
+
+
+    private int applyNo;
 }

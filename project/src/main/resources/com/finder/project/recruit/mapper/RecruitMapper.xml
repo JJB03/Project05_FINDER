@@ -50,6 +50,8 @@
     <result property="cvTitle" column="cvTitle"/>
     <result property="cvRegDate" column="cvRegDate"/>
     <result property="cvUpdDate" column="cvUpdDate"/>
+    <result property="applyNo" column="applyNo"/> <!-- applyNo 추가 -->
+
     
     <association property="user" javaType="com.finder.project.user.dto.Users">
         <id property="userNo" column="user_userNo"/>
@@ -296,7 +298,8 @@
            u.user_reg_date AS user_userRegDate,
            u.user_upd_date AS user_userUpdDate,
            u.user_gender AS user_userGender,
-           u.ENABLED AS user_enabled
+           u.ENABLED AS user_enabled,
+           ae.apply_no As applyNo <!-- applyNo 추가 -->
     FROM cv c
     JOIN apply_employee ae ON c.cv_no = ae.cv_no
     JOIN recruit r ON ae.recruit_no = r.recruit_no
@@ -307,13 +310,22 @@
   </select>
 
   <!-- 제출된 이력서 페이징 -->
-  <select id="countResumes" resultType="int">
-      SELECT COUNT(*)
+  <!-- <select id="countResumes" resultType="int">
+      SELECT COUNT(ae.apply_no)
       FROM cv c
       JOIN apply_employee ae ON c.cv_no = ae.cv_no
       JOIN recruit r ON ae.recruit_no = r.recruit_no
       WHERE r.com_no = #{comNo};
+  </select> -->
+
+  <select id="countResumes" resultType="int">
+      SELECT COUNT(ae.apply_no)
+      FROM apply_employee
+      JOIN apply_employee ae ON c.cv_no = ae.cv_no
+      JOIN recruit r ON ae.recruit_no = r.recruit_no
+      WHERE r.com_no = #{comNo};
   </select>
+
 
 
   <select id="userNoToCom" resultType="Company">
