@@ -66,5 +66,5 @@ public interface RecruitService {
 
     // recruitNo 으로 recruit
     public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception;
-   
+
 }
