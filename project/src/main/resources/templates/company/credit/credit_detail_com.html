@@ -164,7 +164,7 @@
 
                 // 신용카드 결제 버튼 활성화
                 var tossURL = document.getElementById('tossURL');
-                tossURL.href = '/company/credit/checkout?productNo=' + productNo;
+                // tossURL.href = '/company/credit/checkout?productNo=' + productNo; // 이거때문에 자꾸 orderNo 존재하지 않는다고 오류뜸
                 tossURL.classList.remove('disabled');
             }
 
@@ -194,8 +194,8 @@
                     // response : 응답 데이터
                     // status   : 응답 상태
                     if(response.success) {
-                        var orderNo = response.orderNo;
-                        window.location.href = `/company/credit/checkout?orderNo=${orderNo}&productNo=${productNo}`;
+                        let orderNo = response.orderNo;
+                        window.location.href = `/company/credit/checkout?productNo=${productNo}&orderNo=${orderNo}`;
                     } else {
                         window.location.href = '/company/credit/fail?error';
                     }

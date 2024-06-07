@@ -26,6 +26,7 @@ import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.PasswordConfirmRequest;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
+import com.finder.project.main.dto.Page;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +44,7 @@ public class CompanyController {
     @Autowired
     PasswordEncoder passwordEncoder; 
 
-    // main_com 화면 (기업 메인 메뉴선정화면?)
+    // main_com 화면 (기업 메인 메뉴선정화면)
     @GetMapping("/main_com")
     public String main_com() {
         return "/company/main_com";
@@ -185,7 +186,7 @@ public class CompanyController {
         return "redirect:/user/error";
     }
 
-    // 현재 비밀번호 확인⭕
+    // 현재 비밀번호 확인
     @PostMapping("/update_com_pw_confirm")
     public ResponseEntity<Boolean> pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
         
@@ -196,7 +197,7 @@ public class CompanyController {
         return ResponseEntity.ok(isMatch);
     }
 
-    // 기업 비밀번호 수정 ⭕
+    // 기업 비밀번호 수정
     @PostMapping("/update_com_pw")
     public String updateCompany(HttpSession session 
                                 ,@RequestParam("userPw") String userPw
@@ -269,9 +270,6 @@ public class CompanyController {
         Product product = companyService.selectProduct(productNo);
         Order order = companyService.selectOrder(orderNo);
         Credit credit = companyService.selectCredit(orderNo);
-        log.info(credit.toString());
-        log.info(order.toString());
-        log.info(product.toString());
 
         model.addAttribute("credit", credit);
         model.addAttribute("order", order);
@@ -280,7 +278,7 @@ public class CompanyController {
     }
 
 
-     // 결제 테이블 추가
+     // 결제 테이블 추가 [POST]
      @ResponseBody
      @PostMapping("/credit/process")
      public ResponseEntity<Map<String, Object>> successPro(HttpSession session,
@@ -293,28 +291,21 @@ public class CompanyController {
      
         // 세션에서 사용자 정보 가져오기
         // Users user = (Users) session.getAttribute("user");
-        log.info("Received data: paymentKey = " + paymentKey + ", orderId = " + orderId + ", price = " + price + ", productNo = " + productNo + ", orderNo = " + orderNo);
-
-        log.info("orderNo : " + orderNo);
+        log.info("주문번호 : " + orderNo);
 
         Order order = companyService.selectOrder(orderNo);
-        log.info("order : " + order);
         Product product = companyService.selectProduct(productNo);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, product.getProductDuration());
-        log.info("개월수" + product.getProductDuration());
-        log.info("현재 날짜" + calendar.getTime());
         order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
 
-        log.info(order.toString());
-
-        int result = companyService.updateOrder(order);
+        int result = companyService.updateOrder(order); // 주문 갱신
 
         if(result>0){
-            log.info("성공했어요!~");
+            log.info(" order_status / updated_date / expiration_date 갱신 ");
         }else{
-            log.info("실패했어용");
+            log.info(" 주문 갱신 실패 ");
         }
      
         Credit credit = new Credit();
@@ -323,7 +314,7 @@ public class CompanyController {
         credit.setCreditMethod("간편결제");
         credit.setCreditStatus("PAID");
 
-        int creditResult = companyService.insertCredit(credit);
+        int creditResult = companyService.insertCredit(credit); // 결제 등록
 
         Map<String, Object> response = new HashMap<>();
 
@@ -340,63 +331,58 @@ public class CompanyController {
      }
 
 
-    // 주문 테이블 추가
+    // 주문 테이블 추가 [POST]
     @ResponseBody
     @PostMapping("/credit/checkout")
     public Map<String, Object> successPro(HttpSession session,
                                       @RequestBody Map<String, Integer> requestBody) throws Exception {
-    int productNo = requestBody.get("productNo");
+        int productNo = requestBody.get("productNo");
+        log.info("제품번호 : " + productNo);
 
-    // 세션에서 사용자 정보 가져오기
-    Users user = (Users) session.getAttribute("user");
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
 
-    // 결제 성공 시 주문 데이터를 데이터베이스에 저장
-    Order order = new Order();
-    Product product = companyService.selectProduct(productNo);
+        // 결제진행시 주문테이블에 미결제 등록
+        Order order = new Order();
+        Product product = companyService.selectProduct(productNo);
 
-    order.setUserNo(user.getUserNo()); /* session이나 다른 방식으로 userNo 설정 */
-    order.setProductNo(product.getProductNo());
-    order.setTotalQuantity(product.getProductCount()); // 필요한 경우 적절히 설정
-    order.setTotalPrice(product.getProductPrice());
-    order.setOrderStatus("PENDING");
+        order.setUserNo(user.getUserNo()); 
+        order.setProductNo(product.getProductNo());
+        order.setTotalQuantity(product.getProductCount()); // 필요한 경우 적절히 설정
+        order.setTotalPrice(product.getProductPrice());
+        order.setOrderStatus("PENDING");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, product.getProductDuration());
+        order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
 
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.MONTH, product.getProductDuration());
+        // order_no를 반환하는 insertOrder 메서드 호출
+        int orderNo = companyService.insertOrder(order);
+        log.info("주문번호 : " + orderNo);
 
-    order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
-
-    // order_no를 반환하는 insertOrder 메서드 호출
-    int orderNo = companyService.insertOrder(order);
-
-    Map<String, Object> response = new HashMap<>();
-    if (orderNo > 0) {
-        response.put("success", true);
-        response.put("orderNo", orderNo);
-    } else {
-        response.put("success", false);
+        Map<String, Object> response = new HashMap<>();
+        if (orderNo > 0) {
+            response.put("success", true);
+            response.put("orderNo", orderNo);
+        } else {
+            response.put("success", false);
+        }
+        return response;
     }
-    return response;
-}
-
-    
 
 
-    // 토스 페이먼츠 fail
+    // 토스 페이먼츠 fail [GET]
     @GetMapping("/credit/fail")
     public String fail() {
         return "/company/credit/fail";
     }
 
-
-
-
-    // 결제상품 화면
+    // 결제상품 화면 [GET]
     @GetMapping("/credit/credit_com")
     public String credit_com() throws Exception {
         return "/company/credit/credit_com";
     }
     
-    // 결제상품 세부 화면
+    // 결제상품 세부 화면 [GET]
     @GetMapping("/credit/credit_detail_com")
     public String credit_detail_com(@RequestParam("productNo") int productNo, Model model, Product product) throws Exception {
 
@@ -407,14 +393,18 @@ public class CompanyController {
         return "company/credit/credit_detail_com";
     }
 
-
-    // 결제 목록 내역 화면
+    // 결제 목록 내역 화면 [GET]
     @GetMapping("/credit/credit_list_com")
-    public String credit_list_com(Model model) throws Exception {
+    public String credit_list_com(Model model, Page page) throws Exception {
 
-    List<Order> orderCreditList = companyService.orderCreditList();
+    List<Order> orderCreditList = companyService.orderCreditList(page);
+
+    // 페이징
+    log.info("page : " + page);
+
 
     model.addAttribute("orderCreditList", orderCreditList);
+    model.addAttribute("page", page);
 
         return "/company/credit/credit_list_com";
     }
@@ -428,11 +418,21 @@ public class CompanyController {
 
 
 
-    // 등록된 채용공고 화면
-    @GetMapping("/recruit_list_com")
-    public String recruit_list_com() throws Exception {
-        return "/company/recruit_list_com";
-    }
+    // // 등록된 채용공고 화면
+    // @GetMapping("/recruit_list_com")
+    // public String recruit_list_com(Model model , HttpSession session) throws Exception {
+    //     Users user = (Users) session.getAttribute("user");
+        
+    //     if (user == null) {
+    //         // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+    //         return "redirect:/login";
+    //     }
+    //     int userNo = user.getUserNo();
+        
+        
+
+    //     return "/company/recruit_list_com";
+    // }
 
     // AI 평가 화면
     @GetMapping("/score_com")

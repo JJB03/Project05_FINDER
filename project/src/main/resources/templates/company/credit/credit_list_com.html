@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{/layout/recruit_layout}">
+    layout:decorate="~{/layout/company_layout}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        .company-name{
-            position: absolute;
-        }
 
-        .container-line{
-            border: lightgrey solid 1px; 
-            border-radius: 8px;
-            height: 450px;
-        }
-     
-        th{
-            text-align: left;
-            font-size: 15px;
+        th {
+            /* text-align: left; */
+            font-size: var(--text-normal);
             width: 120px;
-            border-right: #d3d3d3 solid 1px;
-            border-bottom: lightgrey solid 1px;
-        }
-
-        .td-st{
-            border-bottom:  lightgrey solid 1px;
         }
 
         .pagination-container {
-                          display: flex;
-                          margin-top: 10px;
-                          justify-content: center;
-                        }
-
-        .table-credit {
-            width: 100%;
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
         }
-    
+
+
+        .table-wrap {
+            min-height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
         th {
             text-align: center;
             width: auto;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #ccc;
         }
 
         td {
             text-align: center;
-            width: auto;
             padding: 15px 0;
         }
+
+        .aBtn {
+            text-decoration: none !important;
+            line-height: 34px !important;
+            text-align: center !important;
+            padding: 0 5px !important;
+        }
+        
 
     </style>
     <title>결제 내역</title>
@@ -56,32 +54,32 @@
 <body layout:fragment="content">
 
     <th:block th:each="order : ${orderCreditList}">
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">결제내역 상세 안내</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="text-align: center;">
-                        <strong>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">결제내역 상세 안내</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <strong>
                             결제 날짜: <span th:each="credit : ${order.credits}" th:text="${#dates.format( credit.creditDate, 'yyyy/MM/dd' )}"></span>
                         </strong>
-                        <br>
-                        <br>
-                        <span th:text="${session.user.userName}"></span>님의 결제 내역입니다<br>
-                        상품 옵션은 개월이며 <br>
-                        결제 금액은 500000원입니다.<br>
-                        <hr>
-                        구매해주셔서 감사합니다.<br>
-                        주문처리 일자: 2024/06/02<br>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
+                    <br>
+                    <br>
+                    <span th:text="${session.user.userName}"></span>님의 결제 내역입니다<br>
+                    상품 옵션은 개월이며 <br>
+                    결제 금액은 500000원입니다.<br>
+                    <hr>
+                    구매해주셔서 감사합니다.<br>
+                    주문처리 일자: <span th:text="${#dates.format( order.orderedDate, 'yyyy/MM/dd' )}"></span><br>
+                </div>
+                <div class="modal-footer">
                 </div>
             </div>
         </div>
+    </div>
     </th:block>
 
     <div class="container-fluid container">
@@ -175,7 +173,7 @@
                         <strong class="fs-5">이력서 관리</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="/company/recruit_list_com" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/recruit/recruit_list_com" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Documents.png" alt="x">
@@ -202,7 +200,7 @@
             </nav>
 
 
-            <main class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
+            <div class="col-12 col-md-12 col-lg-8 main-content d-flex justify-content-end align-items-start">
                 <div class="job-listings">
                     <div class="job-header">
                         <div style="padding: 15px;"><strong>결제 내역</strong></div>
@@ -214,74 +212,101 @@
                                 <option value="1">최근 날짜</option>
                                 <option value="1">오래된 날짜</option>
                             </select>
-                            <input class="form-control form_input"  type="text" name="search_filter" id="search_filter" placeholder="검색어를 입력해주세요">
+                            <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
+                                placeholder="검색어를 입력해주세요">
                             <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
                                 찾기
                             </button>
                         </div>
                     </div>
-                    <div class="container-line">
-                        <table class="table-credit">
+
+                    <div class="table-wrap">
+                        <table class="table-credit" style="min-width: 100%;">
                             <thead>
                                 <tr style="text-align: center;">
-                                        <th>주문번호</th>
-                                        <th>결제수단</th>
-                                        <th>결제일시</th>
-                                        <th>결제금액</th>
-                                        <th>결제상태</th>
-                                        <th style="width: 80px;">상세보기</th>
+                                    <th>주문번호</th>
+                                    <th>결제수단</th>
+                                    <th>결제일시</th>
+                                    <th>결제금액</th>
+                                    <th>결제상태</th>
+                                    <th style="width: 80px;">상세보기</th>
                                 </tr>
                             </thead>
 
+                            <th:block th:if="${orderCreditList.isEmpty()}">
+                                <tr>
+                                    <td colspan="6" align="center">
+                                        조회된 게시글이 정보가 없습니다.
+                                    </td>
+                                </tr>
+                            </th:block>
+
                             <th:block th:each="order : ${orderCreditList}">
-                                <tr class="td-st">
+                                <tr>
                                     <td th:text="${order.orderNo}"></td>
-                                    <td th:each="credit : ${order.credits}" th:text="${credit.creditMethod}"></td>
-                                    <td th:each="credit : ${order.credits}" th:text="${credit.creditDate}"></td>
-                                    <td th:text="${order.totalPrice}"></td>
-                                    <th:block th:if="${order.orderStatus eq 'PAID'}">
-                                        <td>결제완료</td>
-                                    </th:block>                                    
+
                                     <td>
-                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
-                                            <strong>상세조회</strong>
-                                        </a>
+                                        <span th:each="credit : ${order.credits}"
+                                            th:text="${credit.creditMethod}"></span>
+                                    </td>
+
+                                    <td>
+                                        <span th:each="credit : ${order.credits}"
+                                            th:text="${credit.creditDate != null ? 
+                                                #dates.format( credit.creditDate, 'yyyy/MM/dd HH:mm:ss' ) 
+                                                : ''}"></span>
+                                    </td>
+
+                                    <td th:text="${order.totalPrice}"></td>
+
+
+                                    <td th:switch="${order.orderStatus}">
+                                        <span th:case="'PAID'">결제완료</span>
+                                        <span th:case="*">결제대기</span>
+                                    </td>
+
+                                    <td>
+                                        <th:block th:each="credit : ${order.credits}" th:if="credit.creditDate != null">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-short aBtn" th:text="상세조회">
+                                            </a>
+                                        </th:block>
+                                        <th:block th:switch="${order.orderStatus}">
+                                            <a th:href="|/company/credit/checkout?orderNo=${order.orderNo}&productNo=${order.productNo}|" class="btn-short aBtn" th:case="PENDING" th:text="결제하기"></a>
+                                        </th:block>
                                     </td>
                                 </tr>
                             </th:block>
 
                         </table>
                     </div>
-                        
-                    <!-- 페이징 html, page dto 만들어야 함.-->  
-                      <nav aria-label="Page navigation example" class="pagination-container">
-                        <ul class="pagination">
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">4</a></li>
-                          <li class="page-item"><a class="page-link" href="#">5</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next" style="cursor: pointer;">
-                              <span aria-hidden="true" >&raquo;</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                </div>
-            </main>
-        </div>
 
+                    <!-- 페이징 html, page dto 만들어야 함.-->
+                    <nav aria-label="Page navigation example" class="pagination-container">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next" style="cursor: pointer;">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-    
+
     <script>
         var myModal = document.getElementById('myModal')
         var myInput = document.getElementById('myInput')
@@ -290,6 +315,7 @@
             myInput.focus()
         })
     </script>
+
 </body>
 
 </html>

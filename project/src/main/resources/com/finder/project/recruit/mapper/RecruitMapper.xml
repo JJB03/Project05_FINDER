@@ -42,6 +42,30 @@
     </collection>
   </resultMap>
 
+  <resultMap id="ResumeResultMap" type="com.finder.project.resume.dto.Resume">
+    <id property="cvNo" column="cvNo"/>
+    <result property="userNo" column="userNo"/>
+    <result property="coverLetter" column="coverLetter"/>
+    <result property="cvTitle" column="cvTitle"/>
+    <result property="cvRegDate" column="cvRegDate"/>
+    <result property="cvUpdDate" column="cvUpdDate"/>
+    
+    <association property="user" javaType="com.finder.project.main.dto.User">
+        <id property="userNo" column="user_userNo"/>
+        <result property="userName" column="user_userName"/>
+        <result property="userId" column="user_userId"/>
+        <result property="userPw" column="user_userPw"/>
+        <result property="userBeforePw" column="user_userBeforePw"/>
+        <result property="userBirth" column="user_userBirth"/>
+        <result property="userPhone" column="user_userPhone"/>
+        <result property="userEmail" column="user_userEmail"/>
+        <result property="userRegDate" column="user_userRegDate"/>
+        <result property="userUpdDate" column="user_userUpdDate"/>
+        <result property="userGender" column="user_userGender"/>
+        <result property="enabled" column="user_enabled"/>
+    </association>
+  </resultMap>
+
 
 
   <select id="max" resultType="int">
@@ -151,8 +175,8 @@
   </update>
 
   <delete id="deleteKeyword">
-  DELETE FROM recruit_keyword 
-  WHERE recruit_no = #{recruitNo};
+    DELETE FROM recruit_keyword 
+    WHERE recruit_no = #{recruitNo};
 
   </delete>
 
@@ -209,7 +233,53 @@
     </where>
   </select>
 
+  <!-- 지원내역 삽입 -->
+  <insert id="apply">
+    INSERT INTO apply_employee (cv_no , recruit_no)
+    VALUES (#{cvNo} , #{recruitNo})
+  </insert>
 
+  <!-- 유저가 채용지원한 리스트 -->
+  <select id="applyCvList" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    JOIN apply_employee a ON r.recruit_no = a.recruit_no
+    JOIN cv ON a.cv_no = cv.cv_no
+    WHERE cv.user_no = #{userNo};
+  </select>
+  
+  <select id="applyCom" resultMap="ResumeResultMap">
+    SELECT c.cv_no AS cvNo,
+           c.user_no AS userNo,
+           c.cover_letter AS coverLetter,
+           c.cv_title AS cvTitle,
+           c.cv_reg_date AS cvRegDate,
+           c.cv_upd_date AS cvUpdDate,
+           u.user_no AS user_userNo,
+           u.user_name AS user_userName,
+           u.user_id AS user_userId,
+           u.user_pw AS user_userPw,
+           u.user_before_pw AS user_userBeforePw,
+           u.user_birth AS user_userBirth,
+           u.user_phone AS user_userPhone,
+           u.user_email AS user_userEmail,
+           u.user_reg_date AS user_userRegDate,
+           u.user_upd_date AS user_userUpdDate,
+           u.user_gender AS user_userGender,
+           u.ENABLED AS user_enabled
+    FROM cv c
+    JOIN apply_employee ae ON c.cv_no = ae.cv_no
+    JOIN recruit r ON ae.recruit_no = r.recruit_no
+    JOIN user u ON c.user_no = u.user_no
+    WHERE r.com_no = #{comNo};
+  </select>
 
+  <select id="userNoToCom" resultType="Company">
+    SELECT *
+    FROM company
+    WHERE user_no = #{userNo};
+  </select>
 
 </mapper>

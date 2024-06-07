@@ -33,6 +33,8 @@ import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Slf4j
 @Controller
@@ -114,25 +116,38 @@ public class RecruitController {
         return "/recruit/detail_jobs_user";
     }
 
-    // @ResponseBody
-    // @PostMapping("/posted_jobs_com/{recruitNo}")
-    // public ResponseEntity<Boolean> deleteCvNo(@PathVariable("cvNo") int cvNo) throws Exception {
 
-    //     log.info("채용공고 삭제 : " + cvNo);
-    //     int result = recruitService.deleteCvList(cvNo);
+    // 지원하기 비동기 삭제
+    @ResponseBody
+    @PostMapping("/detail_jobs_user/{cvNo}")
+    public ResponseEntity<Boolean> deleteCvNo(@PathVariable("cvNo") int cvNo) throws Exception {
 
-    //     if (result > 0) {
-    //         log.info("삭제되었습니다. ");
-    //         Files file = new Files();
-    //         file.setParentTable("recruit");
-    //         file.setParentNo(cvNo);
-    //         fileService.deleteByParent(file);
-    //         return new ResponseEntity<>(true, HttpStatus.OK);
-    //     }
+        log.info("이력서 삭제 : " + cvNo);
+        int result = recruitService.deleteCvList(cvNo);
 
-    //     log.info("삭제가 불가능합니다.");
-    //     return new ResponseEntity<>(false, HttpStatus.OK);
-    // }
+        if (result > 0) {
+            log.info("삭제되었습니다. ");
+            Files file = new Files();
+            file.setParentTable("recruit");
+            file.setParentNo(cvNo);
+            fileService.deleteByParent(file);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+
+        log.info("삭제가 불가능합니다.");
+        return new ResponseEntity<>(false, HttpStatus.OK);
+    }
+
+    @PostMapping("/detail_jobs_user/submitCv")
+    public String submitCv(@RequestParam("focusedCvNo") int focusedCvNo, @RequestParam("recruitNo") int recruitNo) throws Exception {
+        
+        log.info(focusedCvNo + "?? " + recruitNo);
+        recruitService.apply(recruitNo, focusedCvNo);
+        
+        return "redirect:/recruit/applied_jobs_user";
+    }
+    
+
     // 채용공고 상세 페이지 ---- 끝
 
     // 채용공고 등록 페이지 ----
@@ -291,12 +306,49 @@ public class RecruitController {
         return "/recruit/new_jobs_user";
     }
 
+
+    // 지원한 채용공고
     @GetMapping("/applied_jobs_user")
-    public String getMethodName() {
+    public String applied(Model model, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+
+        int userNo = user.getUserNo();
+
+        List<RecruitPost> recruitPosts = recruitService.applyCvList(userNo);
+        log.info(recruitPosts + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ re");
+
+        model.addAttribute("recruitPosts", recruitPosts);
 
         return "/recruit/applied_jobs_user";
     }
 
-    //
+    // 등록된 채용공고 화면
+    @GetMapping("/recruit_list_com")
+    public String recruit_list_com(Model model , HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+        int userNo = user.getUserNo();
+
+        Company company = recruitService.userNoToCom(userNo); // 1
+
+        int comNo = company.getComNo(); // 31
+        log.info(comNo+ "comNO???????@@!@#!@#@!#?!@#?!@?#?!#");
+
+        List<Resume> applyCvList = recruitService.applyCom(comNo);
+
+        for (Resume resume : applyCvList) {
+            
+            log.info("??????!@#!@#!@#@!" + resume);
+        }
+        
+        model.addAttribute("resumeList", applyCvList);
+
+        return "/recruit/recruit_list_com";
+    }
+    
 
 }

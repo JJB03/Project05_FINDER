@@ -32,6 +32,7 @@ public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
         return employmentHistory;
     }
 
+
     @Override
     public int create(EmploymentHistory employmentHistory) throws Exception {
         int result = employmentHistoryMapper.create(employmentHistory);
@@ -48,8 +49,6 @@ public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
     @Override
     public int delete(int employmentHistoryNo) throws Exception {
         int result = employmentHistoryMapper.delete(employmentHistoryNo);
-
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ result값 : " + result);
         return result;
     }
 
@@ -59,5 +58,6 @@ public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
         int result = employmentHistoryMapper.maxPk();
         return result;
     }
+    
     
 }

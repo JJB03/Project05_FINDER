@@ -30,11 +30,14 @@ public class ResumeServiceImpl implements ResumeService {
     
     /*
      * 이력서 첫 페이지 만들기⭕
+     * 파일 임플 적어야 함.
      */
     @Override
     public int create(int userNo) throws Exception {
     // Resume 객체를 초기화
     Resume resume = new Resume();
+    int cvNo = resumeMapper.maxPk();
+    
     // 사용자 번호를 설정
     resume.setUserNo(userNo);
     // 이력서 생성 메서드를 호출하여 데이터베이스에 저장

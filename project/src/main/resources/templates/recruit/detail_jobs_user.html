@@ -13,7 +13,9 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <form action="" method="post" class="modal-content">
+            <form action="/recruit/detail_jobs_user/submitCv" method="post" class="modal-content" onsubmit="return validateForm();">
+                <input type="hidden" id="focusedCvNo" name="focusedCvNo" value="">
+                <input type="hidden" id="recruitNo" name="recruitNo" th:value="${recruitPost.recruitNo}">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">이력서 선택</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -23,17 +25,34 @@
 
                     </strong>
                     <br>
+                    <th:block th:if="${resumeList.isEmpty()}">
+                        <div>
+                            <span>조회된 이력서 정보가 없습니다.</span>
+                        </div>
+                    </th:block>
 
                     <th:block th:each="resume : ${resumeList}">
-                        <a href="#" class="job-item-link modal-list">
+                        <a href="#" class="job-item-link modal-list" th:id="'cv_' + ${resume.cvNo}"
+                            th:onclick="|setCvNo('${resume.cvNo}')|">
                             <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
-                            <div class="job-item d-flex flex-column " tabindex="0">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                            <div class="job-item d-flex flex-column" tabindex="0">
                                 <div style="width: 38px; height: 15px;">
                                     <!-- new 자리 -->
                                 </div>
+
+                                <div class="item d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <!--데이터 불러오기-->
+                                        <span class="mb-3" th:text="${resume.cvTitle}"
+                                            style="font-size: 19px; font-weight: bold;">
+                                        </span>
+                                    </div>
+                                </div>
                                 <div style="font-size: 16px;" class="row">
                                     <div class="d-flex">
-                                        <div style="width: 100%;">
+                                        <div style="width: 100%;" class="d-flex">
                                             <!-- 나이 -->
                                             <span th:text="${user.userBirth}">
                                             </span>
@@ -52,14 +71,6 @@
                                 </div>
 
                                 <div class="item d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <!--데이터 불러오기-->
-                                        <span class="mb-3" th:text="${resume.cvTitle}">
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="item d-flex justify-content-between">
                                     <div class="keyword-span">
                                         <th:block th:each="keyword : ${recruitPost.keywordList}">
                                             <span th:text="${keyword.recruitKeyword}">
@@ -69,8 +80,8 @@
                                     </div>
                                     <div class="gap-2 d-flex">
                                         <div>
-                                            <button type="button" class="btn-short" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" th:onclick="|deleteCv(${resume.cvNo}, event)|">
+                                            <button type="button" class="btn-short"
+                                                th:onclick="|deleteCv(${resume.cvNo}, event)|">
                                                 <strong>삭제</strong>
                                             </button>
                                         </div>
@@ -88,6 +99,19 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn-short"><strong>제출</strong></button>
+                </div>
+
+                <!-- Toast 컴포넌트 추가 -->
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">알림</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            삭제 되었습니다.
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -179,7 +203,21 @@
         </div>
     </div>
     <script>
-       
+
+        function setCvNo(cvNo) {
+            document.getElementById('focusedCvNo').value = cvNo;
+        }
+
+        function validateForm() {
+            var focusedCvNo = document.getElementById('focusedCvNo').value
+
+            if (!focusedCvNo) {
+                alert('이력서를 선택해주세요.');
+                return false; // 얼럿 창을 표시한 후 폼 제출을 막음
+            }
+            return true; // 이력서 선택된 경우에만 폼 제출 허용
+        }
+
         function deleteCv(cvNo, event) {
 
             // let data = {"userId"   : userId}
@@ -190,7 +228,7 @@
             // let csrfToken = $('#csrfToken').val();
             var csrfToken = "[[${_csrf.token}]]"
 
-            request.open("POST", `/recruit/posted_jobs_com/${cvNo}`, true)
+            request.open("POST", `/recruit/detail_jobs_user/${cvNo}`, true)
             request.setRequestHeader("Content-Type", "application/json")
             request.setRequestHeader("X-CSRF-TOKEN", csrfToken) // 💍       // 이래야 403 이 안뜬다.
             // request.send( JSON.stringify( data ) )
@@ -201,9 +239,10 @@
                 if (request.readyState == request.DONE && request.status == 200) {
                     // 파일 항목을 화면에서 제거
                     if (request.responseText == 'true') {
-                        alert('삭제 되었습니다.');
-                        // 성공적으로 삭제된 채용공고를 화면에서 숨김
-                        var deletedRecruit = document.getElementById('recruit_' + recruitNo);
+                        alert("삭제되었습니다.")
+                        // showDeleteToast();
+                        // 성공적으로 삭제된 채용공고를 화면에서 숨김 +
+                        var deletedRecruit = document.getElementById('cv_' + cvNo);
                         if (deletedRecruit) {
                             deletedRecruit.style.display = 'none';
                         }
@@ -214,6 +253,12 @@
                 }
             }
         }
+
+        // function showDeleteToast() {
+        //     var toastEl = document.getElementById('deleteToast');
+        //     var toast = new bootstrap.Toast(toastEl);
+        //     toast.show();
+        // }
     </script>
 </body>
 
