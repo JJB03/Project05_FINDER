@@ -340,13 +340,13 @@ public class RecruitController {
         Company company = recruitService.userNoToCom(userNo); // 1
 
         int comNo = company.getComNo(); // 31
-        log.info(comNo + "comNO???????@@!@#!@#@!#?!@#?!@?#?!#");
+        // log.info(comNo + "comNO???????@@!@#!@#@!#?!@#?!@?#?!#");
 
         List<Resume> applyCvList = recruitService.applyCom(comNo, page);
 
         for (Resume resume : applyCvList) {
 
-            log.info("??????!@#!@#!@#@!" + resume);
+            // log.info("??????!@#!@#!@#@!" + resume);
         }
 
         model.addAttribute("resumeList", applyCvList);
