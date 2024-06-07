@@ -13,9 +13,6 @@ import com.finder.project.user.dto.UserAuth;
 import com.finder.project.user.dto.Users;
 import com.finder.project.user.mapper.UserMapper;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class UserServiceImpl implements UserService {
 

@@ -71,7 +71,26 @@ VALUES
 (59, '카드', 'PAID', 'CREDIT20230517', '2023-05-17 12:05:00');
 
 
-
 SELECT *
         FROM company
         WHERE com_name  'X';
+
+-- recruit_list_com 에서 보여줄 거 채용공고 / 이력서 / 지원내역 테이블 임시데이터
+-- 채용공고 게시글 테이블
+INSERT INTO `recruit` (`recruit_no`, `com_no`, `recruit_title`, `recruit_content`, `recruit_responsibilities`, `recruit_qualifications`, `recruit_preferred_qualifications`, `recruit_reg_date`, `com_reg_date`, `com_upd_date`) VALUES
+(1, 1, 'Recruit Title 1', 'Recruit Content 1', 'Responsibilities 1', 'Qualifications 1', 'Preferred Qualifications 1', '2024-06-01', now(), now()),
+(2, 1, 'Recruit Title 2', 'Recruit Content 2', 'Responsibilities 2', 'Qualifications 2', 'Preferred Qualifications 2', '2024-06-02', now(), now()),
+(3, 1, 'Recruit Title 3', 'Recruit Content 3', 'Responsibilities 3', 'Qualifications 3', 'Preferred Qualifications 3', '2024-06-03', now(), now());
+
+-- 이력서 테이블
+INSERT INTO `cv` (`cv_no`, `user_no`, `cover_letter`, `cv_title`, `cv_reg_date`, `cv_upd_date`) VALUES
+(1, 2, 'Cover Letter 1', 'CV Title 1', now(), now()),
+(2, 2, 'Cover Letter 2', 'CV Title 2', now(), now()),
+(3, 2, 'Cover Letter 3', 'CV Title 3', now(), now());
+
+-- 지원내역 테이블
+INSERT INTO `apply_employee` (`apply_no`, `cv_no`, `recruit_no`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3);
+

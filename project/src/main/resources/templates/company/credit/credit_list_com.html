@@ -26,6 +26,10 @@
             padding: 15px 0;
         }
 
+        .creditList-item:hover {
+            background-color: #f4f4f4;
+        }
+
         .aBtn {
             text-decoration: none !important;
             line-height: 34px !important;
@@ -57,7 +61,9 @@
                     <br>
                     <span th:text="${session.user.userName}"></span>님의 결제 내역입니다<br>
                     상품 옵션은 개월이며 <br>
-                    결제 금액은 500000원입니다.<br>
+                    결제 금액은 
+                    <span th:text="${order.totalPrice}"></span>
+                    원입니다.<br>
                     <hr>
                     구매해주셔서 감사합니다.<br>
                     주문처리 일자: <span th:text="${#dates.format( order.orderedDate, 'yyyy/MM/dd' )}"></span><br>
@@ -229,7 +235,7 @@
                             </th:block>
 
                             <th:block th:each="order : ${orderCreditList}">
-                                <tr>
+                                <tr class="creditList-item">
                                     <td th:text="${order.orderNo}"></td>
 
                                     <td>

@@ -27,6 +27,7 @@ public class Resume {
     private Users user;
 
     //파일
+    MultipartFile thumbnail;
     List<MultipartFile> file;
     private int fileNo;
     private Option option;
