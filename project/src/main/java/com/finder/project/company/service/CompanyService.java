@@ -2,8 +2,6 @@ package com.finder.project.company.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.dto.Credit;

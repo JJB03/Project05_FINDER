@@ -71,8 +71,8 @@
     </resultMap>
 
 
-    <!-- 결제내역에 띄울 내역 데이터 개수 -->
-    <select id="count" resultType="int">
+    <!-- 결제내역에 띄울 내역 데이터 개수 [승헌 페이징] -->
+    <select id="countOrderCredit" resultType="int">
             SELECT COUNT(*) 
             FROM `order` o
             LEFT JOIN `credit` c ON o.order_no = c.order_no

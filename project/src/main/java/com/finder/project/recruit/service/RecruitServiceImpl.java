@@ -244,8 +244,12 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public List<Resume> applyCom(int comNo) throws Exception {
-        return recruitMapper.applyCom(comNo);
+    public List<Resume> applyCom(int comNo, Page page) throws Exception {
+
+        int total = recruitMapper.countResumes(comNo);
+        page.setTotal(total);
+
+        return recruitMapper.applyCom(comNo, page);
     }
 
     @Override

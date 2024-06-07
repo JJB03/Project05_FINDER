@@ -1,11 +1,15 @@
 package com.finder.project.resume.service;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-
+import com.finder.project.main.mapper.FileMapper;
+import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Resume;
 import com.finder.project.resume.mapper.ResumeMapper;
 
@@ -17,6 +21,11 @@ public class ResumeServiceImpl implements ResumeService {
     @Autowired
     private ResumeMapper resumeMapper;
 
+    @Autowired
+    private FileMapper fileMapper;
+
+    @Autowired
+    private FileService fileService;
 
 
     /*
@@ -57,11 +66,47 @@ public class ResumeServiceImpl implements ResumeService {
 
     /*
      * 이력서 내용 업로드하기⭕
+     * + 파일 등록하기
      */
     @Override
     public int update(Resume resume) throws Exception {
         int result = resumeMapper.update(resume);
-        return result;
+        int cvNo = resume.getCvNo();
+
+        String parentTable = "resume";
+        int parentNo = cvNo;
+
+        System.out.println("파일 : " + resume.getFile());
+        System.out.println("파일 번호: " + resume.getFileNo());
+
+        // 이미지 파일 = 1
+        MultipartFile thumbnailFile = resume.getThumbnail();
+        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+            com.finder.project.main.dto.Files thumbnail = new com.finder.project.main.dto.Files();
+            thumbnail.setFile(thumbnailFile);
+            thumbnail.setParentTable(parentTable);
+            thumbnail.setParentNo(parentNo);
+            thumbnail.setFileCode(1); // 이미지 파일 코드 설정
+
+            fileService.upload(thumbnail); // 파일 업로드
+        }
+
+        // 첨부파일 업로드
+        List<MultipartFile> fileList = resume.getFile();
+        if (fileList != null && !fileList.isEmpty()) {
+            for (MultipartFile file : fileList) {
+                if (file.isEmpty()) continue;
+
+                // 파일 정보 등록
+                com.finder.project.main.dto.Files uploadFile = new com.finder.project.main.dto.Files();
+                uploadFile.setParentNo(parentNo);
+                uploadFile.setParentTable(parentTable);
+                uploadFile.setFile(file); // 각 파일을 설정
+
+                fileService.upload(uploadFile); // 파일 업로드
+            }
+        }
+            return result;
     }
 
     /*
@@ -89,6 +134,5 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
 
-  
 
 }

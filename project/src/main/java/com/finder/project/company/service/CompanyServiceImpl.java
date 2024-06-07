@@ -13,7 +13,6 @@ import com.finder.project.company.dto.Order;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.mapper.CompanyMapper;
 import com.finder.project.company.mapper.CreditMapper;
-import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.user.dto.Users;
 
@@ -120,7 +119,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<Order> orderCreditList(int userNo, Page page) throws Exception {
 
-        int total = creditMapper.count(userNo);
+        int total = creditMapper.countOrderCredit(userNo);
         page.setTotal(total);
 
         List<Order> orderCreditList = creditMapper.orderCreditList(userNo, page);

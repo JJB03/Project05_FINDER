@@ -25,9 +25,9 @@ public class Resume {
     private List<Education> educationList = new ArrayList<>();
     private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
     private Users user;
-    
 
     //파일
+    MultipartFile thumbnail;
     List<MultipartFile> file;
     private int fileNo;
     private Option option;
