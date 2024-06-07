@@ -26,7 +26,6 @@ public class Resume {
     private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
     private Users user;
     
-    private User user;
 
     //파일
     List<MultipartFile> file;

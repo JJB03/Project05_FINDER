@@ -344,9 +344,7 @@ public class ResumeController {
         return "/resume/education/list";
     }
 
-    // 학력 수정
-
-    // 경력 수정
+    //파일 업데이트
 
     @PostMapping("/cv_read_user")
     public String updateUserPro2(HttpSession session, Resume resume) throws Exception {

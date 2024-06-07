@@ -1,5 +1,7 @@
 package com.finder.project.resume.service;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import com.finder.project.resume.mapper.ResumeMapper;
 public class ResumeServiceImpl implements ResumeService {
     @Autowired
     private ResumeMapper resumeMapper;
+
+    @Autowired
+    FileService fileService;
 
 
 
@@ -89,6 +94,21 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
 
-  
+  //파일 업로드 service impl 만들기
+  //썸네일
+  @Override
+  public int FileUpdate (Resume resume) throws Exception {
+    String parentTable = "resume";
+    int parentNo = resumeMapper.max();
+
+    System.out.println("이미지 파일 : " + resume.getThumbnail());
+    System.out.println("파일 : " + resume.getFile());
+
+    //이미지 파일 업로드 = 1
+    MultipartFile thumbnailFile = resume.getThumbnail();
+    if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+        Files thumbnail = new Files();
+    }
+  }
 
 }
