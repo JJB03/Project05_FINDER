@@ -86,10 +86,35 @@ public class ResumeController {
     // return "/resume/cv_list_user";
     // }
 
+    // @GetMapping("/cv_list_user")
+    // public String CvList(HttpSession session, Model model) throws Exception {
+    // Users user = (Users) session.getAttribute("user");
+
+    // if (user == null) {
+    // // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+    // return "redirect:/login";
+    // }
+
+    // int userNo = user.getUserNo();
+    // log.info(" 유저번호는 : " + userNo);
+    // List<Resume> resumeList = resumeService.resumelist(userNo);
+
+    // if (resumeList != null) {
+    // log.info("이력서 목록이 있구나 : " + resumeList.size() + "건");
+    // // 모델 등록
+    // model.addAttribute("resumeList", resumeList);
+    // model.addAttribute("user", user);
+    // // 뷰페이지 지정
+    // return "resume/cv_list_user";
+    // }
+    // log.info("실패 - userController Get_list ");
+    // return "redirect:/login";
+    // }
+
     @GetMapping("/cv_list_user")
     public String CvList(HttpSession session, Model model) throws Exception {
         Users user = (Users) session.getAttribute("user");
-
+    
         if (user == null) {
             // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
             return "redirect:/login";
@@ -119,25 +144,27 @@ public class ResumeController {
 
     // @GetMapping("cv_create_user")
     // public String CvCreate() {
-    //     return "/resume/cv_create_user";
+    // return "/resume/cv_create_user";
     // }
 
     @GetMapping("/cv_create_user")
     public String CvCreate(Model model, HttpSession session) throws Exception {
-    Users user = (Users) session.getAttribute("user");
+        Users user = (Users) session.getAttribute("user");
 
-    // insert 한 서비스로 insert수행
-    int useruno = user.getUserNo();
-    int result = resumeService.create(useruno);
-    // 새 이력서 등록하고 이력서 번호 가져와야함
-    int cvNo = resumeService.maxPk();
-    log.info("cvNo : " + cvNo);
-    model.addAttribute("cvNo", cvNo);
-    if (result > 0) {
-    log.info("이력서 만드는 걸 성공했어요");
-    return "/resume/cv_create_user";
-    }
-    return "redirect:/resume/cv_list_user?error";
+        // insert 한 서비스로 insert수행
+        int useruno = user.getUserNo();
+        int result = resumeService.create(useruno);
+        // 새 이력서 등록하고 이력서 번호 가져와야함
+        int cvNo = resumeService.maxPk();
+        log.info("cvNo : " + cvNo);
+        model.addAttribute("cvNo", cvNo);
+        if (result > 0) {
+            log.info("이력서 만드는 걸 성공했어요");
+            return "/resume/cv_create_user";
+        } else {
+            log.info("이력서 만들기 실패");
+            return "redirect:/resume/cv_list_user?error";
+        }
     }
 
     /*
@@ -414,8 +441,8 @@ public class ResumeController {
             throws Exception {
         log.info("###############################" + employmentHistoryNo);
 
-        
-        //데이터 db에 저장
+
+        // 데이터 db에 저장
         try {
             // 데이터 db에 저장
             int result = employmentHistoryService.delete(employmentHistoryNo);
