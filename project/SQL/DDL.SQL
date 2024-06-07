@@ -115,16 +115,7 @@ CREATE TABLE `education` (
 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`)
 );
 
--- 지원내역 테이블
-CREATE TABLE `apply_employee` (
-	`apply_no` int NOT NULL AUTO_INCREMENT,
-	`apply_date` timestamp NOT NULL DEFAULT now(),
-	`cv_no` int NOT NULL,
-	`recruit_no` int NOT NULL,
-	PRIMARY KEY (`apply_no`),
-	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
-	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
-);
+
 
 -- 썸네일 테이블 없어도될듯
 -- CREATE TABLE `thumbnail` (
@@ -250,3 +241,14 @@ CREATE TABLE `credit` (
     PRIMARY KEY (`credit_no`),
 	FOREIGN KEY (`order_no`) REFERENCES `order`(`order_no`)
 );	
+
+-- 지원내역 테이블
+CREATE TABLE `apply_employee` (
+	`apply_no` int NOT NULL AUTO_INCREMENT,
+	`apply_date` timestamp NOT NULL DEFAULT now(),
+	`cv_no` int NOT NULL,
+	`recruit_no` int NOT NULL,
+	PRIMARY KEY (`apply_no`),
+	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
+	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
+);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
@@ -250,6 +251,22 @@ public class RecruitServiceImpl implements RecruitService {
     @Override
     public Company userNoToCom(int userNo) throws Exception {
         return recruitMapper.userNoToCom(userNo);
+    }
+
+    @Override
+    public CompanyDetail selectCompanyDetailsWithRecruit(int comNo) throws Exception {
+        return recruitMapper.selectCompanyDetailsWithRecruit(comNo);
+    }
+
+    @Override
+    public Company recruitToCom(int comNo) throws Exception {
+        return recruitMapper.recruitToCom(comNo);
+    }
+
+    @Override
+    public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception {
+        
+        return recruitMapper.recruitNoToRecruit(recruitNo);
     }
 
 

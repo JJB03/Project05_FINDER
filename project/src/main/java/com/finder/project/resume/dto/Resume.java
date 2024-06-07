@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Option;
-import com.finder.project.main.dto.User;
+
+import com.finder.project.user.dto.Users;
+
 
 import lombok.Data;
 
@@ -22,6 +24,7 @@ public class Resume {
     private Date cvUpdDate;             // 수정일자
     private List<Education> educationList = new ArrayList<>();
     private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
+    private Users user;
     
     private User user;
 

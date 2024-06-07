@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
-import com.finder.project.resume.dto.Resume;
 
 import lombok.Data;
 

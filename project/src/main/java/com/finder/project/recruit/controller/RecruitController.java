@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
@@ -62,7 +63,7 @@ public class RecruitController {
 
         Integer userNo = user.getUserNo();
         log.info(" 유저번호는 : " + userNo);
-
+        
         List<Resume> resumeList = resumeService.resumelist(userNo);
 
         if (resumeList != null) {
@@ -105,10 +106,14 @@ public class RecruitController {
         file.setParentTable("recruit");
         file.setParentNo(recruitNo);
 
+        int comNo = recruitPost.getComNo();
+        CompanyDetail companyDetail = recruitService.selectCompanyDetailsWithRecruit(comNo);
+
         List<Files> fileList = fileService.listByParent(file);
 
         Files Thumbnail = fileService.listByParentThumbnail(file);
 
+        model.addAttribute("companyDetail", companyDetail);
         model.addAttribute("Thumbnail", Thumbnail);
         model.addAttribute("recruitPost", recruitPost);
         model.addAttribute("fileList", fileList);

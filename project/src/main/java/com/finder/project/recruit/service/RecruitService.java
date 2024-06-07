@@ -3,6 +3,7 @@ package com.finder.project.recruit.service;
 import java.util.List;
 
 import com.finder.project.company.dto.Company;
+import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.RecruitPost;
@@ -25,6 +26,7 @@ public interface RecruitService {
     // 채용공고 상세조회
     public RecruitPost recruitRead(int recruitNo) throws Exception;
     // public List<Keyword> recruitReadKeyword(int recruitNo) throws Exception;
+    public CompanyDetail selectCompanyDetailsWithRecruit(int comNo) throws Exception;
     // 채용공고 상세조회 끝
     
     // 등록 한 채용공고 목록
@@ -56,6 +58,13 @@ public interface RecruitService {
     // 제출된 이력서
     public List<Resume> applyCom(int comNo) throws Exception;
 
+    // userNo 으로 com
     public Company userNoToCom(int userNo) throws Exception;
+
+    // recruit에 comNo으로 com
+    public Company recruitToCom(int comNo) throws Exception;
+
+    // recruitNo 으로 recruit
+    public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception;
    
 }
