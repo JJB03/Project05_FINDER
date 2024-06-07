@@ -88,13 +88,16 @@
           <div id="preview">
             <img src="" class="img-thumbnail" alt="이미지를 넣어주세요">
           </div>
-
-          <label for="file">
-            <div class="btn-long" style="padding-top: 5px;">사진 추가</div>
-          </label>
-
-          <!--특정 이미지파일만 볼 수 있게 만들기-->
-          <input type="file" name="file" id="file" accept="image/png, image/jpeg" style="display: none;">
+            
+          <div class="ImgFile"> <!--파일 비동기 html-->
+            <label for="files">
+              <div class="btn-long" style="padding-top: 5px;">사진 추가</div>
+            </label>
+            <!--특정 이미지파일만 볼 수 있게 만들기-->
+            <input type="file" name="file" id="files" 
+            accept="image/png, image/jpeg"
+            style="display: none;">
+          </div>
         </div>
 
         <div class="form-group col-6">
@@ -148,15 +151,15 @@
               <div class="col-12 d-flex">
                 <div class="form-group col-3">
                   <input type="text" class="form-control w-75" name="university" id="university" placeholder="학교"
-                    value="" required>
+                    value="" >
                 </div>
                 <div class="form-group col-3">
 
-                  <input type="text" class="form-control w-75" name="major" id="major" placeholder="전공" required>
+                  <input type="text" class="form-control w-75" name="major" id="major" placeholder="전공" >
                 </div>
                 <div class="form-group col-3">
                   <input type="text" class="form-control w-75" name="universityStatus" id="universityStatus"
-                    placeholder="학력상태" required>
+                    placeholder="학력상태" >
                 </div>
                 <div class="flex-column col-3">
                   <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
@@ -277,10 +280,9 @@
 
         <div class="file-upload upload-btn d-flex justify-content-between">
           <div>
-            <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()">
-            <button class="btn-long" id="fileButton">파일 선택</button>
-            <span id="fileName">파일을 추가해주세요.</span>
-            <button class="deleteFile-btn" type="button">X</button>
+            <input type="file" id="uploadFile" name="" style="display:none;">
+            <button class="btn-long file-input" type="button"  id="fileButton">파일 선택</button>
+            <span id="file-names">파일을 추가해주세요.</span>
             <!-- <button type="button" th:if="" th:onclick="|deleteFile(this, ${file.no})|">삭제</button> -->
           </div>
           <div class="btn-click123">
@@ -297,13 +299,7 @@
 
 
   <script>
-    window.onload = function () {
-      // 새로 고침 및 뒤로가기 이벤트를 감지하여 경고 표시
-      window.addEventListener("beforeunload", function (event) {
-        // 경고 메시지 설정
-        event.returnValue = "현재 내용이 저장되었습니다. 이 페이지를 떠나시겠습니까?";
-      });
-    };
+    
 
     //ajax로 그것들 부르기
     var csrfToken = "[[${_csrf.token}]]";
@@ -311,7 +307,7 @@
 
     // 학력 등록 ajax
     $('.educationBtn').click(function () {
-      // 클릭 했을 때 가져와야해서 안애 있어야됨
+      // 클릭 했을 때 가져와야해서 안에 있어야됨
       var university = document.getElementById('university').value
       var major = document.getElementById('major').value
       var universityStatus = document.getElementById('universityStatus').value
@@ -473,27 +469,89 @@
       location.href = '/resume/cv_list_user'
     }
 
-    //이미지 파일 미리보기 업
-    document.getElementById('file').addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      const preview = document.getElementById('preview');
-      preview.innerHTML = '';
 
-      if (file) {
+    // 파일 업로드
+    document.getElementById('files').addEventListener('change', function(event) { //change가 파일 미리보기 제공
+    const file = event.target.files[0];
+    const preview = document.getElementById('preview');
+    preview.innerHTML = '';
+
+    if (file) {
         const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          preview.appendChild(img);
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            preview.appendChild(img);
         }
-        reader.readAsDataURL(file);
-      } else {
-        preview.innerHTML = '<p>이미지가 없습니다.</p>';
+        reader.readAsDataURL(file); //데이터 url 읽기
+
+        // 파일 업로드 AJAX 요청
+        var formData = new FormData();
+        formData.append("cvNo", cvNo); // cvNo는 페이지에 포함되어 있는 변수로 가정
+        formData.append("file", file);
+
+        $.ajax({
+            url: '/cv_FileUpdate_user',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken); // csrfToken은 페이지에 포함되어 있는 변수로 가정
+            },
+            success: function(response) {
+                console.log('파일 업로드 성공');
+                // 성공 시 필요한 동작 추가 (예: 파일 목록 갱신)
+            },
+            error: function(xhr, status) {
+                console.error('파일 업로드 실패');
+                alert('파일 업로드에 실패했습니다.');
+            }
+            });
+
+        } else {
+            preview.innerHTML = '<p>이미지가 없습니다.</p>';
+        }
+    });
+
+    //파일 첨부 + 이미지파일 미리보기도 하기
+
+
+    //선택시 파일 목록 업데이트  ---------------------------------- 보류
+/*     $('#file-input').on('change', function(){ //change로 해서 변화감지
+      var files = this.files;
+      $('#file-names').empty();
+      for (let i = 0; i < files.length; i++) {
+        var fileDiv = $('<div class="file-names">').text(files[i].name);
+        var removeLink = $('<span class="remove-file">X</span>');
+        
+        //파일 제거 이벤트입니다
+        removeLink.on('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $(this).parent().remove();
+
+          //업데이트한 파일 
+          var newFileList = Array.from(files);
+          newFileList.splice(i, 1); //배열초기화
+          document.getElementById('file-input').files = new FileListItems(newFileList);
+        });
+        fileDiv.append(removeLink);
+        $('#file-names').append(fileDiv);
       }
     });
 
-    //파일 첨부
-    document.getElementById('fileButton').addEventListener('click', function () {
+    //파일리스트 만들기
+    function FileListItems(files) {
+      var b = new ClipboardEvent("").clipboardData || new DataTransfer();
+      for (var i = 0; i < files.length; i++) {
+        const element = array[i];
+        b.items.add(files[i]);
+      }
+      return b.files;
+    } */
+
+   /* document.getElementById('fileButton').addEventListener('click', function () {
       document.getElementById('fileInput').click();
     });
 
@@ -501,7 +559,7 @@
       var input = document.getElementById('fileInput');
       var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
       document.getElementById('fileName').textContent = fileName;
-    }
+    } */ 
 
     //파일 첨부 삭제 코드
   </script>
