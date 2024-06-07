@@ -7,6 +7,7 @@
 
   <resultMap id="RecruitPostResultMap" type="com.finder.project.recruit.dto.RecruitPost">
     <id property="recruitNo" column="recruit_no"/>
+    <result property="comNo" column="com_no"/>
     <result property="recruitTitle" column="recruit_title"/>
     <result property="recruitContent" column="recruit_content"/>
     <result property="recruitResponsibilities" column="recruit_responsibilities"/>
@@ -78,6 +79,7 @@
     <!-- CompanyDetail 객체의 매핑, Company 포함 -->
     <resultMap id="CompanyDetailResultMap" type="com.finder.project.company.dto.CompanyDetail">
         <id property="comInfoNo" column="com_info_no" />
+        <result property="comNo" column="com_no" />
         <result property="comRepresent" column="com_represent" />
         <result property="comUrl" column="com_url" />
         <result property="comBirth" column="com_birth" />
@@ -88,7 +90,6 @@
         <result property="comVision" column="com_vision" />
         <result property="comWelfare" column="com_welfare" />
         <result property="comAvgSalary" column="com_avg_salary" />
-        <result property="comNo" column="com_no" />
         <association property="company" javaType="com.finder.project.company.dto.Company" resultMap="CompanyResultMap"/>
     </resultMap>
 
@@ -332,10 +333,10 @@
         JOIN
             company c ON r.com_no = c.com_no
         JOIN
-            company_detail cd ON c.com_no = cd.com_no;
+            company_detail cd ON #{comNo} = cd.com_no;
     </select>
 
-  <!-- 지금 보고있는 recruitNo으로 com -->
+  <!-- 지금 보고있는 recruit comNo으로 com -->
   <select id="recruitToCom" resultType="Company">
     SELECT c.*
     FROM company c
@@ -347,4 +348,5 @@
     FROM recruit
     WHERE recruit_no = #{recruitNo}
   </select>
+  
 </mapper>

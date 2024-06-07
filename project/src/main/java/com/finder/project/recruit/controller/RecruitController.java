@@ -36,7 +36,6 @@ import com.finder.project.user.dto.Users;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @Slf4j
 @Controller
 @RequestMapping("/recruit")
@@ -61,22 +60,22 @@ public class RecruitController {
 
         Users user = (Users) session.getAttribute("user");
 
-        Integer userNo = user.getUserNo();
-        log.info(" 유저번호는 : " + userNo);
         
-        List<Resume> resumeList = resumeService.resumelist(userNo);
-
-        if (resumeList != null) {
-            log.info("이력서 목록이 있구나 : " + resumeList.size() + "건");
-            // 모델 등록
-            model.addAttribute("resumeList", resumeList);
-            model.addAttribute("user", user);
-            // 뷰페이지 지정
-        }
-
         if (user != null) {
-
+            Integer userNo = user.getUserNo();
+            log.info(" 유저번호는 : " + userNo);
+            
             if (userNo != null) { // userNo가 null이 아닌지 확인
+                List<Resume> resumeList = resumeService.resumelist(userNo);
+    
+                if (resumeList != null) {
+                    log.info("이력서 목록이 있구나 : " + resumeList.size() + "건");
+                    // 모델 등록
+                    model.addAttribute("resumeList", resumeList);
+                    model.addAttribute("user", user);
+                    // 뷰페이지 지정
+                }
+                
                 // 유저 번호에 해당하는 recruitNo 집합 가져오기
                 Map<Integer, Set<Integer>> userVisitedRecruitNos = (Map<Integer, Set<Integer>>) session
                         .getAttribute("userVisitedRecruitNos");
@@ -93,7 +92,7 @@ public class RecruitController {
 
                 visitedRecruitNos.add(recruitNo);
             }
-        }
+        } // 유저 회원 이어야 모델에 담음
 
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
         if (recruitPost == null) {
@@ -106,7 +105,7 @@ public class RecruitController {
         file.setParentTable("recruit");
         file.setParentNo(recruitNo);
 
-        int comNo = recruitPost.getComNo();
+        int comNo = recruitPost.getCompany().getComNo();
         CompanyDetail companyDetail = recruitService.selectCompanyDetailsWithRecruit(comNo);
 
         List<Files> fileList = fileService.listByParent(file);
@@ -120,7 +119,6 @@ public class RecruitController {
 
         return "/recruit/detail_jobs_user";
     }
-
 
     // 지원하기 비동기 삭제
     @ResponseBody
@@ -144,14 +142,14 @@ public class RecruitController {
     }
 
     @PostMapping("/detail_jobs_user/submitCv")
-    public String submitCv(@RequestParam("focusedCvNo") int focusedCvNo, @RequestParam("recruitNo") int recruitNo) throws Exception {
-        
+    public String submitCv(@RequestParam("focusedCvNo") int focusedCvNo, @RequestParam("recruitNo") int recruitNo)
+            throws Exception {
+
         log.info(focusedCvNo + "?? " + recruitNo);
         recruitService.apply(recruitNo, focusedCvNo);
-        
+
         return "redirect:/recruit/applied_jobs_user";
     }
-    
 
     // 채용공고 상세 페이지 ---- 끝
 
@@ -311,7 +309,6 @@ public class RecruitController {
         return "/recruit/new_jobs_user";
     }
 
-
     // 지원한 채용공고
     @GetMapping("/applied_jobs_user")
     public String applied(Model model, HttpSession session) throws Exception {
@@ -329,9 +326,9 @@ public class RecruitController {
 
     // 등록된 채용공고 화면
     @GetMapping("/recruit_list_com")
-    public String recruit_list_com(Model model , HttpSession session) throws Exception {
+    public String recruit_list_com(Model model, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
-        
+
         if (user == null) {
             // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
             return "redirect:/login";
@@ -341,19 +338,18 @@ public class RecruitController {
         Company company = recruitService.userNoToCom(userNo); // 1
 
         int comNo = company.getComNo(); // 31
-        log.info(comNo+ "comNO???????@@!@#!@#@!#?!@#?!@?#?!#");
+        log.info(comNo + "comNO???????@@!@#!@#@!#?!@#?!@?#?!#");
 
         List<Resume> applyCvList = recruitService.applyCom(comNo);
 
         for (Resume resume : applyCvList) {
-            
+
             log.info("??????!@#!@#!@#@!" + resume);
         }
-        
+
         model.addAttribute("resumeList", applyCvList);
 
         return "/recruit/recruit_list_com";
     }
-    
 
 }

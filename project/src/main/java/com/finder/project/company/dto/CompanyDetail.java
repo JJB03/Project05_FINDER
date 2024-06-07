@@ -6,6 +6,7 @@ import lombok.Data;
 public class CompanyDetail {
     
     private int comInfoNo;
+    private int comNo;
     private String comRepresent;
     private String comUrl;
     private int comBirth;
@@ -17,7 +18,6 @@ public class CompanyDetail {
     private String comVision;
     private String comWelfare;
     private int comAvgSalary;
-    private int comNo;
 
     private Company company;
 }

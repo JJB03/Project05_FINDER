@@ -59,4 +59,7 @@ public interface CompanyService {
 
     // 결제완료 후 주문테이블 수정
     public int updateOrder(Order order) throws Exception;
+
+    // 회사 검색
+    public List<Company> serachCompanyByName(String name) throws Exception;
 }

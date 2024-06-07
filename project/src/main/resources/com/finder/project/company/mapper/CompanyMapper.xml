@@ -89,4 +89,13 @@
         WHERE com_no = #{comNo}
     </select>
 
+
+    <select id="serachCompanyByName" resultType="Company">
+        SELECT *
+        FROM company
+        WHERE com_name LIKE CONCAT('%',#{name},'%')
+    </select>
+
+
+
 </mapper>

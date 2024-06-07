@@ -15,6 +15,8 @@ import com.finder.project.company.mapper.CompanyMapper;
 import com.finder.project.company.mapper.CreditMapper;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
+import com.finder.project.recruit.dto.RecruitPost;
+import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.user.dto.Users;
 
 @Service
@@ -24,6 +26,8 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyMapper companyMapper;
     @Autowired
     private CreditMapper creditMapper;
+    @Autowired
+    private RecruitService recruitService;
 
 
     // 기업 상세 정보 조회 (기업 소개)
@@ -155,6 +159,18 @@ public class CompanyServiceImpl implements CompanyService {
     public int updateOrder(Order order) throws Exception {
         int result = creditMapper.updateOrder(order);
         return result;
+    }
+    @Override
+    public List<Company> serachCompanyByName(String name) throws Exception {
+        List<Company> companies = companyMapper.serachCompanyByName(name);
+
+        for (Company company : companies) {
+            int comNo = company.getComNo();
+            List<RecruitPost> recruitPosts = recruitService.postsRecruitList(comNo);
+            company.setRecruitList(recruitPosts);
+        }
+
+        return companies;
     }
 
 

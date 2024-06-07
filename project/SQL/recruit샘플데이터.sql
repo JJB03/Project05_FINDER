@@ -657,3 +657,14 @@ JOIN
     SELECT c.*
 FROM company c
 JOIN recruit r ON c.com_no = 3;
+
+
+
+
+----
+SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.recruit_no = 1
+    ;
