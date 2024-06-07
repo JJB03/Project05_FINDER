@@ -50,7 +50,7 @@
     <result property="cvRegDate" column="cvRegDate"/>
     <result property="cvUpdDate" column="cvUpdDate"/>
     
-    <association property="user" javaType="com.finder.project.main.dto.User">
+    <association property="user" javaType="com.finder.project.user.dto.Users">
         <id property="userNo" column="user_userNo"/>
         <result property="userName" column="user_userName"/>
         <result property="userId" column="user_userId"/>
@@ -65,6 +65,32 @@
         <result property="enabled" column="user_enabled"/>
     </association>
   </resultMap>
+
+   <!-- Company 객체의 매핑 -->
+    <resultMap id="CompanyResultMap" type="com.finder.project.company.dto.Company">
+        <id property="comNo" column="com_no" />
+        <result property="comName" column="com_name" />
+        <result property="comCategory" column="com_category" />
+        <result property="comAddress" column="com_address" />
+        <result property="comBusiness" column="com_business" />
+    </resultMap>
+
+    <!-- CompanyDetail 객체의 매핑, Company 포함 -->
+    <resultMap id="CompanyDetailResultMap" type="com.finder.project.company.dto.CompanyDetail">
+        <id property="comInfoNo" column="com_info_no" />
+        <result property="comRepresent" column="com_represent" />
+        <result property="comUrl" column="com_url" />
+        <result property="comBirth" column="com_birth" />
+        <result property="comSize" column="com_size" />
+        <result property="comEmpCount" column="com_emp_count" />
+        <result property="comSales" column="com_sales" />
+        <result property="comContent" column="com_content" />
+        <result property="comVision" column="com_vision" />
+        <result property="comWelfare" column="com_welfare" />
+        <result property="comAvgSalary" column="com_avg_salary" />
+        <result property="comNo" column="com_no" />
+        <association property="company" javaType="com.finder.project.company.dto.Company" resultMap="CompanyResultMap"/>
+    </resultMap>
 
 
 
@@ -282,4 +308,43 @@
     WHERE user_no = #{userNo};
   </select>
 
+  <!-- comNo 로 지금 보고있는 채용공고 comdetail -->
+  <select id="selectCompanyDetailsWithRecruit" resultMap="CompanyDetailResultMap">
+        SELECT
+            c.com_no,
+            c.com_name,
+            c.com_category,
+            c.com_address,
+            c.com_business,
+            cd.com_info_no,
+            cd.com_represent,
+            cd.com_url,
+            cd.com_birth,
+            cd.com_size,
+            cd.com_emp_count,
+            cd.com_sales,
+            cd.com_content,
+            cd.com_vision,
+            cd.com_welfare,
+            cd.com_avg_salary
+        FROM
+            recruit r
+        JOIN
+            company c ON r.com_no = c.com_no
+        JOIN
+            company_detail cd ON c.com_no = cd.com_no;
+    </select>
+
+  <!-- 지금 보고있는 recruitNo으로 com -->
+  <select id="recruitToCom" resultType="Company">
+    SELECT c.*
+    FROM company c
+    JOIN recruit r ON c.com_no = #{comNo};
+  </select>
+
+  <select id="recruitNoToRecruit" resultType="RecruitPost">
+    SELECT *
+    FROM recruit
+    WHERE recruit_no = #{recruitNo}
+  </select>
 </mapper>

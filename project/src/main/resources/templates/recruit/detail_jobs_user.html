@@ -13,7 +13,8 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <form action="/recruit/detail_jobs_user/submitCv" method="post" class="modal-content" onsubmit="return validateForm();">
+            <form action="/recruit/detail_jobs_user/submitCv" method="post" class="modal-content"
+                onsubmit="return validateForm();">
                 <input type="hidden" id="focusedCvNo" name="focusedCvNo" value="">
                 <input type="hidden" id="recruitNo" name="recruitNo" th:value="${recruitPost.recruitNo}">
                 <div class="modal-header">
@@ -101,18 +102,6 @@
                     <button type="submit" class="btn-short"><strong>제출</strong></button>
                 </div>
 
-                <!-- Toast 컴포넌트 추가 -->
-                <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                    <div id="deleteToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">알림</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            삭제 되었습니다.
-                        </div>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
@@ -177,7 +166,104 @@
                             </div>
                         </th:block>
                     </div>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="company-introduce d-flex flex-column w-75">
+                            <input type="hidden" name="comNo" th:value="${companyDetail.company.comNo}">
+
+                            <div class="row">
+                                <div class="d-flex flex-column row-gap-3 col-3">
+                                    <img src="/img/업력연차.png" alt="업력연차" style="width: 8vw; padding: 26px 12px 10px;" >
+                                    <div class="form-floating mb-3">
+                                        <input type="text" readonly class="form-control-plaintext"
+                                            id="floatingPlaintextInput" placeholder=""
+                                            th:value="${companyDetail.comBirth} + 년">
+                                        <label for="floatingPlaintextInput" style="text-align: center;">업력 연차</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column row-gap-3 col-3">
+                                    <img src="/img/기업규모.png" alt="기업규모" style="width: 8vw; padding: 26px 12px 10px;">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" readonly class="form-control-plaintext"
+                                            id="floatingPlaintextInput" placeholder=""
+                                            th:value="${companyDetail.comSize} + 기업">
+                                        <label for="floatingPlaintextInput">기업 규모</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column row-gap-3 col-3 ">
+                                    <img src="/img/사원수.png" alt="사원수" style="width: 8vw; padding: 26px 12px 10px;">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" readonly class="form-control-plaintext"
+                                            id="floatingPlaintextInput" placeholder=""
+                                            th:value="${companyDetail.comEmpCount} + 명">
+                                        <label for="floatingPlaintextInput">사원 수</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column row-gap-3 col-3 ">
+                                    <img src="/img/매출액.png" alt="매출액" style="width: 8vw; padding: 26px 12px 10px;">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" readonly class="form-control-plaintext"
+                                            id="floatingPlaintextInput" placeholder=""
+                                            th:value="${companyDetail.comSales} + 억">
+                                        <label for="floatingPlaintextInput">매출액</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between introduce-col2 mb-3" style="column-gap: 25px;">
+                                <div class="d-flex w-100">
+                                    <div class="col-3">
+                                        <label for="" style="font-weight: bold;">회사이름</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <span th:text="${companyDetail.company.comName}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex w-100">
+                                    <div class="col-3">
+                                        <label for="com_represent" style="font-weight: bold;">대표명</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <span th:text="${companyDetail.comRepresent}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between introduce-col2 mb-3" style="column-gap: 25px;">
+                                <div class="d-flex w-100">
+                                    <div class="col-3">
+                                        <label for="com_category" style="font-weight: bold;">업종</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <span th:text="${companyDetail.company.comBusiness}"></span>
+                                    </div>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <div class="col-3">
+                                        <label for="com_address" style="font-weight: bold;">주소</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <span th:text="${companyDetail.company.comAddress}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 introduce-col4">
+                                <div class="form-floating mb-3">
+                                    <textarea readonly class="form-control-plaintext textarea-comContent"
+                                        id="floatingPlaintextInput" placeholder="name@example.com"
+                                        th:text="${companyDetail.comContent}"
+                                        style="overflow-y: hidden;  resize: none; color: #475067;"></textarea>
+                                    <label for="floatingPlaintextInput">기술 소개</label>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
+
+
 
             </div>
             <!-- <div class="col-md-12 col-lg-3 order-1 order-lg-2 sticky-top"> -->
@@ -259,6 +345,16 @@
         //     var toast = new bootstrap.Toast(toastEl);
         //     toast.show();
         // }
+
+        // 페이지 로드될 때 textarea의 높이를 조절하는 함수 실행
+        window.addEventListener('load', adjustTextareaHeight);
+
+        // textarea의 내용에 따라 높이를 조절하는 함수
+        function adjustTextareaHeight() {
+            const textarea = document.querySelector('.textarea-comContent');
+            textarea.style.height = 'auto'; // 기본 높이로 초기화
+            textarea.style.height = textarea.scrollHeight + 'px'; // 실제 내용의 높이로 설정
+        }
     </script>
 </body>
 
