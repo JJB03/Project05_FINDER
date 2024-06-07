@@ -93,4 +93,28 @@ INSERT INTO `apply_employee` (`apply_no`, `cv_no`, `recruit_no`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3);
-
+SELECT c.cv_no AS cvNo,
+           c.user_no AS userNo,
+           c.cover_letter AS coverLetter,
+           c.cv_title AS cvTitle,
+           c.cv_reg_date AS cvRegDate,
+           c.cv_upd_date AS cvUpdDate,
+           u.user_no AS user_userNo,
+           u.user_name AS user_userName,
+           u.user_id AS user_userId,
+           u.user_pw AS user_userPw,
+           u.user_before_pw AS user_userBeforePw,
+           u.user_birth AS user_userBirth,
+           u.user_phone AS user_userPhone,
+           u.user_email AS user_userEmail,
+           u.user_reg_date AS user_userRegDate,
+           u.user_upd_date AS user_userUpdDate,
+           u.user_gender AS user_userGender,
+           u.ENABLED AS user_enabled,
+           ae.apply_no As applyNo
+    FROM cv c
+    JOIN apply_employee ae ON c.cv_no = ae.cv_no
+    JOIN recruit r ON ae.recruit_no = r.recruit_no
+    JOIN user u ON c.user_no = u.user_no
+    WHERE r.com_no = 1
+    ORDER BY c.cv_reg_date DESC;
