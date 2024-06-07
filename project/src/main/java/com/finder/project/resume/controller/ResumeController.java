@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Education;
 import com.finder.project.resume.dto.EmploymentHistory;
@@ -344,8 +346,50 @@ public class ResumeController {
         return "/resume/education/list";
     }
 
-    //파일 업데이트
+        public ResumeController(ResumeService resumeService, FileService fileService) {
+        this.resumeService = resumeService;
+        this.fileService = fileService;
+    }
 
+    @PostMapping("/cv_FileUpdate_user")
+    public String fileUpdate(@RequestParam("cvNo") int cvNo,
+                             @RequestParam("file") MultipartFile file,
+                             Model model) throws Exception {
+        // 이력서를 가져와서 업데이트할 파일을 설정합니다.
+        Resume resume = resumeService.select(cvNo);
+        resume.setThumbnail(file);
+
+        // 파일 업데이트 호출
+        resumeService.update(resume);
+
+        // 파일 목록 요청
+        Files files = new Files();
+        files.setParentTable("resume");
+        files.setParentNo(cvNo);
+
+        List<Files> fileList = fileService.listByParent(files);
+
+        if (fileList == null) {
+            System.out.println("파일목록이 없다");
+        } else {
+            for (Files fileItem : fileList) {
+                System.out.println("파일 정보: " + fileItem.toString());
+            }
+        }
+
+        // 목록 요청
+        Files thumbnail = fileService.listByParentThumbnail(files);
+
+        model.addAttribute("resume", resume);
+        model.addAttribute("Thumbnail", thumbnail);
+        model.addAttribute("fileList", fileList);
+
+        return "resume/cv_read_user";
+    }
+    
+
+
+    //이력서 수정
     @PostMapping("/cv_read_user")
     public String updateUserPro2(HttpSession session, Resume resume) throws Exception {
 
