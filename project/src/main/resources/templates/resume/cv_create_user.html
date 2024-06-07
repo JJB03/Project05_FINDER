@@ -120,8 +120,8 @@
 
         <!-- 학력/경력 시작 -->
         <div class="col-sm-12  border bg-light rounded-3 " style="min-height: 250px;">
-           <!--학력 controller 부르기-->
-          <form action="cv_Edupdate_user" method="post">
+          <!--학력 controller 부르기-->
+          <form action="cv_Edupdate_user" method="post"> <!-- ajax 로 보내기 -->
             <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
               <h5>학력</h5>
             </div>
@@ -145,22 +145,22 @@
                 </div>
               </div>
 
-              <div class="col-12 d-flex">
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75" name="university" id="university" placeholder="학교" value="">
-                </div>
-                <div class="form-group col-3">
-
-                  <input type="text" class="form-control w-75" name="major" id="major" placeholder="전공">
-                </div>
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75" name="universityStatus" id="universityStatus" placeholder="학력상태">
-                </div>
-                <div class="flex-column col-3">
-                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-                  <button type="button" class="educationBtn btn-short">
-                    <span class="fs-2">+</span>
-                  </button>
+              <div id="educationContainer">
+                <div class="col-12 d-flex initial-row">
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="university" placeholder="학교">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="major" placeholder="전공">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="universityStatus" placeholder="학력상태">
+                  </div>
+                  <div class="flex-column col-3">
+                    <button type="button" class="btn-short" onclick="addEducationRow()" style="display: inline-flex;">
+                      <span class="fs-2">+</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -179,14 +179,13 @@
                     </div>
                     <div class="flex-column col-4">
                       <p>대졸</p>
-                    </div>
+                    </div>e
                   </div>
                 </div> -->
               </div>
             </div>
           </form>
         </div>
-
 
         <div class="col-sm-12  border bg-light rounded-3 mt-3" style="min-height: 250px;">
           <form action="cv_Emupdate_user" method="post"> <!--경력 db 넣기-->
@@ -216,32 +215,32 @@
                 </div>
               </div>
 
-              <div class="col-12 d-flex">
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75" name="organization" id="organization" placeholder="기관" value="">
-                </div>
-                <div class="form-group col-3">
-                  <input type="date" class="form-control w-75" name="startDate" id="startDate" placeholder="시작 날짜">
-                </div>
-                <div class="form-group col-3">
-                  <input type="date" class="form-control w-75" name="endDate" id="endDate" placeholder="끝나는 날짜">
-                </div>
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75" name="duties" id="duties" placeholder="담당업무">
-                </div>
-                <div class="flex-column col-3">
-                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-                  <button type="button" class="employmentHistoryBtn btn-short">
-                    <span class="fs-2">+</span>
-                  </button>
+              <div id="employmentHistoryContainer">
+                <div class="col-12 d-flex initial-row">
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="organization" placeholder="기관">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="date" class="form-control w-75" name="startDate" placeholder="시작 날짜">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="date" class="form-control w-75" name="endDate" placeholder="끝나는 날짜">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="duties" placeholder="담당업무">
+                  </div>
+                  <div class="flex-column col-3">
+                    <button type="button" class="btn-short" onclick="addEmploymentHistoryRow()">
+                      <span class="fs-2">+</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-
               <div class="col-12 p-2">
                 <!-- 학력 리스트 -->
                 <div id="employmentHistory-list">
 
-<!--                 <div class="d-flex w-100 d-flex justify-content-between">
+                  <!--                 <div class="d-flex w-100 d-flex justify-content-between">
                   <div class="flex-column col-4">
                     <p>경력1</p>
                   </div>
@@ -252,9 +251,9 @@
                     <p>경력3</p>
                   </div>
                 </div> -->
-              </div>
+                </div>
 
-            </div>
+              </div>
 
           </form>
         </div>
@@ -263,7 +262,7 @@
 
 
         <div class="mt-5">
-          <label >자기소개서</label>
+          <label>자기소개서</label>
           <textarea required minlength="50" class="form-control border bg-light rounded-3" rows="5"
             placeholder="최소 50글자 이상 작성해야 합니다." name="coverLetter"></textarea>
         </div>
@@ -294,6 +293,82 @@
 
   <script>
 
+    // + 버튼누르면 학력 행이 생성되는 함수
+    function addEducationRow() {
+      const container = document.getElementById('educationContainer');
+      const newRow = document.createElement('div');
+      newRow.className = 'col-12 d-flex';
+      newRow.innerHTML = `
+      <div class="col-12 d-flex initial-row">
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="university" placeholder="학교">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="major" placeholder="전공">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="universityStatus" placeholder="학력상태">
+                  </div>
+                  <div class="flex-column col-3">
+                    <button type="button" class="btn-short" onclick="removeEducationRow(this)" style="display: inline-flex;">
+                      <span class="fs-2">-</span>
+                    </button>
+                  </div>
+                </div>
+            `;
+      container.appendChild(newRow);
+    }
+    // - 버튼누르면 학력 행이 삭제되는 함수
+    function removeEducationRow(button) {
+      const row = button.closest('.col-12');
+      const container = document.getElementById('educationContainer');
+      if (container.children.length > 1) {
+        row.remove();
+      } else {
+        alert('첫 번째 행은 삭제할 수 없습니다.');
+      }
+    }
+
+    function addEmploymentHistoryRow() {
+      const container = document.getElementById('employmentHistoryContainer');
+      const newRow = document.createElement('div');
+      newRow.className = 'col-12 d-flex';
+      newRow.innerHTML = `
+                <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="organization" placeholder="기관">
+                </div>
+                <div class="form-group col-3">
+                    <input type="date" class="form-control w-75" name="startDate" placeholder="시작 날짜">
+                </div>
+                <div class="form-group col-3">
+                    <input type="date" class="form-control w-75" name="endDate" placeholder="끝나는 날짜">
+                </div>
+                <div class="form-group col-3">
+                    <input type="text" class="form-control w-75" name="duties" placeholder="담당업무">
+                </div>
+                <div class="flex-column col-3">
+                    <button type="button" class="btn-short" onclick="removeEmploymentHistoryRow(this)">
+                        <span class="fs-2">-</span>
+                    </button>
+                </div>
+            `;
+      container.appendChild(newRow);
+    }
+
+    function removeEmploymentHistoryRow(button) {
+      const row = button.closest('.col-12');
+      const container = document.getElementById('employmentHistoryContainer');
+      if (container.children.length > 1) {
+        row.remove();
+      } else {
+        alert('첫 번째 행은 삭제할 수 없습니다.');
+      }
+    }
+
+
+
+
+
     //ajax로 그것들 부르기
     var csrfToken = "[[${_csrf.token}]]";
     var cvNo = "[[${cvNo}]]"
@@ -310,7 +385,7 @@
 
       $.ajax({
         type: 'post', //요청메소드
-        url: '/resume/cv_Edupdate_user', //요청경로 - 컨트롤러url 
+        url: '/resume/cv_Edupdate_user', //요청경로 - 컨트롤러url
         data: JSON.stringify({
           cvNo: cvNo,
           university: university,
@@ -323,10 +398,10 @@
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
 
-        //요청 성공             응답데이터 응답상태
+        //요청 성공 응답데이터 응답상태
         success: function name(response, status) {
           console.log("cv-create 학력 정보가 들어갔습니다.")
-          console.dir(response)   // 이거 자체가 객체
+          console.dir(response) // 이거 자체가 객체
           console.log(response.university);
           console.log(response.major);
           console.log(response.universityStatus);
@@ -346,21 +421,21 @@
     });
 
     /**
-     *  학력 리스트 조회
-     * - cvNo 로 조회 
-     */
+    * 학력 리스트 조회
+    * - cvNo 로 조회
+    */
     function educationList() {
       // alert(`학력 리스트 갱신`)
       $.ajax({
         type: 'get', //요청메소드
-        url: `/resume/cv_Edlist_user?cvNo=${cvNo}`, //요청경로 - 컨트롤러url 
+        url: `/resume/cv_Edlist_user?cvNo=${cvNo}`, //요청경로 - 컨트롤러url
         data: '', //요청 데이터
         contentType: '', //요청데이터 타입
         dataType: '', //응답데이터 타입
         beforeSend: function (xhr) {
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
-        //요청 성공             응답데이터 응답상태
+        //요청 성공 응답데이터 응답상태
         success: function name(response, status) {
           let educationList = response
           $("#education-list").html(educationList)
@@ -373,7 +448,7 @@
       })
     }
 
-   // 경력 등록 ajax
+    // 경력 등록 ajax
     $('.employmentHistoryBtn').click(function () {
       // 클릭 시 가져와야 하는 데이터
       var organization = document.getElementById('organization').value;
@@ -388,7 +463,7 @@
 
       $.ajax({
         type: 'post', // 요청 메소드
-        url: '/resume/cv_Emupdate_user', // 요청 경로 - 컨트롤러 URL 
+        url: '/resume/cv_Emupdate_user', // 요청 경로 - 컨트롤러 URL
         data: JSON.stringify({
           cvNo: cvNo, // 검색해서 입력하기 위해(아마도)
           organization: organization,
@@ -411,7 +486,7 @@
           console.log(data.duties);
 
           // 입력 후 필드 초기화
-          document.getElementById('organization').value= "";
+          document.getElementById('organization').value = "";
           document.getElementById('startDate').value = "";
           document.getElementById('endDate').value = "";
           document.getElementById('duties').value = "";
@@ -430,21 +505,21 @@
 
 
     /**
-     *  경력 리스트 조회
-     * - cvNo 로 조회 
-     */
-     function employmentHistoryList() {
+    * 경력 리스트 조회
+    * - cvNo 로 조회
+    */
+    function employmentHistoryList() {
       // alert(`경력 리스트 갱신`)
       $.ajax({
         type: 'get', //요청메소드
-        url: `/resume/cv_Emlist_user?cvNo=${cvNo}`, //요청경로 - 컨트롤러url 
+        url: `/resume/cv_Emlist_user?cvNo=${cvNo}`, //요청경로 - 컨트롤러url
         data: '', //요청 데이터
         contentType: '', //요청데이터 타입
         dataType: '', //응답데이터 타입
         beforeSend: function (xhr) {
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
-        //요청 성공             응답데이터 응답상태
+        //요청 성공 응답데이터 응답상태
         success: function name(response, status) {
           let employmentHistoryList = response
           $("#employmentHistory-list").html(employmentHistoryList)

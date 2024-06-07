@@ -116,6 +116,7 @@ public class RecruitController {
         return "/recruit/detail_jobs_user";
     }
 
+
     // 지원하기 비동기 삭제
     @ResponseBody
     @PostMapping("/detail_jobs_user/{cvNo}")
@@ -146,6 +147,7 @@ public class RecruitController {
         return "redirect:/recruit/applied_jobs_user";
     }
     
+
     // 채용공고 상세 페이지 ---- 끝
 
     // 채용공고 등록 페이지 ----
