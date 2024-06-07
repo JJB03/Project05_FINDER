@@ -27,7 +27,9 @@
     <select id="orderCreditList" resultMap="OrderCreditMap">
         SELECT o.*, c.*
         FROM `order` o
-        LEFT JOIN `credit` c ON o.order_no = c.order_no;
+        LEFT JOIN `credit` c ON o.order_no = c.order_no
+        ORDER BY c.credit_date DESC
+        LIMIT #{page.index}, #{page.rows}
     </select>
 
     <resultMap id="OrderCreditMap" type="Order">
@@ -44,6 +46,7 @@
         <result property="expirationDate" column="expiration_date" />
         <collection property="credits" ofType="Credit">
             <id property="creditId" column="credit_id" />
+            
             <result property="creditMethod" column="credit_method" />
             <result property="creditDate" column="credit_date" />
         </collection>
