@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Option;
+
 import com.finder.project.user.dto.Users;
+
 
 import lombok.Data;
 
@@ -24,6 +26,8 @@ public class Resume {
     private List<EmploymentHistory> employmentHistoryList = new ArrayList<>();
     private Users user;
     
+    private User user;
+
     //파일
     List<MultipartFile> file;
     private int fileNo;

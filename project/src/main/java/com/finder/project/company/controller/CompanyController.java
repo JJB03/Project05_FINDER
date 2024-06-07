@@ -395,9 +395,13 @@ public class CompanyController {
 
     // 결제 목록 내역 화면 [GET]
     @GetMapping("/credit/credit_list_com")
-    public String credit_list_com(Model model, Page page) throws Exception {
+    public String credit_list_com(HttpSession session, Model model, Page page
+                                 ) throws Exception {
 
-    List<Order> orderCreditList = companyService.orderCreditList(page);
+    Users user = (Users) session.getAttribute("user");
+    int userNo = user.getUserNo();
+
+    List<Order> orderCreditList = companyService.orderCreditList(userNo, page);
 
     // 페이징
     log.info("page : " + page);

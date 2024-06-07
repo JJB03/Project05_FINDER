@@ -24,10 +24,12 @@
     </select>
 
     <!-- 결제 목록 조회 -->
-    <select id="orderCreditList" resultMap="OrderCreditMap">
-        SELECT o.*, c.*
+    <select id="orderCreditList" resultMap="OrderCreditMap" parameterType="map">
+        SELECT o.*, c.*, u.*
         FROM `order` o
         LEFT JOIN `credit` c ON o.order_no = c.order_no
+        LEFT JOIN `user` u ON o.user_no = u.user_no
+        WHERE o.user_no = #{userNo}
         ORDER BY c.credit_date DESC
         LIMIT #{page.index}, #{page.rows}
     </select>
@@ -44,13 +46,42 @@
         <result property="createdDate" column="created_Date" />
         <result property="updatedDate" column="updated_date" />
         <result property="expirationDate" column="expiration_date" />
+    
+        <association property="user" javaType="Users">
+            <id property="userNo" column="user_no" />
+            <result property="userName" column="user_name" />
+            <result property="userId" column="user_id" />
+            <result property="userPw" column="user_pw" />
+            <result property="userBeforePw" column="user_before_pw" />
+            <result property="userBirth" column="user_birth" />
+            <result property="userPhone" column="user_phone" />
+            <result property="userEmail" column="user_email" />
+            <result property="userRegDate" column="user_reg_date" />
+            <result property="userUpdDate" column="user_upd_date" />
+            <result property="userGender" column="user_gender" />
+            <result property="enabled" column="enabled" />
+        </association>
+
         <collection property="credits" ofType="Credit">
-            <id property="creditId" column="credit_id" />
-            
+            <id property="creditNo" column="credit_no" />    
             <result property="creditMethod" column="credit_method" />
             <result property="creditDate" column="credit_date" />
         </collection>
+
     </resultMap>
+
+
+    <!-- 결제내역에 띄울 내역 데이터 개수 -->
+    <select id="count" resultType="int">
+            SELECT COUNT(*) 
+            FROM `order` o
+            LEFT JOIN `credit` c ON o.order_no = c.order_no
+            LEFT JOIN `user` u ON o.user_no = u.user_no
+            WHERE o.user_no = #{userNo}
+    </select>
+
+
+
 
     <!-- 주문 등록 -->
     <insert id="insertOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="orderNo">
