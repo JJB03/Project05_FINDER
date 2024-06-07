@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finder.project.company.dto.Company;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
@@ -15,6 +16,8 @@ import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.mapper.RecruitMapper;
+import com.finder.project.resume.dto.Resume;
+import com.finder.project.resume.mapper.ResumeMapper;
 
 @lombok.extern.slf4j.Slf4j
 @Service
@@ -22,6 +25,9 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Autowired
     RecruitMapper recruitMapper;
+
+    @Autowired
+    ResumeMapper resumeMapper;
 
     @Autowired
     FileService fileService;
@@ -217,8 +223,33 @@ public class RecruitServiceImpl implements RecruitService {
     //연관검색
     @Override
     public List<String> selectCompanyNameList() {
-        // TODO Auto-generated method stub
         return recruitMapper.selectCompanyNameList();
+    }
+
+    @Override
+    public int deleteCvList(int cvNo) throws Exception {
+        return resumeMapper.delete(cvNo);
+    }
+
+    // 지원
+    @Override
+    public int apply(int recruitNo, int cvNo) throws Exception {
+        return recruitMapper.apply(recruitNo, cvNo);
+    }
+
+    @Override
+    public List<RecruitPost> applyCvList(int userNo) throws Exception {
+        return recruitMapper.applyCvList(userNo);
+    }
+
+    @Override
+    public List<Resume> applyCom(int comNo) throws Exception {
+        return recruitMapper.applyCom(comNo);
+    }
+
+    @Override
+    public Company userNoToCom(int userNo) throws Exception {
+        return recruitMapper.userNoToCom(userNo);
     }
 
 

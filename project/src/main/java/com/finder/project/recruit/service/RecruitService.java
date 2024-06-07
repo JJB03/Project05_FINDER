@@ -2,9 +2,11 @@ package com.finder.project.recruit.service;
 
 import java.util.List;
 
+import com.finder.project.company.dto.Company;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.RecruitPost;
+import com.finder.project.resume.dto.Resume;
 
 /**
  * RecruitService
@@ -41,5 +43,19 @@ public interface RecruitService {
     public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos);
 
     public List<String> selectCompanyNameList();
+
+    // 비동기 이력서 삭제
+    public int deleteCvList(int cvNo) throws Exception;
+
+    // 지원
+    public int apply(int recruitNo, int cvNo) throws Exception;
+
+    // 지원한 이력서list
+    public List<RecruitPost> applyCvList(int userNo) throws Exception;
+
+    // 제출된 이력서
+    public List<Resume> applyCom(int comNo) throws Exception;
+
+    public Company userNoToCom(int userNo) throws Exception;
    
 }

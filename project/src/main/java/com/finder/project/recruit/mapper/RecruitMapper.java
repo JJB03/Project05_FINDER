@@ -5,10 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.finder.project.company.dto.Company;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPost;
+import com.finder.project.resume.dto.Resume;
 
 @Mapper
 public interface RecruitMapper {
@@ -58,4 +60,14 @@ public interface RecruitMapper {
 
     // 공고 갯수
     public int count(@Param("option") Option option);
+
+    // 지원
+    public int apply(@Param("recruitNo") int recruitNo, @Param("cvNo") int cvNo) throws Exception;
+
+    // 지원한 이력서list
+    public List<RecruitPost> applyCvList(int userNo) throws Exception;
+
+    public List<Resume> applyCom(int comNo) throws Exception;
+
+    public Company userNoToCom(int userNo) throws Exception;
 }

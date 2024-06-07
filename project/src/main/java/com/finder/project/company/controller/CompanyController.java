@@ -428,11 +428,21 @@ public class CompanyController {
 
 
 
-    // 등록된 채용공고 화면
-    @GetMapping("/recruit_list_com")
-    public String recruit_list_com() throws Exception {
-        return "/company/recruit_list_com";
-    }
+    // // 등록된 채용공고 화면
+    // @GetMapping("/recruit_list_com")
+    // public String recruit_list_com(Model model , HttpSession session) throws Exception {
+    //     Users user = (Users) session.getAttribute("user");
+        
+    //     if (user == null) {
+    //         // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+    //         return "redirect:/login";
+    //     }
+    //     int userNo = user.getUserNo();
+        
+        
+
+    //     return "/company/recruit_list_com";
+    // }
 
     // AI 평가 화면
     @GetMapping("/score_com")
