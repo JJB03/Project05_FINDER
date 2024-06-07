@@ -159,9 +159,7 @@
 
 }
 
-.keyword-span {
-    
-}
+.keyword-span {}
 
 .keyword-span span {
     background-color: #f8f8f8;
@@ -192,13 +190,14 @@
     transition: background-color 0.5s ease;
     text-align: center;
     margin: 0 5px 5px 0;
-    width: auto !important;
     height: 24px !important;
     line-height: 24px;
     display: inline-block !important;
 
 
 }
+
+
 
 .job-item:hover .keyword-span span {
     background-color: #fff;
@@ -483,13 +482,13 @@
 .thumbnail-wrapper {
     position: relative;
     display: inline-block;
-   
+
 }
 
 .thumbnail-preview {
     max-width: 200px;
     max-height: 150px;
-    
+
 }
 
 .remove-thumbnail {
@@ -502,4 +501,3 @@
     border: none;
     display: none;
 }
-
