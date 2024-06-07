@@ -20,11 +20,11 @@ import lombok.Data;
 public class Page {
    // 페이징 기본값
    private static final int PAGE_NUM = 1;   // 현재 페이지 번호 기본값
-   private static final int ROWS    = 12;   // 현재 페이지 번호 기본값
-   private static final int COUNT   = 10;   // 현재 페이지 번호 기본값
+   private static final int ROWS    = 5;   // 페이지당 게시글 수 기본값
+   private static final int COUNT   = 10;   // 노출 페이지 개수 기본값
    // ✅ 필수 정보
    private int page;    // 페이지 번호
-   private int rows;    // 페이지당 글 수
+   private int rows;    // 페이지당 글 게시글 수
    private int count;   // 노출 페이지 개수
    private int total;   // 전체 페이지 개수
 
@@ -32,7 +32,7 @@ public class Page {
    // ⭐ 수식 정보
    private int first;   // 첫 번호
    private int last;    // 마지막 번호
-   private int start;   // 시작번호
+   private int start;   // 시작 번호
    private int end;     // 끝 번호
 
    private int prev;    // 이전 번호
@@ -92,9 +92,6 @@ public class Page {
     // 데이터 순서 번호 (index)
     this.index = (this.page - 1) * this.rows;
    }
-
-
-
 
 }
 

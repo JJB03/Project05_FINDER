@@ -23,8 +23,11 @@ public interface CreditMapper {
     public Credit selectCredit(int orderNo) throws Exception;
     
     // 주문/결제 목록 조회 (조인)
-    public List<Order> orderCreditList(@Param("page") Page page) throws Exception;
-
+    public List<Order> orderCreditList(@Param("userNo") int userNo, @Param("page") Page page
+                                      ) throws Exception;
+    // 주문 개수
+    public int count(int userNo) throws Exception;
+                                    
 
 
 
@@ -36,4 +39,7 @@ public interface CreditMapper {
 
     // 결제완료 후 주문테이블 수정
     public int updateOrder(Order order) throws Exception;
+
+
+
 }
