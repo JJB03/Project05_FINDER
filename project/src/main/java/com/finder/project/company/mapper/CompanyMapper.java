@@ -1,5 +1,7 @@
 package com.finder.project.company.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.finder.project.company.dto.Company;
@@ -49,8 +51,10 @@ public interface CompanyMapper {
     public Company selectByUserNo(int userNo);   
     // 기업번호로 기업상세 조회 ⭕
     public CompanyDetail selectCompanyDetailByComNo(int comNo);
+ 
 
-
+    // 회사 검색
+    public List<Company> serachCompanyByName(String name) throws Exception;
 
 
 

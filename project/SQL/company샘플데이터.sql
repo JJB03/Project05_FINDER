@@ -71,14 +71,9 @@ VALUES
 (59, '카드', 'PAID', 'CREDIT20230517', '2023-05-17 12:05:00');
 
 
-
-
-
-
-
-
-
-
+SELECT *
+        FROM company
+        WHERE com_name  'X';
 
 -- recruit_list_com 에서 보여줄 거 채용공고 / 이력서 / 지원내역 테이블 임시데이터
 -- 채용공고 게시글 테이블
@@ -98,3 +93,4 @@ INSERT INTO `apply_employee` (`apply_no`, `cv_no`, `recruit_no`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3);
+
