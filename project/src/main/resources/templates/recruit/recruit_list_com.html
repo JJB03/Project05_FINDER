@@ -174,12 +174,16 @@
 
 
                     <th:block th:if="${resumeList.isEmpty()}">
-                        <div>
-                            <span>조회된 이력서 정보가 없습니다.</span>
-                        </div>
+                            <div style="min-height: 500px; text-align: center;">
+                                <h1 style="line-height: 500px;">조회된 이력서 정보가 없습니다.</h1>
+                            </div>
+                        
                     </th:block>
 
+                    <div style="min-height: 500px;">
                     <th:block th:each="resume : ${resumeList}">
+                    
+                        
                         <!-- <a href="/resume/cv_read_com" class="job-item-link"> -->
                             <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
                         <!--구분할 수 있게 스타일임시로 추가함.-->
@@ -231,7 +235,9 @@
                                 </div>
                             </div>
                         </a>
+
                     </th:block>
+                    </div>
 
 
 

@@ -31,6 +31,8 @@ public interface RecruitService {
     
     // 등록 한 채용공고 목록
     public List<RecruitPost> postsRecruitList(int comNo) throws Exception;
+    // 등록 한 채용공고 목록 페이징용 [승헌]
+    public List<RecruitPost> pagedPostsRecruitList(int comNo, Page page) throws Exception;
 
     // 등록 한 채용공고 삭제
     public int deleteRecruitList(int recruitNo) throws Exception;
