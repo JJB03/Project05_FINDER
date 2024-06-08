@@ -239,6 +239,7 @@
                                     <td th:text="${order.orderNo}"></td>
 
                                     <td>
+                                        
                                         <span th:each="credit : ${order.credits}"
                                             th:text="${credit.creditMethod}"></span>
                                     </td>
@@ -252,10 +253,10 @@
 
                                     <td th:text="${order.totalPrice}"></td>
 
-
                                     <td th:switch="${order.orderStatus}">
                                         <span th:case="'PAID'">결제완료</span>
-                                        <span th:case="*">결제대기</span>
+                                        <span th:case="PENDING">결제대기</span>
+                                        <span th:case="CANCELLED">결제취소</span>
                                     </td>
 
                                     <td>
