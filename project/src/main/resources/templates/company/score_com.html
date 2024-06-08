@@ -72,6 +72,28 @@
             padding: 15px;
             margin-right: 15px;
         }
+
+        .name-link {
+            background-color: #f0f0f0;
+            color: #5d5d5d;
+            border-radius: 20px;
+            padding: 0 12px 0 12px;
+            font-size: 16px;
+            text-align: center;
+            /* opacity: 0.8; */
+            font-weight: bold;
+            transition: background-color 0.5s ease;
+            text-align: center;
+            width: auto !important;
+            height: 24px !important;
+            line-height: 24px;
+            display: inline-block !important;
+            margin-bottom: 2px;
+        }
+
+        .name-link:hover {
+            background-color: #fff;
+        }
     </style>
     <link rel="stylesheet" href="/css/pagination.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -210,17 +232,17 @@
 
 
                     <div class="container mt-0 justify-content-center">
-                        <div style="margin-bottom: 20px; margin-top: 13px;">
+                        <div style="margin-bottom: 15px; margin-top: 20px;">
                             <span style="margin-right: 15px;"><strong>지원자<span style="color: #155ADC; margin-left: 5px;"
                                         th:text="|${resumeList.size()}명|"></span></strong></span>
-                            <span style="margin-right: 15px;"><strong>합격<span
+                            <!-- <span style="margin-right: 15px;"><strong>합격<span
                                         style="color: #128246; margin-left: 5px;">3명</span>
                                 </strong></span>
                             <span style="margin-right: 15px;"><strong>불합격<span
-                                        style="color: red; margin-left: 5px;">3명</span></strong></span>
+                                        style="color: red; margin-left: 5px;">3명</span></strong></span> -->
                         </div>
 
-                        <div class="item d-flex justify-content-between">
+                        <div class="item d-flex justify-content-between mb-3">
                             <div class="keyword-span" id="outputContainer">
                             </div>
                             <div class="gap-2 d-flex">
@@ -237,11 +259,14 @@
                             <div class="job-list mt-1">
                                 <ol class="list-group">
                                     <li class="list-group-item d-flex">
-                                        <div class="w-25">
+                                        <div class="" style="width: 18%;">
                                             <strong style="font-size: 20px;">지원자</strong>
                                         </div>
-                                        <div class="">
-                                            <strong style="font-size: 20px;">이력서점수</strong>
+                                        <div class="w-25">
+                                            <strong style="font-size: 20px;">이력서 점수</strong>
+                                        </div>
+                                        <div class="" style="width: 68%;">
+                                            <strong style="font-size: 20px;">지원 채용공고</strong>
                                         </div>
                                     </li>
 
@@ -250,37 +275,52 @@
                                         '지원 동기와 의지가 확실한 경우' 에는 가산점을 부여합니다. 나머지 점수는 아래 키워드와의 유사성을 평가하여 매우 엄격하게 평가해야 합니다.
                                         만약 자기소개서가 빈 문자열이거나 null이면 0점을 주세요. 결과를 꼭 숫자로만 표시해 주세요.">
                                     <th:block th:each="resume, stat : ${resumeList}">
-                                        <li class="list-group-item d-flex justify-content-between">
+                                        <li class="list-group-item d-flex">
                                             <input type="hidden" name=""
                                                 th:attr="id='resume-cover-letter-' + ${stat.index}"
                                                 th:value="${resume.coverLetter}">
-                                            <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center" style="width: 18%;">
                                                 <div class="d-flex me-1 " style="width: 13px;">
                                                     <strong th:text="|${stat.index + 1}.|"></strong>
                                                 </div>
 
                                                 <div class="d-felx">
-                                                    <span style="margin-right: 20px;"
-                                                        th:text="${resume.user.userName}"></span>
+                                                    <a th:href="|/resume/cv_read_com?cvNo=${resume.cvNo}|"
+                                                        class="job-item-link name-link">
+                                                        <span th:text="${resume.user.userName}"></span>
+                                                    </a>
                                                 </div>
 
                                             </div>
-                                            <div class="me-5">
+
+                                            <div class="w-25">
                                                 <span style="color:#128246;">
-                                                    <strong th:attr="id='score-' + ${stat.index}"></strong>
+                                                    <strong th:attr="id='score-' + ${stat.index}">
+
+                                                    </strong>
                                                 </span>
                                             </div>
-                                            <div class="ms-4"></div>
-                                            <div></div>
-                                            <div></div>
-                                            <div class="keyword-span-green d-flex">
-                                                <!-- <div class="d-flex ">
-                                                    <span class="btn-in-short text-center">합격</span>
+
+                                            <div class="d-flex justify-content-between" style="width: 68%;">
+                                                <div class="d-flex ">
+                                                    <th:block th:each="recruit : ${resume.recruitPost}">
+                                                        <div class="me-2">
+                                                            <span th:text="${recruit.recruitTitle}">
+
+                                                            </span>
+                                                        </div>
+                                                    </th:block>
+                                                </div>
+                                                <!-- <div class="keyword-span-green d-flex">
+
+                                                    <span style="#128246;">합격</span>
                                                 </div> -->
                                                 <div>
-                                                    <button class="btn-in-short finder-btn"
-                                                        th:attr="data-index=${stat.index}"
-                                                        style="font-weight: bold;">FINDER</button>
+                                                    <div>
+                                                        <button class="btn-in-short finder-btn"
+                                                            th:attr="data-index=${stat.index}"
+                                                            style="font-weight: bold;">FINDER</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
@@ -288,17 +328,20 @@
 
                                 </ol>
 
-                                
+
                                 <!-- 페이지네이션 -->
                                 <div class="pagination-container justify-content-center d-flex mt-4">
                                     <div class="pagination d-flex">
 
                                         <!-- [ 처음 ] -->
-                                        <a class="page-item page-first" th:href="|/company/score_com?page=${page.first}|" ><i class="fa-solid fa-angles-left"></i></a>        
-                                        
+                                        <a class="page-item page-first"
+                                            th:href="|/company/score_com?page=${page.first}|"><i
+                                                class="fa-solid fa-angles-left"></i></a>
+
                                         <!-- [ 이전 ] -->
                                         <th:block th:if="${page.page != page.first}">
-                                            <a class="page-item" th:href="|/company/score_com?page=${page.prev}|" ><i class="fa-solid fa-angle-left"></i></a>
+                                            <a class="page-item" th:href="|/company/score_com?page=${page.prev}|"><i
+                                                    class="fa-solid fa-angle-left"></i></a>
                                         </th:block>
 
                                         <!-- 페이지 번호 -->
@@ -320,11 +363,14 @@
 
                                         <!-- [ 다음 ] -->
                                         <th:block th:if="${page.page != page.last}">
-                                            <a class="page-item" th:href="|/company/score_com?page=${page.next}|" ><i class="fa-solid fa-angle-right"></i></a>
+                                            <a class="page-item" th:href="|/company/score_com?page=${page.next}|"><i
+                                                    class="fa-solid fa-angle-right"></i></a>
                                         </th:block>
-                                        
+
                                         <!-- [ 마지막 ] -->
-                                        <a class="page-item page-end" th:href="|/company/score_com?page=${page.last}|" ><i class="fa-solid fa-angles-right"></i></a>
+                                        <a class="page-item page-end"
+                                            th:href="|/company/score_com?page=${page.last}|"><i
+                                                class="fa-solid fa-angles-right"></i></a>
 
                                     </div>
                                 </div>
@@ -344,9 +390,9 @@
 
 
         $(document).ready(function () {
+            let resumeCoverLetter = $('#resume-cover-letter-' + 0).val();
+            console.log(resumeCoverLetter);
 
-            let resumeCoverLetter = $('#resume-cover-letter-' + 1).val();
-            alert(resumeCoverLetter);
 
             // $('.finder-btn').on('click', function () {
             //     alert(inputKeyword)

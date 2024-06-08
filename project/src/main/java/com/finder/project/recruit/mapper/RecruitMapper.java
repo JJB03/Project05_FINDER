@@ -10,6 +10,7 @@ import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.Keyword;
+import com.finder.project.recruit.dto.RecruitPage;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.resume.dto.Resume;
 
@@ -17,7 +18,7 @@ import com.finder.project.resume.dto.Resume;
 public interface RecruitMapper {
 
     // 채용공고 목록
-    public List<RecruitPost> recruitList(@Param("page") Page page, @Param("option") Option option) throws Exception;
+    public List<RecruitPost> recruitList(@Param("page") RecruitPage page, @Param("option") Option option) throws Exception;
 
     // 채용공고 등록
     public int recruitPost(RecruitPost recruitPost) throws Exception;

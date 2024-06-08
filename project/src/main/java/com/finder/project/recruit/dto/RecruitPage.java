@@ -1,4 +1,4 @@
-package com.finder.project.main.dto;
+package com.finder.project.recruit.dto;
 
 import lombok.Data;
 
@@ -17,10 +17,10 @@ import lombok.Data;
  * 마지막 번호
  */
 @Data
-public class Page {
+public class RecruitPage {
     // 페이징 기본값
     private static final int PAGE_NUM = 1; // 현재 페이지 번호 기본값
-    private static final int DEFAULT_ROWS = 5; // 페이지당 게시글 수 기본값
+    private static final int DEFAULT_ROWS = 12; // 페이지당 게시글 수 기본값
     private static final int DEFAULT_COUNT = 10; // 노출 페이지 개수 기본값
     // ✅ 필수 정보
     private int page; // 페이지 번호
@@ -40,21 +40,21 @@ public class Page {
     private int index; // 데이터 순서 번호
 
     // 생성자
-    public Page() {
+    public RecruitPage() {
         this(0);
     }
 
     // 데이터 개수
-    public Page(int total) {
+    public RecruitPage(int total) {
         this(PAGE_NUM, total);
     }
 
     // 현재 번호, 데이터 개수
-    public Page(int page, int total) {
+    public RecruitPage(int page, int total) {
         this(page, DEFAULT_ROWS, DEFAULT_COUNT, total);
     }
 
-    public Page(int page, int rows, int count, int total) {
+    public RecruitPage(int page, int rows, int count, int total) {
         this.page = page;
         this.rows = rows;
         this.count = count;

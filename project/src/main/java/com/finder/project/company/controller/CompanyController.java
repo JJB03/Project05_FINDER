@@ -479,7 +479,7 @@ public class CompanyController {
         List<Resume> applyCvList = recruitService.applyCom(comNo, page);
 
         for (Resume resume : applyCvList) {
-
+            log.info("gdgdgddgg" + resume.getCoverLetter());
             // log.info("??????!@#!@#!@#@!" + resume);
         }
 
