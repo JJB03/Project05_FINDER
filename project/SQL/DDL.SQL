@@ -162,8 +162,8 @@ CREATE TABLE `recruit` (
 -- 지원내역 테이블
 CREATE TABLE `apply_employee` (
     `apply_no` int NOT NULL AUTO_INCREMENT,
-    `apply_title` varchar(100) NOT NULL,
-    `apply_date` timestamp NOT NULL DEFAULT now(),
+    -- `apply_title` varchar(100) NOT NULL,
+    -- `apply_date` timestamp NOT NULL DEFAULT now(),
     `cv_no` int NOT NULL,
     `recruit_no` int NOT NULL,
     PRIMARY KEY (`apply_no`),
@@ -240,6 +240,7 @@ CREATE TABLE `order` (
     `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `expiration_date` DATE NULL COMMENT '상품 만료',
+    `remain_quantity` int NULL COMMENT '채용공고 사용 가능 횟수',
     PRIMARY KEY (`order_no`),
     FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`)
@@ -249,7 +250,7 @@ CREATE TABLE `order` (
 CREATE TABLE `credit` (
     `credit_no` INT NOT NULL AUTO_INCREMENT,
     `order_no` INT NOT NULL,
-    `credit_method` varchar(500) NULL,
+    `credit_method` varchar(500) NULL DEFAULT '간편결제',
     `credit_status` ENUM('PENDING', 'PAID', 'REFUND') NOT NULL DEFAULT 'PAID' COMMENT '결제대기,결제완료,환불',
     `credit_code` VARCHAR(500) NULL, -- 토스페이먼츠 order_id 랜덤 주문번호
     `credit_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -181,6 +181,17 @@ public class RecruitServiceImpl implements RecruitService {
         return postsRecruitList;
     }
 
+    // 등록 한 채용공고 목록 페이징용 [승헌]
+    @Override
+    public List<RecruitPost> pagedPostsRecruitList(int comNo, Page page) throws Exception {
+        int total = recruitMapper.countpostsRecruitList(comNo);
+        page.setTotal(total);
+
+        List<RecruitPost> postsRecruitList = recruitMapper.pagedPostsRecruitList(comNo, page);
+
+        return postsRecruitList;
+    }
+
     // 등록 한 채용공고 조회
     @Override
     public RecruitPost postsRecruitRead(int recruitNo) throws Exception {
@@ -279,6 +290,8 @@ public class RecruitServiceImpl implements RecruitService {
         
         return recruitMapper.userNoToDistnctRecruitNo(userNo, recruitNo);
     }
+
+
 
 
 

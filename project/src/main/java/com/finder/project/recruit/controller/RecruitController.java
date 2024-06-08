@@ -257,13 +257,14 @@ public class RecruitController {
 
     // 기업이 등록 한 채용공고 목록
     @GetMapping("/posted_jobs_com")
-    public String getPosted_jobs_com(@SessionAttribute("user") Users user, Model model) throws Exception {
+    public String getPosted_jobs_com(@SessionAttribute("user") Users user, Model model, Page page) throws Exception {
 
         Company company = companyService.selectByUserNo(user.getUserNo());
         int comNo = company.getComNo();
 
-        List<RecruitPost> recruitPosts = recruitService.postsRecruitList(comNo);
+        List<RecruitPost> recruitPosts = recruitService.pagedPostsRecruitList(comNo, page);
         model.addAttribute("recruitPosts", recruitPosts);
+        model.addAttribute("page", page);
 
         return "/recruit/posted_jobs_com";
     }

@@ -46,6 +46,7 @@
         <result property="createdDate" column="created_Date" />
         <result property="updatedDate" column="updated_date" />
         <result property="expirationDate" column="expiration_date" />
+        <result property="remainQuantity" column="remain_quantity" />
     
         <association property="user" javaType="Users">
             <id property="userNo" column="user_no" />
@@ -95,11 +96,12 @@
         VALUES (#{orderNo}, #{creditMethod}, #{creditStatus}, #{creditCode}, NOW())
     </insert>
 
-
+    <!-- 결제시 주문 갱신 -->
     <update id="updateOrder">
         UPDATE `order`
         SET order_status = 'PAID',
             expiration_date = #{expirationDate},
+            remain_quantity = #{remainQuantity},
             updated_date = now()
         WHERE order_no = #{orderNo}
     </update>

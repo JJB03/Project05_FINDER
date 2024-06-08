@@ -21,6 +21,7 @@ public class Order {
     private Timestamp createdDate;
     private Timestamp updatedDate;
     private Date expirationDate;
+    private int remainQuantity;
     
     private Users user;
 
