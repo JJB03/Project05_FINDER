@@ -393,4 +393,11 @@
     WHERE recruit_no = #{recruitNo}
   </select>
   
+  <!-- userNO으로 ae테이블의 recruitNO중복 제거한 count -->
+  <select id="userNoToDistnctRecruitNo" resultType="int">
+  SELECT COUNT(*) AS apply_count
+    FROM apply_employee ae
+    JOIN cv c ON ae.cv_no = c.cv_no
+    WHERE c.user_no = #{userNo} AND ae.recruit_no = #{recruitNo}
+  </select>
 </mapper>

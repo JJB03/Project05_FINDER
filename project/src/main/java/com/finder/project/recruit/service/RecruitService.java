@@ -2,6 +2,8 @@ package com.finder.project.recruit.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.main.dto.Option;
@@ -68,5 +70,8 @@ public interface RecruitService {
 
     // recruitNo 으로 recruit
     public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception;
+
+    // userNo으로 현재 recruit에 user의 ae count
+    public int userNoToDistnctRecruitNo(@Param("userNo") int userNo, @Param("recruitNo") int recruitNo);
 
 }

@@ -236,32 +236,50 @@
                         <div>
                             <div class="job-list mt-1">
                                 <ol class="list-group">
-                                    <li class="list-group-item"><strong style="font-size: 20px;">지원자 순위</strong></li>
+                                    <li class="list-group-item d-flex">
+                                        <div class="w-25">
+                                            <strong style="font-size: 20px;">지원자</strong>
+                                        </div>
+                                        <div class="">
+                                            <strong style="font-size: 20px;">이력서점수</strong>
+                                        </div>
+                                    </li>
 
-                                    <input type="hidden" name="" id="input-msg"
-                                        value="이 자기소개서를 아래 키워드와의 유사성을 정해 100점만점으로 이력서 점수만 응답해줘 딱 숫자 점수만">
-
+                                    <input type="hidden" name="" id="input-msg" value="자기소개서를 100점 만점으로 평가해주세요.
+                                        자기소개서는 '50자 이상이어야 하며', '한글 맞춤법을 준수할 경우', '외부 활동과 성취 내용이 있는 경우', '전공 선택 이유와 성취 내용이 있는 경우', 
+                                        '지원 동기와 의지가 확실한 경우' 에는 가산점을 부여합니다. 나머지 점수는 아래 키워드와의 유사성을 평가하여 매우 엄격하게 평가해야 합니다.
+                                        만약 자기소개서가 빈 문자열이거나 null이면 0점을 주세요. 결과를 꼭 숫자로만 표시해 주세요.">
                                     <th:block th:each="resume, stat : ${resumeList}">
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <input type="hidden" name="" id="resume-cover-letter"
+                                            <input type="hidden" name=""
+                                                th:attr="id='resume-cover-letter-' + ${stat.index}"
                                                 th:value="${resume.coverLetter}">
-                                            <div class="d-flex align-items-center">
-                                                <div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex me-1 " style="width: 13px;">
                                                     <strong th:text="|${stat.index + 1}.|"></strong>
+                                                </div>
+
+                                                <div class="d-felx">
                                                     <span style="margin-right: 20px;"
                                                         th:text="${resume.user.userName}"></span>
                                                 </div>
 
-                                                <div>
-                                                    <span style="color:#128246;"><strong id="score">점수</strong></span>
-                                                </div>
                                             </div>
+                                            <div class="me-5">
+                                                <span style="color:#128246;">
+                                                    <strong th:attr="id='score-' + ${stat.index}"></strong>
+                                                </span>
+                                            </div>
+                                            <div class="ms-4"></div>
+                                            <div></div>
+                                            <div></div>
                                             <div class="keyword-span-green d-flex">
                                                 <!-- <div class="d-flex ">
                                                     <span class="btn-in-short text-center">합격</span>
                                                 </div> -->
                                                 <div>
                                                     <button class="btn-in-short finder-btn"
+                                                        th:attr="data-index=${stat.index}"
                                                         style="font-weight: bold;">FINDER</button>
                                                 </div>
                                             </div>
@@ -321,18 +339,19 @@
 
         </div>
     </div>
-    <textarea name="" id="result" rows="20" cols="50" class="" placeholder="응답 결과"></textarea>
+    <!-- <textarea name="" th:attr="id='result-' + ${stat.index}" rows="20" cols="50" class="" placeholder="응답 결과"></textarea> -->
     <script>
 
 
         $(document).ready(function () {
 
+            let resumeCoverLetter = $('#resume-cover-letter-' + 1).val();
+            alert(resumeCoverLetter);
 
-            
             // $('.finder-btn').on('click', function () {
             //     alert(inputKeyword)
             // });
-            
+
 
 
 
@@ -358,7 +377,7 @@
             });
 
 
-            let API_KEY = '여기다가 쓰면 됨!!!!!!!!!!!!!!!!!!!!!!!!!!@'
+            let API_KEY = '여기쓰면됨'
 
             if (API_KEY == '') {
                 alert('API_KEY 를 변수에 입력하세요.')
@@ -367,19 +386,20 @@
 
 
             $('.finder-btn').on('click', function () {
+                let index = $(this).data('index');  // 클릭된 버튼의 인덱스 가져오기
                 let inputKeywords = $('.input-keyword').map(function () {
                     return $(this).val();
                 }).get().join(' ');
 
                 if (inputKeywords.trim() !== '') {
                     let request = new XMLHttpRequest();
-                    let result = $('#result');
-                    let content = $('#score');
+                    // let result = $('#result-' + index);  // 해당 인덱스의 result 요소 선택
+                    let content = $('#score-' + index);  // 해당 인덱스의 score 요소 선택
                     let msg = $('#input-msg').val();
 
                     // 이력서 자기소개서 값 가져오기
-                    let resumeCoverLetter = $('#resume-cover-letter').val();
-                    
+                    let resumeCoverLetter = $('#resume-cover-letter-' + index).val();
+
 
                     let data = {
                         "model": "gpt-3.5-turbo",
@@ -400,10 +420,21 @@
                     request.onreadystatechange = function () {
                         if (request.readyState == request.DONE && request.status == 200) {
                             let response = request.responseText;
-                            result.text(response);
+                            // result.text(response);
                             let object = JSON.parse(response);
                             let contentValue = object.choices[0].message.content;
                             content.text(contentValue);
+
+                            // 값에 따라 색깔 설정
+                            if (content >= 86 && content <= 100) {
+                                $("#score").text(scoreValue).css("color", "#155ADC"); // 파란색
+                            } else if (content >= 79 && content <= 85) {
+                                $("#score").text(content).css("color", "#128246"); // 초록색
+                            } else if (content >= 60 && content <= 69) {
+                                $("#score").text(content).css("color", "#FFE039"); // 노란색
+                            } else {
+                                $("#score").text(content).css("color", "red"); // 빨간색
+                            }
                         }
                         if (request.readyState == request.DONE && request.status == 500) {
                             alert('서버측 에러 발생');

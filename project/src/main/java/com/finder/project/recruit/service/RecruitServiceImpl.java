@@ -4,6 +4,7 @@ package com.finder.project.recruit.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -282,6 +283,12 @@ public class RecruitServiceImpl implements RecruitService {
     public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception {
         
         return recruitMapper.recruitNoToRecruit(recruitNo);
+    }
+
+    @Override
+    public int userNoToDistnctRecruitNo(int userNo, int recruitNo) {
+        
+        return recruitMapper.userNoToDistnctRecruitNo(userNo, recruitNo);
     }
 
 
