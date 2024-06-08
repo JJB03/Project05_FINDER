@@ -341,7 +341,7 @@ public class RecruitController {
             return "redirect:/login";
         }
         int userNo = user.getUserNo();
-
+        
         Company company = recruitService.userNoToCom(userNo); // 1
 
         int comNo = company.getComNo(); // 31
@@ -351,7 +351,7 @@ public class RecruitController {
 
         for (Resume resume : applyCvList) {
 
-            // log.info("??????!@#!@#!@#@!" + resume);
+        
         }
 
         model.addAttribute("resumeList", applyCvList);
