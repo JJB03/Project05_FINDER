@@ -162,8 +162,8 @@ CREATE TABLE `recruit` (
 -- 지원내역 테이블
 CREATE TABLE `apply_employee` (
     `apply_no` int NOT NULL AUTO_INCREMENT,
-    `apply_title` varchar(100) NOT NULL,
-    `apply_date` timestamp NOT NULL DEFAULT now(),
+    -- `apply_title` varchar(100) NOT NULL,
+    -- `apply_date` timestamp NOT NULL DEFAULT now(),
     `cv_no` int NOT NULL,
     `recruit_no` int NOT NULL,
     PRIMARY KEY (`apply_no`),

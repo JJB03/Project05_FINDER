@@ -153,6 +153,7 @@
                         </div>
                     </th:block>
 
+                    <div style="min-height: 500px;">
                     <th:block th:each="recruit : ${recruitPosts}">
 
                         <a th:href="|/recruit/post_jobs_read_com?recruitNo=${recruit.recruitNo}|" class="job-item-link" th:id="'recruit_' + ${recruit.recruitNo}">
@@ -196,7 +197,9 @@
                                 </div>
                             </div>
                         </a>
+
                     </th:block>
+                    </div>
 
                     <!-- 페이지네이션 -->
                     <div class="pagination-container justify-content-center d-flex mt-4">
