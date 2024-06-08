@@ -59,17 +59,18 @@ public class RecruitController {
             HttpSession session) throws Exception {
 
         Users user = (Users) session.getAttribute("user");
-
         
         if (user != null) {
             Integer userNo = user.getUserNo();
             log.info(" 유저번호는 : " + userNo);
             
             if (userNo != null) { // userNo가 null이 아닌지 확인
+           
                 List<Resume> resumeList = resumeService.resumelist(userNo);
-    
+                
+
                 if (resumeList != null) {
-                    log.info("이력서 목록이 있구나 : " + resumeList.size() + "건");
+                    // log.info("이력서 목록이 있구나 : " + resumeList.size() + "건");
                     // 모델 등록
                     model.addAttribute("resumeList", resumeList);
                     model.addAttribute("user", user);
@@ -91,16 +92,19 @@ public class RecruitController {
                 }
 
                 visitedRecruitNos.add(recruitNo);
+                int aeCount = recruitService.userNoToDistnctRecruitNo(userNo, recruitNo);
+                log.info("ae?? : " + aeCount);
+                model.addAttribute("aeCount", aeCount);
             }
         } // 유저 회원 이어야 모델에 담음
 
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
         if (recruitPost == null) {
-            log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
+            // log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
         } else {
-            log.info("RecruitPost 정보: {}", recruitPost);
+            // log.info("RecruitPost 정보: {}", recruitPost);
         }
-
+        
         // 파일 목록 요청
         file.setParentTable("recruit");
         file.setParentNo(recruitNo);
@@ -111,7 +115,7 @@ public class RecruitController {
         List<Files> fileList = fileService.listByParent(file);
 
         Files Thumbnail = fileService.listByParentThumbnail(file);
-
+        // log.info("companyDetail", companyDetail);
         model.addAttribute("companyDetail", companyDetail);
         model.addAttribute("Thumbnail", Thumbnail);
         model.addAttribute("recruitPost", recruitPost);
