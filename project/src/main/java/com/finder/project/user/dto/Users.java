@@ -30,6 +30,8 @@ public class Users {
 
 
     private List<UserAuth> authList;
+
+    private int cvNo;
 }
 
 // 로그인된 정보를 세션에 저장해서  

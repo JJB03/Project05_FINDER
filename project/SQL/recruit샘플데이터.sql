@@ -1,4 +1,4 @@
--- Active: 1716771298869@@127.0.0.1@3306@joeun
+-- Active: 1711633953173@@127.0.0.1@3306@joeun
 SELECT c.*, r.*, rk.*
 FROM
     company c
@@ -176,10 +176,10 @@ FROM
             parent_table = 'recruit'
             AND file_code = 1
     ) f ON r.recruit_no = f.parent_no
---     SELECT c.*, r.*, rk.*
--- FROM company c
--- INNER JOIN recruit r ON c.com_no = r.com_no
--- LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    --     SELECT c.*, r.*, rk.*
+    -- FROM company c
+    -- INNER JOIN recruit r ON c.com_no = r.com_no
+    -- LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
 SELECT *
 FROM file
 WHERE
@@ -602,9 +602,11 @@ WHERE
     r.com_no = #{com_No};
 
 SELECT * FROM company WHERE user_no = 1;
+
 SELECT *
-    FROM company
-    WHERE user_no = #{userNo};
+FROM company
+WHERE
+    user_no = #{userNo};
 
 SELECT c.*, u.*
 FROM
@@ -616,19 +618,22 @@ WHERE
     r.com_no = 1;
 
 SELECT cv.*, user.*
-FROM recruit
-JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
-JOIN cv ON apply_employee.cv_no = cv.cv_no
-JOIN user ON cv.user_no = user.user_no
-WHERE recruit.com_no = 1;
+FROM
+    recruit
+    JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
+    JOIN cv ON apply_employee.cv_no = cv.cv_no
+    JOIN user ON cv.user_no = user.user_no
+WHERE
+    recruit.com_no = 1;
 
 SELECT cv.*, user.*
-FROM recruit
-JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
-JOIN cv ON apply_employee.cv_no = cv.cv_no
-JOIN user ON cv.user_no = user.user_no
-WHERE recruit.com_no = 31;
-
+FROM
+    recruit
+    JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
+    JOIN cv ON apply_employee.cv_no = cv.cv_no
+    JOIN user ON cv.user_no = user.user_no
+WHERE
+    recruit.com_no = 31;
 
 SELECT
     c.com_no,
@@ -649,22 +654,23 @@ SELECT
     cd.com_avg_salary
 FROM
     recruit r
-JOIN
-    company c ON r.com_no = c.com_no
-JOIN
-    company_detail cd ON cd.com_no = 3;
+    JOIN company c ON r.com_no = c.com_no
+    JOIN company_detail cd ON cd.com_no = 3;
 
-    SELECT c.*
-FROM company c
-JOIN recruit r ON c.com_no = 3;
-
-
-
+SELECT c.* FROM company c JOIN recruit r ON c.com_no = 3;
 
 ----
 SELECT c.*, r.*, rk.*
-    FROM company c
+FROM
+    company c
     INNER JOIN recruit r ON c.com_no = r.com_no
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
-    WHERE r.recruit_no = 1
-    ;
+WHERE
+    r.recruit_no = 1;
+
+-- <select id="countApplicationsByUserNo" parameterType="int" resultType="int">
+SELECT COUNT(*) AS apply_count
+    FROM apply_employee ae
+    JOIN cv c ON ae.cv_no = c.cv_no
+    WHERE c.user_no = 13 AND ae.recruit_no = 105;
+    -- </select>

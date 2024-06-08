@@ -86,5 +86,7 @@ public interface RecruitMapper {
 
     public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception;
 
+    public int userNoToDistnctRecruitNo(@Param("userNo") int userNo, @Param("recruitNo") int recruitNo);
+
 
 }
