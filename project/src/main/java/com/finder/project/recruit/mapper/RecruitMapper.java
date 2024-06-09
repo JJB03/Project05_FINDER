@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.Keyword;
@@ -89,5 +90,5 @@ public interface RecruitMapper {
 
     public int userNoToDistnctRecruitNo(@Param("userNo") int userNo, @Param("recruitNo") int recruitNo);
 
-
+    public Order selectOrdersByUserNo(int userNo);
 }

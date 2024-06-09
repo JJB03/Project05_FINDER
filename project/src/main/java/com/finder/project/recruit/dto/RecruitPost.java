@@ -9,9 +9,8 @@ import com.finder.project.company.dto.Company;
 import com.finder.project.main.dto.Option;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+// @Slf4j
 @Data
 public class RecruitPost {
 
@@ -37,7 +36,7 @@ public class RecruitPost {
             if (keywordString != null && !keywordString.isEmpty()) {
                 String[] keywords = keywordString.split(", ");
                 for (String keyword : keywords) {
-                    log.info("???" + keyword);
+                    // log.info("???" + keyword);
                     Keyword kw = new Keyword();
                     kw.setRecruitKeyword(keyword);
                     keywordList.add(kw);

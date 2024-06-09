@@ -1,7 +1,6 @@
 package com.finder.project.main.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.service.FileService;
-import com.finder.project.recruit.dto.Keyword;
 import com.finder.project.recruit.dto.RecruitPage;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.mapper.RecruitMapper;
@@ -40,8 +38,8 @@ public class MainController {
             @RequestParam(value = "keyword", required = false) String keyword) throws Exception {
         Option option = new Option(code != null ? code : 0, keyword != null ? keyword : "");
 
-        page.setRows(12);
-        log.info("Page rows set to12312312311323: " + page.getRows());
+        // page.setRows(12);
+        // log.info("Page rows set to12312312311323: " + page.getRows());
         // List<RecruitPost> recruitList = recruitService.recruitList(page, option);
         int count = recruitMapper.count(option);
         // log.info("옵션값 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + option.getCode() + "@@@@"
@@ -101,12 +99,12 @@ public class MainController {
         Option option = new Option(code != null ? code : 0, keyword != null ? keyword : "");
         
         List<RecruitPost> recruitList = recruitService.recruitList(pageRequest, option);
-        for (RecruitPost recruitPost : recruitList) {
-            List<Keyword> keywords = recruitPost.getKeywordList();
-            log.info("keyword :::::" + keywords);
-            // 필요한 작업 수행
-            // 예를 들어, 로그 출력
-        }
+        // for (RecruitPost recruitPost : recruitList) {
+        //     List<Keyword> keywords = recruitPost.getKeywordList();
+        //     // log.info("keyword :::::" + keywords);
+        //     // 필요한 작업 수행
+        //     // 예를 들어, 로그 출력
+        // }
         // log.info("옵션값 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + option.getCode() + "@@@@"
                 // + option.getKeyword());
 

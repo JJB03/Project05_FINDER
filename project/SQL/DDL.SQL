@@ -247,6 +247,7 @@ CREATE TABLE `order` (
     `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `expiration_date` DATE NULL COMMENT '상품 만료',
     `remain_quantity` int NULL COMMENT '채용공고 사용 가능 횟수',
+    `access_order`	int	NOT NULL DEFAULT 1 COMMENT '1이면 주문접근불가, 0이면 접근가능', -- remain_quantity 가 0이면 0이 됨 
     PRIMARY KEY (`order_no`),
     FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`)

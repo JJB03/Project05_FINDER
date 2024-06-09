@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 
 import lombok.Data;
 
@@ -27,12 +28,14 @@ public class Users {
 
     Company company;                // 기업 테이블 (info_update_com)
     private CompanyDetail companyDetail;    // 기업 상세 테이블 (introduce_com)
+    private Order order;    // 주문 테이블 
 
 
     private List<UserAuth> authList;
 
     private int cvNo;
     private String recruitTitle;
+    
 }
 
 // 로그인된 정보를 세션에 저장해서  

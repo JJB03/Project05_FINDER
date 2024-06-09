@@ -349,10 +349,10 @@ public class RecruitController {
 
         List<Resume> applyCvList = recruitService.applyCom(comNo, page);
 
-        for (Resume resume : applyCvList) {
+        // for (Resume resume : applyCvList) {
 
         
-        }
+        // }
 
         model.addAttribute("resumeList", applyCvList);
         model.addAttribute("page", page);

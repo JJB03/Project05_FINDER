@@ -3,7 +3,6 @@ package com.finder.project.main.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Files;
 
