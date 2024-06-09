@@ -403,7 +403,7 @@
     WHERE c.user_no = #{userNo} AND ae.recruit_no = #{recruitNo}
   </select>
 
-  <!-- 현재 세션의 채용공고 포인트 조회 -->
+  <!-- 현재 세션의 주문 테이블의 채용공고 포인트(횟수) 조회 -->
   <select id="selectOrdersByUserNo" resultType="Order">
     SELECT *
     FROM `order` o
