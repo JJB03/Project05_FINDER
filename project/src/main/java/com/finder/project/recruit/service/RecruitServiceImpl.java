@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
@@ -292,6 +293,12 @@ public class RecruitServiceImpl implements RecruitService {
     public int userNoToDistnctRecruitNo(int userNo, int recruitNo) {
         
         return recruitMapper.userNoToDistnctRecruitNo(userNo, recruitNo);
+    }
+
+    @Override
+    public Order selectOrdersByUserNo(int userNo) {
+        
+        return recruitMapper.selectOrdersByUserNo(userNo);
     }
 
 

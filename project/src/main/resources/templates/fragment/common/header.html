@@ -15,6 +15,8 @@
             <div class="nav-menu">
                 <!-- 👮‍♂️ 기업 회원 메뉴 -->
                 <th:block sec:authorize="hasRole('ROLE_COMPANY')">
+                    <!-- <input type="hidden" name="remainQuantity" id="remainQuantity" th:value="${session.user.order.remainQuantity}">
+                    <input type="hidden" name="expirationDate" id="expirationDate" th:value="${session.user.order.expirationDate}"> -->
                     <!-- 기업이면 기업정보/ 일반회원이면 내정보 -->
                     <a th:href="|/company/introduce_com?userNo=${session.user.userNo}|"><b>기업 정보</b></a>
                     <!-- 기업이면 제출된 이력서 / 일반회원이면 내 이력서 -->

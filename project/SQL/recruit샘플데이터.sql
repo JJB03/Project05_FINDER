@@ -815,3 +815,7 @@ ORDER BY
     
     ORDER BY r.com_reg_date DESC
     -- LIMIT 0, 12;
+
+    SELECT *
+    FROM `order` o
+    WHERE o.user_no = 1;
