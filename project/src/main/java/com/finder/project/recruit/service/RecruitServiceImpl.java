@@ -15,12 +15,15 @@ import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.main.service.FileService;
 import com.finder.project.recruit.dto.Keyword;
+import com.finder.project.recruit.dto.RecruitPage;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.mapper.RecruitMapper;
 import com.finder.project.resume.dto.Resume;
 import com.finder.project.resume.mapper.ResumeMapper;
 
-@lombok.extern.slf4j.Slf4j
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class RecruitServiceImpl implements RecruitService {
 
@@ -35,12 +38,11 @@ public class RecruitServiceImpl implements RecruitService {
     
     // 채용공고 List
     @Override
-    public List<RecruitPost> recruitList(Page page, Option option) throws Exception {
-        
-        int total = recruitMapper.count(option);
-        page.setTotal(total);
-    
+    public List<RecruitPost> recruitList(RecruitPage page, Option option) throws Exception {
+       
         List<RecruitPost> recruitList = recruitMapper.recruitList(page, option);
+
+
         return recruitList;
     } 
 
@@ -180,6 +182,17 @@ public class RecruitServiceImpl implements RecruitService {
         return postsRecruitList;
     }
 
+    // 등록 한 채용공고 목록 페이징용 [승헌]
+    @Override
+    public List<RecruitPost> pagedPostsRecruitList(int comNo, Page page) throws Exception {
+        int total = recruitMapper.countpostsRecruitList(comNo);
+        page.setTotal(total);
+
+        List<RecruitPost> postsRecruitList = recruitMapper.pagedPostsRecruitList(comNo, page);
+
+        return postsRecruitList;
+    }
+
     // 등록 한 채용공고 조회
     @Override
     public RecruitPost postsRecruitRead(int recruitNo) throws Exception {
@@ -272,6 +285,14 @@ public class RecruitServiceImpl implements RecruitService {
         
         return recruitMapper.recruitNoToRecruit(recruitNo);
     }
+
+    @Override
+    public int userNoToDistnctRecruitNo(int userNo, int recruitNo) {
+        
+        return recruitMapper.userNoToDistnctRecruitNo(userNo, recruitNo);
+    }
+
+
 
 
 

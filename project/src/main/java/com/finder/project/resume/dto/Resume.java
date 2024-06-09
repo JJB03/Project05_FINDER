@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Option;
-
+import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.user.dto.Users;
 
 
@@ -34,4 +34,7 @@ public class Resume {
 
 
     private int applyNo;
+    private List<RecruitPost> recruitPost;
+
+    
 }

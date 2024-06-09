@@ -304,6 +304,7 @@ public class CompanyController {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, product.getProductDuration());
         order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+        order.setRemainQuantity(order.getTotalQuantity());
 
         int result = companyService.updateOrder(order); // 주문 갱신
 
@@ -478,7 +479,7 @@ public class CompanyController {
         List<Resume> applyCvList = recruitService.applyCom(comNo, page);
 
         for (Resume resume : applyCvList) {
-
+            log.info("gdgdgddgg" + resume.getCoverLetter());
             // log.info("??????!@#!@#!@#@!" + resume);
         }
 

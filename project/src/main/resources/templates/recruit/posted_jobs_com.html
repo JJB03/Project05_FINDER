@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>등록한 채용공고</title>
+    <link rel="stylesheet" href="/css/pagination.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 
 <body layout:fragment="content">
     <div class="container-fluid container">
-        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px;">
+        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
             <strong style="font-size: 45px; margin-bottom: 15px;">채용공고 관리</strong>
             <strong style="font-size: 19px;">혁신과 열정을 바탕으로, 미래를 창조하는 기업.</strong>
         </div>
@@ -147,11 +148,12 @@
                     </form>
 
                     <th:block th:if="${recruitPosts.isEmpty()}">
-                        <div>
-                            
+                        <div style="margin: 100px 0; text-align: center;">
+                            <h1>채용공고를 등록해주세요</h1>
                         </div>
                     </th:block>
 
+                    <div>
                     <th:block th:each="recruit : ${recruitPosts}">
 
                         <a th:href="|/recruit/post_jobs_read_com?recruitNo=${recruit.recruitNo}|" class="job-item-link" th:id="'recruit_' + ${recruit.recruitNo}">
@@ -195,9 +197,49 @@
                                 </div>
                             </div>
                         </a>
+
                     </th:block>
+                    </div>
 
+                    <!-- 페이지네이션 -->
+                    <div class="pagination-container justify-content-center d-flex mt-4">
+                        <div class="pagination d-flex">
 
+                            <!-- [ 처음 ] -->
+                            <a class="page-item page-first" th:href="|/recruit/posted_jobs_com?page=${page.first}|" ><i class="fa-solid fa-angles-left"></i></a>        
+                            
+                            <!-- [ 이전 ] -->
+                            <th:block th:if="${page.page != page.first}">
+                                <a class="page-item" th:href="|/recruit/posted_jobs_com?page=${page.prev}|" ><i class="fa-solid fa-angle-left"></i></a>
+                            </th:block>
+
+                            <!-- 페이지 번호 -->
+                            <!-- 
+                                #numbers.sequence(시작번호, 끝번호) 
+                                : 시작번호부터 끝번호까지 번호 리스트를 생성
+                            -->
+                            <th:block th:each="no : ${#numbers.sequence(page.start, page.end)}">
+                                <!-- 현재 페이지 -->
+                                <th:block th:if="${page.page == no}">
+                                    <b>
+                                        <span th:text="${no}"></span>
+                                    </b>
+                                </th:block>
+                                <th:block th:if="${page.page != no}">
+                                    <a th:href="|/recruit/posted_jobs_com?page=${no}|" th:text="${no}"></a>
+                                </th:block>
+                            </th:block>
+
+                            <!-- [ 다음 ] -->
+                            <th:block th:if="${page.page != page.last}">
+                                <a class="page-item" th:href="|/recruit/posted_jobs_com?page=${page.next}|" ><i class="fa-solid fa-angle-right"></i></a>
+                            </th:block>
+                            
+                            <!-- [ 마지막 ] -->
+                            <a class="page-item page-end" th:href="|/recruit/posted_jobs_com?page=${page.last}|" ><i class="fa-solid fa-angles-right"></i></a>
+
+                        </div>
+                    </div>
 
 
 

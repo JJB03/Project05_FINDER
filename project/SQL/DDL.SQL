@@ -1,37 +1,56 @@
--- 테이블 삭제 ( 총 16개 )
-DROP TABLE IF EXISTS user;
+-- 테이블 삭제 ( 총 15개 )
+
 -- 회원 테이블
-DROP TABLE IF EXISTS user_auth;
+DROP TABLE IF EXISTS user;
+
 -- 권한 테이블
-DROP TABLE IF EXISTS mail;
--- 메일인증 테이블
-DROP TABLE IF EXISTS cv;
+DROP TABLE IF EXISTS user_auth;
+
+-- 메일인증 실험 테이블
+DROP TABLE IF EXISTS email_verification;
+
 -- 이력서 테이블
-DROP TABLE IF EXISTS employment_history;
+DROP TABLE IF EXISTS cv;
+
 -- 경력사항 테이블
-DROP TABLE IF EXISTS education;
+DROP TABLE IF EXISTS employment_history;
+
 -- 학력 테이블
-DROP TABLE IF EXISTS apply_employee;
+DROP TABLE IF EXISTS education;
+
 -- 지원내역 테이블
-DROP TABLE IF EXISTS thumbnail;
--- 썸네일 테이블
-DROP TABLE IF EXISTS company;
+DROP TABLE IF EXISTS apply_employee;
+
 -- 기업 테이블
-DROP TABLE IF EXISTS recruit;
+DROP TABLE IF EXISTS company;
+
 -- 채용공고 게시글 테이블
-DROP TABLE IF EXISTS recruit_keyword;
+DROP TABLE IF EXISTS recruit;
+
 -- 채용공고 키워드 테이블
-DROP TABLE IF EXISTS file;
+DROP TABLE IF EXISTS recruit_keyword;
+
 -- 파일 테이블
-DROP TABLE IF EXISTS company_detail;
+DROP TABLE IF EXISTS file;
+
 -- 기업 상세 정보 테이블
-DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS company_detail;
+
 -- 상품 테이블
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS product;
+
 -- 주문 테이블
-DROP TABLE IF EXISTS credit;
+DROP TABLE IF EXISTS `order`;
+
 -- 결제내역 테이블
+DROP TABLE IF EXISTS credit;
+
+-- 소셜 테이블
+DROP TABLE IF EXISTS user_social;
+
+
 -- 테이블 생성 ( 총 16개 )
+
 -- 메일 인증 실험 테이블
 CREATE TABLE email_verification (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,7 +68,6 @@ CREATE TABLE persistent_logins (
 );
 
 -- 소셜 테이블
-
 CREATE TABLE user_social (
     `ID` CHAR(36) PRIMARY KEY,
     `USERNAME` VARCHAR(100) NOT NULL,
@@ -113,7 +131,6 @@ CREATE TABLE `employment_history` (
 
 -- 학력 테이블
 CREATE TABLE `education` ( 
-
     `education_no` int NOT NULL AUTO_INCREMENT,
     `cv_no` int NOT NULL,
     `university` varchar(500) NULL,
@@ -134,6 +151,7 @@ CREATE TABLE `company` (
     PRIMARY KEY (`com_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`)
 );
+
 -- 채용공고 게시글 테이블
 CREATE TABLE `recruit` (
     `recruit_no` int NOT NULL AUTO_INCREMENT,
@@ -149,11 +167,12 @@ CREATE TABLE `recruit` (
     PRIMARY KEY (`recruit_no`),
     FOREIGN KEY (`com_no`) REFERENCES `company` (`com_no`)
 );
+
 -- 지원내역 테이블
 CREATE TABLE `apply_employee` (
     `apply_no` int NOT NULL AUTO_INCREMENT,
-    `apply_title` varchar(100) NOT NULL,
-    `apply_date` timestamp NOT NULL DEFAULT now(),
+    -- `apply_title` varchar(100) NOT NULL,
+    -- `apply_date` timestamp NOT NULL DEFAULT now(),
     `cv_no` int NOT NULL,
     `recruit_no` int NOT NULL,
     PRIMARY KEY (`apply_no`),
@@ -230,6 +249,7 @@ CREATE TABLE `order` (
     `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `expiration_date` DATE NULL COMMENT '상품 만료',
+    `remain_quantity` int NULL COMMENT '채용공고 사용 가능 횟수',
     PRIMARY KEY (`order_no`),
     FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`)
@@ -239,13 +259,16 @@ CREATE TABLE `order` (
 CREATE TABLE `credit` (
     `credit_no` INT NOT NULL AUTO_INCREMENT,
     `order_no` INT NOT NULL,
-    `credit_method` varchar(500) NULL,
+    `credit_method` varchar(500) NULL DEFAULT '간편결제',
     `credit_status` ENUM('PENDING', 'PAID', 'REFUND') NOT NULL DEFAULT 'PAID' COMMENT '결제대기,결제완료,환불',
     `credit_code` VARCHAR(500) NULL, -- 토스페이먼츠 order_id 랜덤 주문번호
     `credit_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`credit_no`),
     FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`)
 );
+
+
+
 
 -- 메일인증 테이블
 -- CREATE TABLE `mail` (
@@ -269,3 +292,9 @@ CREATE TABLE `credit` (
 -- 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
 -- 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
 -- );
+
+-- 메일인증 테이블
+DROP TABLE IF EXISTS mail;
+
+-- 썸네일 테이블
+DROP TABLE IF EXISTS thumbnail;

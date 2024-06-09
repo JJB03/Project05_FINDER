@@ -10,6 +10,7 @@ import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
 import com.finder.project.recruit.dto.Keyword;
+import com.finder.project.recruit.dto.RecruitPage;
 import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.resume.dto.Resume;
 
@@ -17,7 +18,7 @@ import com.finder.project.resume.dto.Resume;
 public interface RecruitMapper {
 
     // 채용공고 목록
-    public List<RecruitPost> recruitList(@Param("page") Page page, @Param("option") Option option) throws Exception;
+    public List<RecruitPost> recruitList(@Param("page") RecruitPage page, @Param("option") Option option) throws Exception;
 
     // 채용공고 등록
     public int recruitPost(RecruitPost recruitPost) throws Exception;
@@ -39,6 +40,10 @@ public interface RecruitMapper {
 
     // 등록 한 채용공고 목록
     public List<RecruitPost> postsRecruitList(int comNo) throws Exception;
+    // 등록 한 채용공고 목록 페이징용 [승헌]
+    public List<RecruitPost> pagedPostsRecruitList(@Param("comNo") int comNo, @Param("page") Page page) throws Exception;
+    // 등록 한 채용공고 목록 페이지당 개수 [승헌]
+    public int countpostsRecruitList(int comNo) throws Exception;
 
     // 등록 한 채용공고 삭제
     public int deleteRecruitList(int recruitNo) throws Exception;
@@ -81,6 +86,8 @@ public interface RecruitMapper {
     public Company recruitToCom(int comNo) throws Exception;
 
     public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception;
+
+    public int userNoToDistnctRecruitNo(@Param("userNo") int userNo, @Param("recruitNo") int recruitNo);
 
 
 }

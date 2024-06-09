@@ -72,7 +72,30 @@
             padding: 15px;
             margin-right: 15px;
         }
+
+        .name-link {
+            background-color: #f0f0f0;
+            color: #5d5d5d;
+            border-radius: 20px;
+            padding: 0 12px 0 12px;
+            font-size: 16px;
+            text-align: center;
+            /* opacity: 0.8; */
+            font-weight: bold;
+            transition: background-color 0.5s ease;
+            text-align: center;
+            width: auto !important;
+            height: 24px !important;
+            line-height: 24px;
+            display: inline-block !important;
+            margin-bottom: 2px;
+        }
+
+        .name-link:hover {
+            background-color: #fff;
+        }
     </style>
+    <link rel="stylesheet" href="/css/pagination.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 
@@ -80,7 +103,7 @@
 
 
     <div class="container-fluid container">
-        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px;">
+        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
             <strong style="font-size: 45px; margin-bottom: 15px;">AI 평가</strong>
             <strong style="font-size: 19px;">새로운 길을 만드는 여정에 함께하세요.</strong>
         </div>
@@ -209,17 +232,17 @@
 
 
                     <div class="container mt-0 justify-content-center">
-                        <div style="margin-bottom: 20px; margin-top: 13px;">
+                        <div style="margin-bottom: 15px; margin-top: 20px;">
                             <span style="margin-right: 15px;"><strong>지원자<span style="color: #155ADC; margin-left: 5px;"
                                         th:text="|${resumeList.size()}명|"></span></strong></span>
-                            <span style="margin-right: 15px;"><strong>합격<span
+                            <!-- <span style="margin-right: 15px;"><strong>합격<span
                                         style="color: #128246; margin-left: 5px;">3명</span>
                                 </strong></span>
                             <span style="margin-right: 15px;"><strong>불합격<span
-                                        style="color: red; margin-left: 5px;">3명</span></strong></span>
+                                        style="color: red; margin-left: 5px;">3명</span></strong></span> -->
                         </div>
 
-                        <div class="item d-flex justify-content-between">
+                        <div class="item d-flex justify-content-between mb-3">
                             <div class="keyword-span" id="outputContainer">
                             </div>
                             <div class="gap-2 d-flex">
@@ -234,62 +257,127 @@
 
                         <div>
                             <div class="job-list mt-1">
-                                <ol class="list-group">
-                                    <li class="list-group-item"><strong style="font-size: 20px;">지원자 순위</strong></li>
 
-                                    <input type="hidden" name="" id="input-msg"
-                                        value="이 자기소개서를 아래 키워드와의 유사성을 정해 100점만점으로 이력서 점수만 응답해줘 딱 숫자 점수만">
+                                <ol class="list-group">
+                                    <li class="list-group-item d-flex">
+                                        <div class="" style="width: 18%;">
+                                            <strong style="font-size: 20px;">지원자</strong>
+                                        </div>
+                                        <div class="w-25">
+                                            <strong style="font-size: 20px;">이력서 점수</strong>
+                                        </div>
+                                        <div class="" style="width: 68%;">
+                                            <strong style="font-size: 20px;">지원 채용공고</strong>
+                                        </div>
+                                    </li>
+
+                                    <input type="hidden" name="" id="input-msg" value="자기소개서를 100점 만점으로 평가해주세요.
+                                        자기소개서는 '50자 이상이어야 하며', '한글 맞춤법을 준수할 경우', '외부 활동과 성취 내용이 있는 경우', '전공 선택 이유와 성취 내용이 있는 경우', 
+                                        '지원 동기와 의지가 확실한 경우' 에는 가산점을 부여합니다. 나머지 점수는 아래 키워드와의 유사성을 평가하여 매우 엄격하게 평가해야 합니다.
+                                        만약 자기소개서가 빈 문자열이거나 null이면 0점을 주세요. 결과를 꼭 숫자로만 표시해 주세요.">
 
                                     <th:block th:each="resume, stat : ${resumeList}">
-                                        <li class="list-group-item d-flex justify-content-between">
-                                            <input type="hidden" name="" id="resume-cover-letter"
+                                        <li class="list-group-item d-flex">
+                                            <input type="hidden" name=""
+                                                th:attr="id='resume-cover-letter-' + ${stat.index}"
                                                 th:value="${resume.coverLetter}">
-                                            <div class="d-flex align-items-center">
-                                                <div>
+                                            <div class="d-flex align-items-center" style="width: 18%;">
+                                                <div class="d-flex me-1 " style="width: 13px;">
                                                     <strong th:text="|${stat.index + 1}.|"></strong>
-                                                    <span style="margin-right: 20px;"
-                                                        th:text="${resume.user.userName}"></span>
                                                 </div>
 
-                                                <div>
-                                                    <span style="color:#128246;"><strong id="score">점수</strong></span>
+                                                <div class="d-felx">
+                                                    <a th:href="|/resume/cv_read_com?cvNo=${resume.cvNo}|"
+                                                        class="job-item-link name-link">
+                                                        <span th:text="${resume.user.userName}"></span>
+                                                    </a>
                                                 </div>
+
                                             </div>
-                                            <div class="keyword-span-green d-flex">
-                                                <!-- <div class="d-flex ">
-                                                    <span class="btn-in-short text-center">합격</span>
+
+                                            <div class="w-25">
+                                                <span style="color:#128246;">
+                                                    <strong th:attr="id='score-' + ${stat.index}">
+
+                                                    </strong>
+                                                </span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between" style="width: 68%;">
+                                                <div class="d-flex ">
+                                                    <th:block th:each="recruit : ${resume.recruitPost}">
+                                                        <div class="me-2">
+                                                            <span th:text="${recruit.recruitTitle}">
+
+                                                            </span>
+                                                        </div>
+                                                    </th:block>
+                                                </div>
+                                                <!-- <div class="keyword-span-green d-flex">
+
+                                                    <span style="#128246;">합격</span>
                                                 </div> -->
                                                 <div>
-                                                    <button class="btn-in-short finder-btn"
-                                                        style="font-weight: bold;">FINDER</button>
+                                                    <div>
+                                                        <button class="btn-in-short finder-btn"
+                                                            th:attr="data-index=${stat.index}"
+                                                            style="font-weight: bold;">FINDER</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
                                     </th:block>
 
                                 </ol>
-                                <!-- 페이징 -->
-                                <nav aria-label="Page navigation example"
-                                    class="pagination-container justify-content-center d-flex mt-4">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
 
-                                    </ul>
-                                </nav>
+
+                                <!-- 페이지네이션 -->
+                                <div class="pagination-container justify-content-center d-flex mt-4">
+                                    <div class="pagination d-flex">
+
+                                        <!-- [ 처음 ] -->
+                                        <a class="page-item page-first"
+                                            th:href="|/company/score_com?page=${page.first}|"><i
+                                                class="fa-solid fa-angles-left"></i></a>
+
+                                        <!-- [ 이전 ] -->
+                                        <th:block th:if="${page.page != page.first}">
+                                            <a class="page-item" th:href="|/company/score_com?page=${page.prev}|"><i
+                                                    class="fa-solid fa-angle-left"></i></a>
+                                        </th:block>
+
+                                        <!-- 페이지 번호 -->
+                                        <!-- 
+                                            #numbers.sequence(시작번호, 끝번호) 
+                                            : 시작번호부터 끝번호까지 번호 리스트를 생성
+                                        -->
+                                        <th:block th:each="no : ${#numbers.sequence(page.start, page.end)}">
+                                            <!-- 현재 페이지 -->
+                                            <th:block th:if="${page.page == no}">
+                                                <b>
+                                                    <span th:text="${no}"></span>
+                                                </b>
+                                            </th:block>
+                                            <th:block th:if="${page.page != no}">
+                                                <a th:href="|/company/score_com?page=${no}|" th:text="${no}"></a>
+                                            </th:block>
+                                        </th:block>
+
+                                        <!-- [ 다음 ] -->
+                                        <th:block th:if="${page.page != page.last}">
+                                            <a class="page-item" th:href="|/company/score_com?page=${page.next}|"><i
+                                                    class="fa-solid fa-angle-right"></i></a>
+                                        </th:block>
+
+                                        <!-- [ 마지막 ] -->
+                                        <a class="page-item page-end"
+                                            th:href="|/company/score_com?page=${page.last}|"><i
+                                                class="fa-solid fa-angles-right"></i></a>
+
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -299,18 +387,23 @@
 
         </div>
     </div>
-    <textarea name="" id="result" rows="20" cols="50" class="" placeholder="응답 결과"></textarea>
+    <!-- <textarea name="" th:attr="id='result-' + ${stat.index}" rows="20" cols="50" class="" placeholder="응답 결과"></textarea> -->
     <script>
 
 
         $(document).ready(function () {
+            let resumeCoverLetter = $('#resume-cover-letter-' + 0).val();
+            console.log(resumeCoverLetter);
 
 
-            
+            let resumeCoverLetter = $('#resume-cover-letter-' + 1).val();
+            // alert(resumeCoverLetter);
+
+
             // $('.finder-btn').on('click', function () {
             //     alert(inputKeyword)
             // });
-            
+
 
 
 
@@ -336,7 +429,7 @@
             });
 
 
-            let API_KEY = '여기다가 쓰면 됨!!!!!!!!!!!!!!!!!!!!!!!!!!@'
+            let API_KEY = '여기쓰면됨'
 
             if (API_KEY == '') {
                 alert('API_KEY 를 변수에 입력하세요.')
@@ -345,19 +438,20 @@
 
 
             $('.finder-btn').on('click', function () {
+                let index = $(this).data('index');  // 클릭된 버튼의 인덱스 가져오기
                 let inputKeywords = $('.input-keyword').map(function () {
                     return $(this).val();
                 }).get().join(' ');
 
                 if (inputKeywords.trim() !== '') {
                     let request = new XMLHttpRequest();
-                    let result = $('#result');
-                    let content = $('#score');
+                    // let result = $('#result-' + index);  // 해당 인덱스의 result 요소 선택
+                    let content = $('#score-' + index);  // 해당 인덱스의 score 요소 선택
                     let msg = $('#input-msg').val();
 
                     // 이력서 자기소개서 값 가져오기
-                    let resumeCoverLetter = $('#resume-cover-letter').val();
-                    
+                    let resumeCoverLetter = $('#resume-cover-letter-' + index).val();
+
 
                     let data = {
                         "model": "gpt-3.5-turbo",
@@ -378,10 +472,21 @@
                     request.onreadystatechange = function () {
                         if (request.readyState == request.DONE && request.status == 200) {
                             let response = request.responseText;
-                            result.text(response);
+                            // result.text(response);
                             let object = JSON.parse(response);
                             let contentValue = object.choices[0].message.content;
                             content.text(contentValue);
+
+                            // 값에 따라 색깔 설정
+                            if (content >= 86 && content <= 100) {
+                                $("#score").text(scoreValue).css("color", "#155ADC"); // 파란색
+                            } else if (content >= 79 && content <= 85) {
+                                $("#score").text(content).css("color", "#128246"); // 초록색
+                            } else if (content >= 60 && content <= 69) {
+                                $("#score").text(content).css("color", "#FFE039"); // 노란색
+                            } else {
+                                $("#score").text(content).css("color", "red"); // 빨간색
+                            }
                         }
                         if (request.readyState == request.DONE && request.status == 500) {
                             alert('서버측 에러 발생');

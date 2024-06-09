@@ -1,4 +1,4 @@
--- Active: 1716771298869@@127.0.0.1@3306@joeun
+-- Active: 1711633953173@@127.0.0.1@3306@joeun
 SELECT c.*, r.*, rk.*
 FROM
     company c
@@ -176,10 +176,10 @@ FROM
             parent_table = 'recruit'
             AND file_code = 1
     ) f ON r.recruit_no = f.parent_no
---     SELECT c.*, r.*, rk.*
--- FROM company c
--- INNER JOIN recruit r ON c.com_no = r.com_no
--- LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    --     SELECT c.*, r.*, rk.*
+    -- FROM company c
+    -- INNER JOIN recruit r ON c.com_no = r.com_no
+    -- LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
 SELECT *
 FROM file
 WHERE
@@ -351,70 +351,70 @@ INSERT INTO
         `com_business`
     )
 VALUES (
-        16,
+        1,
         '삼성전자',
         '전자제품',
         '서울 강남구 테헤란로',
         '스마트폰, TV, 가전제품 제조 및 판매'
     ),
     (
-        17,
+        2,
         'LG전자',
         '전자제품',
         '서울 영등포구 여의대로',
         '스마트폰, TV, 가전제품 제조 및 판매'
     ),
     (
-        18,
+        3,
         '현대자동차',
         '자동차',
         '서울 영등포구 여의대로',
         '자동차 제조 및 판매'
     ),
     (
-        19,
+        4,
         '기아자동차',
         '자동차',
         '서울 영등포구 여의대로',
         '자동차 제조 및 판매'
     ),
     (
-        20,
+        5,
         'SK텔레콤',
         '통신',
         '서울 강남구 역삼로',
         '이동통신, 브로드밴드 서비스 제공'
     ),
     (
-        21,
+        6,
         'KT',
         '통신',
         '서울 중구 종로',
         '이동통신, 브로드밴드 서비스 제공'
     ),
     (
-        22,
+        7,
         '네이버',
         '인터넷',
         '경기 성남시 판교로',
         '포털 서비스, 온라인 광고, 인터넷 서비스'
     ),
     (
-        23,
+        8,
         '카카오',
         '인터넷',
         '경기 성남시 분당구 대왕판교로',
         '모바일 메신저, 인터넷 서비스'
     ),
     (
-        24,
+        9,
         '포스코',
         '철강',
         '경기 구리시 아차산로',
         '철강 제조 및 판매'
     ),
     (
-        25,
+        10,
         'LG화학',
         '화학',
         '서울 종로구 종로',
@@ -432,7 +432,7 @@ INSERT INTO
         `recruit_reg_date`
     )
 VALUES (
-        22,
+        1,
         '소프트웨어 엔지니어 포지션',
         '우리는 Java 및 Spring Boot 경험이 있는 소프트웨어 엔지니어를 찾고 있습니다.',
         '소프트웨어 응용 프로그램을 개발하고 유지 관리합니다.',
@@ -441,7 +441,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        23,
+        2,
         '데이터 과학자 포지션',
         '우리 팀에 합류할 데이터 과학자를 찾고 있습니다.',
         '복잡한 데이터 세트를 분석하고 해석합니다.',
@@ -450,7 +450,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        24,
+        3,
         '웹 개발자 모집',
         '저희 회사에서는 웹 개발자를 모집합니다. HTML, CSS 및 JavaScript에 능숙한 분을 찾고 있습니다.',
         '웹 사이트 및 웹 애플리케이션 개발',
@@ -459,7 +459,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        25,
+        4,
         '데이터베이스 관리자 모집',
         '데이터베이스 관리자를 채용합니다. SQL 쿼리 및 데이터베이스 성능 최적화에 능숙한 분을 찾습니다.',
         '데이터베이스 설치, 구성 및 유지 관리',
@@ -468,7 +468,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        26,
+        5,
         '프로젝트 매니저 채용',
         '프로젝트 매니저를 모집합니다. 프로젝트 일정 및 예산 관리에 능숙한 분을 찾습니다.',
         '프로젝트 팀 관리 및 리소스 할당',
@@ -477,7 +477,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        27,
+        6,
         'UI/UX 디자이너 채용',
         'UI/UX 디자이너를 모집합니다. 사용자 경험에 초점을 둔 디자인을 만들 수 있는 분을 찾습니다.',
         '웹 및 모바일 애플리케이션 디자인',
@@ -486,7 +486,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        28,
+        7,
         '시스템 엔지니어 채용',
         '시스템 엔지니어를 모집합니다. 서버 및 네트워크 인프라를 구성하고 유지 관리할 수 있는 분을 찾습니다.',
         '시스템 아키텍처 설계 및 구현',
@@ -495,7 +495,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        29,
+        8,
         '보안 엔지니어 채용',
         '보안 엔지니어를 모집합니다. 정보 보안 시스템을 설계하고 구현할 수 있는 분을 찾습니다.',
         '네트워크 보안 및 데이터 보호',
@@ -504,7 +504,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        30,
+        9,
         'QA 엔지니어 채용',
         '품질 보증 엔지니어를 모집합니다. 제품 및 서비스의 품질을 확인하는 역할을 수행할 수 있는 분을 찾습니다.',
         '소프트웨어 테스트 계획 및 실행',
@@ -513,7 +513,7 @@ VALUES (
         '2024-06-03'
     ),
     (
-        31,
+        10,
         '데이터 엔지니어 채용',
         '데이터 엔지니어를 모집합니다. 대규모 데이터 처리 및 분석 시스템을 구축할 수 있는 분을 찾습니다.',
         '데이터 파이프라인 설계 및 구현',
@@ -527,35 +527,35 @@ INSERT INTO
         `recruit_keyword`,
         `recruit_no`
     )
-VALUES ('Java', 83),
-    ('Spring Boot', 83),
-    ('데이터 과학자', 84),
-    ('데이터 분석', 84),
-    ('머신러닝', 84),
-    ('웹 개발자', 85),
-    ('HTML', 85),
-    ('CSS', 85),
-    ('JavaScript', 85),
-    ('데이터베이스 관리자', 86),
-    ('SQL', 86),
-    ('데이터베이스 성능 최적화', 86),
-    ('프로젝트 매니저', 87),
-    ('프로젝트 일정 관리', 87),
-    ('UI/UX 디자이너', 88),
-    ('사용자 경험', 88),
-    ('디자인 도구', 88),
-    ('시스템 엔지니어', 89),
-    ('서버 인프라', 89),
-    ('네트워크 구성', 89),
-    ('보안 엔지니어', 90),
-    ('정보 보안', 90),
-    ('보안 시스템 설계', 90),
-    ('QA 엔지니어', 91),
-    ('소프트웨어 테스트', 91),
-    ('자동화 테스트', 91),
-    ('데이터 엔지니어', 92),
-    ('대규모 데이터 처리', 92),
-    ('데이터 분석 시스템', 92);
+VALUES ('Java', 1),
+    ('Spring Boot', 1),
+    ('데이터 과학자', 2),
+    ('데이터 분석', 2),
+    ('머신러닝', 2),
+    ('웹 개발자', 3),
+    ('HTML', 3),
+    ('CSS', 3),
+    ('JavaScript', 3),
+    ('데이터베이스 관리자', 4),
+    ('SQL', 4),
+    ('데이터베이스 성능 최적화', 4),
+    ('프로젝트 매니저', 5),
+    ('프로젝트 일정 관리', 5),
+    ('UI/UX 디자이너', 6),
+    ('사용자 경험', 6),
+    ('디자인 도구', 6),
+    ('시스템 엔지니어', 7),
+    ('서버 인프라', 7),
+    ('네트워크 구성', 7),
+    ('보안 엔지니어', 8),
+    ('정보 보안', 8),
+    ('보안 시스템 설계', 8),
+    ('QA 엔지니어', 9),
+    ('소프트웨어 테스트', 9),
+    ('자동화 테스트', 9),
+    ('데이터 엔지니어', 10),
+    ('대규모 데이터 처리', 10),
+    ('데이터 분석 시스템', 10);
 
 SELECT cv.*, u.*
 FROM
@@ -602,9 +602,11 @@ WHERE
     r.com_no = #{com_No};
 
 SELECT * FROM company WHERE user_no = 1;
+
 SELECT *
-    FROM company
-    WHERE user_no = #{userNo};
+FROM company
+WHERE
+    user_no = #{userNo};
 
 SELECT c.*, u.*
 FROM
@@ -616,19 +618,22 @@ WHERE
     r.com_no = 1;
 
 SELECT cv.*, user.*
-FROM recruit
-JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
-JOIN cv ON apply_employee.cv_no = cv.cv_no
-JOIN user ON cv.user_no = user.user_no
-WHERE recruit.com_no = 1;
+FROM
+    recruit
+    JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
+    JOIN cv ON apply_employee.cv_no = cv.cv_no
+    JOIN user ON cv.user_no = user.user_no
+WHERE
+    recruit.com_no = 1;
 
 SELECT cv.*, user.*
-FROM recruit
-JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
-JOIN cv ON apply_employee.cv_no = cv.cv_no
-JOIN user ON cv.user_no = user.user_no
-WHERE recruit.com_no = 31;
-
+FROM
+    recruit
+    JOIN apply_employee ON recruit.recruit_no = apply_employee.recruit_no
+    JOIN cv ON apply_employee.cv_no = cv.cv_no
+    JOIN user ON cv.user_no = user.user_no
+WHERE
+    recruit.com_no = 31;
 
 SELECT
     c.com_no,
@@ -649,22 +654,146 @@ SELECT
     cd.com_avg_salary
 FROM
     recruit r
-JOIN
-    company c ON r.com_no = c.com_no
-JOIN
-    company_detail cd ON cd.com_no = 3;
+    JOIN company c ON r.com_no = c.com_no
+    JOIN company_detail cd ON cd.com_no = 3;
 
-    SELECT c.*
-FROM company c
-JOIN recruit r ON c.com_no = 3;
-
-
-
+SELECT c.* FROM company c JOIN recruit r ON c.com_no = 3;
 
 ----
 SELECT c.*, r.*, rk.*
+FROM
+    company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+WHERE
+    r.recruit_no = 1;
+
+-- <select id="countApplicationsByUserNo" parameterType="int" resultType="int">
+SELECT COUNT(*) AS apply_count
+    FROM apply_employee ae
+    JOIN cv c ON ae.cv_no = c.cv_no
+    WHERE c.user_no = 13 AND ae.recruit_no = 105;
+SELECT COUNT(DISTINCT r.recruit_no)
+    FROM recruit r
+    JOIN company c ON r.com_no = c.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    
+    -- </select>
+
+
+    SELECT c.*
+        ,r.*
+        ,rk.*
+        ,f.file_no AS file_no
+        ,f.file_name
+        ,f.file_path
+        ,f.file_code
     FROM company c
     INNER JOIN recruit r ON c.com_no = r.com_no
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
-    WHERE r.recruit_no = 1
-    ;
+    LEFT JOIN (
+        SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND file_code = 1
+    ) f ON r.recruit_no = f.parent_no
+    ORDER BY r.com_reg_date DESC;
+
+    SELECT 
+    c.*,
+    r.*,
+    f.file_no AS file_no,
+    f.file_name,
+    f.file_path,
+    f.file_code
+FROM 
+    company c
+INNER JOIN 
+    recruit r ON c.com_no = r.com_no
+LEFT JOIN 
+    (
+        SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND file_code = 1
+    ) f ON r.recruit_no = f.parent_no
+ORDER BY 
+    r.com_reg_date DESC;
+    
+
+    SELECT c.*, r.*, f.file_no AS file_no, f.file_name, f.file_path, f.file_code, keywords.recruit_keyword
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN (
+        SELECT rk.recruit_no, GROUP_CONCAT(rk.recruit_keyword SEPARATOR ', ') AS keywords
+        FROM recruit_keyword rk
+        GROUP BY rk.recruit_no
+    ) rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN (
+        SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND file_code = 1
+    ) f ON r.recruit_no = f.parent_no;
+    
+ 
+    SELECT c.cv_no AS cvNo,
+           c.user_no AS userNo,
+           c.cover_letter AS coverLetter,
+           c.cv_title AS cvTitle,
+           c.cv_reg_date AS cvRegDate,
+           c.cv_upd_date AS cvUpdDate,
+           u.user_no AS user_userNo,
+           u.user_name AS user_userName,
+           u.user_id AS user_userId,
+           u.user_pw AS user_userPw,
+           u.user_before_pw AS user_userBeforePw,
+           u.user_birth AS user_userBirth,
+           u.user_phone AS user_userPhone,
+           u.user_email AS user_userEmail,
+           u.user_reg_date AS user_userRegDate,
+           u.user_upd_date AS user_userUpdDate,
+           u.user_gender AS user_userGender,
+           u.ENABLED AS user_enabled,
+           ae.apply_no AS applyNo, 
+           r.recruit_title AS recruitTitle, 
+           r.recruit_reg_date AS recruitRegDate 
+    FROM cv c
+    JOIN apply_employee ae ON c.cv_no = ae.cv_no
+    JOIN recruit r ON ae.recruit_no = r.recruit_no
+    JOIN user u ON c.user_no = u.user_no
+    WHERE r.com_no = 1
+    ORDER BY c.cv_reg_date DESC
+    LIMIT 0, 5;
+
+    SELECT c.cv_no AS cvNo,
+           c.user_no AS userNo,
+           c.cover_letter AS coverLetter,
+           c.cv_title AS cvTitle,
+           c.cv_reg_date AS cvRegDate,
+           c.cv_upd_date AS cvUpdDate,
+           u.user_no AS user_userNo,
+           u.user_name AS user_userName,
+           u.user_id AS user_userId,
+           u.user_pw AS user_userPw,
+           u.user_before_pw AS user_userBeforePw,
+           u.user_birth AS user_userBirth,
+           u.user_phone AS user_userPhone,
+           u.user_email AS user_userEmail,
+           u.user_reg_date AS user_userRegDate,
+           u.user_upd_date AS user_userUpdDate,
+           u.user_gender AS user_userGender,
+           u.ENABLED AS user_enabled,
+           ae.apply_no AS applyNo, 
+           r.recruit_title AS recruitTitle, 
+           r.recruit_reg_date AS recruitRegDate 
+    FROM cv c
+    JOIN apply_employee ae ON c.cv_no = ae.cv_no
+    JOIN recruit r ON ae.recruit_no = r.recruit_no
+    JOIN user u ON c.user_no = u.user_no
+    WHERE r.com_no = 1
+
+    SELECT COUNT(*) AS apply_count
+    FROM apply_employee ae
+    JOIN cv c ON ae.cv_no = c.cv_no
+    WHERE c.user_no = 2 AND ae.recruit_no = 24;

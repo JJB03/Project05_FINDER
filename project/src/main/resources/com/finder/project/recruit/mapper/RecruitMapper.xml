@@ -15,7 +15,7 @@
     <result property="recruitPreferredQualifications" column="recruit_preferred_qualifications"/>
     <result property="recruitRegDate" column="recruit_reg_date"/>
     <result property="fileNo" column="file_no"/>
-
+    <result property="keywordString" column="recruit_keyword"/>
    
     <!-- Company mapping -->
     <association property="company" javaType="com.finder.project.company.dto.Company">
@@ -37,10 +37,7 @@
 
 
     <!-- Keywords mapping -->
-    <collection property="keywordList" ofType="com.finder.project.recruit.dto.Keyword">
-        <id property="recruitKeywordNo" column="recruit_keyword_no"/>
-        <result property="recruitKeyword" column="recruit_keyword"/>
-    </collection>
+    
   </resultMap>
 
   <resultMap id="ResumeResultMap" type="com.finder.project.resume.dto.Resume">
@@ -51,7 +48,6 @@
     <result property="cvRegDate" column="cvRegDate"/>
     <result property="cvUpdDate" column="cvUpdDate"/>
     <result property="applyNo" column="applyNo"/> <!-- applyNo 추가 -->
-
     
     <association property="user" javaType="com.finder.project.user.dto.Users">
         <id property="userNo" column="user_userNo"/>
@@ -67,6 +63,12 @@
         <result property="userGender" column="user_userGender"/>
         <result property="enabled" column="user_enabled"/>
     </association>
+
+    <collection property="recruitPost" ofType="com.finder.project.recruit.dto.RecruitPost">
+        <result property="recruitTitle" column="recruit_title"/>
+        <result property="recruitRegDate" column="recruit_reg_date"/>
+        <!-- 필요한 추가 필드를 여기에 추가 -->
+    </collection>
   </resultMap>
 
    <!-- Company 객체의 매핑 -->
@@ -103,16 +105,14 @@
   </select>
 
   <select id="recruitList" resultMap="RecruitPostResultMap">
-    SELECT c.*
-        ,r.*
-        ,rk.*
-        ,f.file_no AS file_no
-        ,f.file_name
-        ,f.file_path
-        ,f.file_code
+    SELECT c.*, r.*, f.file_no AS file_no, f.file_name, f.file_path, f.file_code, rk.recruit_keyword
     FROM company c
     INNER JOIN recruit r ON c.com_no = r.com_no
-    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN (
+        SELECT rk.recruit_no, GROUP_CONCAT(rk.recruit_keyword SEPARATOR ', ') AS recruit_keyword
+        FROM recruit_keyword rk
+        GROUP BY rk.recruit_no
+    ) rk ON r.recruit_no = rk.recruit_no
     LEFT JOIN (
         SELECT *
         FROM file
@@ -175,7 +175,26 @@
     INNER JOIN recruit r ON c.com_no = r.com_no
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.com_no = #{comNo}
+    LIMIT #{page.index}, #{page.rows}
   </select>
+
+  <!-- 등록한 채용공고 목록 페이징용 [승헌] -->
+  <select id="pagedPostsRecruitList" resultMap="RecruitPostResultMap">
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.com_no = #{comNo}
+    LIMIT #{page.index}, #{page.rows}
+  </select>
+  <!-- 등록한 채용공고 페이징 [승헌] -->
+  <select id="countpostsRecruitList" resultType="int">
+        SELECT COUNT(*) 
+        FROM company c
+        INNER JOIN recruit r ON c.com_no = r.com_no
+        LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+        WHERE r.com_no = #{comNo}
+  </select> 
 
 
   <!-- 등록한 채용공고 조회 -->
@@ -299,7 +318,9 @@
            u.user_upd_date AS user_userUpdDate,
            u.user_gender AS user_userGender,
            u.ENABLED AS user_enabled,
-           ae.apply_no As applyNo <!-- applyNo 추가 -->
+           ae.apply_no AS applyNo, 
+           r.recruit_title AS recruit_title,
+           r.recruit_reg_date AS recruit_reg_date
     FROM cv c
     JOIN apply_employee ae ON c.cv_no = ae.cv_no
     JOIN recruit r ON ae.recruit_no = r.recruit_no
@@ -307,7 +328,7 @@
     WHERE r.com_no = #{comNo}
     ORDER BY c.cv_reg_date DESC
     LIMIT #{page.index}, #{page.rows};
-  </select>
+</select>
 
   <!-- 제출된 이력서 페이징 -->
   <!-- <select id="countResumes" resultType="int">
@@ -374,4 +395,11 @@
     WHERE recruit_no = #{recruitNo}
   </select>
   
+  <!-- userNO으로 ae테이블의 recruitNO중복 제거한 count -->
+  <select id="userNoToDistnctRecruitNo" resultType="int">
+  SELECT COUNT(*) AS apply_count
+    FROM apply_employee ae
+    JOIN cv c ON ae.cv_no = c.cv_no
+    WHERE c.user_no = #{userNo} AND ae.recruit_no = #{recruitNo}
+  </select>
 </mapper>
