@@ -65,6 +65,10 @@ public class SecurityConfig {
                 .tokenValiditySeconds(60 * 60 * 24 * 7)
                 .authenticationSuccessHandler(loginSuccessHandler)
         );
+        // 카카오톡 로그인
+        //   http.oauth2Login(login -> login
+        //   .loginPage("/login")
+        //   .successHandler(loginSuccessHandler));
 
         return http.build();
     }
