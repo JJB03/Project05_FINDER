@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 import com.finder.project.company.service.CompanyService;
+import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.user.dto.CustomUser;
 import com.finder.project.user.dto.Users;
 
@@ -30,6 +32,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
     @Autowired
     private CompanyService companyService;
+    
+    @Autowired
+    private RecruitService recruitService;
     
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request
@@ -78,6 +83,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if( company != null ) {
             int comNo = company.getComNo();
             CompanyDetail companyDetail = companyService.selectCompanyDetailByComNo(comNo);
+            Order order =  recruitService.selectOrdersByUserNo(user.getUserNo());
+
+            user.setOrder(order);
             user.setCompany(company);
             user.setCompanyDetail(companyDetail);
         }

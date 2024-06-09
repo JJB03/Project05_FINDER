@@ -797,3 +797,25 @@ ORDER BY
     FROM apply_employee ae
     JOIN cv c ON ae.cv_no = c.cv_no
     WHERE c.user_no = 2 AND ae.recruit_no = 24;
+
+    SELECT c.*, r.*, f.file_no AS file_no, f.file_name, f.file_path, f.file_code, rk.recruit_keyword
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN (
+        SELECT rk.recruit_no, GROUP_CONCAT(rk.recruit_keyword SEPARATOR ', ') AS recruit_keyword
+        FROM recruit_keyword rk
+        GROUP BY rk.recruit_no
+    ) rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN (
+        SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND file_code = 1
+    ) f ON r.recruit_no = f.parent_no
+    
+    ORDER BY r.com_reg_date DESC
+    -- LIMIT 0, 12;
+
+    SELECT *
+    FROM `order` o
+    WHERE o.user_no = 1;

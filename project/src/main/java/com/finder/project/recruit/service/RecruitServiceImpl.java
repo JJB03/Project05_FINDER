@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
@@ -214,6 +215,9 @@ public class RecruitServiceImpl implements RecruitService {
 
         
         int result2 = recruitMapper.deleteKeyword(recruitNo);
+        if (result2 > 0) {
+            log.info("keyword 삭제성공");
+        }
         for (String keyword : recruitPost.getKeyword()) {
             Keyword k = new Keyword();
             k.setRecruitKeyword(keyword);
@@ -230,7 +234,6 @@ public class RecruitServiceImpl implements RecruitService {
    
     @Override
     public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos) {
-        // TODO Auto-generated method stub
         return recruitMapper.selectRecruitsByNos(new ArrayList<>(recruitNos));
     }
 
@@ -290,6 +293,12 @@ public class RecruitServiceImpl implements RecruitService {
     public int userNoToDistnctRecruitNo(int userNo, int recruitNo) {
         
         return recruitMapper.userNoToDistnctRecruitNo(userNo, recruitNo);
+    }
+
+    @Override
+    public Order selectOrdersByUserNo(int userNo) {
+        
+        return recruitMapper.selectOrdersByUserNo(userNo);
     }
 
 
