@@ -28,7 +28,7 @@ public class Users {
 
     Company company;                // 기업 테이블 (info_update_com)
     private CompanyDetail companyDetail;    // 기업 상세 테이블 (introduce_com)
-    private Order order;
+    private Order order;    // 주문 테이블 
 
 
     private List<UserAuth> authList;

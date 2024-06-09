@@ -360,6 +360,7 @@ public class CompanyController {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, product.getProductDuration());
         order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+        order.setAccessOrder(1);
 
         // order_no를 반환하는 insertOrder 메서드 호출
         int orderNo = companyService.insertOrder(order);
@@ -367,6 +368,10 @@ public class CompanyController {
 
         Map<String, Object> response = new HashMap<>();
         if (orderNo > 0) {
+            // 주문이 성공적으로 추가된 경우, 세션에 새로운 주문 정보 갱신
+            user.setOrder(order);
+            session.setAttribute("user", user);
+            
             response.put("success", true);
             response.put("orderNo", orderNo);
         } else {
