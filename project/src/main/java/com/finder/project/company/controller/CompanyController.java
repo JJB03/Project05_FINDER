@@ -2,8 +2,10 @@ package com.finder.project.company.controller;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,8 +29,10 @@ import com.finder.project.company.dto.PasswordConfirmRequest;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.main.dto.Page;
+import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.resume.dto.Resume;
+import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +52,9 @@ public class CompanyController {
 
     @Autowired
     RecruitService recruitService;
+
+    @Autowired
+    ResumeService resumeService;
 
     // main_com 화면 (기업 메인 메뉴선정화면)
     @GetMapping("/main_com")
@@ -428,26 +435,32 @@ public class CompanyController {
 
 
 
+    
+    // 기업상세정보페이지 [유저]
+    // 채용공고 상세 페이지 ----
+    @GetMapping("/com_detail_user")
+    public String getMethodName(@RequestParam("recruitNo") Integer recruitNo, Model model,
+            HttpSession session) throws Exception {
 
-
-
-
-
-    // // 등록된 채용공고 화면
-    // @GetMapping("/recruit_list_com")
-    // public String recruit_list_com(Model model , HttpSession session) throws Exception {
-    //     Users user = (Users) session.getAttribute("user");
+        Users user = (Users) session.getAttribute("user");
         
-    //     if (user == null) {
-    //         // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
-    //         return "redirect:/login";
-    //     }
-    //     int userNo = user.getUserNo();
-        
-        
+        RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
+        if (recruitPost == null) {
+            // log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
+        } else {
+            // log.info("RecruitPost 정보: {}", recruitPost);
+        }
 
-    //     return "/company/recruit_list_com";
-    // }
+        int comNo = recruitPost.getCompany().getComNo();
+        CompanyDetail companyDetail = recruitService.selectCompanyDetailsWithRecruit(comNo);
+
+        // log.info("companyDetail", companyDetail);
+        model.addAttribute("companyDetail", companyDetail);
+        model.addAttribute("recruitPost", recruitPost);
+
+        return "/company/com_detail_user";
+    }
+
 
 
 
