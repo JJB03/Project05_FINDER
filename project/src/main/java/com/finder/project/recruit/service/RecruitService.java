@@ -78,4 +78,7 @@ public interface RecruitService {
 
     public Order selectOrdersByUserNo(int userNo);
 
+    // 메인 검색
+    public List<RecruitPost> postsRecruitListKeyword(int comNo);
+
 }

@@ -439,24 +439,25 @@ public class CompanyController {
     // 기업상세정보페이지 [유저]
     // 채용공고 상세 페이지 ----
     @GetMapping("/com_detail_user")
-    public String getMethodName(@RequestParam("recruitNo") Integer recruitNo, Model model,
+    public String getMethodName(@RequestParam("comNo") Integer comNo, Model model,
             HttpSession session) throws Exception {
-
+        
         Users user = (Users) session.getAttribute("user");
         
-        RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
-        if (recruitPost == null) {
+        // log.info("@@@@@@@@@@@@@" + comNo);
+        // RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
+        // if (recruitPost == null) {
             // log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
-        } else {
+        // } else {
             // log.info("RecruitPost 정보: {}", recruitPost);
-        }
+        // }
 
-        int comNo = recruitPost.getCompany().getComNo();
+        // int comNo = recruitPost.getCompany().getComNo();
         CompanyDetail companyDetail = recruitService.selectCompanyDetailsWithRecruit(comNo);
 
         // log.info("companyDetail", companyDetail);
         model.addAttribute("companyDetail", companyDetail);
-        model.addAttribute("recruitPost", recruitPost);
+        // model.addAttribute("recruitPost", recruitPost);
 
         return "/company/com_detail_user";
     }

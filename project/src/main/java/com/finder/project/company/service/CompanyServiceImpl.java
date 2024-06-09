@@ -163,11 +163,11 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Company> serachCompanyByName(String name) throws Exception {
         List<Company> companies = companyMapper.serachCompanyByName(name);
 
-        for (Company company : companies) {
-            int comNo = company.getComNo();
-            List<RecruitPost> recruitPosts = recruitService.postsRecruitList(comNo);
-            company.setRecruitList(recruitPosts);
-        }
+        // for (Company company : companies) {
+        //     int comNo = company.getComNo();
+        //     List<RecruitPost> recruitPosts = recruitService.postsRecruitListKeyword(comNo);
+        //     company.setRecruitList(recruitPosts);
+        // }
 
         return companies;
     }

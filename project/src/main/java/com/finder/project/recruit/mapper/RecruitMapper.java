@@ -91,4 +91,6 @@ public interface RecruitMapper {
     public int userNoToDistnctRecruitNo(@Param("userNo") int userNo, @Param("recruitNo") int recruitNo);
 
     public Order selectOrdersByUserNo(int userNo);
+
+    public List<RecruitPost> postsRecruitListKeyword(int comNo);
 }
