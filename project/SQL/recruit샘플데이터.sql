@@ -819,3 +819,33 @@ ORDER BY
     SELECT *
     FROM `order` o
     WHERE o.user_no = 1;
+
+    SELECT DISTINCT r.recruit_name, c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.com_no = 1;
+
+    SELECT
+            c.com_no,
+            c.com_name,
+            c.com_category,
+            c.com_address,
+            c.com_business,
+            cd.com_info_no,
+            cd.com_represent,
+            cd.com_url,
+            cd.com_birth,
+            cd.com_size,
+            cd.com_emp_count,
+            cd.com_sales,
+            cd.com_content,
+            cd.com_vision,
+            cd.com_welfare,
+            cd.com_avg_salary
+        FROM
+            recruit r
+        JOIN
+            company c ON r.com_no = c.com_no
+        JOIN
+            company_detail cd ON 5 = cd.com_no;

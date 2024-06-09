@@ -301,6 +301,12 @@ public class RecruitServiceImpl implements RecruitService {
         return recruitMapper.selectOrdersByUserNo(userNo);
     }
 
+    @Override
+    public List<RecruitPost> postsRecruitListKeyword(int comNo) {
+        
+        return recruitMapper.postsRecruitListKeyword(comNo);
+    }
+
 
 
 

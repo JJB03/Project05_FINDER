@@ -97,6 +97,11 @@
         <association property="company" javaType="com.finder.project.company.dto.Company" resultMap="CompanyResultMap"/>
     </resultMap>
 
+    <resultMap id="RecruitPostResultKeywordMap" type="com.finder.project.recruit.dto.RecruitPost">
+      <id property="recruitNo" column="recruit_no"/>
+      <result property="recruitTitle" column="recruit_title"/>
+    </resultMap>  
+
 
 
   <select id="max" resultType="int">
@@ -176,6 +181,14 @@
     LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
     WHERE r.com_no = #{comNo}
     LIMIT #{page.index}, #{page.rows}
+  </select>
+
+  <select id="postsRecruitListKeyword" resultMap="RecruitPostResultKeywordMap">
+    SELECT DISTINCT r.recruit_title, r.recruit_no
+    FROM recruit r
+    INNER JOIN company c ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.com_no = #{comNo}
   </select>
 
   <!-- 등록한 채용공고 목록 페이징용 [승헌] -->
