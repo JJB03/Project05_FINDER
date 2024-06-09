@@ -58,6 +58,15 @@ CREATE TABLE email_verification (
     verification_code VARCHAR(255) NOT NULL
 );
 
+
+CREATE TABLE persistent_logins (
+    username VARCHAR(64) NOT NULL,
+    series VARCHAR(64) PRIMARY KEY,
+    token VARCHAR(64) NOT NULL,
+    last_used TIMESTAMP NOT NULL,
+    CONSTRAINT fk_user_no FOREIGN KEY (user_no) REFERENCES user(user_no)
+);
+
 -- 소셜 테이블
 CREATE TABLE user_social (
     `ID` CHAR(36) PRIMARY KEY,
