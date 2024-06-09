@@ -180,75 +180,73 @@
 
                     </th:block>
 
-                    <div style="min-height: 500px;">
-                        <th:block th:each="resume : ${resumeList}">
+                    <th:block th:each="resume : ${resumeList}">
 
-                            <th:block th:each="recruitPost : ${resume.recruitPost}">
-                                <!-- <a href="/resume/cv_read_com" class="job-item-link"> -->
-                                <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
-                                <!--구분할 수 있게 스타일임시로 추가함.-->
-                                <a th:href="|/resume/cv_read_com?cvNo=${resume.cvNo}|" class="job-item-link">
+                        <th:block th:each="recruitPost : ${resume.recruitPost}">
+                            <!-- <a href="/resume/cv_read_com" class="job-item-link"> -->
+                            <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
+                            <!--구분할 수 있게 스타일임시로 추가함.-->
+                            <a th:href="|/resume/cv_read_com?cvNo=${resume.cvNo}|" class="job-item-link">
 
-                                    <div class="job-item d-flex flex-column"
-                                        style="border: 1px solid #ccc; border-radius: 8px; margin-bottom: 5px;">
-                                        <!-- CSRF 토큰 -->
-                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <div class="job-item d-flex flex-column"
+                                    style="border: 1px solid #ccc; border-radius: 8px; margin-bottom: 5px;">
+                                    <!-- CSRF 토큰 -->
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
-                                        <div style="width: 100%; height: 20px;" class="d-flex">
-                                            <div>
-                                                <span th:text="${recruitPost.recruitTitle}" style="font-weight: bold;"
-                                                    class="me-3">
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span th:text="${recruitPost.recruitRegDate}">
-                                                </span>
-                                            </div>
+                                    <div style="width: 100%; height: 20px;" class="d-flex">
+                                        <div>
+                                            <span th:text="${recruitPost.recruitTitle}" style="font-weight: bold;"
+                                                class="me-3">
+                                            </span>
                                         </div>
+                                        <div>
+                                            <span th:text="${recruitPost.recruitRegDate}">
+                                            </span>
+                                        </div>
+                                    </div>
 
 
-                                        <div class="item d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <!--데이터 불러오기-->
-                                                <span class="mb-3" th:text="${resume.cvTitle}">
+                                    <div class="item d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <!--데이터 불러오기-->
+                                            <span class="mb-3" th:text="${resume.cvTitle}">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 16px;" class="row">
+                                        <div class="d-flex">
+                                            <div style="width: 100%;">
+                                                <!-- 나이 -->
+                                                <span th:text="${resume.user.userBirth}">
                                                 </span>
-                                            </div>
-                                        </div>
-                                        <div style="font-size: 16px;" class="row">
-                                            <div class="d-flex">
-                                                <div style="width: 100%;">
-                                                    <!-- 나이 -->
-                                                    <span th:text="${resume.user.userBirth}">
-                                                    </span>
-                                                    <span>/</span>
+                                                <span>/</span>
 
-                                                    <!-- 성별 -->
-                                                    <span th:text="${resume.user.userGender}">
-                                                    </span>
-                                                    <span>/</span>
+                                                <!-- 성별 -->
+                                                <span th:text="${resume.user.userGender}">
+                                                </span>
+                                                <span>/</span>
 
-                                                    <!-- 이름 -->
-                                                    <span th:text="${resume.user.userName}">
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="gap-2 d-flex justify-content-end">
-                                            <div>
-                                                <button type="button" class="btn-short" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal" id="btn-stop">
-                                                    <strong>조회</strong>
-                                                </button>
-                                            </div>
-                                            <div class="d-flex justify-content-center m-1">
-                                                <strong style="color: #024FDF;">FINDER</strong>
+                                                <!-- 이름 -->
+                                                <span th:text="${resume.user.userName}">
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
-                            </th:block>
+                                    <div class="gap-2 d-flex justify-content-end">
+                                        <div>
+                                            <button type="button" class="btn-short" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" id="btn-stop">
+                                                <strong>조회</strong>
+                                            </button>
+                                        </div>
+                                        <div class="d-flex justify-content-center m-1">
+                                            <strong style="color: #024FDF;">FINDER</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </th:block>
-                    </div>
+                    </th:block>
 
 
 

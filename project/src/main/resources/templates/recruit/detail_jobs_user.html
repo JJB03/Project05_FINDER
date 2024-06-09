@@ -182,7 +182,7 @@
                         </th:block>
                     </div>
 
-                    <th:block th:if="${companyDetail != null && !companyDetail.isEmpty()}">
+                    <th:block th:if="${companyDetail != null}">
                         <div class="d-flex justify-content-start">
                             <div class="company-introduce d-flex flex-column w-75">
                                 <input type="hidden" name="comNo" th:value="${companyDetail.company.comNo}">
