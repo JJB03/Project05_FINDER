@@ -56,9 +56,12 @@ public class SecurityConfig {
         http.userDetailsService(userDetailServiceImpl);
 
         // 🔄 자동 로그인 설정
-        http.rememberMe(me -> me.key("aloha")
-                                .tokenRepository(tokenRepository())
-                                .tokenValiditySeconds(60 * 60 * 24 * 7));
+        http.rememberMe(me -> me
+                .key("aloha")
+                .tokenRepository(tokenRepository())
+                .tokenValiditySeconds(60 * 60 * 24 * 7)
+                .authenticationSuccessHandler(loginSuccessHandler)
+        );
 
         return http.build();
     }
