@@ -155,4 +155,19 @@ public class ResumeServiceImpl implements ResumeService {
 
 
 
+
+
+
+
+
+
+    // 합불
+    @Override
+    public int applyCheck(int cvNo, int check) throws Exception {
+        
+        return resumeMapper.applyCheck(cvNo, check);
+    }
+
+
+
 }

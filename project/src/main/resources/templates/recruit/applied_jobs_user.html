@@ -187,8 +187,8 @@
 
                                     <div class="gap-2 d-flex">
                                         <div>
-                                            <button type="button" class="btn-short " id="btn-stop" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
+                                            <button type="button" class="btn-short " id="btn-stop" th:onclick="|checkRecruit('${recruit.recruitNo}')|"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 <strong>합격조회</strong>
                                             </button>
                                         </div>
@@ -212,12 +212,47 @@
 
 
     <script>
-        $(document).ready(function() {
-        $('#btn-stop').click(function(event) {
-            event.stopPropagation();  // 이벤트 전파 중지
-            event.preventDefault(); // 기본 동작 방지
+        $(document).ready(function () {
+            // $('#btn-stop').click(function (event) {
+            //     event.stopPropagation();  // 이벤트 전파 중지
+            //     event.preventDefault(); // 기본 동작 방지
+            // });
+
+            var checkBtn = $('#btn-stop')
+
+
+            function checkRecruit(recruitNo) {
+
+
+                // let data = {"userId"   : userId}
+                // event.stopPropagation(); // 이벤트 전파 중지
+                // event.preventDefault(); // 기본 동작 방지
+                
+                let request = new XMLHttpRequest()
+                // let csrfToken = $('#csrfToken').val();
+                var csrfToken = "[[${_csrf.token}]]"
+
+                request.open("GET", `/recruit/applied_jobs_user/${recruitNo}`, true)
+                request.setRequestHeader("Content-Type", "application/json")
+                request.setRequestHeader("X-CSRF-TOKEN", csrfToken) // 💍       // 이래야 403 이 안뜬다.
+                // request.send( JSON.stringify( data ) )
+                request.send()
+
+                request.onreadystatechange = function () {
+                    // 요청 성공 시,
+                    if (request.readyState == request.DONE && request.status == 200) {
+                        checkBtn.attr('value', request.responseText);
+                    }else {
+                        alert("실패")
+                    }
+                }
+            }
+
+
+
+
+
         });
-    });
     </script>
 </body>
 
