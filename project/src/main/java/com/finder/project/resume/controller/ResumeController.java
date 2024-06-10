@@ -370,6 +370,24 @@ public class ResumeController {
         int fileNo = resumeService.resumeProfileUpload(file);
         return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
+
+      //이미지 파일 업데이트
+      @ResponseBody
+      @PostMapping("/cv_FileUpdate2_user")
+      // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
+      public ResponseEntity<Integer> uploadFile(Resume resume) throws Exception {
+          log.info("::::::::::::::::::::: resume22222222222222 :::::::::::::::::::::");
+          log.info(resume.toString());
+  
+          Files file = new Files();
+          file.setParentNo(resume.getCvNo());
+          file.setParentTable("resume");
+          file.setFile(resume.getThumbnail());
+          file.setFileCode(0);
+          // fileService.upload(file);
+          int fileNo = resumeService.resumeProfileUpload(file);
+          return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
+      }
     
     
 

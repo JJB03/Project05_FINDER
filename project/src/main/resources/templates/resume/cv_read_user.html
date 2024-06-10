@@ -125,111 +125,149 @@
 
         <!-- 학력/경력 시작 -->
         <div class="col-sm-12  border bg-light rounded-3 " style="min-height: 250px;">
-          <form action="/resume/cv_Edupdate_user" method="post"> <!--학력 controller 부르기-->
+          <!--학력 controller 부르기-->
+          <form action="cv_Edupdate_user" method="post">
             <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
               <h5>학력</h5>
-              <button class="btn-short" onclick="educationBtn"><span class="fs-2" style="">+</span></button>
             </div>
-            
+
             <div>
               <hr color="#eee">
             </div>
-            
-            
+
+
             <div class="">
-              
+
               <div class="col-12 d-flex">
-                <div class="form-group col-4">
-                  
-                  <input type="text" class="form-control w-75" id="school" placeholder="학교">
+                <div class="form-group col-3">
+                  <p>학교</p>
                 </div>
-                <div class="form-group col-4">
-                  
-                  <input type="text" class="form-control w-75" id="major" placeholder="전공">
+                <div class="form-group col-3">
+                  <p>전공</p>
                 </div>
-                <div class="form-group col-4">
-                  
-                  <input type="text" class="form-control w-75" id="education-status" placeholder="학력상태">
-              </div>
-            </div>
-            
-            <div class="col-12 p-2">
-              <div class="d-flex w-100 d-flex justify-content-between">
-                <div class="flex-column col-4">
-                  <p>서울대학교</p>
-                </div>
-                <div class="flex-column col-4">
-                  <p>컴퓨터공학과</p>
-                </div>
-                <div class="flex-column col-4">
-                  <p>대졸</p>
+                <div class="form-group col-3">
+                  <p>학적</p>
                 </div>
               </div>
+
+              <div class="col-12 d-flex">
+                <div class="form-group col-3">
+                  <input type="text" class="form-control w-75" name="university" id="university" placeholder="학교"
+                    value="" >
+                </div>
+                <div class="form-group col-3">
+
+                  <input type="text" class="form-control w-75" name="major" id="major" placeholder="전공" >
+                </div>
+                <div class="form-group col-3">
+                  <input type="text" class="form-control w-75" name="universityStatus" id="universityStatus"
+                    placeholder="학력상태" >
+                </div>
+                <div class="flex-column col-3">
+                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+                  <button type="button" class="educationBtn btn-short">
+                    <span class="fs-2">+</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-12 p-2">
+                <!-- 학력 리스트 -->
+                <div id="education-list">
+                </div>
+                  <div class="d-flex flex-column w-100">
+                   <div class="education-card d-flex justify-content-between">
+                     <div class="flex-column col-4">
+                       <p></p>
+                     </div>
+                     <div class="flex-column col-4">
+                       <p></p>
+                     </div>
+                     <div class="flex-column col-4">
+                       <p>대졸</p>
+                     </div>
+                   </div>
+                </div> 
+              </div>
             </div>
-            
-          </div>
-          
+          </form>
         </div>
-      </form>
-        
-        
-      <form action="cv_Emupdate_user" method="post"> <!--경력 db 넣기-->
+
+
         <div class="col-sm-12  border bg-light rounded-3 mt-3" style="min-height: 250px;">
-          
-          <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
-            <h5>경력</h5>
-            <button class="btn-short" id="employmentHistoryBtn"><span class="fs-2" style="">+</span></button>
-          </div>
-          
-          <div>
-            <hr color="#eee">
-          </div>
-          
-          <div class="">
-            
-            <div class="col-12 d-flex">
-              <div class="form-group col-4">
-                
-                <input type="text" class="form-control w-75" id="organization" placeholder="기관">
-              </div>
-              <div class="form-group col-4">
-                <div>
-                  <label for="period2">기간 :</label>
-                  <span class="birthdate"> <!-- 시작일 -->
-                    <input type="date" id="startDate" name="userBirth" class="keyword-main">
-                  </span>
-                  <span>~</span>
-                  <span class="birthdate"> <!-- 끝 -->
-                    <input type="date" id="endDate" name="userBirth" class="keyword-main">
-                  </span>
-                </div>
-                
-              </div>
-              <div class="form-group col-4">
-                
-                <input type="text" class="form-control w-75" id="duties" placeholder="담당">
-              </div>
+          <form action="cv_Emupdate_user" method="post">
+            <!--경력 db 넣기-->
+
+            <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
+              <h5>경력</h5>
             </div>
-            
-            <div class="col-12 p-2">
-              <div class="d-flex w-100 d-flex justify-content-between">
-                <div class="flex-column col-4">
-                  <p>경력1</p>
+
+            <div>
+              <hr color="#eee">
+            </div>
+
+            <div class="">
+
+              <div class="col-12 d-flex">
+                <div class="form-group col-3">
+                  <p>기관</p>
                 </div>
-                <div class="flex-column col-4">
-                  <p>경력2</p>
+                <div class="form-group col-3">
+                  <p>시작일</p>
                 </div>
-                <div class="flex-column col-4">
-                  <p>경력3</p>
+                <div class="form-group col-3">
+                  <p>끝 일</p>
+                </div>
+                <div class="form-group col-3">
+                  <p>당담</p>
                 </div>
               </div>
-            </div>
-            
-          </div>
-          
+
+              <div class="col-12 d-flex">
+                <div class="form-group col-3">
+                  <input type="text" class="form-control w-75" name="organization" id="organization" placeholder="기관"
+                    value="">
+                </div>
+                <div class="form-group col-3">
+                  <input type="date" class="form-control w-75" name="startDate" id="startDate" placeholder="시작 날짜">
+                </div>
+                <div class="form-group col-3">
+                  <input type="date" class="form-control w-75" name="endDate" id="endDate" placeholder="끝나는 날짜">
+                </div>
+                <div class="form-group col-3">
+                  <input type="text" class="form-control w-75" name="duties" id="duties" placeholder="담당업무">
+                </div>
+                <div class="flex-column col-3">
+                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+                  <button type="button" class="employmentHistoryBtn btn-short">
+                    <span class="fs-2">+</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-12 p-2">
+                <!-- 학력 리스트 -->
+                <div id="employmenthistory-list">
+
+                  <!--                 <div class="d-flex w-100 d-flex justify-content-between">
+                  <div class="flex-column col-4">
+                    <p>경력1</p>
+                  </div>
+                  <div class="flex-column col-4">
+                    <p>경력2</p>
+                  </div>
+                  <div class="flex-column col-4">
+                    <p>경력3</p>
+                  </div>
+                </div> -->
+                </div>
+
+              </div>
+
+          </form>
         </div>
-      </form>
         <!-- 학력/경력 끝-->
+
 
 
 
@@ -282,124 +320,167 @@
     
     //ajax로 그것들 부르기
     var csrfToken = "[[${_csrf.token}]]";
-/* 
-    //xhr 선언
-    var xhr = new XMLHttpRequest();
-    xhr.open("post", "/resume/cv_update_user", true);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        //readyState : unsent, opened, headers_received, loading, done
-        var responseData = JSON.parse(xhr.responseText);
-        //responseData 응답 결과 데이터
-      } else {
-        console.error("post요청 실패했습니다.")
-      }
-    };
-    xhr.send(); */
+    var cvNo = "[[${cvNo}]]"
 
-    //jQuery로 요청하기
+    // 학력 등록 ajax
+    $('.educationBtn').click(function () {
+      // 클릭 했을 때 가져와야해서 안애 있어야됨
+      var university = document.getElementById('university').value
+      var major = document.getElementById('major').value
+      var universityStatus = document.getElementById('universityStatus').value
+      console.log(`university : ${university}`);
+      console.log(`major : ${major}`);
+      console.log(`universityStatus : ${universityStatus}`);
 
-    //학력 ajax
-    $(document).ready(function() {
-    // educationBtn 클릭 시 AJAX 호출
-    $('#educationBtn').click(function(event) {
-        // 폼을 제출하지 않도록 기본 이벤트를 취소
-        event.preventDefault();
-        
-        // 폼 데이터 수집
-        var university = $('#school').val();
-        var major = $('#major').val();
-        var universityStatus = $('#education-status').val();
+      $.ajax({
+        type: 'post', //요청메소드
+        url: '/resume/cv_Edupdate_user', //요청경로 - 컨트롤러url 
+        data: JSON.stringify({
+          cvNo: cvNo,
+          university: university,
+          major: major,
+          universityStatus: universityStatus
+        }), //요청 데이터
+        contentType: 'application/json', //요청데이터 타입
+        dataType: 'json', //응답데이터 타입
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        },
 
-        // AJAX 호출
-        $.ajax({
-                type: 'post',
-                url: '/resume/cv_Edupdate_user',
-                data: JSON.stringify({
-                    "university": university,
-                    "major": major,
-                    "universityStatus": universityStatus
-                }),
-                contentType: 'text/html', // 수정 필요
-                dataType: 'html', // 또는 dataType: 'json'으로 변경 가능
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-                },
-                success: function(response, status) {
-                    console.log("cv-create 학력 정보가 들어갔습니다.")
-                    let result = JSON.parse(response)
-                    // 그외 처리
-                },
-                error: function(xhr, status) {
-                    alert('에러 발생')
-                }
-             });
-          });
-      });
-    
-     //경력 ajax
-     $('employmentHistoryBtn').click(function() {
+        //요청 성공             응답데이터 응답상태
+        success: function name(response, status) {
+          console.log("cv-create 학력 정보가 들어갔습니다.")
+          console.dir(response) // 이거 자체가 객체
+          console.log(response.university);
+          console.log(response.major);
+          console.log(response.universityStatus);
+
+          document.getElementById('university').value = ''
+          document.getElementById('major').value = ''
+          document.getElementById('universityStatus').value = ''
+
+          // 학력 목록 갱신
+          educationList()
+        },
+        //에러 발생
+        error: function (xhr, status) {
+          alert('에러 발생')
+        }
+      })
+    });
+
+    /**
+     *  학력 리스트 조회
+     * - cvNo 로 조회 
+     */
+    function educationList() {
+      // alert(`학력 리스트 갱신`)
+      $.ajax({
+        type: 'get', //요청메소드
+        url: `/resume/cv_Edlist_user?cvNo=${cvNo}`, //요청경로 - 컨트롤러url 
+        data: '', //요청 데이터
+        contentType: '', //요청데이터 타입
+        dataType: '', //응답데이터 타입
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        },
+        //요청 성공             응답데이터 응답상태
+        success: function name(response, status) {
+          let educationList = response
+          $("#education-list").html(educationList)
+
+        },
+        //에러 발생
+        error: function (xhr, status) {
+          alert('에러 발생')
+        }
+      })
+    }
+
+    // 경력 등록 ajax
+    $('.employmentHistoryBtn').click(function () {
+      // 클릭 시 가져와야 하는 데이터
+      var organization = document.getElementById('organization').value;
+      var startDate = document.getElementById('startDate').value;
+      var endDate = document.getElementById('endDate').value;
+      var duties = document.getElementById('duties').value; // 이 부분이 변경됨
+
+      console.log(`organization: ${organization}`);
+      console.log(`startDate: ${startDate}`);
+      console.log(`endDate: ${endDate}`);
+      console.log(`duties: ${duties}`);
+
       $.ajax({
         type: 'post', // 요청 메소드
         url: '/resume/cv_Emupdate_user', // 요청 경로 - 컨트롤러 URL 
         data: JSON.stringify({
-          "employmentHistoryNo": employmentHistoryNo,
-          "organization": organization,
-          "start_date": startDate,
-          "end_date": endDate,
-          "duties": duties
+          cvNo: cvNo, // 검색해서 입력하기 위해(아마도)
+          organization: organization,
+          startDate: startDate,
+          endDate: endDate,
+          duties: duties
         }), // 요청 데이터
         contentType: 'application/json', // 요청 데이터 타입
-        dataType: 'html', // 응답 데이터 타입
-        beforeSend: function(xhr) {
+        dataType: 'json', // 응답 데이터 타입
+        beforeSend: function (xhr) {
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
         // 요청 성공
-        success: function(data, status) {
-          console.log("cv-create 성공했습니다");
-          let result = JSON.parse(data);
-          // 그외 할 것
-          //폼안에 데이터 넣기
-          $('#organization').html(data)
+        success: function (data, status) {
+          console.log("cv-create, 경력정보가 입력했습니다");
+          console.dir(data); // 객체 로깅
+          console.log(data.organization);
+          console.log(data.startDate);
+          console.log(data.endDate);
+          console.log(data.duties);
+
+          // 입력 후 필드 초기화
+          document.getElementById('organization').value = "";
+          document.getElementById('startDate').value = "";
+          document.getElementById('endDate').value = "";
+          document.getElementById('duties').value = "";
+
+          // 경력 목록 갱신
+          employmentHistoryList();
         },
         // 에러 발생
-        error: function(xhr, status) {
-          console.error('cv-create 에러 발생:', status);
+        error: function (xhr, status) {
+          console.error('cv-create 에러 발생:');
           alert('에러 발생');
         }
-      })
+      });
     });
-    
 
-    //이미지 파일 미리보기 업
-    document.getElementById('file').addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      const preview = document.getElementById('preview');
-      preview.innerHTML = '';
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          preview.appendChild(img);
+
+    /**
+     *  경력 리스트 조회
+     * - cvNo 로 조회 
+     */
+    function employmentHistoryList() {
+      alert(`경력 리스트 갱신`)
+      $.ajax({
+        type: 'get', //요청메소드
+        url: `/resume/cv_Emlist_user?cvNo=${cvNo}`, //요청경로 - 컨트롤러url 
+        data: '', //요청 데이터
+        contentType: '', //요청데이터 타입
+        dataType: '', //응답데이터 타입
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        },
+        //요청 성공             응답데이터 응답상태
+        success: function name(response, status) {
+          let employmentHistoryList = response
+          $("#employmenthistory-list").html(employmentHistoryList)
+
+        },
+        //에러 발생
+        error: function (xhr, status) {
+          alert('에러 발생')
         }
-        reader.readAsDataURL(file);
-      } else {
-        preview.innerHTML = '<p>이미지가 없습니다.</p>';
-      }
-    });
-
-    //파일 첨부
-    document.getElementById('fileButton').addEventListener('click', function () {
-      document.getElementById('fileInput').click();
-    });
-
-    function displayFileName() {
-      var input = document.getElementById('fileInput');
-      var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
-      document.getElementById('fileName').textContent = fileName;
+      })
     }
+
 
     //파일 첨부 삭제 코드
 
