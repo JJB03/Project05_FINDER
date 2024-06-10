@@ -89,6 +89,16 @@ public class ResumeServiceImpl implements ResumeService {
 
             fileService.upload(thumbnail); // 파일 업로드
         }
+        //문서파일 = 0
+        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+            Files files = new Files();
+            files.setFile(thumbnailFile);;
+            files.setParentTable(parentTable);
+            files.setParentNo(parentNo);
+            files.setFileCode(0); //문서 코드
+
+            fileService.upload(files); //업로드
+        }
 
         // 첨부파일 업로드
         List<MultipartFile> fileList = resume.getFile();

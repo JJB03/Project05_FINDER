@@ -283,7 +283,7 @@
         <div class="file-upload upload-btn d-flex justify-content-between">
           <div>
             <input type="file" id="uploadFile" name="uploadFile" multiple style="display:none;">
-            <button class="btn-long file-input" type="button" id="uploadBtn">파일 선택</button>
+            <button class="btn-long file-input" type="button" id="uploadBtn" name="uploadBtn">파일 선택</button>
             <span id="file-names">파일을 추가해주세요.</span>
           </div>
           <div class="btn-click123">
@@ -478,7 +478,7 @@
     });
       
 
-    // 파일 업로드
+    //이미지 파일 업로드
     $("#imgUploadFile").on("change", function (e) {
       var csrfToken = "[[${_csrf.token}]]";
       var cvNo = "[[${cvNo}]]"
@@ -515,121 +515,47 @@
     });
         
 
-  // 문서 파일 업로드
-  document.getElementById('uploadBtn').addEventListener('click', function() {
-    var csrfToken = "[[${_csrf.token}]]";
-    var cvNo = "[[${cvNo}]]"
+       // [파일선택] 버튼 클릭
+       document.getElementById('uploadBtn').addEventListener('click', function() {
+      // input type="file" 파일 찾기 클릭
       document.getElementById('uploadFile').click();
-    
-    document.getElementById('uploadFile').addEventListener('change', function(event) {
-      var files = event.target.files;
-      var fileNames = '';
 
-        for (var i = 0; i < files.length; i++) {
-          fileNames += files[i].name + (i < files.length - 1 ? ', ' : '');
-        }
+    });
 
-      document.getElementById('file-names').textContent = fileNames;
-      });
+  // 문서 파일 업로드
+    $("#uploadFile").on("change", function (e) {
+      var csrfToken = "[[${_csrf.token}]]";
+      var cvNo = "[[${cvNo}]]"
+      var formData = new FormData();
+      var inputFile = $("#uploadFile")[0];
+      var files = inputFile.files;
+      console.log(files);
 
-      $("#uploadFile").on("change", function (e) {
-        var formData = new FormData();
-        var inputFile = $("#uploadFile")[0];
-        var files = inputFile.files;
-        console.log(files);
-
-          for (let i = 0; i < files.length; i++) {
-            formData.append("uploadFile", files[i]);
-          }
-          $.ajax({
-            url: 'resume/cv_FileUpdate_user',
-          processData: false,
-          contentType: false,
-          data: formData,
-          type: 'post',
-          beforeSend: function (xhr) {
+      formData.append("cvNo", cvNo)
+      for (let i = 0; i < files.length; i++) {
+        formData.append("thumbnail", files[i]);
+      }
+      $.ajax({
+        url: '/resume/cv_FileUpdate2_user',
+        processData: false,
+        contentType: false,
+        data: formData,
+        type: 'post',
+        beforeSend: function (xhr) {
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
-          success: function (result) {
-            alert("문서 파일 업로드 성공");
-          },
-          error: function (xhr, status, error) {
-            console.error('파일 업로드 실패:', error);
-          alert('파일 업로드에 실패했습니다.');
-          }
-        });
-       });
-      });
+        success: function (result) {
+          alert("문서 파일 업로드 성공  :" + result);
+          let fileNo = results
 
-
- 
-
-/*     //이미지 파일 미리보기 업
-    document.getElementById('imgUploadFile').addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      const preview = document.getElementById('preview');
-      preview.innerHTML = '';
-      
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          preview.appendChild(img);
+        },
+        error: function (xhr, status, error) {
+          console.error('문서 업로드 실패:', error);
+          alert('문서 업로드에 실패했습니다.');
+          let span = `<span th:value="${file.fileName}"></span>`
         }
-        reader.readAsDataURL(file);
-      } else {
-        preview.innerHTML = '<p>이미지가 없습니다.</p>';
-      }
-    }); */
-
-    //파일 첨부 + 이미지파일 미리보기도 하기
-
-
-    //선택시 파일 목록 업데이트  ---------------------------------- 보류
-/*     $('#file-input').on('change', function(){ //change로 해서 변화감지
-      var files = this.files;
-      $('#file-names').empty();
-      for (let i = 0; i < files.length; i++) {
-        var fileDiv = $('<div class="file-names">').text(files[i].name);
-        var removeLink = $('<span class="remove-file">X</span>');
-        
-        //파일 제거 이벤트입니다
-        removeLink.on('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          $(this).parent().remove();
-
-          //업데이트한 파일 
-          var newFileList = Array.from(files);
-          newFileList.splice(i, 1); //배열초기화
-          document.getElementById('file-input').files = new FileListItems(newFileList);
-        });
-        fileDiv.append(removeLink);
-        $('#file-names').append(fileDiv);
-      }
+      });
     });
-
-    //파일리스트 만들기
-    function FileListItems(files) {
-      var b = new ClipboardEvent("").clipboardData || new DataTransfer();
-      for (var i = 0; i < files.length; i++) {
-        const element = array[i];
-        b.items.add(files[i]);
-      }
-      return b.files;
-    } */
-
-   /* document.getElementById('fileButton').addEventListener('click', function () {
-      document.getElementById('fileInput').click();
-    });
-
-    function displayFileName() {
-      var input = document.getElementById('fileInput');
-      var fileName = input.files[0] ? input.files[0].name : '파일이 선택되지 않았습니다.';
-      document.getElementById('fileName').textContent = fileName;
-    } */ 
-
     //파일 첨부 삭제 코드
   </script>
 </body>
