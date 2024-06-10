@@ -71,13 +71,24 @@
                         <strong class="fs-5">채용공고 관리</strong>
                     </li>
                     <li class="nav-item">
-                        <a href="/recruit/post_jobs_com" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
-                                <div>
-                                    <img src="/img/list.png" alt="x">
+                        <a href="/recruit/post_jobs_com" class="job-item-link nav-link fw-normal fs-6 token-end">
+                            <div style="background-color: #fff; border-radius: 8px; "
+                                class="d-flex justify-content-between">
+                                <div class="d-flex gap-2 p-2 ps-2">
+                                    <div>
+                                        <img src="/img/list.png" alt="x">
+                                    </div>
+                                    <div>
+                                        채용공고 등록
+                                    </div>
                                 </div>
-                                <div>
-                                    채용공고 등록
+                                <div class="d-flex gap-2 p-2 ">
+                                    <div>
+                                        <img src="/img/CreditScore.png" alt="x" style="width: 24px;">
+                                    </div>
+                                    <div>
+                                        <span th:text="${session.user.order.remainQuantity}"></span>
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -154,51 +165,52 @@
                     </th:block>
 
                     <div>
-                    <th:block th:each="recruit : ${recruitPosts}">
+                        <th:block th:each="recruit : ${recruitPosts}">
 
-                        <a th:href="|/recruit/post_jobs_read_com?recruitNo=${recruit.recruitNo}|" class="job-item-link" th:id="'recruit_' + ${recruit.recruitNo}">
-                            <input type="hidden" name="recruitNo" id="recruitNo" th:value="${recruit.recruitNo}">
-                            <div class="job-item d-flex flex-column">
-                                <div style="width: 38px; height: 15px;">
-                                    <!-- new 자리 -->
-                                </div>
-                                <div style="font-size: 12px;">
-                                    <span th:text="${recruit.company.comName}"></span>
-                                    <span>|</span>
-                                    <span>기간 : </span><span th:text="${recruit.recruitRegDate}"></span>
-                                </div>
-                                <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;"
-                                    th:text="${recruit.recruitTitle}">
-
-                                </div>
-                                <div class="item d-flex justify-content-between">
-                                    <div class="keyword-span">
-                                        <th:block th:each="keyword : ${recruit.keywordList}">
-                                            <span th:text="${keyword.recruitKeyword}">
-
-                                            </span>
-                                        </th:block>
+                            <a th:href="|/recruit/post_jobs_read_com?recruitNo=${recruit.recruitNo}|"
+                                class="job-item-link" th:id="'recruit_' + ${recruit.recruitNo}">
+                                <input type="hidden" name="recruitNo" id="recruitNo" th:value="${recruit.recruitNo}">
+                                <div class="job-item d-flex flex-column">
+                                    <div style="width: 38px; height: 15px;">
+                                        <!-- new 자리 -->
                                     </div>
+                                    <div style="font-size: 12px;">
+                                        <span th:text="${recruit.company.comName}"></span>
+                                        <span>|</span>
+                                        <span>기간 : </span><span th:text="${recruit.recruitRegDate}"></span>
+                                    </div>
+                                    <div style="font-size: 17px; margin-bottom: 15px; font-weight: bold;"
+                                        th:text="${recruit.recruitTitle}">
 
+                                    </div>
+                                    <div class="item d-flex justify-content-between">
+                                        <div class="keyword-span">
+                                            <th:block th:each="keyword : ${recruit.keywordList}">
+                                                <span th:text="${keyword.recruitKeyword}">
 
-                                    <div class="gap-2 d-flex">
-                                        <div>
-                                            <button type="button" class="btn-short" id="btn-stop"
-                                                th:onclick="'deleteRecruit(' + ${recruit.recruitNo} + ', event)'">
-                                                <strong>삭제</strong>
-                                            </button>
+                                                </span>
+                                            </th:block>
                                         </div>
 
 
-                                        <div class="d-flex justify-content-center m-1">
-                                            <strong style="color: #024FDF;">FINDER</strong>
+                                        <div class="gap-2 d-flex">
+                                            <div>
+                                                <button type="button" class="btn-short" id="btn-stop"
+                                                    th:onclick="'deleteRecruit(' + ${recruit.recruitNo} + ', event)'">
+                                                    <strong>삭제</strong>
+                                                </button>
+                                            </div>
+
+
+                                            <div class="d-flex justify-content-center m-1">
+                                                <strong style="color: #024FDF;">FINDER</strong>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
 
-                    </th:block>
+                        </th:block>
                     </div>
 
                     <!-- 페이지네이션 -->
@@ -206,11 +218,13 @@
                         <div class="pagination d-flex">
 
                             <!-- [ 처음 ] -->
-                            <a class="page-item page-first" th:href="|/recruit/posted_jobs_com?page=${page.first}|" ><i class="fa-solid fa-angles-left"></i></a>        
-                            
+                            <a class="page-item page-first" th:href="|/recruit/posted_jobs_com?page=${page.first}|"><i
+                                    class="fa-solid fa-angles-left"></i></a>
+
                             <!-- [ 이전 ] -->
                             <th:block th:if="${page.page != page.first}">
-                                <a class="page-item" th:href="|/recruit/posted_jobs_com?page=${page.prev}|" ><i class="fa-solid fa-angle-left"></i></a>
+                                <a class="page-item" th:href="|/recruit/posted_jobs_com?page=${page.prev}|"><i
+                                        class="fa-solid fa-angle-left"></i></a>
                             </th:block>
 
                             <!-- 페이지 번호 -->
@@ -232,11 +246,13 @@
 
                             <!-- [ 다음 ] -->
                             <th:block th:if="${page.page != page.last}">
-                                <a class="page-item" th:href="|/recruit/posted_jobs_com?page=${page.next}|" ><i class="fa-solid fa-angle-right"></i></a>
+                                <a class="page-item" th:href="|/recruit/posted_jobs_com?page=${page.next}|"><i
+                                        class="fa-solid fa-angle-right"></i></a>
                             </th:block>
-                            
+
                             <!-- [ 마지막 ] -->
-                            <a class="page-item page-end" th:href="|/recruit/posted_jobs_com?page=${page.last}|" ><i class="fa-solid fa-angles-right"></i></a>
+                            <a class="page-item page-end" th:href="|/recruit/posted_jobs_com?page=${page.last}|"><i
+                                    class="fa-solid fa-angles-right"></i></a>
 
                         </div>
                     </div>
@@ -255,7 +271,7 @@
 
 
         function deleteRecruit(recruitNo, event) {
-            
+
 
             // let data = {"userId"   : userId}
             event.stopPropagation(); // 이벤트 전파 중지
@@ -290,7 +306,7 @@
             }
         }
 
-     
+
 
     </script>
 </body>

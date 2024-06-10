@@ -93,4 +93,10 @@ public interface RecruitMapper {
     public Order selectOrdersByUserNo(int userNo);
 
     public List<RecruitPost> postsRecruitListKeyword(int comNo);
+
+    // 채용공고 등록 후 퀀티티 1감소
+    public int updateRemainQuantityByOrderNo(Order order);
+    // 채용공고 등록 후 퀀티티 0 일때 엑세스 0으로 감소
+    public int updateRemainQuantityAndAccessOrderByOrderNo(Order order);
+
 }

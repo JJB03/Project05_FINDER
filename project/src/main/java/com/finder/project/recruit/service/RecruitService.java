@@ -24,17 +24,19 @@ public interface RecruitService {
 
     // 채용공고 등록
     public int recruitPost(RecruitPost recruitPost) throws Exception;
-    
+
     public int recruitUpdate(RecruitPost recruitPost) throws Exception;
-    
+
     // 채용공고 상세조회
     public RecruitPost recruitRead(int recruitNo) throws Exception;
+
     // public List<Keyword> recruitReadKeyword(int recruitNo) throws Exception;
     public CompanyDetail selectCompanyDetailsWithRecruit(int comNo) throws Exception;
     // 채용공고 상세조회 끝
-    
+
     // 등록 한 채용공고 목록
     public List<RecruitPost> postsRecruitList(int comNo) throws Exception;
+
     // 등록 한 채용공고 목록 페이징용 [승헌]
     public List<RecruitPost> pagedPostsRecruitList(int comNo, Page page) throws Exception;
 
@@ -46,7 +48,6 @@ public interface RecruitService {
 
     // 등록 한 채용공고 키워드 삭제 후 수정
     public int updateRecruitRead(RecruitPost recruitPost) throws Exception;
-
 
     public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos);
 
@@ -74,11 +75,17 @@ public interface RecruitService {
     public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception;
 
     // userNo으로 현재 recruit에 user의 ae count
-    public int userNoToDistnctRecruitNo(@Param("userNo") int userNo, @Param("recruitNo") int recruitNo) throws Exception;
+    public int userNoToDistnctRecruitNo(@Param("userNo") int userNo, @Param("recruitNo") int recruitNo)
+            throws Exception;
 
     public Order selectOrdersByUserNo(int userNo);
 
     // 메인 검색
     public List<RecruitPost> postsRecruitListKeyword(int comNo);
 
+    // 채용공고 등록 후 퀀티티 1감소
+    public int updateRemainQuantityByOrderNo(Order order);
+
+    // 채용공고 등록 후 퀀티티 0 일때 엑세스 0으로 감소
+    public int updateRemainQuantityAndAccessOrderByOrderNo(Order order);
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Page;
@@ -96,7 +97,11 @@ public class RecruitController {
                 log.info("ae?? : " + aeCount);
                 model.addAttribute("aeCount", aeCount);
             }
-        } // 유저 회원 이어야 모델에 담음
+        } else {
+            
+        }
+
+        
 
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
         if (recruitPost == null) {
@@ -167,13 +172,32 @@ public class RecruitController {
     }
 
     @PostMapping("/post_jobs_com")
-    public String postPost_jobs_com(RecruitPost recruitPost) throws Exception {
+    public String postPost_jobs_com(RecruitPost recruitPost, HttpSession session) throws Exception {
 
         int result = recruitService.recruitPost(recruitPost);
 
         if (result > 0) {
             log.info(" insert 성공 ");
         }
+
+        Users user = (Users) session.getAttribute("user");
+        Order order = user.getOrder();
+        int remainQuantity = order.getRemainQuantity();
+        int accessOrder = order.getAccessOrder();
+        if (remainQuantity > 1) {
+            remainQuantity = remainQuantity - 1;
+            order.setRemainQuantity(remainQuantity);
+            recruitService.updateRemainQuantityByOrderNo(order);
+        }
+        
+        if (remainQuantity == 1) {
+            remainQuantity = remainQuantity - 1;
+            accessOrder = accessOrder - 1;
+            order.setRemainQuantity(remainQuantity);
+            order.setAccessOrder(accessOrder);
+            recruitService.updateRemainQuantityAndAccessOrderByOrderNo(order);
+        }
+
 
         return "redirect:/index";
     }
