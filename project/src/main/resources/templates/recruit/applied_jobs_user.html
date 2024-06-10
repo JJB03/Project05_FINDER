@@ -20,17 +20,36 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="text-align: center;">
+                    <!-- 불합격 -->
                     <strong>
-                        2024년 SQLD 개발자 자격증 53회
+                        서류전형  
                     </strong>
                     <br>
                     <br>
-                    유상준(SQLD 개발자)은<br>
-                    자격증 시험에 합격하셨습니다.<br>
-                    합격을 진심으로 축하드립니다.<br>
+                    서류 전형에서 불합격하셨음을 알려드립니다.<br>
+                    귀하의 지원에 감사드리며, <br>
+                    앞으로의 성공을 기원합니다.<br>
                     <br>
-                    뿌이뿌이ㅏ뿌.<br>
-                    감사합니다.<br>
+                    <strong>
+                        감사합니다.
+                    </strong>
+
+                    <!-- 합격 -->
+                    <!-- <strong>
+                        서류전형
+                    </strong>
+                    <br>
+                    <br>
+                    귀하께서 서류 전형을 통과하셨으며,<br>
+                    다음 전형 단계로 진행하시게 되었습니다.<br>
+                    다음 단계에 대한 자세한 안내는 곧 별도로 드리겠습니다.<br>
+                    다음 전형에서도 좋은 결과 있기를 기대합니다.<br>
+                    귀하의 지원에 감사드리며, <br>
+                    앞으로의 성공을 기원합니다.<br>
+                    <br>
+                    <strong>
+                        축하합니다!
+                    </strong> -->
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -137,15 +156,15 @@
                         <!-- <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-right: 20px;"> -->
                         <div class="d-flex justify-content-end align-items-center me-3 mb-2">
                             <!-- <select name="filter" id="filter" class="form-control"> -->
-                            <select name="filter" class="form-control w-auto mx-3"
+                            <!-- <select name="filter" class="form-control w-auto mx-3"
                                 style="color: #828282; padding: 3px 12px 3px 12px;">
                                 <option value="1">최근 날짜</option>
-                            </select>
-                            <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
+                            </select> -->
+                            <!-- <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
                                 placeholder="검색어를 입력해주세요">
                             <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
                                 찾기
-                            </button>
+                            </button> -->
                         </div>
                     </form>
 
@@ -187,8 +206,8 @@
 
                                     <div class="gap-2 d-flex">
                                         <div>
-                                            <button type="button" class="btn-short " id="btn-stop" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
+                                            <button type="button" class="btn-short " id="btn-stop"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 <strong>합격조회</strong>
                                             </button>
                                         </div>
@@ -212,12 +231,12 @@
 
 
     <script>
-        $(document).ready(function() {
-        $('#btn-stop').click(function(event) {
-            event.stopPropagation();  // 이벤트 전파 중지
-            event.preventDefault(); // 기본 동작 방지
+        $(document).ready(function () {
+            $('#btn-stop').click(function (event) {
+                event.stopPropagation(); // 이벤트 전파 중지
+                event.preventDefault(); // 기본 동작 방지
+            });
         });
-    });
     </script>
 </body>
 

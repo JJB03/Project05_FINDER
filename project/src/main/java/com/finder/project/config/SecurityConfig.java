@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.finder.project.security.LoginSuccessHandler;
+import com.finder.project.user.service.OAuthService;
 import com.finder.project.user.service.UserDetailServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class SecurityConfig {
 
     @Autowired
     private LoginSuccessHandler loginSuccessHandler;
+
+     @Autowired
+    private OAuthService oAuthService;
 
     // 스프링 시큐리티 설정 메소드
     // 인가 설정
@@ -66,9 +70,10 @@ public class SecurityConfig {
                 .authenticationSuccessHandler(loginSuccessHandler)
         );
         // 카카오톡 로그인
-        //   http.oauth2Login(login -> login
-        //   .loginPage("/login")
-        //   .successHandler(loginSuccessHandler));
+        http.oauth2Login(login -> login
+        .loginPage("/login")
+        .userInfoEndpoint()
+        .userService(oAuthService));
 
         return http.build();
     }

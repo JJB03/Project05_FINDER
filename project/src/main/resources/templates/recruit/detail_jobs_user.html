@@ -201,8 +201,7 @@
 
                                 <div class="row">
                                     <div class="d-flex flex-column row-gap-3 col-3">
-                                        <img src="/img/업력연차.png" alt="업력연차"
-                                            style="width: 8vw; padding: 26px 12px 10px;">
+                                        <img src="/img/연차1.png" alt="업력연차" style="width: 8vw; padding: 26px 12px 10px;">
                                         <div class="form-floating mb-3">
                                             <input type="text" readonly class="form-control-plaintext"
                                                 id="floatingPlaintextInput" placeholder=""
@@ -212,7 +211,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3">
-                                        <img src="/img/기업규모.png" alt="기업규모"
+                                        <img src="/img/대기업1.png" alt="기업규모"
                                             style="width: 8vw; padding: 26px 12px 10px;">
                                         <div class="form-floating mb-3">
                                             <input type="text" readonly class="form-control-plaintext"
@@ -222,7 +221,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3 ">
-                                        <img src="/img/사원수.png" alt="사원수" style="width: 8vw; padding: 26px 12px 10px;">
+                                        <img src="/img/사원수1.png" alt="사원수" style="width: 8vw; padding: 26px 12px 10px;">
                                         <div class="form-floating mb-3">
                                             <input type="text" readonly class="form-control-plaintext"
                                                 id="floatingPlaintextInput" placeholder=""
@@ -231,7 +230,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column row-gap-3 col-3 ">
-                                        <img src="/img/매출액.png" alt="매출액" style="width: 8vw; padding: 26px 12px 10px;">
+                                        <img src="/img/매출액1.png" alt="매출액" style="width: 8vw; padding: 26px 12px 10px;">
                                         <div class="form-floating mb-3">
                                             <input type="text" readonly class="form-control-plaintext"
                                                 id="floatingPlaintextInput" placeholder=""
@@ -306,11 +305,13 @@
                 <div class="d-flex flex-row flex-lg-column job_notice_detail a-wrapper"
                     style="position: sticky; top: 130px; right: 50px">
 
-                    <button type="button" class="detail-form w-100" id="ae-btn" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        style="background-color: #004ea0; font-weight: bold; border: transparent;">
-                        지원하기
-                    </button>
+                    <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+                        <button type="button" class="detail-form w-100" id="ae-btn" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            style="background-color: #004ea0; font-weight: bold; border: transparent;">
+                            지원하기
+                        </button>
+                    </th:block>
 
                     <a href="javascript:history.back()" class="detail-form w-100"
                         style="background-color: #fff; color: #000000E6; border: 1px solid #000; font-weight: bold; border: 1px solid #aaa;">뒤로가기</a>
@@ -324,7 +325,6 @@
         </div>
     </div>
     <script>
-
         function setCvNo(cvNo) {
             document.getElementById('focusedCvNo').value = cvNo;
         }
@@ -369,8 +369,7 @@
                         if (deletedRecruit) {
                             deletedRecruit.style.display = 'none';
                         }
-                    }
-                    else {
+                    } else {
                         alert('삭제가 불가능합니다!');
                     }
                 }
@@ -392,9 +391,6 @@
             textarea.style.height = 'auto'; // 기본 높이로 초기화
             textarea.style.height = textarea.scrollHeight + 'px'; // 실제 내용의 높이로 설정
         }
-
-
-
     </script>
 </body>
 
