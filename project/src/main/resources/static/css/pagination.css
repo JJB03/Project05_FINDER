@@ -4,7 +4,7 @@
 
 .pagination a,
 .pagination b {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 5px 20px;
     border-collapse: collapse;
     text-decoration: none;

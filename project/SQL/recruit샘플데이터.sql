@@ -1,4 +1,4 @@
--- Active: 1711633953173@@127.0.0.1@3306@joeun
+-- Active: 1716771298869@@127.0.0.1@3306@joeun
 SELECT c.*, r.*, rk.*
 FROM
     company c
@@ -849,3 +849,32 @@ ORDER BY
             company c ON r.com_no = c.com_no
         JOIN
             company_detail cd ON 5 = cd.com_no;
+
+
+            SELECT *
+    FROM `order` o
+    WHERE o.user_no = 2;
+
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    WHERE r.com_no = 3;
+    LIMIT 0,5;
+
+
+    SELECT c.*, r.*, f.file_no AS file_no, f.file_name, f.file_path, f.file_code, rk.recruit_keyword
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN (
+        SELECT rk.recruit_no, GROUP_CONCAT(rk.recruit_keyword SEPARATOR ', ') AS recruit_keyword
+        FROM recruit_keyword rk
+        GROUP BY rk.recruit_no
+    ) rk ON r.recruit_no = rk.recruit_no
+    LEFT JOIN (
+        SELECT *
+        FROM file
+        WHERE parent_table = 'recruit'
+          AND file_code = 1
+    ) f ON r.recruit_no = f.parent_no
+    WHERE c.com_no = 3;

@@ -14,7 +14,6 @@ import com.finder.project.company.dto.Product;
 import com.finder.project.company.mapper.CompanyMapper;
 import com.finder.project.company.mapper.CreditMapper;
 import com.finder.project.main.dto.Page;
-import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.user.dto.Users;
 

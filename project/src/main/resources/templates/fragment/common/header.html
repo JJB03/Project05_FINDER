@@ -20,6 +20,10 @@
                     <!-- <input type="hidden" name="expirationDate" id="expirationDate" th:value="${session.user.order.expirationDate}"> -->
                     <th:block th:if="${session.user.order != null}">
                         <input type="hidden" name="accessOrder" id="accessOrder" th:value="${session.user.order.accessOrder}">
+                        <input type="hidden" name="remainQuantity" id="remainQuantity" th:value="${session.user.order.remainQuantity}">
+                        <input type="hidden" name="expirationDate" id="expirationDate" th:value="${#dates.format(session.user.order.expirationDate, 'yyyy-MM-dd')}">
+                        <input type="hidden" name="currentDate" id="currentDate" th:value="${session.currentDate}">
+                        <input type="hidden" name="userNo" id="userNo" th:value="${session.user.userNo}">
                     </th:block>
 
                     <!-- 기업이면 기업정보/ 일반회원이면 내정보 -->
