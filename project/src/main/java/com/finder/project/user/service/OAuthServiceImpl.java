@@ -80,18 +80,18 @@ public class OAuthServiceImpl implements OAuthService {
 
 
         log.info("★★★★★ 주요 정보 ★★★★★");
-        log.info("****** registrationId : " + registrationId);
-        log.info("****** userNameAttributeName : " + userNameAttributeName);
-        log.info("****** attributes : " + attributes);
+        log.info("****** registrationId : " + registrationId);               // 사용자 아이디
+        log.info("****** userNameAttributeName : " + userNameAttributeName); // 사용자 이름 또는 아이디
+        log.info("****** attributes : " + attributes);                       // 이메일 주소 url 프로필 같은거
 
         // 2️⃣ OAuthAttribute 객체 생성
         OAuthAttributes oAuthAttributes =  OAuthAttributes.of(registrationId, userNameAttributeName, attributes);
         //  일원화된 정보 확인
         log.info("****** oAuthAttributes : " + oAuthAttributes);
         String nameAttributeKey = oAuthAttributes.getNameAttributeKey();
-        String name = oAuthAttributes.getName();
-        String email = oAuthAttributes.getEmail();
-        String picture = oAuthAttributes.getPicture();
+        String name = oAuthAttributes.getUserName();
+        String email = oAuthAttributes.getUserEmail();
+        // String picture = oAuthAttributes.getPicture();
         String id = oAuthAttributes.getId();
         String provider = "";
         name = name == null ? "" : name;
@@ -100,7 +100,7 @@ public class OAuthServiceImpl implements OAuthService {
         log.info("****** nameAttributeKey : " + nameAttributeKey);
         log.info("****** name : " + name);
         log.info("****** email : " + email);
-        log.info("****** picture : " + picture);
+        // log.info("****** picture : " + picture);
         log.info("****** id : " + id);
 
         if( "kakao".equals(registrationId) ) provider = "kakao";
@@ -195,12 +195,13 @@ public class OAuthServiceImpl implements OAuthService {
         if( joinedUser == null ) {
             Users user = new Users();
             // user.setUserName(username);
-            user.setUserName(oAuthAttributes.getName());
-            user.setUserEmail(oAuthAttributes.getEmail());
+            user.setUserName(oAuthAttributes.getUserName());
+            user.setUserEmail(oAuthAttributes.getUserEmail());
             // user.setProfile(oAuthAttributes.getPicture());
             // user.setPassword(UUID.randomUUID().toString());
+
             // 1️⃣ user 정보 등록
-            result = userMapper.join(user);
+            result = userMapper.join(user); // 카카오톡에서 불러오는거는 Email이랑 name인데 어케 그걸로 회원가입함?
             // 2️⃣ user_auth 권한 등록
             UserAuth userAuth = new UserAuth();
             userAuth.setAuth("ROLE_USER");
@@ -213,9 +214,9 @@ public class OAuthServiceImpl implements OAuthService {
             newUserSocial.setProvider(userSocial.getProvider());
             newUserSocial.setSocialId(userSocial.getSocialId());
             newUserSocial.setUsername(username);
-            newUserSocial.setName(oAuthAttributes.getName());
-            newUserSocial.setEmail(oAuthAttributes.getEmail());
-            newUserSocial.setPicture(oAuthAttributes.getPicture());
+            newUserSocial.setName(oAuthAttributes.getUserName());
+            newUserSocial.setEmail(oAuthAttributes.getUserEmail());
+            // newUserSocial.setPicture(oAuthAttributes.getPicture());
             result += userMapper.insertSocial(newUserSocial);
         }
         return result;
@@ -232,9 +233,9 @@ public class OAuthServiceImpl implements OAuthService {
         String email = userSocial.getEmail();
         String picture = userSocial.getPicture();
 
-        if( !name.equals(oAuthAttributes.getName()) )   name = oAuthAttributes.getName();
-        if( !email.equals(oAuthAttributes.getEmail()) )   email = oAuthAttributes.getEmail();
-        if( !picture.equals(oAuthAttributes.getPicture()) )   picture = oAuthAttributes.getPicture();
+        if( !name.equals(oAuthAttributes.getUserName()) )   name = oAuthAttributes.getUserName();
+        if( !email.equals(oAuthAttributes.getUserEmail()) )   email = oAuthAttributes.getUserEmail();
+        // if( !picture.equals(oAuthAttributes.getPicture()) )   picture = oAuthAttributes.getPicture();
 
         userSocial.setName(name);
         userSocial.setEmail(email);

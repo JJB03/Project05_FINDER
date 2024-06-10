@@ -233,7 +233,6 @@
       ,u.user_pw
       ,u.user_name
       ,u.user_email
-      -- ,u.profile -- 이 컬럼은 테이블에 존재하지 않음
       ,u.ENABLED
       ,u.user_reg_date
       ,u.user_upd_date
