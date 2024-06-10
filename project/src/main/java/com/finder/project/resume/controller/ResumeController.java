@@ -242,6 +242,8 @@ public class ResumeController {
 
         resume.setCvNo(resumeService.maxPk());
 
+        log.info("resume의 정보" + resume);
+
         int cvNo = resume.getCvNo();
 
         // 사용자의 이력서 정보를 업데이트
