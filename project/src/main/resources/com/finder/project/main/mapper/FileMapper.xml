@@ -37,12 +37,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           AND file_code = 1
     </select>
 
+    <select id="listByCVParentThumbnail" resultType="Files">
+        SELECT *
+        FROM file
+        WHERE parent_table = #{parentTable}
+        AND parent_no = #{cvNo}
+        AND file_code = 1
+    </select>
+
     <!-- 파일 조회 -->
     <select id="select" resultType="Files">
         SELECT *
         FROM file
         WHERE file_no = #{fileNo}
     </select>
+
+    <select id="selectByCvNo" resultType="Files">
+        SELECT *
+        FROM file
+        WHERE cv_no = #{cvNo}
+    </select>
+
 
     <!-- 파일 등록 -->
     <insert id="insert">

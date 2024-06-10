@@ -203,7 +203,7 @@ public class ResumeController {
      */
     @GetMapping("/cv_read_user")
     public String cvReadUser(HttpSession session, Model model,
-            @RequestParam("cvNo") int cvNo) throws Exception {
+            @RequestParam("cvNo") int cvNo, Files file) throws Exception {
         // 세션으로 가져온 User 객체의 user_no을 참조해서 service에 넣기
         Users user = (Users) session.getAttribute("user");
 
@@ -217,13 +217,19 @@ public class ResumeController {
         Education education = educationService.select(cvNo);
         EmploymentHistory employmentHistory = employmentHistoryService.select(cvNo);
 
-        if (resume != null) {
+        file.setParentNo(cvNo);
+        file.setParentTable("resume");
 
+        Files Thumbnail = fileService.listByCVParentThumbnail(file);
+
+        if (resume != null) {
+            
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
             model.addAttribute("resume", resume);
             model.addAttribute("user", user);
             model.addAttribute("education", education);
             model.addAttribute("employmentHistory", employmentHistory);
+            model.addAttribute("Thumbnail", Thumbnail);
             log.info("이력서 번호는 : " + cvNo + "번으로 이동했어요");
             // 이력서 정보가 담긴 화면으로 이동
             return "/resume/cv_read_user";
@@ -289,7 +295,7 @@ public class ResumeController {
             e.printStackTrace();
             System.err.println("경력 등록시, 에러 발생");
         }
-        return new ResponseEntity<>("FAIL", HttpStatus.OK); // 왜 에러나지
+        return new ResponseEntity<>("FAIL", HttpStatus.OK); 
     }
 
     // html list 만든 후 list - get 도 만들기
@@ -347,13 +353,14 @@ public class ResumeController {
         return "/resume/education/list";
     }
 
+    
         public ResumeController(ResumeService resumeService, FileService fileService) {
         this.resumeService = resumeService;
         this.fileService = fileService;
     }
 
 
-    //문서/이미지 파일 업데이트
+    // 이미지 파일 업데이트
     @ResponseBody
     @PostMapping("/cv_FileUpdate_user")
     // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
@@ -362,20 +369,29 @@ public class ResumeController {
         log.info(resume.toString());
 
         Files file = new Files();
+        
         file.setParentNo(resume.getCvNo());
+        // file = fileService.listByCVParentThumbnail(file);
+
+        // if (file != null) {
+        //     fileService.delete(file.getFileNo());
+        // }
+
         file.setParentTable("resume");
         file.setFile(resume.getThumbnail());
         file.setFileCode(1);
         // fileService.upload(file);
+
         int fileNo = resumeService.resumeProfileUpload(file);
+
         return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
 
-      //이미지 파일 업데이트
+      // 문서 파일 업데이트
       @ResponseBody
       @PostMapping("/cv_FileUpdate2_user")
       // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
-      public ResponseEntity<Integer> uploadFile(Resume resume) throws Exception {
+      public ResponseEntity<String> uploadFile(Resume resume) throws Exception {
           log.info("::::::::::::::::::::: resume22222222222222 :::::::::::::::::::::");
           log.info(resume.toString());
   
@@ -386,7 +402,7 @@ public class ResumeController {
           file.setFileCode(0);
           // fileService.upload(file);
           int fileNo = resumeService.resumeProfileUpload(file);
-          return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
+          return new ResponseEntity<String>(file.getFileName(), HttpStatus.OK);
       }
     
     
