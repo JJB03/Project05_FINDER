@@ -12,7 +12,7 @@
 
 <body layout:fragment="content">
     <div class="container-fluid container">
-        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px;">
+        <div style="display: flex; flex-direction: column; margin-left: 100px; margin-bottom: 50px; margin-top: 30px;">
             <strong style="font-size: 45px; margin-bottom: 15px;">채용공고 관리</strong>
             <strong style="font-size: 19px;">혁신과 열정을 바탕으로, 미래를 창조하는 기업.</strong>
         </div>
@@ -42,13 +42,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/company/info_update_com" class="job-item-link nav-link fw-normal fs-6">
+                        <a href="/user/update_user" class="job-item-link nav-link fw-normal fs-6">
                             <div style="background-color: #fff; border-radius: 8px;" class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Registration.png" alt="x">
                                 </div>
                                 <div>
-                                    기업 정보 수정
+                                    담당자 정보 수정
                                 </div>
                             </div>
                         </a>
@@ -261,7 +261,7 @@
                     if (inputValue.trim() !== '') { // Check if the input is not empty
                         var newSpanElement = $('<input>', {
                             type: 'text',
-                            class: 'input-keyword',
+                            class: 'form-control input-keyword',
                             readonly: true,
                             style: '',
                             id: 'keywordForm',

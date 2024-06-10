@@ -11,100 +11,115 @@
 <body layout:fragment="content">
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <form action="/recruit/detail_jobs_user/submitCv" method="post" class="modal-content"
-                onsubmit="return validateForm();">
-                <input type="hidden" id="focusedCvNo" name="focusedCvNo" value="">
-                <input type="hidden" id="recruitNo" name="recruitNo" th:value="${recruitPost.recruitNo}">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">이력서 선택</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <th:block th:if="${aeCount} != 0">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-center">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">이미 지원 한 채용공고입니다.</h1>
+                    </div>
                 </div>
-                <div class="modal-body" style="text-align: center;">
-                    <strong th:text="${recruitPost.recruitTitle}">
-
-                    </strong>
-                    <br>
-                    <th:block th:if="${resumeList == null || resumeList.isEmpty()}">
-                        <div>
-                            <span>조회된 이력서 정보가 없습니다.</span>
-                        </div>
-                    </th:block>
-
-                    <th:block th:each="resume : ${resumeList}">
-                        <a href="#" class="job-item-link modal-list" th:id="'cv_' + ${resume.cvNo}"
-                            th:onclick="|setCvNo('${resume.cvNo}')|">
-                            <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-
-                            <div class="job-item d-flex flex-column" tabindex="0">
-                                <div style="width: 38px; height: 15px;">
-                                    <!-- new 자리 -->
-                                </div>
-
-                                <div class="item d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <!--데이터 불러오기-->
-                                        <span class="mb-3" th:text="${resume.cvTitle}"
-                                            style="font-size: 19px; font-weight: bold;">
-                                        </span>
-                                    </div>
-                                </div>
-                                <div style="font-size: 16px;" class="row">
-                                    <div class="d-flex">
-                                        <div style="width: 100%;" class="d-flex">
-                                            <!-- 나이 -->
-                                            <span th:text="${user.userBirth}">
-                                            </span>
-                                            <span>/</span>
-
-                                            <!-- 성별 -->
-                                            <span th:text="${user.userGender}">
-                                            </span>
-                                            <span>/</span>
-
-                                            <!-- 이름 -->
-                                            <span th:text="${user.userName}">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item d-flex justify-content-between">
-                                    <div class="keyword-span">
-                                        <th:block th:each="keyword : ${recruitPost.keywordList}">
-                                            <span th:text="${keyword.recruitKeyword}">
-
-                                            </span>
-                                        </th:block>
-                                    </div>
-                                    <div class="gap-2 d-flex">
-                                        <div>
-                                            <button type="button" class="btn-short"
-                                                th:onclick="|deleteCv(${resume.cvNo}, event)|">
-                                                <strong>삭제</strong>
-                                            </button>
-                                        </div>
-
-                                        <div class="d-flex justify-content-center m-1">
-                                            <strong style="color: #024FDF;">FINDER</strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </th:block>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn-short"><strong>제출</strong></button>
-                </div>
-
-            </form>
+            </div>
         </div>
-    </div>
+    </th:block>
+
+    <th:block th:if="${aeCount} == 0">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <form action="/recruit/detail_jobs_user/submitCv" method="post" class="modal-content"
+                    onsubmit="return validateForm();">
+                    <input type="hidden" id="focusedCvNo" name="focusedCvNo" value="">
+                    <input type="hidden" id="aeCount" name="aeCount" value="${aeCount}">
+                    <input type="hidden" id="recruitNo" name="recruitNo" th:value="${recruitPost.recruitNo}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">이력서 선택</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <strong th:text="${recruitPost.recruitTitle}">
+
+                        </strong>
+                        <br>
+                        <th:block th:if="${resumeList == null || resumeList.isEmpty()}">
+                            <div>
+                                <span>조회된 이력서 정보가 없습니다.</span>
+                            </div>
+                        </th:block>
+
+                        <th:block th:each="resume : ${resumeList}">
+                            <a href="#" class="job-item-link modal-list" th:id="'cv_' + ${resume.cvNo}"
+                                th:onclick="|setCvNo('${resume.cvNo}')|">
+                                <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                                <div class="job-item d-flex flex-column" tabindex="0">
+                                    <div style="width: 38px; height: 15px;">
+                                        <!-- new 자리 -->
+                                    </div>
+
+                                    <div class="item d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <!--데이터 불러오기-->
+                                            <span class="mb-3" th:text="${resume.cvTitle}"
+                                                style="font-size: 19px; font-weight: bold;">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 16px;" class="row">
+                                        <div class="d-flex">
+                                            <div style="width: 100%;" class="d-flex">
+                                                <!-- 나이 -->
+                                                <span th:text="${user.userBirth}">
+                                                </span>
+                                                <span>/</span>
+
+                                                <!-- 성별 -->
+                                                <span th:text="${user.userGender}">
+                                                </span>
+                                                <span>/</span>
+
+                                                <!-- 이름 -->
+                                                <span th:text="${user.userName}">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item d-flex justify-content-between">
+                                        <div class="keyword-span">
+                                            <th:block th:each="keyword : ${recruitPost.keywordList}">
+                                                <span th:text="${keyword.recruitKeyword}">
+
+                                                </span>
+                                            </th:block>
+                                        </div>
+                                        <div class="gap-2 d-flex">
+                                            <div>
+                                                <button type="button" class="btn-short"
+                                                    th:onclick="|deleteCv(${resume.cvNo}, event)|">
+                                                    <strong>삭제</strong>
+                                                </button>
+                                            </div>
+
+                                            <div class="d-flex justify-content-center m-1">
+                                                <strong style="color: #024FDF;">FINDER</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </th:block>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-short"><strong>제출</strong></button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </th:block>
 
     <div class="w-100 d-flex justify-content-center">
         <!-- <div class="container-fluid container d-flex justify-content-between " style="height: auto"> -->
@@ -167,98 +182,106 @@
                         </th:block>
                     </div>
 
-                    <div class="d-flex justify-content-start">
-                        <div class="company-introduce d-flex flex-column w-75">
-                            <input type="hidden" name="comNo" th:value="${companyDetail.company.comNo}">
+                    <th:block th:if="${companyDetail != null}">
+                        <div class="d-flex justify-content-start">
+                            <div class="company-introduce d-flex flex-column w-75">
+                                <input type="hidden" name="comNo" th:value="${companyDetail.company.comNo}">
 
-                            <div class="row">
-                                <div class="d-flex flex-column row-gap-3 col-3">
-                                    <img src="/img/업력연차.png" alt="업력연차" style="width: 8vw; padding: 26px 12px 10px;" >
-                                    <div class="form-floating mb-3">
-                                        <input type="text" readonly class="form-control-plaintext"
-                                            id="floatingPlaintextInput" placeholder=""
-                                            th:value="${companyDetail.comBirth} + 년">
-                                        <label for="floatingPlaintextInput" style="text-align: center;">업력 연차</label>
+                                <div class="row">
+                                    <div class="d-flex flex-column row-gap-3 col-3">
+                                        <img src="/img/업력연차.png" alt="업력연차"
+                                            style="width: 8vw; padding: 26px 12px 10px;">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" readonly class="form-control-plaintext"
+                                                id="floatingPlaintextInput" placeholder=""
+                                                th:value="${companyDetail.comBirth} + 년">
+                                            <label for="floatingPlaintextInput" style="text-align: center;">업력
+                                                연차</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column row-gap-3 col-3">
+                                        <img src="/img/기업규모.png" alt="기업규모"
+                                            style="width: 8vw; padding: 26px 12px 10px;">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" readonly class="form-control-plaintext"
+                                                id="floatingPlaintextInput" placeholder=""
+                                                th:value="${companyDetail.comSize}">
+                                            <label for="floatingPlaintextInput">기업 규모</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column row-gap-3 col-3 ">
+                                        <img src="/img/사원수.png" alt="사원수" style="width: 8vw; padding: 26px 12px 10px;">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" readonly class="form-control-plaintext"
+                                                id="floatingPlaintextInput" placeholder=""
+                                                th:value="${companyDetail.comEmpCount} + 명">
+                                            <label for="floatingPlaintextInput">사원 수</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column row-gap-3 col-3 ">
+                                        <img src="/img/매출액.png" alt="매출액" style="width: 8vw; padding: 26px 12px 10px;">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" readonly class="form-control-plaintext"
+                                                id="floatingPlaintextInput" placeholder=""
+                                                th:value="${companyDetail.comSales} + 억">
+                                            <label for="floatingPlaintextInput">매출액</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-column row-gap-3 col-3">
-                                    <img src="/img/기업규모.png" alt="기업규모" style="width: 8vw; padding: 26px 12px 10px;">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" readonly class="form-control-plaintext"
-                                            id="floatingPlaintextInput" placeholder=""
-                                            th:value="${companyDetail.comSize} + 기업">
-                                        <label for="floatingPlaintextInput">기업 규모</label>
+                                <div class="d-flex justify-content-between introduce-col2 mb-3"
+                                    style="column-gap: 25px;">
+                                    <div class="d-flex w-100">
+                                        <div class="col-3">
+                                            <label for="" style="font-weight: bold;">회사이름</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <span th:text="${companyDetail.company.comName}"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="d-flex flex-column row-gap-3 col-3 ">
-                                    <img src="/img/사원수.png" alt="사원수" style="width: 8vw; padding: 26px 12px 10px;">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" readonly class="form-control-plaintext"
-                                            id="floatingPlaintextInput" placeholder=""
-                                            th:value="${companyDetail.comEmpCount} + 명">
-                                        <label for="floatingPlaintextInput">사원 수</label>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-column row-gap-3 col-3 ">
-                                    <img src="/img/매출액.png" alt="매출액" style="width: 8vw; padding: 26px 12px 10px;">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" readonly class="form-control-plaintext"
-                                            id="floatingPlaintextInput" placeholder=""
-                                            th:value="${companyDetail.comSales} + 억">
-                                        <label for="floatingPlaintextInput">매출액</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between introduce-col2 mb-3" style="column-gap: 25px;">
-                                <div class="d-flex w-100">
-                                    <div class="col-3">
-                                        <label for="" style="font-weight: bold;">회사이름</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <span th:text="${companyDetail.company.comName}"></span>
-                                    </div>
-                                </div>
 
-                                <div class="d-flex w-100">
-                                    <div class="col-3">
-                                        <label for="com_represent" style="font-weight: bold;">대표명</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <span th:text="${companyDetail.comRepresent}"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between introduce-col2 mb-3" style="column-gap: 25px;">
-                                <div class="d-flex w-100">
-                                    <div class="col-3">
-                                        <label for="com_category" style="font-weight: bold;">업종</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <span th:text="${companyDetail.company.comBusiness}"></span>
+                                    <div class="d-flex w-100">
+                                        <div class="col-3">
+                                            <label for="com_represent" style="font-weight: bold;">대표명</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <span th:text="${companyDetail.comRepresent}"></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="d-flex w-100">
-                                    <div class="col-3">
-                                        <label for="com_address" style="font-weight: bold;">주소</label>
+                                <div class="d-flex justify-content-between introduce-col2 mb-3"
+                                    style="column-gap: 25px;">
+                                    <div class="d-flex w-100">
+                                        <div class="col-3">
+                                            <label for="com_category" style="font-weight: bold;">업종</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <span th:text="${companyDetail.company.comBusiness}"></span>
+                                        </div>
                                     </div>
-                                    <div class="col-9">
-                                        <span th:text="${companyDetail.company.comAddress}"></span>
+                                    <div class="d-flex w-100">
+                                        <div class="col-3">
+                                            <label for="com_address" style="font-weight: bold;">주소</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <span th:text="${companyDetail.company.comAddress}"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="w-100 introduce-col4">
-                                <div class="form-floating mb-3">
-                                    <textarea readonly class="form-control-plaintext textarea-comContent"
-                                        id="floatingPlaintextInput" placeholder="name@example.com"
-                                        th:text="${companyDetail.comContent}"
-                                        style="overflow-y: hidden;  resize: none; color: #475067;"></textarea>
-                                    <label for="floatingPlaintextInput">기술 소개</label>
-                                </div>
+                                <div class="w-100 introduce-col4">
+                                    <div class="form-floating mb-3">
+                                        <textarea readonly class="form-control-plaintext textarea-comContent"
+                                            id="floatingPlaintextInput" placeholder="name@example.com"
+                                            th:text="${companyDetail.comContent}"
+                                            style="overflow-y: hidden;  resize: none; color: #475067;"></textarea>
+                                        <label for="floatingPlaintextInput">기술 소개</label>
+                                    </div>
 
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </th:block>
+
                 </div>
 
 
@@ -271,7 +294,7 @@
                 <div class="d-flex flex-row flex-lg-column job_notice_detail a-wrapper"
                     style="position: sticky; top: 130px; right: 50px">
 
-                    <button type="button" class="detail-form w-100" data-bs-toggle="modal"
+                    <button type="button" class="detail-form w-100" id="ae-btn" data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
                         style="background-color: #004ea0; font-weight: bold; border: transparent;">
                         지원하기
@@ -300,8 +323,10 @@
             if (!focusedCvNo) {
                 alert('이력서를 선택해주세요.');
                 return false; // 얼럿 창을 표시한 후 폼 제출을 막음
+            } else {
+                return true; // 이력서 선택된 경우에만 폼 제출 허용
             }
-            return true; // 이력서 선택된 경우에만 폼 제출 허용
+
         }
 
         function deleteCv(cvNo, event) {
@@ -355,6 +380,9 @@
             textarea.style.height = 'auto'; // 기본 높이로 초기화
             textarea.style.height = textarea.scrollHeight + 'px'; // 실제 내용의 높이로 설정
         }
+
+
+
     </script>
 </body>
 

@@ -2,8 +2,10 @@ package com.finder.project.company.controller;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +29,10 @@ import com.finder.project.company.dto.PasswordConfirmRequest;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.main.dto.Page;
+import com.finder.project.recruit.dto.RecruitPost;
+import com.finder.project.recruit.service.RecruitService;
+import com.finder.project.resume.dto.Resume;
+import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +49,12 @@ public class CompanyController {
 
     @Autowired
     PasswordEncoder passwordEncoder; 
+
+    @Autowired
+    RecruitService recruitService;
+
+    @Autowired
+    ResumeService resumeService;
 
     // main_com 화면 (기업 메인 메뉴선정화면)
     @GetMapping("/main_com")
@@ -299,6 +311,7 @@ public class CompanyController {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, product.getProductDuration());
         order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+        order.setRemainQuantity(order.getTotalQuantity());
 
         int result = companyService.updateOrder(order); // 주문 갱신
 
@@ -354,6 +367,7 @@ public class CompanyController {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, product.getProductDuration());
         order.setExpirationDate(calendar.getTime()); // 만료일 개월수만큼 더해서 나오게끔해야됨
+        order.setAccessOrder(1);
 
         // order_no를 반환하는 insertOrder 메서드 호출
         int orderNo = companyService.insertOrder(order);
@@ -361,6 +375,10 @@ public class CompanyController {
 
         Map<String, Object> response = new HashMap<>();
         if (orderNo > 0) {
+            // 주문이 성공적으로 추가된 경우, 세션에 새로운 주문 정보 갱신
+            user.setOrder(order);
+            session.setAttribute("user", user);
+            
             response.put("success", true);
             response.put("orderNo", orderNo);
         } else {
@@ -417,31 +435,94 @@ public class CompanyController {
 
 
 
-
-
-
-
-
-    // // 등록된 채용공고 화면
-    // @GetMapping("/recruit_list_com")
-    // public String recruit_list_com(Model model , HttpSession session) throws Exception {
-    //     Users user = (Users) session.getAttribute("user");
+    
+    // 기업상세정보페이지 [유저]
+    // 채용공고 상세 페이지 ----
+    @GetMapping("/com_detail_user")
+    public String getMethodName(@RequestParam("comNo") Integer comNo, Model model,
+            HttpSession session) throws Exception {
         
-    //     if (user == null) {
-    //         // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
-    //         return "redirect:/login";
-    //     }
-    //     int userNo = user.getUserNo();
+        Users user = (Users) session.getAttribute("user");
         
-        
+        // log.info("@@@@@@@@@@@@@" + comNo);
+        // RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
+        // if (recruitPost == null) {
+            // log.error("RecruitPost 객체가 null입니다. : ", recruitPost);
+        // } else {
+            // log.info("RecruitPost 정보: {}", recruitPost);
+        // }
 
-    //     return "/company/recruit_list_com";
-    // }
+        // int comNo = recruitPost.getCompany().getComNo();
+        CompanyDetail companyDetail = recruitService.selectCompanyDetailsWithRecruit(comNo);
 
-    // AI 평가 화면
+        // log.info("companyDetail", companyDetail);
+        model.addAttribute("companyDetail", companyDetail);
+        // model.addAttribute("recruitPost", recruitPost);
+
+        return "/company/com_detail_user";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // AI 평가 화면 ///--------------------------------------------------------------------------------------------------------------
     @GetMapping("/score_com")
-    public String score_com() throws Exception {
+    public String score_com(Model model, HttpSession session, Page page) throws Exception {
+         Users user = (Users) session.getAttribute("user");
+
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+        int comNo = user.getCompany().getComNo();
+        // log.info(comNo + "comNO???????@@!@#!@#@!#?!@#?!@?#?!#"); 찍힘 
+
+        List<Resume> applyCvList = recruitService.applyCom(comNo, page);
+
+        for (Resume resume : applyCvList) {
+            log.info("gdgdgddgg" + resume.getCoverLetter());
+            // log.info("??????!@#!@#!@#@!" + resume);
+        }
+
+        model.addAttribute("resumeList", applyCvList);
+        model.addAttribute("page", page);
+
+
+
         return "/company/score_com";
     }
     
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

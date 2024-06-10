@@ -21,6 +21,8 @@ public class Order {
     private Timestamp createdDate;
     private Timestamp updatedDate;
     private Date expirationDate;
+    private int remainQuantity;
+    private int accessOrder;   // 주문 접근 1이면 접근 불가, 0이면 접근 가능 remainQuantity 가 0이면 0으로 바꿔준다.
     
     private Users user;
 

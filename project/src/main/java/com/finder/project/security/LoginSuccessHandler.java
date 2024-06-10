@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
+import com.finder.project.company.dto.Order;
 import com.finder.project.company.service.CompanyService;
+import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.user.dto.CustomUser;
 import com.finder.project.user.dto.Users;
 
@@ -31,6 +33,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     @Autowired
     private CompanyService companyService;
     
+    @Autowired
+    private RecruitService recruitService;
+    
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request
                                       , HttpServletResponse response
@@ -40,9 +45,17 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         // 아이디 저장
         String rememberId = request.getParameter("remember-id");    // 아이디 저장 여부
-        String username = request.getParameter("id");               // 아이디
-        log.info("rememberId : " + rememberId);
-        log.info("id : " + username);
+        String rememberMe = request.getParameter("remember-me");    // 자동로그인 여부
+        String username = request.getParameter("userId");               // 아이디
+        log.info("아이디 저장 : " + rememberId);
+        log.info("아이디 저장 : " + rememberMe);
+        log.info("저장할 아이디 : " + username);
+
+        if (rememberMe != null && rememberMe.equals("on")) {
+            // Users user = (Users) authentication.getPrincipal();
+            // int userNo = user.getUserNo();
+            
+        }
 
         // ✅ 아이디 저장 체크
         if( rememberId != null && rememberId.equals("on")) {
@@ -70,6 +83,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if( company != null ) {
             int comNo = company.getComNo();
             CompanyDetail companyDetail = companyService.selectCompanyDetailByComNo(comNo);
+            Order order =  recruitService.selectOrdersByUserNo(user.getUserNo());
+
+            user.setOrder(order);
             user.setCompany(company);
             user.setCompanyDetail(companyDetail);
         }

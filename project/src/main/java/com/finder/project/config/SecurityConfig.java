@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityConfig {
 
     @Autowired
-    private DataSource dataSource;
+    private DataSource dataSource;  // application.properties 에서 우리가 지정한 db를 가져옴
 
     @Autowired
     private UserDetailServiceImpl userDetailServiceImpl;
@@ -32,15 +32,18 @@ public class SecurityConfig {
     private LoginSuccessHandler loginSuccessHandler;
 
     // 스프링 시큐리티 설정 메소드
+    // 인가 설정
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         // ✅ 인가 설정
         http.authorizeRequests(requests -> requests
-                                            .antMatchers("/**").permitAll()
+                                            .antMatchers("/**").permitAll()  
                                             .antMatchers("/recruit/posted_jobs_com/**").hasRole("COMPANY")
                                             .anyRequest().permitAll()
                                             );
+                                            // 모든 사용자 접근 가능 .permitAll()
+                                            // 지정한 권한만 접근 가능.hasRole("권한")  
 
         // 🔐 폼 로그인 설정
         // ✅ 커스텀 로그인 페이지
@@ -56,9 +59,16 @@ public class SecurityConfig {
         http.userDetailsService(userDetailServiceImpl);
 
         // 🔄 자동 로그인 설정
-        http.rememberMe(me -> me.key("aloha")
-                                .tokenRepository(tokenRepository())
-                                .tokenValiditySeconds(60 * 60 * 24 * 7));
+        http.rememberMe(me -> me
+                .key("aloha")
+                .tokenRepository(tokenRepository())
+                .tokenValiditySeconds(60 * 60 * 24 * 7)
+                .authenticationSuccessHandler(loginSuccessHandler)
+        );
+        // 카카오톡 로그인
+        //   http.oauth2Login(login -> login
+        //   .loginPage("/login")
+        //   .successHandler(loginSuccessHandler));
 
         return http.build();
     }

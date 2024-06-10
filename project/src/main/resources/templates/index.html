@@ -9,6 +9,11 @@
 </head>
 
 <body layout:fragment="content">
+  <th:block>
+    <input type="hidden" name="recruit-page-row" id="recruit-page-row" th:value="${page.rows}">
+    <input type="hidden" name="recruit-page-row" id="recruit-page" th:value="${page.page}">
+  </th:block>
+
   <div class="container main-content">
     <div class="col-1 w-100 d-flex job-index-header" style="padding: 0 35px 0 35px;">
       <div class="w-25">
@@ -41,11 +46,7 @@
     <hr style="margin-bottom: 65px;">
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4" id="recruit-list">
-      <th:block th:if="${recruitList.isEmpty()}">
-        <div>
-          <span>조회된 채용공고 정보가 없습니다.</span>
-        </div>
-      </th:block>
+
 
       <!-- <th:block th:each="recruit : ${recruitList}">
         <div class="col" th:attr="data-recruit-id=${recruit.recruitNo}">
@@ -88,7 +89,12 @@
   </div>
 
   <script th:inline="javascript">
+    let currentPage = 1;
+    let rowsPerPage = 12;
     document.addEventListener('DOMContentLoaded', function () {
+
+
+
       const input = document.getElementById('customDropdownMenuInput');
       const dropdown = document.getElementById('customDropdownMenu');
 
@@ -113,31 +119,6 @@
               dropdown.classList.add('show');
               initKeywordEvent()
             })
-            // .then(response => response.json())
-            // .then(filteredItems => {
-            //   filteredItems.forEach(item => {
-            //     console.log('item : ' + item);
-            //     console.dir(item);
-            //     const div = document.createElement('div');
-            //     div.classList.add('custom-dropdown-item');
-            //     const anchor = document.createElement('a');
-            //     anchor.textContent = item.comName;
-            //     anchor.href = '#';
-            //     anchor.addEventListener('click', function (event) {
-            //       event.preventDefault();
-            //       input.value = item;
-            //       dropdown.classList.remove('show');
-            //       window.location.href = `/your-redirect-url?item=${encodeURIComponent(item)}`;
-            //     });
-            //     div.appendChild(anchor);
-            //     dropdown.appendChild(div);
-            //   });
-            //   if (filteredItems.length > 0) {
-            //     dropdown.classList.add('show');
-            //   } else {
-            //     dropdown.classList.remove('show');
-            //   }
-            // })
             .catch(error => {
               console.error('Error fetching data:', error);
             });
@@ -156,33 +137,37 @@
         e.preventDefault();
       });
 
-      let currentPage = 1;
-      const rowsPerPage = 12;
+      // let currentPage = 1;
+      // const rowsPerPage = 12;
       // let option = /*[[${option.code}]]*/ '0';  // 기본값 설정
       // let keyword = /*[[${option.keyword}]]*/ '';  // 기본값 설정
-
-
 
       function cardList() {
 
         const keywordElement = document.getElementById('customDropdownMenuInput');
         const optionElement = document.getElementById('floatingSelectGrid');
-
+        // const rowsPerPageRowElement = document.getElementById('recruit-page-row');
+        // const rowsPerPageElement = document.getElementById('recruit-page');
 
         if (!keywordElement || !optionElement) {
           console.error('HTML elements not found');
           return;
         }
 
-        const keyword = keywordElement.value;
-        const option = optionElement.value;
+        let keyword = keywordElement.value;
+        let option = optionElement.value;
+        // let rowsPerPage = rowsPerPageRowElement.value;
+        // let currentPage = rowsPerPageElement.value;
 
         console.log('Keyword:', keyword); // 디버깅을 위해 콘솔에 출력
         console.log('Option:', option); // 디버깅을 위해 콘솔에 출력
+        console.log('pageRow:', rowsPerPage); // 디버깅을 위해 콘솔에 출력
+        console.log('page:', currentPage); // 디버깅을 위해 콘솔에 출력
 
         fetch(`/cardList?page=${currentPage}&rows=${rowsPerPage}&code=${option}&keyword=${keyword}`)
           .then(response => response.text())
           .then(data => {
+            // console.log(data)
             if (data.trim() === "") {
               window.removeEventListener('scroll', handleScroll);
               return;
@@ -252,7 +237,7 @@
       // }
 
       function handleScroll() {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 15) {
           // loadMoreRecruits();
           cardList();
         }
@@ -261,25 +246,41 @@
       window.addEventListener('scroll', handleScroll);
       // loadMoreRecruits();
       cardList()
+
+      function initKeywordEvent() {
+        $("[class*='custom-dropdown-item-']").on("mouseover", function () {
+          var comNo = $(this).data("id");
+          // console.dir(comNo);
+          var recruitListItem = $(".recruit-list-item[data-id='" + comNo + "']");
+          // console.log(recruitListItem);
+          // 이미 비동기로 데이터를 받아온 경우 다시 요청하지 않음
+          if (recruitListItem.children().length === 0) {
+            // 서버에 비동기 요청을 보냄
+            fetch(`/keyword?comNo=${encodeURIComponent(comNo)}`)
+              .then(response => response.text())
+              .then(html => {
+                recruitListItem.html(html); // 응답 내용을 recruit-list-item에 삽입
+                console.log(html);
+                // recruitListItem.classList.add('show');
+              
+                // recruitListItem.removeClass("d-none"); // 목록 표시
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error); // 에러 처리
+              });
+          } else {
+            recruitListItem.removeClass("d-none"); // 이미 데이터가 있으면 바로 표시
+          }
+        });
+
+        $("[class*='custom-dropdown-item-']").on("mouseout", function () {
+          var comNo = $(this).data("id");
+          $(".recruit-list-item[data-id='" + comNo + "']").addClass("d-none");
+        });
+
+      }
+      initKeywordEvent();
     });
-  </script>
-
-  <script>
-
-    $(function () {
-
-
-    })
-
-    function initKeywordEvent() {
-      $(".company-item").on("mouseover", function () {
-        $(".recruit-list-item").removeClass("d-none")
-      })
-      $(".company-item").on("mouseout", function () {
-        $(".recruit-list-item").addClass("d-none")
-      })
-
-    }
 
 
   </script>
