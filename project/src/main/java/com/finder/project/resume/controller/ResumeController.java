@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -367,28 +368,26 @@ public class ResumeController {
     // 이미지 파일 업데이트
     @ResponseBody
     @PostMapping("/cv_FileUpdate_user")
-    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
-    public ResponseEntity<Integer> uploadFiles(@RequestParam("cvNo") int cvNo ,Resume resume) throws Exception {
+    public ResponseEntity<Integer> uploadFiles(@RequestParam("cvNo") int cvNo, @ModelAttribute Resume resume) throws Exception {
         log.info("::::::::::::::::::::: resume :::::::::::::::::::::");
         log.info(resume.toString());
-
-        
+    
         Files file = new Files();
-
+    
         file = fileService.selectByParentNo(cvNo);
         log.info("file" + file);
-        
-        //파일의 부모넘버가 이 resume에 cvno와 같으면 삭제부터 업데이트
+    
+        // 파일의 부모번호가 이 resume에 cvno와 같으면 삭제부터 업데이트
         // if (file != null) {
         //     fileService.deleteByParent(file);
         // }
-        
-        log.info("부모번호,테이블: " + file.getParentNo() + file.getParentTable());
+    
+        log.info("부모번호, 테이블: " + file.getParentNo() + file.getParentTable());
         file.setFile(resume.getThumbnail());
         file.setFileCode(1);
-
+    
         int fileNo = resumeService.resumeProfileUpload(file);
-
+    
         return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
 
@@ -560,15 +559,21 @@ public class ResumeController {
     // 이력서 삭제
     @PostMapping("/delete")
     public String deletePro(@RequestParam("cvNo") int cvNo) throws Exception {
+
+        // 학력 / 경력사항도 삭제
+        educationService.deleteByCvNo(cvNo);
+        employmentHistoryService.deleteByCvNo(cvNo);
+
+
         int result = resumeService.delete(cvNo);
         if (result > 0) {
-            // 파일까지 삭제
-            /*
-             * Files file = new Files();
-             * file.setParentTable("Resume");
-             * file.setParentNo(cvNo);
-             * fileService.deleteByParent(file);
-             */
+
+            // 파일까지 삭제            
+             Files file = new Files();
+             file.setParentTable("Resume");
+             file.setParentNo(cvNo);
+             fileService.deleteByParent(file);
+             
 
             log.info(cvNo + "번 이력서 삭제되었습니다.");
             return "redirect:/resume/cv_list_user";

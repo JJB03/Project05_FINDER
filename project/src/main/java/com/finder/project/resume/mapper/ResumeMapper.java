@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.finder.project.resume.dto.Resume;
 
-import groovy.transform.Undefined.EXCEPTION;
-
 @Mapper
  public interface ResumeMapper {
     //게시글 목록 + 나중에 페이징 (아니면 스크롤로 감)

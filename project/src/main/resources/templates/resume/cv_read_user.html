@@ -493,7 +493,7 @@
 
     //이미지 파일 업로드
     $("#imgUploadFile").on("change", function (e) {
-      var csrfToken = $("meta[name='_csrf']").attr("content");
+      var csrfToken = "[[${_csrf.token}]]";
       var formData = new FormData();
       var inputFile = $("#imgUploadFile")[0];
       var file = inputFile.files[0]; // Get the first file from the input

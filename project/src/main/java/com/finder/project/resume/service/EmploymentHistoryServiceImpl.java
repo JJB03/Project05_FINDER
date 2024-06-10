@@ -51,11 +51,18 @@ public class EmploymentHistoryServiceImpl implements EmploymentHistoryService {
         int result = employmentHistoryMapper.delete(employmentHistoryNo);
         return result;
     }
-
+    
     
     @Override
     public int maxPk() throws Exception {
         int result = employmentHistoryMapper.maxPk();
+        return result;
+    }
+    
+    
+    @Override
+    public int deleteByCvNo(int cvNo) throws Exception {
+        int result = employmentHistoryMapper.deleteByCvNo(cvNo);
         return result;
     }
     

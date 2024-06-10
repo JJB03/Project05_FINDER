@@ -14,7 +14,9 @@ public interface EducationService {
     //이력서 수정
     public int update(Education education) throws Exception;
     //이력서 삭제
-    public int delete(int cvNo) throws Exception;
+    public int delete(int educationNo) throws Exception;
+    //이력서 삭제 
+    public int deleteByCvNo(int cvNo) throws Exception;
     //이력서 번호
     public int maxPk() throws Exception;
 }
