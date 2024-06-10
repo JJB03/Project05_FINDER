@@ -6,54 +6,47 @@ DROP TABLE IF EXISTS mail;
 -- 썸네일 테이블
 DROP TABLE IF EXISTS thumbnail;
 
--- 회원 테이블
-DROP TABLE IF EXISTS user;
-
 -- 권한 테이블
 DROP TABLE IF EXISTS user_auth;
 
 -- 메일인증 실험 테이블
 DROP TABLE IF EXISTS email_verification;
-
--- 이력서 테이블
-DROP TABLE IF EXISTS cv;
-
 -- 경력사항 테이블
 DROP TABLE IF EXISTS employment_history;
+-- 지원내역 테이블
+DROP TABLE IF EXISTS apply_employee;
 
 -- 학력 테이블
 DROP TABLE IF EXISTS education;
 
--- 지원내역 테이블
-DROP TABLE IF EXISTS apply_employee;
-
--- 기업 테이블
-DROP TABLE IF EXISTS company;
+-- 채용공고 키워드 테이블
+DROP TABLE IF EXISTS recruit_keyword;
 
 -- 채용공고 게시글 테이블
 DROP TABLE IF EXISTS recruit;
+-- 이력서 테이블
+DROP TABLE IF EXISTS cv;
 
--- 채용공고 키워드 테이블
-DROP TABLE IF EXISTS recruit_keyword;
+-- 기업 상세 정보 테이블
+DROP TABLE IF EXISTS company_detail;
+-- 기업 테이블
+DROP TABLE IF EXISTS company;
+
+-- 결제내역 테이블
+DROP TABLE IF EXISTS credit;
+-- 주문 테이블
+DROP TABLE IF EXISTS `order`;
+-- 회원 테이블
+DROP TABLE IF EXISTS user;
 
 -- 파일 테이블
 DROP TABLE IF EXISTS file;
 
--- 기업 상세 정보 테이블
-DROP TABLE IF EXISTS company_detail;
-
 -- 상품 테이블
 DROP TABLE IF EXISTS product;
 
--- 주문 테이블
-DROP TABLE IF EXISTS `order`;
-
--- 결제내역 테이블
-DROP TABLE IF EXISTS credit;
-
 -- 소셜 테이블
 DROP TABLE IF EXISTS user_social;
-
 
 -- 테이블 생성 ( 총 16개 )
 
@@ -127,7 +120,7 @@ CREATE TABLE `employment_history` (
 );
 
 -- 학력 테이블
-CREATE TABLE `education` ( 
+CREATE TABLE `education` (
     `education_no` int NOT NULL AUTO_INCREMENT,
     `cv_no` int NOT NULL,
     `university` varchar(500) NULL,
@@ -170,8 +163,8 @@ CREATE TABLE `apply_employee` (
     `apply_no` int NOT NULL AUTO_INCREMENT,
     -- `apply_title` varchar(100) NOT NULL,
     -- `apply_date` timestamp NOT NULL DEFAULT now(),
-    `cv_no` int NOT NULL,
-    `recruit_no` int NOT NULL,
+    `cv_no` int,
+    `recruit_no` int,
     PRIMARY KEY (`apply_no`),
     FOREIGN KEY (`cv_no`) REFERENCES `cv` (`cv_no`),
     FOREIGN KEY (`recruit_no`) REFERENCES `recruit` (`recruit_no`)
@@ -247,7 +240,7 @@ CREATE TABLE `order` (
     `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `expiration_date` DATE NULL COMMENT '상품 만료',
     `remain_quantity` int NULL COMMENT '채용공고 사용 가능 횟수',
-    `access_order`	int	NOT NULL DEFAULT 1 COMMENT '1이면 주문접근불가, 0이면 접근가능', -- remain_quantity 가 0이면 0이 됨 
+    `access_order` int NOT NULL DEFAULT 1 COMMENT '1이면 주문접근불가, 0이면 접근가능', -- remain_quantity 가 0이면 0이 됨 
     PRIMARY KEY (`order_no`),
     FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`)
@@ -264,9 +257,6 @@ CREATE TABLE `credit` (
     PRIMARY KEY (`credit_no`),
     FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`)
 );
-
-
-
 
 -- 메일인증 테이블
 -- CREATE TABLE `mail` (

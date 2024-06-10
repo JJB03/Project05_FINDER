@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
+import com.finder.project.user.dto.OAuthAttributes;
 import com.finder.project.user.dto.Users;
 
 import lombok.Getter;

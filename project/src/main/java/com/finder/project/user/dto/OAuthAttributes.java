@@ -1,4 +1,4 @@
-package com.finder.project.user.service;
+package com.finder.project.user.dto;
 
 import java.util.Map;
 

@@ -92,7 +92,7 @@ public String userjoinPro(Users users) throws Exception {
             return "redirect:/login";
         }
         // 회원가입 실패
-        return "redirect:/user/join_user?error=emailExists";
+        return "redirect:/user/join_com?error=emailExists";
     }
     // 아이디 중복확인
     @ResponseBody
