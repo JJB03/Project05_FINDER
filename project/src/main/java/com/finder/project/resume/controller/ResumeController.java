@@ -366,28 +366,62 @@ public class ResumeController {
     @ResponseBody
     @PostMapping("/cv_FileUpdate_user")
     // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
-    public ResponseEntity<Integer> uploadFiles(Resume resume) throws Exception {
+    public ResponseEntity<Integer> uploadFiles(@RequestParam("cvNo") int cvNo ,Resume resume) throws Exception {
         log.info("::::::::::::::::::::: resume :::::::::::::::::::::");
         log.info(resume.toString());
 
         Files file = new Files();
         
-        file.setParentNo(resume.getCvNo());
-        // file = fileService.listByCVParentThumbnail(file);
+        file.setParentNo(cvNo);
+        file.setParentTable("resume");
+        file.setFile(resume.getThumbnail());
+        file.setFileCode(1);
 
+        // file = fileService.listByCVParentThumbnail(file);
         // if (file != null) {
         //     fileService.delete(file.getFileNo());
         // }
 
-        file.setParentTable("resume");
-        file.setFile(resume.getThumbnail());
-        file.setFileCode(1);
+        
+        // 사진이 있다면 삭제 후 새 사진을 넣을 수 있게 만들어야 함.
+
         // fileService.upload(file);
 
         int fileNo = resumeService.resumeProfileUpload(file);
 
         return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
+
+    // 이미지 파일 등록
+    @ResponseBody
+    @PostMapping("/cv_FileCreate_user")
+    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
+    public ResponseEntity<Integer> createFiles(@RequestParam("cvNo") int cvNo, Resume resume) throws Exception {
+        log.info("::::::::::::::::::::: resume :::::::::::::::::::::");
+        log.info(resume.toString());
+
+        Files file = new Files();
+        
+        file.setParentNo(cvNo);
+        file.setParentTable("resume");
+        file.setFile(resume.getThumbnail());
+        file.setFileCode(1);
+
+        // file = fileService.listByCVParentThumbnail(file);
+        // if (file != null) {
+        //     fileService.delete(file.getFileNo());
+        // }
+
+        
+        // 사진이 있다면 삭제 후 새 사진을 넣을 수 있게 만들어야 함.
+
+        // fileService.upload(file);
+
+        int fileNo = resumeService.resumeProfileUpload(file);
+
+        return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
+    }
+
 
       // 문서 파일 업데이트
       @ResponseBody

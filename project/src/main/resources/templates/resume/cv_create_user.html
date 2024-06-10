@@ -71,19 +71,6 @@
 
       margin-bottom: 60px;
     }
-
-    .fileuploadBtn {
-      width: 120px;
-  height: 34px;
-  /* padding : 4px 2px; */
-  border-radius: 8px;
-  background-color: var(--long-btn-color);
-  border: none;
-  color: #fff;
-  font-size: var(--text-normal);
-  text-decoration: none;
-  text-align: center;
-    }
   </style>
 </head>
 
@@ -296,11 +283,12 @@
 
         <div class="file-upload upload-btn d-flex justify-content-between">
           <div>
-            <input class="fileuploadBtn file-input" type="file" id="uploadFile" name="uploadFile" multiple >
-            <!-- <button  type="file" id="uploadBtn" name="uploadBtn">파일 선택</button> -->
-            <span id="fileAddList" class="w-100">
+            <input type="file" id="uploadFile" name="uploadFile" multiple style="display:none;">
+            <button class="btn-long file-input" type="button" id="uploadBtn" name="uploadBtn">파일 선택</button>
+            <span id="fileName">파일을 추가해주세요.</span>
+            <div id="fileAddList">
 
-            </span>
+            </div>
           </div>
           <div class="btn-click123">
             <button type="submit" class="btn-long">이력서 등록</button>
@@ -508,7 +496,7 @@
         formData.append("thumbnail", files[i]);
       }
       $.ajax({
-        url: '/resume/cv_FileUpdate_user',
+        url: '/resume/cv_FileCreate_user',
         processData: false,
         contentType: false,
         data: formData,
