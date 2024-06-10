@@ -106,5 +106,16 @@
         WHERE order_no = #{orderNo}
     </update>
 
+    <update id="updateRemainQuantityByOrderNo">
+        UPDATE `order`
+        SET remain_quantity = #{remainQuantity}
+        WHERE order_no = #{orderNo}
+    </update>
 
+    <update id="updateRemainQuantityAndAccessOrderByOrderNo">
+        UPDATE `order`
+        SET remain_quantity = #{remainQuantity},
+            access_order = #{accessOrder}
+        WHERE order_no = #{orderNo}
+    </update>
 </mapper>

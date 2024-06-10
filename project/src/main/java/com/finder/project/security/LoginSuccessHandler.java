@@ -1,6 +1,7 @@
 package com.finder.project.security;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -32,21 +33,20 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
     @Autowired
     private CompanyService companyService;
-    
+
     @Autowired
     private RecruitService recruitService;
-    
+
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request
-                                      , HttpServletResponse response
-                                      , Authentication authentication) throws ServletException, IOException {
-        
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+            Authentication authentication) throws ServletException, IOException {
+
         log.info("로그인 인증 성공...");
 
         // 아이디 저장
-        String rememberId = request.getParameter("remember-id");    // 아이디 저장 여부
-        String rememberMe = request.getParameter("remember-me");    // 자동로그인 여부
-        String username = request.getParameter("userId");               // 아이디
+        String rememberId = request.getParameter("remember-id"); // 아이디 저장 여부
+        String rememberMe = request.getParameter("remember-me"); // 자동로그인 여부
+        String username = request.getParameter("userId"); // 아이디
         log.info("아이디 저장 : " + rememberId);
         log.info("아이디 저장 : " + rememberMe);
         log.info("저장할 아이디 : " + username);
@@ -54,52 +54,53 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if (rememberMe != null && rememberMe.equals("on")) {
             // Users user = (Users) authentication.getPrincipal();
             // int userNo = user.getUserNo();
-            
+
         }
 
         // ✅ 아이디 저장 체크
-        if( rememberId != null && rememberId.equals("on")) {
+        if (rememberId != null && rememberId.equals("on")) {
             Cookie cookie = new Cookie("remember-id", username);
-            cookie.setMaxAge(60 * 60 * 24 * 7);           // 유효기간 7일
-            cookie.setPath("/");               // 쿠키 적용 경로 지정
-            response.addCookie(cookie);             // 응답에 쿠키 등록
-        }        
+            cookie.setMaxAge(60 * 60 * 24 * 7); // 유효기간 7일
+            cookie.setPath("/"); // 쿠키 적용 경로 지정
+            response.addCookie(cookie); // 응답에 쿠키 등록
+        }
         // 🟩 아이디 저장 체크 ❌
         else {
             Cookie cookie = new Cookie("remember-id", "");
-            cookie.setMaxAge(0);           // 유효기간 7일
-            cookie.setPath("/");               // 쿠키 적용 경로 지정
-            response.addCookie(cookie);             // 응답에 쿠키 등록
-        }        
+            cookie.setMaxAge(0); // 유효기간 7일
+            cookie.setPath("/"); // 쿠키 적용 경로 지정
+            response.addCookie(cookie); // 응답에 쿠키 등록
+        }
 
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
-        CustomUser loginUser = (CustomUser) authentication.getPrincipal(); 
+        CustomUser loginUser = (CustomUser) authentication.getPrincipal();
         Users user = loginUser.getUser();
 
-        
         // 기업 회원이면, 기업 정보 추가 등록
         Company company = companyService.selectByUserNo(user.getUserNo());
-        if( company != null ) {
+        if (company != null) {
             int comNo = company.getComNo();
             CompanyDetail companyDetail = companyService.selectCompanyDetailByComNo(comNo);
-            Order order =  recruitService.selectOrdersByUserNo(user.getUserNo());
+            Order order = recruitService.selectOrdersByUserNo(user.getUserNo());
 
             user.setOrder(order);
             user.setCompany(company);
             user.setCompanyDetail(companyDetail);
         }
 
-        
         // 로그인된 사용자 정보 세션에 등록
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
+        LocalDate currentDate = LocalDate.now();
+        session.setAttribute("currentDate", currentDate);
+
         log.info("아이디 : " + loginUser.getUsername());
-        log.info("패스워드 : " + loginUser.getPassword());       // 보안상 노출 ❌
+        log.info("패스워드 : " + loginUser.getPassword()); // 보안상 노출 ❌
         log.info("권한 : " + loginUser.getAuthorities());
 
         super.onAuthenticationSuccess(request, response, authentication);
     }
-        
+
 }

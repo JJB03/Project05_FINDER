@@ -40,6 +40,11 @@ public interface CreditMapper {
     // 결제완료 후 주문테이블 수정
     public int updateOrder(Order order) throws Exception;
 
+    // 채용공고 등록 후 퀀티티 1감소
+    public int updateRemainQuantityByOrderNo(Order order);
+
+    // 채용공고 등록 후 퀀티티 0 일때 엑세스 0으로 감소
+    public int updateRemainQuantityAndAccessOrderByOrderNo(Order order);
 
 
 }

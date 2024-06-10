@@ -11,6 +11,18 @@
 <body layout:fragment="content">
 
     <!-- Modal -->
+    <th:block th:if="${aeCount} == null">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-center">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">이력서를 지원하시려면 회원가입을 해주세요,</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
     <th:block th:if="${aeCount} != 0">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">

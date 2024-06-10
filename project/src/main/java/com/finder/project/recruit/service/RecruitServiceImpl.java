@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.finder.project.company.dto.Company;
 import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.dto.Order;
+import com.finder.project.company.mapper.CreditMapper;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.dto.Option;
 import com.finder.project.main.dto.Page;
@@ -36,6 +37,9 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    CreditMapper creditMapper;
     
     // 채용공고 List
     @Override
@@ -101,7 +105,9 @@ public class RecruitServiceImpl implements RecruitService {
 
             }
         }
-        
+            
+
+
         return result;
     }
 
@@ -305,6 +311,16 @@ public class RecruitServiceImpl implements RecruitService {
     public List<RecruitPost> postsRecruitListKeyword(int comNo) {
         
         return recruitMapper.postsRecruitListKeyword(comNo);
+    }
+
+    @Override
+    public int updateRemainQuantityByOrderNo(Order order) {
+        return creditMapper.updateRemainQuantityByOrderNo(order);
+    }
+
+    @Override
+    public int updateRemainQuantityAndAccessOrderByOrderNo(Order order) {
+        return creditMapper.updateRemainQuantityAndAccessOrderByOrderNo(order);
     }
 
 
