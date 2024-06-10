@@ -163,6 +163,7 @@ CREATE TABLE `apply_employee` (
     `apply_no` int NOT NULL AUTO_INCREMENT,
     -- `apply_title` varchar(100) NOT NULL,
     -- `apply_date` timestamp NOT NULL DEFAULT now(),
+    `check` int,
     `cv_no` int,
     `recruit_no` int,
     PRIMARY KEY (`apply_no`),

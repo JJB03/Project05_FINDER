@@ -3,9 +3,11 @@ package com.finder.project.resume.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
+import org.apache.ibatis.annotations.Param;
 
 import com.finder.project.resume.dto.Resume;
+
+import groovy.transform.Undefined.EXCEPTION;
 
 @Mapper
  public interface ResumeMapper {
@@ -30,5 +32,12 @@ import com.finder.project.resume.dto.Resume;
          public Resume selectCV(int user_no) throws Exception;  
          
          public int maxPk() throws Exception;
+
+
+
+
+
+         // 합불
+         public int applyCheck(@Param("cvNo") int cvNo,@Param("check") int check) throws Exception;
 
  }
