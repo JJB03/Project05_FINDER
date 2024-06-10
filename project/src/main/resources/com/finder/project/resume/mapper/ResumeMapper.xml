@@ -100,4 +100,23 @@
     SELECT COALESCE(MAX(cv_no), 0)
     FROM cv
   </select>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 이력서 합불 -->
+<update id="applyCheck">
+  UPDATE apply_employee
+    SET `check` = #{check}
+  WHERE cv_no = #{cvNo}
+</update>
+
 </mapper>

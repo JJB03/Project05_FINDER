@@ -893,3 +893,7 @@ ORDER BY
         INNER JOIN user u ON c.user_no = u.user_no
     WHERE c.cv_no = 1;
   
+
+  UPDATE apply_employee
+    SET `check` = 1
+  WHERE cv_no = 1;

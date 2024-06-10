@@ -543,4 +543,26 @@ public class ResumeController {
         return "redirect:/resume/cv_read?no=" + cvNo + "&error";
     }
 
+    
+
+
+    // ------------------------------------------------------------------------------- 기업 이력서 합 불
+    @PostMapping("/check/{check}")
+    public String postMethodName(@PathVariable("check") int check ,@RequestParam("cvNo") int cvNo ,@RequestParam("userNo") int userNo) throws Exception {
+        
+        
+
+        int result = resumeService.applyCheck(cvNo, check);
+        
+
+        if (result > 0) {
+            log.info(" 합 , 불 성공");
+        }
+        
+        return "redirect:/recruit/recruit_list_com?userNo=" + userNo;
+    }
+    
 }
+
+
+

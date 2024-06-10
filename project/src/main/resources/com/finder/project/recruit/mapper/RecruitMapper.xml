@@ -437,4 +437,11 @@
     WHERE o.user_no = #{userNo}
   </select>
   
+  <!-- 합 / 불 -->
+  <select id="getCheckByRecruitNo" resultType="int">
+      SELECT `check`
+      FROM apply_employee
+      WHERE recruit_no = #{recruitNo}
+  </select>
+
 </mapper>
