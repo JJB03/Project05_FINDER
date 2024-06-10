@@ -41,8 +41,8 @@ public class FileServiceImpl implements FileService{
 
     // cv_no 로 파일조회
     @Override
-    public Files selectByCvNo(int cvNo) throws Exception {
-        Files file = fileMapper.selectByCvNo(cvNo);
+    public Files selectByParentNo(int ParentNo) throws Exception {
+        Files file = fileMapper.selectByParentNo(ParentNo);
         return file;
     }
 

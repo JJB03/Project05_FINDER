@@ -145,6 +145,10 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public int resumeProfileUpload(Files file) throws Exception {
 
+        if (file != null) {
+            fileService.deleteByParent(file);
+        }
+
         boolean result = fileService.upload(file);
         int fileNo = 0;
         if( result ) {

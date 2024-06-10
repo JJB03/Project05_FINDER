@@ -51,11 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM file
         WHERE file_no = #{fileNo}
     </select>
-
-    <select id="selectByCvNo" resultType="Files">
+    <!-- ParentNo 로 파일 조회 -->
+    <select id="selectByParentNo" resultType="Files">
         SELECT *
         FROM file
-        WHERE cv_no = #{cvNo}
+        WHERE parent_no = #{parentNo}
     </select>
 
 

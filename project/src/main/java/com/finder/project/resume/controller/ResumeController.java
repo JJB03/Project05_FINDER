@@ -1,7 +1,9 @@
 package com.finder.project.resume.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -370,22 +372,20 @@ public class ResumeController {
         log.info("::::::::::::::::::::: resume :::::::::::::::::::::");
         log.info(resume.toString());
 
-        Files file = new Files();
         
-        file.setParentNo(cvNo);
-        file.setParentTable("resume");
+        Files file = new Files();
+
+        file = fileService.selectByParentNo(cvNo);
+        log.info("file" + file);
+        
+        //파일의 부모넘버가 이 resume에 cvno와 같으면 삭제부터 업데이트
+        // if (file != null) {
+        //     fileService.deleteByParent(file);
+        // }
+        
+        log.info("부모번호,테이블: " + file.getParentNo() + file.getParentTable());
         file.setFile(resume.getThumbnail());
         file.setFileCode(1);
-
-        // file = fileService.listByCVParentThumbnail(file);
-        // if (file != null) {
-        //     fileService.delete(file.getFileNo());
-        // }
-
-        
-        // 사진이 있다면 삭제 후 새 사진을 넣을 수 있게 만들어야 함.
-
-        // fileService.upload(file);
 
         int fileNo = resumeService.resumeProfileUpload(file);
 
@@ -577,6 +577,7 @@ public class ResumeController {
         return "redirect:/resume/cv_read?no=" + cvNo + "&error";
     }
 
+
     
 
 
@@ -595,7 +596,7 @@ public class ResumeController {
         
         return "redirect:/recruit/recruit_list_com?userNo=" + userNo;
     }
-    
+
 }
 
 

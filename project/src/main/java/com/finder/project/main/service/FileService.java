@@ -12,8 +12,8 @@ public interface FileService {
     //파일 조회
     public Files select(int fileNo) throws Exception;
 
-    //cv_no 로 파일 조회
-    public Files selectByCvNo(int cvNo) throws Exception;
+    //parentNo 로 파일 조회
+    public Files selectByParentNo(int ParentNo) throws Exception;
 
     //파일 등록
     public int insert(Files file) throws Exception;
