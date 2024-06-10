@@ -39,6 +39,14 @@ public class FileServiceImpl implements FileService{
         return file;
     }
 
+    // cv_no 로 파일조회
+    @Override
+    public Files selectByCvNo(int cvNo) throws Exception {
+        Files file = fileMapper.selectByCvNo(cvNo);
+        return file;
+    }
+
+
     //파일 등록
     @Override
     public int insert(Files file) throws Exception {
@@ -155,10 +163,21 @@ public class FileServiceImpl implements FileService{
         return Thumbnail;
     }
 
+    // CV 썸네일
+    @Override
+    public Files listByCVParentThumbnail(Files file) throws Exception {
+        Files Thumbnail = fileMapper.listByCVParentThumbnail(file);
+
+        return Thumbnail;
+    }
+
+
     @Override
     public int maxPk() throws Exception {
         return fileMapper.maxPk();
     }
+
+
 
     
 }

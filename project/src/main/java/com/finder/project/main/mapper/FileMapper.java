@@ -13,6 +13,9 @@ public interface FileMapper {
 
     //파일 조회
     public Files select(int fileNo) throws Exception;
+    
+    //cv_no 로 파일 조회
+    public Files selectByCvNo(int cvNo) throws Exception;
 
     //파일 등록
     public int insert(Files file) throws Exception;
@@ -26,8 +29,11 @@ public interface FileMapper {
     //파일 목록 - 부모기준
     public List<Files> listByParent(Files file) throws Exception;
 
-    //파일 조회 - 썸네일
+    //파일 조회 - 썸네일 [RECRUIT]
     public Files listByParentThumbnail(Files file) throws Exception;
+
+    //파일 조회 - 썸네일 [CV]
+    public Files listByCVParentThumbnail(Files file) throws Exception;
     
     // 파일 삭제 - 부모 기준
     public int deleteByParent(Files file) throws Exception;
