@@ -433,7 +433,7 @@ public class ResumeController {
      * @return
      */
     @GetMapping("/cv_read_com")
-    public String ReadCom(HttpSession session, Model model) throws Exception {
+    public String ReadCom(@RequestParam("cvNo") int cvNo ,HttpSession session, Model model) throws Exception {
 
         // 세션에서 사용자 정보를 가져옴
         Users user = (Users) session.getAttribute("user");
@@ -443,13 +443,15 @@ public class ResumeController {
             return "redirect:/login";
         }
 
-        int userNo = user.getUserNo();
+        // int userNo = user.getUserNo();
 
         // 사용자의 이력서 정보를 가져옴
-        Resume resume = resumeService.select(userNo);
+        Resume resume = resumeService.select(cvNo);
+        log.info("sfasdfdsajhfdagshjlkdsfajlhkfdsajlhk" + resume);
 
+        model.addAttribute("cvNo", cvNo);
         // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
-        model.addAttribute("Resume", resume);
+        model.addAttribute("resume", resume);
         model.addAttribute("user", user);
 
         // 화면 이동
