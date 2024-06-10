@@ -32,13 +32,18 @@
     WHERE employment_history_no = #{employmentHistoryNo}
   </update>
 
-  <!-- 삭제 -->
+  <!-- employmentHistoryNo 으로 삭제 -->
   <delete id="delete">
     DELETE FROM employment_history
     WHERE employment_history_no = #{employmentHistoryNo}
   </delete>
+  <!-- cvNo 로 삭제 -->
+  <delete id="deleteByCvNo">
+    DELETE FROM employment_history
+    WHERE cv_no = #{cvNo}
+  </delete>
 
-  <!--이력서 번호-->
+  <!--경력사항 최댓값 번호-->
     <select id="maxPk" resultType="int">
     SELECT MAX(employment_history_no) FROM employment_history
   </select>

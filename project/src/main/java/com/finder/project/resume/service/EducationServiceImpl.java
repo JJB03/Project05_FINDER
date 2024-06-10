@@ -39,14 +39,20 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public int delete(int cvNo) throws Exception {
-        int result = educationMapper.delete(cvNo);
+    public int delete(int educationNo) throws Exception {
+        int result = educationMapper.delete(educationNo);
         return result;
     }
-
+    
     @Override
     public int maxPk() throws Exception {
         int result = educationMapper.maxPk();
+        return result;
+    }
+    
+    @Override
+    public int deleteByCvNo(int cvNo) throws Exception {
+        int result = educationMapper.deleteByCvNo(cvNo);
         return result;
     }
 
