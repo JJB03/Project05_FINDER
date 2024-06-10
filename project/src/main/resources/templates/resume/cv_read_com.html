@@ -156,7 +156,7 @@
         <div class="form-group col-6">
           <div class=" row ">
             <div class="form-group col-12 form-group2">
-              <p name="cvTitle" type="text" class="form-control" id="title" placeholder="제목" th:value="${resume.cvTitle}"></p>
+              <p name="cvTitle" type="text" class="form-control" id="title" placeholder="제목" th:text="${resume.cvTitle}"></p>
             </div>
             <div class="form-group col-12 form-group2">
               <p type="text" class="form-control" id="name" placeholder="이름" th:text="${user.userName}">

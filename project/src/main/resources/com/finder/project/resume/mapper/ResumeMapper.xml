@@ -10,6 +10,21 @@
     <result property="cvTitle" column="cv_title"/>
     <result property="cvRegDate" column="cv_reg_date"/>
     <result property="cvUpdDate" column="cv_upd_date"/>
+
+    <association property="user" javaType="com.finder.project.user.dto.Users">
+        <id property="userNo" column="user_no"/>
+        <result property="userName" column="user_name"/>
+        <result property="userId" column="user_id"/>
+        <result property="userPw" column="user_pw"/>
+        <result property="userBeforePw" column="user_before_pw"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userRegDate" column="user_reg_date"/>
+        <result property="userUpdDate" column="user_upd_date"/>
+        <result property="userGender" column="user_gender"/>
+        <result property="enabled" column="enabled"/>
+    </association>
     
     <!-- education mapping -->
     <collection property="educationList" ofType="com.finder.project.resume.dto.Education">
