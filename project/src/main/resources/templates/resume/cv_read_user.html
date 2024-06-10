@@ -88,7 +88,10 @@
       <div class="d-flex">
         <div class="profile-pic col-6">
           <div id="preview">
-            <img th:src="|/file/img/${Thumbnail.fileNo}|" class="img-thumbnail" style="width: auto; height: auto;" alt="이미지를 넣어주세요">
+            <div id="preview">
+              <img th:if="${Thumbnail != null}" th:src="|/file/img/${Thumbnail.fileNo}|" class="img-thumbnail" style="width: auto; height: auto;" alt="이미지를 넣어주세요">
+              <p th:if="${Thumbnail == null}">이미지를 넣어주세요</p>
+            </div>
           </div>
             
           <div class="ImgFile"> <!--파일 비동기 html-->
