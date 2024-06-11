@@ -59,12 +59,21 @@ public class SecurityConfig {
 
         );
 
+        // 카카오톡 로그인
         http.oauth2Login(login -> login
                 .successHandler(authenticationSuccessHandler())
                 .loginPage("/login")
                 .userInfoEndpoint()
                 .userService(oAuthService));
+
                 
+                
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true) // 세션 무효화
+                .clearAuthentication(true)); // 인증 정보 삭제
+
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);
 
@@ -74,7 +83,7 @@ public class SecurityConfig {
                 .tokenRepository(tokenRepository())
                 .tokenValiditySeconds(60 * 60 * 24 * 7)
                 .authenticationSuccessHandler(loginSuccessHandler));
-        // 카카오톡 로그인
+
 
         return http.build();
     }
