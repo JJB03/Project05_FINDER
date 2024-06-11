@@ -109,8 +109,9 @@
   </form>
 
   <div class="container-fluid container resume-form ">
+
     <div class="form-header">
-      <h4>이력서 Read</h4>
+      <h4>이력서 조회</h4>
     </div>
 
 
@@ -185,13 +186,71 @@
 
       </div>
 
-      <div class="form-group row w-100 flex-column h-100">
+      <div class=" d-flex row">
+        <div class="form-group row w-100 flex-column">
 
-        <!-- 학력/경력 시작 -->
-        <div class="col-sm-12  border bg-light rounded-3 " style="">
-          <!--학력 controller 부르기-->
-          <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
-            <h5>학력</h5>
+          <!-- 학력/경력 시작 -->
+          <div class="col-sm-12  border bg-light rounded-3 " style="">
+            <!--학력 controller 부르기-->
+            <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
+              <h5>학력</h5>
+            </div>
+
+            <div>
+              <hr color="#eee">
+            </div>
+
+
+            <div class="">
+              <div class="col-12 d-flex">
+                <div class="form-group col-3">
+                  <p>학교</p>
+                </div>
+                <div class="form-group col-3">
+                  <p>전공</p>
+                </div>
+                <div class="form-group col-3">
+                  <p>학적</p>
+                </div>
+              </div>
+
+              <div class="col-12 d-flex">
+                <div class="form-group col-3">
+                  <input type="text" class="form-control w-75" name="university" id="university" placeholder="학교"
+                    value="">
+                </div>
+                <div class="form-group col-3">
+
+                  <input type="text" class="form-control w-75" name="major" id="major" placeholder="전공">
+                </div>
+                <div class="form-group col-3">
+                  <input type="text" class="form-control w-75" name="universityStatus" id="universityStatus"
+                    placeholder="학력상태">
+                </div>
+                <div class="flex-column col-3">
+                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+                  <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+                    <button type="button" class="educationBtn btn-short">
+                      <span class="fs-2">+</span>
+                    </button>
+                  </th:block>
+                </div>
+              </div>
+
+              <div id="education-list">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-12  border bg-light rounded-3 mt-3" >
+          <!--경력 db 넣기-->
+
+          <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
+            <h5>경력</h5>
           </div>
 
           <div>
@@ -199,61 +258,6 @@
           </div>
 
 
-          <div class="">
-            <div class="col-12 d-flex">
-              <div class="form-group col-3">
-                <p>학교</p>
-              </div>
-              <div class="form-group col-3">
-                <p>전공</p>
-              </div>
-              <div class="form-group col-3">
-                <p>학적</p>
-              </div>
-            </div>
-
-            <div class="col-12 d-flex">
-              <div class="form-group col-3">
-                <input type="text" class="form-control w-75" name="university" id="university" placeholder="학교"
-                  value="">
-              </div>
-              <div class="form-group col-3">
-
-                <input type="text" class="form-control w-75" name="major" id="major" placeholder="전공">
-              </div>
-              <div class="form-group col-3">
-                <input type="text" class="form-control w-75" name="universityStatus" id="universityStatus"
-                  placeholder="학력상태">
-              </div>
-              <div class="flex-column col-3">
-                <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-                <button type="button" class="educationBtn btn-short">
-                  <span class="fs-2">+</span>
-                </button>
-              </div>
-            </div>
-
-            <div id="education-list">
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col-sm-12  border bg-light rounded-3 mt-3" style="min-height: 250px;">
-        <!--경력 db 넣기-->
-
-        <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
-          <h5>경력</h5>
-        </div>
-
-        <div>
-          <hr color="#eee">
-        </div>
-
-        <div class="">
 
           <div class="col-12 d-flex">
             <div class="form-group col-3">
@@ -286,9 +290,14 @@
             </div>
             <div class="flex-column col-3">
               <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-              <button type="button" class="employmentHistoryBtn btn-short">
-                <span class="fs-2">+</span>
-              </button>
+              <th:block sec:authorize="hasRole('ROLE_COMPANY')">
+
+              </th:block>
+              <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+                <button type="button" class="employmentHistoryBtn btn-short">
+                  <span class="fs-2">+</span>
+                </button>
+              </th:block>
             </div>
           </div>
 
@@ -300,43 +309,44 @@
           </div>
 
 
-        </div>
-        <!-- 학력/경력 끝-->
 
-
-
-        <div class="mt-5">
-          <label>자기소개서</label>
-          <textarea required minlength="50" class="form-control border bg-light rounded-3" rows="5"
-            placeholder="최소 50글자 이상 작성해야 합니다." name="coverLetter" th:text="${resume.coverLetter}"></textarea>
-        </div>
-
-
-
-
-        <div class="file-upload upload-btn d-flex justify-content-between">
-          <div>
-            <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()">
-            <button class="btn-long" id="fileButton">파일 선택</button>
-            <span id="fileName">파일을 추가해주세요.</span>
-            <!-- <button type="button" th:if="" th:onclick="|deleteFile(this, ${file.no})|">삭제</button> -->
-          </div>
-          <div class="btn-click123">
-            <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
-              <button type="submit" class="btn-long">수정</button>
-              <button type="button" class="btn-long" onclick="moveToDelete()">삭제</button>
-              <button type="button" class="btn-long" onclick="moveToList1()">이전 페이지</button>
-            </th:block>
-            <th:block sec:authorize="hasRole('ROLE_COMPANY')">
-              <button type="button" class="btn-long" data-bs-toggle="modal" data-bs-target="#exampleModal">합격 /
-                불합격</button>
-              <button type="button" class="btn-long" onclick="moveToList()" style="float: inline-end;">이전 페이지</button>
-            </th:block>
-          </div>
+          <!-- 학력/경력 끝-->
         </div>
       </div>
 
+
+      <div class="mt-5">
+        <label>자기소개서</label>
+        <textarea required minlength="50" class="form-control border bg-light rounded-3" rows="5"
+          placeholder="최소 50글자 이상 작성해야 합니다." name="coverLetter" th:text="${resume.coverLetter}"></textarea>
+      </div>
+
+
+
+
+      <div class="file-upload upload-btn d-flex justify-content-between">
+        <div>
+          <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()">
+          <button class="btn-long" id="fileButton">파일 선택</button>
+          <span id="fileName">파일을 추가해주세요.</span>
+          <!-- <button type="button" th:if="" th:onclick="|deleteFile(this, ${file.no})|">삭제</button> -->
+        </div>
+        <div class="btn-click123">
+          <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+            <button type="submit" class="btn-long">수정</button>
+            <button type="button" class="btn-long" onclick="moveToDelete()">삭제</button>
+            <button type="button" class="btn-long" onclick="moveToList1()">이전 페이지</button>
+          </th:block>
+          <th:block sec:authorize="hasRole('ROLE_COMPANY')">
+            <button type="button" class="btn-long" data-bs-toggle="modal" data-bs-target="#exampleModal">합격 /
+              불합격</button>
+            <button type="button" class="btn-long" onclick="moveToList()" style="float: inline-end;">이전 페이지</button>
+          </th:block>
+        </div>
+      </div>
     </form>
+  </div>
+
 
   </div>
 

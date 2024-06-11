@@ -440,11 +440,6 @@
     /* Allow file names to wrap */
 }
 
-.file-input-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
 
 .input-title:focus {
     border: 1px solid #1B1B1B;
