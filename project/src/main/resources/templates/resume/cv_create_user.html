@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="_csrf" th:content="${_csrf.token}"/>
-  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>이력서 작성</title>
 
@@ -90,7 +90,7 @@
           <div id="preview">
             <img src="" class="img-thumbnail" alt="이미지를 넣어주세요">
           </div>
-            
+
           <div class="ImgFile"> <!--파일 비동기 html-->
             <input type="file" id="imgUploadFile" name="thumbnail" accept="image/png, image/jpeg" style="display:none;">
             <button class="btn-long imgFile-input" type="button" id="imgUploadBtn">사진 선택</button>
@@ -128,145 +128,120 @@
         <!-- 학력/경력 시작 -->
         <div class="col-sm-12  border bg-light rounded-3 " style="min-height: 250px;">
           <!--학력 controller 부르기-->
-          
-            <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
-              <h5>학력</h5>
-            </div>
 
-            <div>
-              <hr color="#eee">
-            </div>
+          <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
+            <h5>학력</h5>
+          </div>
+
+          <div>
+            <hr color="#eee">
+          </div>
 
 
-            <div class="">
+          <div class="">
 
-              <div class="col-12 d-flex">
-                <div class="form-group col-3">
-                  <p>학교</p>
-                </div>
-                <div class="form-group col-3">
-                  <p>전공</p>
-                </div>
-                <div class="form-group col-3">
-                  <p>학적</p>
-                </div>
+            <div class="col-12 d-flex">
+              <div class="form-group col-3">
+                <p>학교</p>
               </div>
-
-              <div class="col-12 d-flex">
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75"  id="university" placeholder="학교"
-                    value="" >
-                </div>
-                <div class="form-group col-3">
-
-                  <input type="text" class="form-control w-75"  id="major" placeholder="전공" >
-                </div>
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75"  id="universityStatus"
-                    placeholder="학력상태" >
-                </div>
-                <div class="flex-column col-3">
-                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-                  <button type="button" class="educationBtn btn-short">
-                    <span class="fs-2">+</span>
-                  </button>
-                </div>
+              <div class="form-group col-3">
+                <p>전공</p>
               </div>
-
-              <div class="col-12 p-2">
-                <!-- 학력 리스트 -->
-                <div id="education-list">
-
-                </div>
-                <!-- <div class="d-flex flex-column w-100">
-                  <div class="education-card d-flex justify-content-between">
-                    <div class="flex-column col-4">
-                      <p>서울대학교</p>
-                    </div>
-                    <div class="flex-column col-4">
-                      <p>컴퓨터공학과</p>
-                    </div>
-                    <div class="flex-column col-4">
-                      <p>대졸</p>
-                    </div>
-                  </div>
-                </div> -->
+              <div class="form-group col-3">
+                <p>학적</p>
               </div>
             </div>
-          
+
+            <div class="col-12 d-flex">
+              <div class="form-group col-3">
+                <input type="text" class="form-control w-75" id="university" placeholder="학교" value="">
+              </div>
+              <div class="form-group col-3">
+
+                <input type="text" class="form-control w-75" id="major" placeholder="전공">
+              </div>
+              <div class="form-group col-3">
+                <input type="text" class="form-control w-75" id="universityStatus" placeholder="학력상태">
+              </div>
+              <div class="flex-column col-3">
+                <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+                <button type="button" class="educationBtn btn-short">
+                  <span class="fs-2">+</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-12 p-2">
+              <!-- 학력 리스트 -->
+              <div id="education-list">
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
 
         <div class="col-sm-12  border bg-light rounded-3 mt-3" style="min-height: 250px;">
 
-            <!--경력 db 넣기-->
+          <!--경력 db 넣기-->
 
-            <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
-              <h5>경력</h5>
+          <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
+            <h5>경력</h5>
+          </div>
+
+          <div>
+            <hr color="#eee">
+          </div>
+
+
+
+          <div class="col-12 d-flex">
+            <div class="form-group col-3">
+              <p>기관</p>
             </div>
-
-            <div>
-              <hr color="#eee">
+            <div class="form-group col-3">
+              <p>시작일</p>
             </div>
+            <div class="form-group col-3">
+              <p>끝 일</p>
+            </div>
+            <div class="form-group col-3">
+              <p>당담</p>
+            </div>
+          </div>
 
-            <div class="">
+          <div class="col-12 d-flex">
+            <div class="form-group col-3">
+              <input type="text" class="form-control w-75" id="organization" placeholder="기관" value="">
+            </div>
+            <div class="form-group col-3">
+              <input type="date" class="form-control w-75" id="startDate" placeholder="시작 날짜">
+            </div>
+            <div class="form-group col-3">
+              <input type="date" class="form-control w-75" id="endDate" placeholder="끝나는 날짜">
+            </div>
+            <div class="form-group col-3">
+              <input type="text" class="form-control w-75" id="duties" placeholder="담당업무">
+            </div>
+            <div class="flex-column col-3">
+              <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+              <button type="button" class="employmentHistoryBtn btn-short">
+                <span class="fs-2">+</span>
+              </button>
+            </div>
+          </div>
 
-              <div class="col-12 d-flex">
-                <div class="form-group col-3">
-                  <p>기관</p>
-                </div>
-                <div class="form-group col-3">
-                  <p>시작일</p>
-                </div>
-                <div class="form-group col-3">
-                  <p>끝 일</p>
-                </div>
-                <div class="form-group col-3">
-                  <p>당담</p>
-                </div>
-              </div>
+          <div class="col-12 p-2">
+            <!-- 경력 리스트 -->
+            <div id="employmenthistory-list">
 
-              <div class="col-12 d-flex">
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75"  id="organization" placeholder="기관"
-                    value="">
-                </div>
-                <div class="form-group col-3">
-                  <input type="date" class="form-control w-75"  id="startDate" placeholder="시작 날짜">
-                </div>
-                <div class="form-group col-3">
-                  <input type="date" class="form-control w-75"  id="endDate" placeholder="끝나는 날짜">
-                </div>
-                <div class="form-group col-3">
-                  <input type="text" class="form-control w-75"  id="duties" placeholder="담당업무">
-                </div>
-                <div class="flex-column col-3">
-                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-                  <button type="button" class="employmentHistoryBtn btn-short">
-                    <span class="fs-2">+</span>
-                  </button>
-                </div>
-              </div>
+            </div>
+          </div>
 
-              <div class="col-12 p-2">
-                <!-- 경력 리스트 -->
-                <div id="employmenthistory-list">
 
-                  <!--                 <div class="d-flex w-100 d-flex justify-content-between">
-                  <div class="flex-column col-4">
-                    <p>경력1</p>
-                  </div>
-                  <div class="flex-column col-4">
-                    <p>경력2</p>
-                  </div>
-                  <div class="flex-column col-4">
-                    <p>경력3</p>
-                  </div>
-                </div> -->
-                </div>
-              </div>
-
-          
         </div>
         <!-- 학력/경력 끝-->
 
@@ -283,6 +258,7 @@
 
         <div class="file-upload upload-btn d-flex justify-content-between">
           <div>
+
             <input type="file" id="uploadFile" name="uploadFile" multiple style="display:none;">
             <button class="btn-long file-input" type="button" id="uploadBtn" name="uploadBtn">파일 선택</button>
             <span id="fileName">파일을 추가해주세요.</span>
@@ -304,7 +280,7 @@
 
 
   <script>
-  
+
 
     //ajax로 그것들 부르기
     var csrfToken = "[[${_csrf.token}]]";
@@ -446,7 +422,7 @@
      * - cvNo 로 조회 
      */
     function employmentHistoryList() {
-      alert(`경력 리스트 갱신`)
+      // alert(`경력 리스트 갱신`)
       $.ajax({
         type: 'get', //요청메소드
         url: `/resume/cv_Emlist_user?cvNo=${cvNo}`, //요청경로 - 컨트롤러url 
@@ -475,12 +451,12 @@
     }
 
     // [사진 선택] 버튼 클릭
-    document.getElementById('imgUploadBtn').addEventListener('click', function() {
+    document.getElementById('imgUploadBtn').addEventListener('click', function () {
       // input type="file" 파일 찾기 클릭
       document.getElementById('imgUploadFile').click();
 
     });
-      
+
 
     //이미지 파일 업로드
     $("#imgUploadFile").on("change", function (e) {
@@ -517,16 +493,16 @@
         }
       });
     });
-        
 
-       // [파일선택] 버튼 클릭
-       document.getElementById('uploadBtn').addEventListener('click', function() {
+
+    // [파일선택] 버튼 클릭
+    document.getElementById('uploadBtn').addEventListener('click', function () {
       // input type="file" 파일 찾기 클릭
       document.getElementById('uploadFile').click();
 
     });
 
-  // 문서 파일 업로드
+    // 문서 파일 업로드
     $("#uploadFile").on("change", function (e) {
       var csrfToken = "[[${_csrf.token}]]";
       var cvNo = "[[${cvNo}]]"
