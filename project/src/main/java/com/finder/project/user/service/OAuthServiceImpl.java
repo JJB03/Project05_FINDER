@@ -1,6 +1,5 @@
 package com.finder.project.user.service;
 
-import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -192,33 +191,28 @@ public class OAuthServiceImpl implements OAuthService {
         // 2. joinedUser 이 null 이면, 회원 가입
         int result = 0;
         String username = userSocial.getProvider() + "_" + userSocial.getSocialId();
-        if (joinedUser == null) {
+        if( joinedUser == null ) {
             Users user = new Users();
             user.setUserId(username);
             user.setUserName(oAuthAttributes.getUserName());
             String email = oAuthAttributes.getUserEmail() == null ? "" : oAuthAttributes.getUserEmail();
             user.setUserEmail(email);
+            // user.setProfile(oAuthAttributes.getPicture());
             user.setUserPhone("");
-            user.setUserBirth(username);
+            user.setUserBirth("");
+            // user.setUserAddress("");
             user.setUserGender("남자");
             user.setUserPw(UUID.randomUUID().toString());
-            System.out.print("******카카오톡 정보와 매핑 확인" + user);
-
             // 1️⃣ user 정보 등록
-            result = userMapper.join(user); // 여기서 회원가입 실행
-
-            if (result > 0) { // userMapper.join(user)가 성공적으로 실행된 경우
-                // 2️⃣ 새로 생성된 사용자의 user_no 가져오기
-                int userNo = user.getUserNo(); // user 객체에 설정된 user_no를 가져옴
-
-                // 3️⃣ user_auth 권한 등록
-                UserAuth userAuth = new UserAuth();
-                userAuth.setAuth("ROLE_USER");
-                userAuth.setUserNo(userNo); // userNo 설정
-                userMapper.insertAuth(userAuth); // user_auth에 권한 등록
-            }
+            result = userMapper.join(user);
+            joinedUser = userMapper.select(username);
+            int userNo = joinedUser.getUserNo();
+            // 2️⃣ user_auth 권한 등록
+            UserAuth userAuthUser = new UserAuth();
+            userAuthUser.setUserNo(userNo);
+            userAuthUser.setAuth("ROLE_USER");
+            userMapper.insertAuth(userAuthUser);
         }
-
         if (result > 0) {
             // 3️⃣ user_social 등록
             UserSocial newUserSocial = new UserSocial();
@@ -226,7 +220,7 @@ public class OAuthServiceImpl implements OAuthService {
             newUserSocial.setSocialId(userSocial.getSocialId());
             newUserSocial.setUsername(username);
             newUserSocial.setName(oAuthAttributes.getUserName());
-            newUserSocial.setEmail(oAuthAttributes.getUserEmail());
+            // newUserSocial.setUserEmail(oAuthAttributes.getUserEmail());
             // newUserSocial.setPicture(oAuthAttributes.getPicture());
             result += userMapper.insertSocial(newUserSocial);
         }
@@ -241,7 +235,7 @@ public class OAuthServiceImpl implements OAuthService {
         int result = 0;
 
         String name = userSocial.getName();
-        String email = userSocial.getUserEmail();
+        String email = userSocial.getEmail();
 
         if (!name.equals(oAuthAttributes.getUserName()))
             name = oAuthAttributes.getUserName();

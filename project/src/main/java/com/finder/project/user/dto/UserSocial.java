@@ -11,12 +11,8 @@ public class UserSocial {
     private String provider;
     private String socialId;
     private String name;
-    private String userEmail;
-    // private String picture;
+    private String email;
+    private String picture;
     private Date createdAt;
     private Date updatedAt;
-
-    public void setEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
 }
