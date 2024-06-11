@@ -261,6 +261,7 @@
 
             <input type="file" id="uploadFile" name="uploadFile" multiple style="display:none;">
             <button class="btn-long file-input" type="button" id="uploadBtn" name="uploadBtn">파일 선택</button>
+            <button class="btn-long deleteFile" type="button" id="deleteFile" name="deleteFile">파일 삭제</button>
             <span id="fileName">파일을 추가해주세요.</span>
             <div id="fileAddList">
 
@@ -469,7 +470,7 @@
 
       formData.append("cvNo", cvNo)
       for (let i = 0; i < files.length; i++) {
-        formData.append("thumbnail", files[i]);
+        formData.append("file" + i, files[i]);
       }
       $.ajax({
         url: '/resume/cv_FileCreate_user',
@@ -481,7 +482,7 @@
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
         success: function (result) {
-          alert("이미지 파일 업로드 성공  :" + result);
+          // alert("이미지 파일 업로드 성공  :" + result);
           let fileNo = result
           let img = `<img src="/file/img/${fileNo}" />`
           $("#preview").html(img)
@@ -508,12 +509,15 @@
       var cvNo = "[[${cvNo}]]"
       var formData = new FormData();
       var inputFile = $("#uploadFile")[0];
+      console.log(inputFile)
       var files = inputFile.files;
+
       console.log(files);
 
       formData.append("cvNo", cvNo)
       for (let i = 0; i < files.length; i++) {
-        formData.append("thumbnail", files[i]);
+        formData.append("file", files[i]);
+
       }
       $.ajax({
         url: '/resume/cv_FileUpdate2_user',
@@ -525,9 +529,9 @@
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
         success: function (result) {
-          alert("문서 파일 업로드 성공  :" + result);
+          // alert("문서 파일 업로드 성공  :" + result);
           let fileName = result;
-          let span = `<span>${fileName}</span>`;
+          let span = `<span class="fileName">${fileName}</span>`;
           $("#fileAddList").append(span); // 기존 파일 유지
 
         },
@@ -537,7 +541,50 @@
         }
       });
     });
+    $("#uploadFile").on("change", function (e) {
+      var csrfToken = "[[${_csrf.token}]]";
+      var cvNo = "[[${cvNo}]]"
+      var formData = new FormData();
+      var inputFile = $("#uploadFile")[0];
+      console.log(inputFile)
+      var files = inputFile.files;
+
+      console.log(files);
+
+      formData.append("cvNo", cvNo)
+      for (let i = 0; i < files.length; i++) {
+        formData.append("file", files[i]);
+
+      }
+
+    });
+
     //파일 첨부 삭제 코드
+
+    $("#deleteFile").on("click", function (e) {
+      var csrfToken = "[[${_csrf.token}]]";
+      var cvNo = "[[${cvNo}]]"
+      $.ajax({
+        url: '/resume/cv_delete_user',
+        contentType: 'application/json',
+        data: JSON.stringify({ cvNo: cvNo }),
+        type: 'delete',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        },
+        success: function (result) {
+          // alert("삭제 성공  :" + result);
+          // let fileName = result;
+          // let span = `<span>${fileName}</span>`;
+          // $("#fileAddList").append(span); // 기존 파일 유지
+          $('.fileName').remove()
+        },
+        error: function (xhr, status, error) {
+          console.error('문서 업로드 실패:', error);
+          alert('문서 업로드에 실패했습니다.');
+        }
+      });
+    });
   </script>
 </body>
 

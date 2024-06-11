@@ -133,7 +133,9 @@
           <div class="ImgFile">
             <!--파일 비동기 html-->
             <input type="file" id="imgUploadFile" accept="image/png, image/jpeg" style="display:none;">
-            <button class="btn-long imgFile-input" type="button" id="imgUploadBtn">사진 선택</button>
+            <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+              <button class="btn-long imgFile-input" type="button" id="imgUploadBtn">사진 선택</button>
+            </th:block>
             <!-- <label for="files">
               <div class="btn-long" style="padding-top: 5px;">사진 추가</div>
             </label> -->
@@ -246,7 +248,7 @@
         </div>
 
 
-        <div class="col-sm-12  border bg-light rounded-3 mt-3" >
+        <div class="col-sm-12  border bg-light rounded-3 mt-3">
           <!--경력 db 넣기-->
 
           <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
@@ -325,26 +327,33 @@
 
 
       <div class="file-upload upload-btn d-flex justify-content-between">
-        <div>
-          <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()">
-          <button class="btn-long" id="fileButton">파일 선택</button>
-          <span id="fileName">파일을 추가해주세요.</span>
-          <!-- <button type="button" th:if="" th:onclick="|deleteFile(this, ${file.no})|">삭제</button> -->
-        </div>
-        <div class="btn-click123">
-          <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+        <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+          <div>
+            <input type="file" id="fileInput" style="display:none;" onchange="displayFileName()">
+            <button class="btn-long uploadBtn" id="uploadBtn">파일 선택</button>
+            <button class="btn-long deleteFile" type="button" id="deleteFile" name="deleteFile">파일 삭제</button>
+            <span id="fileName">
+              파일을 추가해주세요.
+              <th:block th:each="file : ${fileList}">
+                <span class="fileName" th:text="${file.originName}"></span>
+              </th:block>
+
+            </span>
+            <!-- <button type="button" th:if="" th:onclick="|deleteFile(this, ${file.no})|">삭제</button> -->
+          </div>
+          <div class="btn-click123">
             <button type="submit" class="btn-long">수정</button>
             <button type="button" class="btn-long" onclick="moveToDelete()">삭제</button>
             <button type="button" class="btn-long" onclick="moveToList1()">이전 페이지</button>
-          </th:block>
-          <th:block sec:authorize="hasRole('ROLE_COMPANY')">
-            <button type="button" class="btn-long" data-bs-toggle="modal" data-bs-target="#exampleModal">합격 /
-              불합격</button>
-            <button type="button" class="btn-long" onclick="moveToList()" style="float: inline-end;">이전 페이지</button>
-          </th:block>
-        </div>
+        </th:block>
+        <th:block sec:authorize="hasRole('ROLE_COMPANY')">
+          <button type="button" class="btn-long" data-bs-toggle="modal" data-bs-target="#exampleModal">합격 /
+            불합격</button>
+          <button type="button" class="btn-long" onclick="moveToList()" style="float: inline-end;">이전 페이지</button>
+        </th:block>
       </div>
-    </form>
+  </div>
+  </form>
   </div>
 
 
@@ -580,7 +589,7 @@
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
         success: function (result) {
-          alert("이미지 파일 업로드 성공: " + result);
+          // alert("이미지 파일 업로드 성공: " + result);
           let fileNo = result; // Assuming the server returns the file number
           let img = `<img src="/file/img/${fileNo}" />`;
           $("#preview").html(img);
@@ -606,12 +615,15 @@
       var cvNo = "[[${cvNo}]]"
       var formData = new FormData();
       var inputFile = $("#uploadFile")[0];
+      console.log(inputFile)
       var files = inputFile.files;
+
       console.log(files);
 
       formData.append("cvNo", cvNo)
       for (let i = 0; i < files.length; i++) {
-        formData.append("thumbnail", files[i]);
+        formData.append("file", files[i]);
+
       }
       $.ajax({
         url: '/resume/cv_FileUpdate2_user',
@@ -623,9 +635,56 @@
           xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         },
         success: function (result) {
-          alert("문서 파일 업로드 성공  :" + result);
-          let fileName = result.fileName;
-          let span = `<span>${fileName}</span>`;
+          // alert("문서 파일 업로드 성공  :" + result);
+          let fileName = result;
+          let span = `<span class="fileName">${fileName}</span>`;
+          $("#fileAddList").append(span); // 기존 파일 유지
+
+        },
+        error: function (xhr, status, error) {
+          console.error('문서 업로드 실패:', error);
+          alert('문서 업로드에 실패했습니다.');
+        }
+      });
+    });
+    $("#uploadFile").on("change", function (e) {
+      var csrfToken = "[[${_csrf.token}]]";
+      var cvNo = "[[${cvNo}]]"
+      var formData = new FormData();
+      var inputFile = $("#uploadFile")[0];
+      console.log(inputFile)
+      var files = inputFile.files;
+
+      console.log(files);
+
+      formData.append("cvNo", cvNo)
+      for (let i = 0; i < files.length; i++) {
+        formData.append("file", files[i]);
+
+      }
+
+    });
+
+    //파일 첨부 삭제 코드
+
+    $("#deleteFile").on("click", function (e) {
+      var csrfToken = "[[${_csrf.token}]]";
+      var cvNo = "[[${cvNo}]]"
+      // alert(cvNo)
+      $.ajax({
+        url: '/resume/cv_delete_user',
+        contentType: 'application/json',
+        data: JSON.stringify({ cvNo: cvNo }),
+        type: 'delete',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        },
+        success: function (result) {
+          // alert("삭제 성공  :" + result);
+          // let fileName = result;
+          // let span = `<span>${fileName}</span>`;
+          // $("#fileAddList").append(span); // 기존 파일 유지
+          $('.fileName').remove()
         },
         error: function (xhr, status, error) {
           console.error('문서 업로드 실패:', error);

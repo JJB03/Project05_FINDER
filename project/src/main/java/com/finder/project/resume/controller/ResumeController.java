@@ -1,6 +1,8 @@
 package com.finder.project.resume.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
@@ -205,7 +208,10 @@ public class ResumeController {
             @RequestParam("cvNo") int cvNo, Files file) throws Exception {
         // 세션으로 가져온 User 객체의 user_no을 참조해서 service에 넣기
         Users user = (Users) session.getAttribute("user");
+        file.setParentTable("resume");
+        file.setParentNo(cvNo);
 
+        List<Files> fileList = fileService.listByParent(file);
         if (user == null) {
             // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
             return "redirect:/login";
@@ -230,6 +236,7 @@ public class ResumeController {
             
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
 
+            model.addAttribute("fileList" , fileList);
             model.addAttribute("cvNo", cvNo);
             model.addAttribute("resume", resume);
             model.addAttribute("user", user);
@@ -427,23 +434,52 @@ public class ResumeController {
         return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
 
+    @ResponseBody
+    @DeleteMapping("/cv_delete_user")
+    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
+    public ResponseEntity<Integer> deleteFiles(@RequestBody Map<String, Integer> request) throws Exception {
+        Files file = new Files();
+        int cvNo = request.get("cvNo");
+        file.setParentNo(cvNo);
+        log.info(cvNo + "asdfasdfasdfla;dksjlafsljks;");
+    file.setParentTable("resume");
+        int result = fileService.deleteByParent(file);
+
+        log.info("asdfas" + result);
+        return new ResponseEntity<Integer>(result, HttpStatus.OK);
+    }
+
 
       // 문서 파일 업데이트
       @ResponseBody
       @PostMapping("/cv_FileUpdate2_user")
       // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
-      public ResponseEntity<String> uploadFile(Resume resume) throws Exception {
-          log.info("::::::::::::::::::::: resume22222222222222 :::::::::::::::::::::");
+      public ResponseEntity<List<String>> uploadFile(Resume resume) throws Exception {
           log.info(resume.toString());
-  
-          Files file = new Files();
-          file.setParentNo(resume.getCvNo());
-          file.setParentTable("resume");
-          file.setFile(resume.getThumbnail());
-          file.setFileCode(0);
-          // fileService.upload(file);
-          int fileNo = resumeService.resumeProfileUpload(file);
-          return new ResponseEntity<String>(file.getFileName(), HttpStatus.OK);
+          List<MultipartFile> files = resume.getFile();
+          log.info("::::::::::::::::::::: resume22222222222222 :::::::::::::::::::::" + files);
+
+        List<String> fileNameList = new ArrayList<>();
+        if (files != null) {
+
+            for (MultipartFile multipartFile : files) {
+                // log.info("asdfasfsadfasfadsF??" + multipartFile);
+                Files file = new Files();
+                file.setParentNo(resume.getCvNo());
+                file.setParentTable("resume");
+                file.setFile(multipartFile);
+                file.setFileCode(0);
+                // file.setOriginName(multipartFile.getOriginalFilename());
+                // file.setFilePath(multipartFile.getP);
+                
+                fileNameList.add(multipartFile.getOriginalFilename());     
+                fileService.upload(file);
+            }
+            
+        }
+
+        // fileService.upload(file);
+        return new ResponseEntity<>(fileNameList, HttpStatus.OK);
       }
     
     
@@ -473,6 +509,7 @@ public class ResumeController {
      */
     @GetMapping("/cv_read_com")
     public String ReadCom(@RequestParam("cvNo") int cvNo ,HttpSession session, Model model) throws Exception {
+        
 
         // 세션에서 사용자 정보를 가져옴
         Users user = (Users) session.getAttribute("user");
@@ -486,7 +523,7 @@ public class ResumeController {
 
         // 사용자의 이력서 정보를 가져옴
         Resume resume = resumeService.select(cvNo);
-        log.info("sfasdfdsajhfdagshjlkdsfajlhkfdsajlhk" + resume);
+        // log.info("sfasdfdsajhfdagshjlkdsfajlhkfdsajlhk" + resume);
 
         model.addAttribute("cvNo", cvNo);
         // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
