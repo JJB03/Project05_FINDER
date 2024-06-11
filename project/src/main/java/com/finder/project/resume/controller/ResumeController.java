@@ -1,9 +1,6 @@
 package com.finder.project.resume.controller;
 
-import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,10 +13,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
@@ -32,8 +30,6 @@ import com.finder.project.resume.service.ResumeService;
 import com.finder.project.user.dto.Users;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * /resume 경로로 요청 왔을 때 처리
@@ -217,8 +213,12 @@ public class ResumeController {
 
         // 사용자의 이력서 정보를 가져옴
         Resume resume = resumeService.select(cvNo);
-        Education education = educationService.select(cvNo);
-        EmploymentHistory employmentHistory = employmentHistoryService.select(cvNo);
+        // Education education = educationService.select(cvNo);
+        // EmploymentHistory employmentHistory = employmentHistoryService.select(cvNo);
+
+        List<Education> educationList = educationService.educationList(cvNo);
+        List<EmploymentHistory> employmentHistoryList = employmentHistoryService.employmentHistoryList(cvNo);
+        
 
         file.setParentNo(cvNo);
         file.setParentTable("resume");
@@ -230,8 +230,10 @@ public class ResumeController {
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
             model.addAttribute("resume", resume);
             model.addAttribute("user", user);
-            model.addAttribute("education", education);
-            model.addAttribute("employmentHistory", employmentHistory);
+            model.addAttribute("educationList", educationList);
+            // model.addAttribute("education", education);
+            // model.addAttribute("employmentHistory", employmentHistory);
+            model.addAttribute("employmentHistoryList", employmentHistoryList);
             model.addAttribute("Thumbnail", Thumbnail);
             log.info("이력서 번호는 : " + cvNo + "번으로 이동했어요");
             // 이력서 정보가 담긴 화면으로 이동
