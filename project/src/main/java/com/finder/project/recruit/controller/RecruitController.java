@@ -349,21 +349,16 @@ public class RecruitController {
         // log.info(recruitPosts + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ re");
 
         model.addAttribute("recruitPosts", recruitPosts);
-
         return "/recruit/applied_jobs_user";
     }
 
-    @GetMapping("/applied_jobs_user/{recruitNo}")
-    public ResponseEntity<String> getMethodName(@PathVariable("recruitNo") int recruitNo) {
+    @ResponseBody
+    @GetMapping("/applied_jobs_user_check")
+    public ResponseEntity<Integer> getRecruitInfo(@RequestParam("recruitNo") int recruitNo) {
+        // recruitNo를 사용하여 필요한 처리를 수행합니다.
         int checkValue = recruitService.getCheckByRecruitNo(recruitNo);
-        
-
-
-        
-            
-        return ResponseEntity.ok(String.valueOf(checkValue));
+        return ResponseEntity.ok(checkValue);
     }
-    
 
 
     // 등록된 채용공고 화면
