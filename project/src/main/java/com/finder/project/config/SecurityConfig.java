@@ -9,6 +9,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -71,9 +72,11 @@ public class SecurityConfig {
         );
         // 카카오톡 로그인
         http.oauth2Login(login -> login
+        .successHandler(authenticationSuccessHandler())
         .loginPage("/login")
-        .userInfoEndpoint()
-        .userService(oAuthService));
+        .userInfoEndpoint() 
+        .userService(oAuthService)
+        );
 
         return http.build();
     }
@@ -116,5 +119,12 @@ public class SecurityConfig {
         }
         return repositoryImpl;
     }
+
+     @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new LoginSuccessHandler();
+    } 
+
+
     
 }

@@ -1,3 +1,4 @@
+-- Active: 1716771409910@@127.0.0.1@3306@joeun
 -- 테이블 삭제 ( 총 15개 )
 
 -- 메일인증 테이블
@@ -87,11 +88,15 @@ CREATE TABLE email_verification (
 --     `ENABLED` int DEFAULT 1,
 --     PRIMARY KEY (`user_no`)
 -- );
+
+INSERT INTO user (user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender)
+VALUES ('John Doe', 'johndoe', 'password', '1990-01-01', '010-1234-5678', 'johndoe@example.com', '남자');
 CREATE TABLE `user` (
     `user_no` int NOT NULL AUTO_INCREMENT,
     `user_name` varchar(500) ,
     `user_id` varchar(500) ,
     `user_pw` varchar(500) ,
+    `user_before_pw` varchar(500),
     `user_birth` varchar(50) ,
     `user_phone` varchar(50) ,
     `user_email` varchar(500) ,
