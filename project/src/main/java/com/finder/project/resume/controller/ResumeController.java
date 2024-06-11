@@ -213,11 +213,12 @@ public class ResumeController {
 
         // 사용자의 이력서 정보를 가져옴
         Resume resume = resumeService.select(cvNo);
+        log.info(resume + " asdfsdfasdffasafssfdS");
         // Education education = educationService.select(cvNo);
         // EmploymentHistory employmentHistory = employmentHistoryService.select(cvNo);
 
-        List<Education> educationList = educationService.educationList(cvNo);
-        List<EmploymentHistory> employmentHistoryList = employmentHistoryService.employmentHistoryList(cvNo);
+        // List<Education> educationList = educationService.educationList(cvNo);
+        // List<EmploymentHistory> employmentHistoryList = employmentHistoryService.employmentHistoryList(cvNo);
         
 
         file.setParentNo(cvNo);
@@ -228,12 +229,14 @@ public class ResumeController {
         if (resume != null) {
             
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
+
+            model.addAttribute("cvNo", cvNo);
             model.addAttribute("resume", resume);
             model.addAttribute("user", user);
-            model.addAttribute("educationList", educationList);
+            // model.addAttribute("educationList", educationList);
             // model.addAttribute("education", education);
             // model.addAttribute("employmentHistory", employmentHistory);
-            model.addAttribute("employmentHistoryList", employmentHistoryList);
+            // model.addAttribute("employmentHistoryList", employmentHistoryList);
             model.addAttribute("Thumbnail", Thumbnail);
             log.info("이력서 번호는 : " + cvNo + "번으로 이동했어요");
             // 이력서 정보가 담긴 화면으로 이동
@@ -337,10 +340,11 @@ public class ResumeController {
         try {
             // 데이터 db에 저장
             int result = educationService.create(education);
-            log.info("result : " + result);
             int educationNo = educationService.maxPk();
-            log.info("educationNo : " + educationNo);
             education = educationService.select(educationNo);
+            
+            log.info("result : " + result);
+            log.info("educationNo : " + educationNo);
             log.info("education : " + education);
             return new ResponseEntity<Education>(education, HttpStatus.OK);
         } catch (Exception e) {

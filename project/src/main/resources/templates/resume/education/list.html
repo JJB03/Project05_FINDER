@@ -1,15 +1,15 @@
 <!-- 학력 리스트 -->
-<div class="d-flex flex-column w-100">
+<div class="d-flex flex-column w-100 h-auto">
     <th:block th:each="education : ${educationList}">
         <div class="education-card d-flex justify-content-between">
             <div class="flex-column col-3">
-                <p th:text="${education.university}">대학교</p>
+                <p th:text="${education.university}"></p>
             </div>
             <div class="flex-column col-3">
-                <p th:text="${education.major}">전공</p>
+                <p th:text="${education.major}"></p>
             </div>
             <div class="flex-column col-3">
-                <p th:text="${education.universityStatus}">재적상태</p>
+                <p th:text="${education.universityStatus}"></p>
             </div>
             <div class="flex-column col-3">
                 <button type="button" class="btn btn-danger" th:onclick="|deleteEducation(${education.educationNo})|">X</button>

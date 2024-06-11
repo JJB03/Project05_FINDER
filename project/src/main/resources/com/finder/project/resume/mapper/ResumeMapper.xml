@@ -89,6 +89,8 @@
 
 
 
+
+
   <!-- 이력서 삭제 -->
   <delete id="delete">
     DELETE FROM cv

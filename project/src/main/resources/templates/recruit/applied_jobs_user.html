@@ -213,10 +213,10 @@
 
     <script>
         $(document).ready(function () {
-            // $('#btn-stop').click(function (event) {
-            //     event.stopPropagation();  // 이벤트 전파 중지
-            //     event.preventDefault(); // 기본 동작 방지
-            // });
+            $('#btn-stop').click(function (event) {
+                event.stopPropagation();  // 이벤트 전파 중지
+                event.preventDefault(); // 기본 동작 방지
+            });
 
             var checkBtn = $('#btn-stop')
 
@@ -225,8 +225,8 @@
 
 
                 // let data = {"userId"   : userId}
-                // event.stopPropagation(); // 이벤트 전파 중지
-                // event.preventDefault(); // 기본 동작 방지
+                event.stopPropagation(); // 이벤트 전파 중지
+                event.preventDefault(); // 기본 동작 방지
                 
                 let request = new XMLHttpRequest()
                 // let csrfToken = $('#csrfToken').val();
