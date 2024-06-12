@@ -186,6 +186,7 @@ public class OAuthServiceImpl implements OAuthService {
     @Override
     public int join(UserSocial userSocial, OAuthAttributes oAuthAttributes) throws Exception {
         // 1. 가입 여부 확인
+         log.info("유저 소셜정보" + userSocial);
         Users joinedUser = userMapper.selectBySocial(userSocial);
 
         // 2. joinedUser 이 null 이면, 회원 가입

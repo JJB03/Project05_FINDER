@@ -228,23 +228,23 @@
 
     <!-- 소셜정보로 회원 조회 -->
     <select id="selectBySocial" resultMap="userMap">
-      SELECT u.user_no
-      ,u.user_id
-      ,u.user_pw
-      ,u.user_name
-      ,u.user_email
-      ,u.ENABLED
-      ,u.user_reg_date
-      ,u.user_upd_date
-      ,auth.auth
-    FROM user u 
-    LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
-    WHERE u.user_id = (
-                   SELECT user_id
-                   FROM user_social
-                   WHERE provider = #{provider} 
-                   AND social_id = #{socialId}
-                   );
+        SELECT u.user_no
+        ,u.user_id
+        ,u.user_pw
+        ,u.user_name
+        ,u.user_email
+        ,u.ENABLED
+        ,u.user_reg_date
+        ,u.user_upd_date
+        ,auth.auth
+        FROM user u 
+        LEFT OUTER JOIN user_auth auth ON u.user_no = auth.user_no
+        WHERE u.user_id = (
+                    SELECT username
+                    FROM user_social
+                    WHERE provider = #{provider} 
+                    AND social_id = #{socialId}
+                    )
     </select>
     
 </mapper>

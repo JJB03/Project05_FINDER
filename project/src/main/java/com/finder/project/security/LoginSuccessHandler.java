@@ -78,6 +78,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             Users user = new Users();
             user.setUserName(authentication.getName());
             customUser = new CustomUser(user);
+            response.sendRedirect("/user/update_user");
         }
         // 그냥 로그
         else {
@@ -91,10 +92,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
-        CustomSocialUser loginUser = (CustomSocialUser) authentication.getPrincipal();
+        // CustomSocialUser loginUser = (CustomSocialUser) authentication.getPrincipal();
         // CustomUser loginUsers = (CustomUser) authentication.getPrincipal();
                           
-        Users user = loginUser.getUser();
+        Users user = customUser.getUser();
 
         // 기업 회원이면, 기업 정보 추가 등록
         Company company = companyService.selectByUserNo(user.getUserNo());

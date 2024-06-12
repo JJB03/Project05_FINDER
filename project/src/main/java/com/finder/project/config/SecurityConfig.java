@@ -66,13 +66,13 @@ public class SecurityConfig {
                 .userInfoEndpoint()
                 .userService(oAuthService));
 
+        http.logout(logout -> logout.invalidateHttpSession(true));       
                 
-                
-        http.logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true) // 세션 무효화
-                .clearAuthentication(true)); // 인증 정보 삭제
+        // http.logout(logout -> logout
+        //         .logoutUrl("/logout")
+        //         .logoutSuccessUrl("/login")
+        //         .invalidateHttpSession(true) // 세션 무효화
+        //         .clearAuthentication(true)); // 인증 정보 삭제
 
         // ✅ 사용자 정의 인증 설정
         http.userDetailsService(userDetailServiceImpl);
