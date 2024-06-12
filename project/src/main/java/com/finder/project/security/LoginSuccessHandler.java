@@ -23,6 +23,7 @@ import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.user.dto.CustomSocialUser;
 import com.finder.project.user.dto.CustomUser;
 import com.finder.project.user.dto.Users;
+import com.finder.project.user.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
     @Autowired
     private RecruitService recruitService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -77,6 +81,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         if (authentication instanceof OAuth2AuthenticationToken) {
             Users user = new Users();
             user.setUserName(authentication.getName());
+            System.out.print("ansdjbalfhag" + user);
             customUser = new CustomUser(user);
             response.sendRedirect("/user/update_user");
         }
