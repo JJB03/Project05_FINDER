@@ -470,7 +470,7 @@
 
       formData.append("cvNo", cvNo)
       for (let i = 0; i < files.length; i++) {
-        formData.append("file" + i, files[i]);
+        formData.append("thumbnail", files[i]);
       }
       $.ajax({
         url: '/resume/cv_FileCreate_user',
