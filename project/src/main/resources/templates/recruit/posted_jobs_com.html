@@ -86,9 +86,9 @@
                                     <div>
                                         <img src="/img/CreditScore.png" alt="x" style="width: 24px;">
                                     </div>
-                                    <div>
+                                    <th:block th:if="${session.user.order} != null">
                                         <span th:text="${session.user.order.remainQuantity}"></span>
-                                    </div>
+                                    </th:block>
                                 </div>
                             </div>
                         </a>

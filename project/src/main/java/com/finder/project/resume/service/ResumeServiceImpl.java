@@ -72,49 +72,49 @@ public class ResumeServiceImpl implements ResumeService {
         int result = resumeMapper.update(resume);
         int cvNo = resume.getCvNo();
 
-        String parentTable = "resume";
-        int parentNo = cvNo;
+        // String parentTable = "resume";
+        // int parentNo = cvNo;
 
         System.out.println("파일 : " + resume.getFile());
         System.out.println("파일 번호: " + resume.getFileNo());
 
         // 이미지 파일 = 1
-        MultipartFile thumbnailFile = resume.getThumbnail();
-        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
-            com.finder.project.main.dto.Files thumbnail = new com.finder.project.main.dto.Files();
-            thumbnail.setFile(thumbnailFile);
-            thumbnail.setParentTable(parentTable);
-            thumbnail.setParentNo(parentNo);
-            thumbnail.setFileCode(1); // 이미지 파일 코드 설정
+        // MultipartFile thumbnailFile = resume.getThumbnail();
+        // if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+        //     com.finder.project.main.dto.Files thumbnail = new com.finder.project.main.dto.Files();
+        //     thumbnail.setFile(thumbnailFile);
+        //     thumbnail.setParentTable(parentTable);
+        //     thumbnail.setParentNo(parentNo);
+        //     thumbnail.setFileCode(1); // 이미지 파일 코드 설정
 
-            fileService.upload(thumbnail); // 파일 업로드
-        }
-        //문서파일 = 0
-        if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
-            Files files = new Files();
-            files.setFile(thumbnailFile);;
-            files.setParentTable(parentTable);
-            files.setParentNo(parentNo);
-            files.setFileCode(0); //문서 코드
+        //     fileService.upload(thumbnail); // 파일 업로드
+        // }
+        // //문서파일 = 0
+        // if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
+        //     Files files = new Files();
+        //     files.setFile(thumbnailFile);;
+        //     files.setParentTable(parentTable);
+        //     files.setParentNo(parentNo);
+        //     files.setFileCode(0); //문서 코드
 
-            fileService.upload(files); //업로드
-        }
+        //     fileService.upload(files); //업로드
+        // }
 
-        // 첨부파일 업로드
-        List<MultipartFile> fileList = resume.getFile();
-        if (fileList != null && !fileList.isEmpty()) {
-            for (MultipartFile file : fileList) {
-                if (file.isEmpty()) continue;
+        // // 첨부파일 업로드
+        // List<MultipartFile> fileList = resume.getFile();
+        // if (fileList != null && !fileList.isEmpty()) {
+        //     for (MultipartFile file : fileList) {
+        //         if (file.isEmpty()) continue;
 
-                // 파일 정보 등록
-                com.finder.project.main.dto.Files uploadFile = new com.finder.project.main.dto.Files();
-                uploadFile.setParentNo(parentNo);
-                uploadFile.setParentTable(parentTable);
-                uploadFile.setFile(file); // 각 파일을 설정
+        //         // 파일 정보 등록
+        //         com.finder.project.main.dto.Files uploadFile = new com.finder.project.main.dto.Files();
+        //         uploadFile.setParentNo(parentNo);
+        //         uploadFile.setParentTable(parentTable);
+        //         uploadFile.setFile(file); // 각 파일을 설정
 
-                fileService.upload(uploadFile); // 파일 업로드
-            }
-        }
+        //         fileService.upload(uploadFile); // 파일 업로드
+        //     }
+        // }
             return result;
     }
 
@@ -145,12 +145,31 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public int resumeProfileUpload(Files file) throws Exception {
 
+        if (file != null) {
+            fileService.deleteByParent(file);
+        }
+
         boolean result = fileService.upload(file);
         int fileNo = 0;
         if( result ) {
             fileNo = fileService.maxPk();
         }
         return fileNo;
+    }
+
+
+
+
+
+
+
+
+
+    // 합불
+    @Override
+    public int applyCheck(int cvNo, int check) throws Exception {
+        
+        return resumeMapper.applyCheck(cvNo, check);
     }
 
 

@@ -323,6 +323,12 @@ public class RecruitServiceImpl implements RecruitService {
         return creditMapper.updateRemainQuantityAndAccessOrderByOrderNo(order);
     }
 
+    @Override
+    public int getCheckByRecruitNo(int recruitNo) {
+        
+        return recruitMapper.getCheckByRecruitNo(recruitNo);
+    }
+
 
 
 

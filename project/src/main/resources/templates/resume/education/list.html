@@ -1,34 +1,39 @@
 <!-- 학력 리스트 -->
-<div class="d-flex flex-column w-100">
+<div class="d-flex flex-column w-100 h-auto">
     <th:block th:each="education : ${educationList}">
         <div class="education-card d-flex justify-content-between">
             <div class="flex-column col-3">
-                <p th:text="${education.university}">대학교</p>
+                <p th:text="${education.university}"></p>
             </div>
             <div class="flex-column col-3">
-                <p th:text="${education.major}">전공</p>
+                <p th:text="${education.major}"></p>
             </div>
             <div class="flex-column col-3">
-                <p th:text="${education.universityStatus}">재적상태</p>
+                <p th:text="${education.universityStatus}"></p>
             </div>
-            <div class="flex-column col-3">
-                <button type="button" class="btn btn-danger" th:onclick="|deleteEducation(${education.educationNo})|">X</button>
-            </div>
+            <th:block sec:authorize="hasRole('ROLE_COMPANY')">
+            </th:block>
+            <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+                <div class="flex-column col-3">
+                    <button type="button" class="btn btn-danger"
+                        th:onclick="|deleteEducation(${education.educationNo})|">X</button>
+                </div>
+            </th:block>
         </div>
     </th:block>
 </div>
 
 
 <script>
-    $(function() {
-        
+    $(function () {
+
     })
 
     // 학력 삭제
     function deleteEducation(educationNo) {
         let check = confirm("정말로 삭제하시겠습니까?")
 
-        if(!check) return
+        if (!check) return
 
         $.ajax({
             type: 'delete', //요청메소드
@@ -41,10 +46,10 @@
             },
             //요청 성공             응답데이터 응답상태
             success: function name(response, status) {
-                if( response == "SUCCESS" ){
+                if (response == "SUCCESS") {
                     educationList()
                 }
-                if( response == "FAIL" ){
+                if (response == "FAIL") {
                     alert("학력 삭제에 실패하였습니다.")
                 }
             },
@@ -54,7 +59,7 @@
             }
         })
 
-        
+
     }
 
 </script>

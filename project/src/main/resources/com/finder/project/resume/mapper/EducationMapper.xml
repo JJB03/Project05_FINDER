@@ -30,10 +30,15 @@
     WHERE education_no = #{educationNo}
   </update>
 
-  <!-- 삭제 -->
+  <!-- educationNo 으로 삭제 -->
   <delete id="delete">
     DELETE FROM education
     WHERE education_no = #{educationNo}
+  </delete>
+  <!-- cvNo 으로 삭제 -->
+  <delete id="deleteByCvNo">
+    DELETE FROM education
+    WHERE cv_no = #{cvNo}
   </delete>
 
   <!-- 이력서 번호 -->

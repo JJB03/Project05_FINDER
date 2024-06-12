@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-
         .table-wrap {
             min-height: 500px;
             border: 1px solid #ccc;
@@ -36,7 +35,6 @@
             text-align: center !important;
             padding: 0 5px !important;
         }
-        
     </style>
     <link rel="stylesheet" href="/css/pagination.css">
     <title>결제 내역</title>
@@ -45,34 +43,35 @@
 <body layout:fragment="content">
 
     <th:block th:each="order : ${orderCreditList}">
-    <!-- 상세조회 Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">결제내역 상세 안내</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="text-align: center;">
-                    <strong>
-                            결제 날짜: <span th:each="credit : ${order.credits}" th:text="${#dates.format( credit.creditDate, 'yyyy/MM/dd' )}"></span>
+        <!-- 상세조회 Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">결제내역 상세 안내</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <strong>
+                            결제 날짜: <span th:each="credit : ${order.credits}"
+                                th:text="${#dates.format( credit.creditDate, 'yyyy/MM/dd' )}"></span>
                         </strong>
-                    <br>
-                    <br>
-                    <span th:text="${session.user.userName}"></span>님의 결제 내역입니다<br>
-                    상품 옵션은 개월이며 <br>
-                    결제 금액은 
-                    <span th:text="${order.totalPrice}"></span>
-                    원입니다.<br>
-                    <hr>
-                    구매해주셔서 감사합니다.<br>
-                    주문처리 일자: <span th:text="${#dates.format( order.orderedDate, 'yyyy/MM/dd' )}"></span><br>
-                </div>
-                <div class="modal-footer">
+                        <br>
+                        <br>
+                        <span th:text="${session.user.userName}"></span>님의 결제 내역입니다<br>
+                        상품 옵션은 개월이며 <br>
+                        결제 금액은
+                        <span th:text="${order.totalPrice}"></span>
+                        원입니다.<br>
+                        <hr>
+                        구매해주셔서 감사합니다.<br>
+                        주문처리 일자: <span th:text="${#dates.format( order.orderedDate, 'yyyy/MM/dd' )}"></span><br>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </th:block>
 
     <div class="container-fluid container">
@@ -152,9 +151,9 @@
                                     <div>
                                         <img src="/img/CreditScore.png" alt="x" style="width: 24px;">
                                     </div>
-                                    <div>
+                                    <th:block th:if="${session.user.order} != null">
                                         <span th:text="${session.user.order.remainQuantity}"></span>
-                                    </div>
+                                    </th:block>
                                 </div>
                             </div>
                         </a>
@@ -250,14 +249,13 @@
                                     <td th:text="${order.orderNo}"></td>
 
                                     <td>
-                                        
+
                                         <span th:each="credit : ${order.credits}"
                                             th:text="${credit.creditMethod}"></span>
                                     </td>
 
                                     <td>
-                                        <span th:each="credit : ${order.credits}"
-                                            th:text="${credit.creditDate != null ? 
+                                        <span th:each="credit : ${order.credits}" th:text="${credit.creditDate != null ? 
                                                 #dates.format( credit.creditDate, 'yyyy/MM/dd HH:mm:ss' ) 
                                                 : ''}"></span>
                                     </td>
@@ -272,11 +270,13 @@
 
                                     <td>
                                         <th:block th:each="credit : ${order.credits}" th:if="credit.creditDate != null">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-short aBtn" th:text="상세조회">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                class="btn-short aBtn" th:text="상세조회">
                                             </a>
                                         </th:block>
                                         <th:block th:switch="${order.orderStatus}">
-                                            <a th:href="|/company/credit/checkout?orderNo=${order.orderNo}&productNo=${order.productNo}|" class="btn-short aBtn" th:case="PENDING" th:text="결제하기"></a>
+                                            <a th:href="|/company/credit/checkout?orderNo=${order.orderNo}&productNo=${order.productNo}|"
+                                                class="btn-short aBtn" th:case="PENDING" th:text="결제하기"></a>
                                         </th:block>
                                     </td>
                                 </tr>
@@ -290,11 +290,14 @@
                         <div class="pagination d-flex">
 
                             <!-- [ 처음 ] -->
-                            <a class="page-item page-first" th:href="|/company/credit/credit_list_com?page=${page.first}|" ><i class="fa-solid fa-angles-left"></i></a>        
-                            
+                            <a class="page-item page-first"
+                                th:href="|/company/credit/credit_list_com?page=${page.first}|"><i
+                                    class="fa-solid fa-angles-left"></i></a>
+
                             <!-- [ 이전 ] -->
                             <th:block th:if="${page.page != page.first}">
-                                <a class="page-item" th:href="|/company/credit/credit_list_com?page=${page.prev}|" ><i class="fa-solid fa-angle-left"></i></a>
+                                <a class="page-item" th:href="|/company/credit/credit_list_com?page=${page.prev}|"><i
+                                        class="fa-solid fa-angle-left"></i></a>
                             </th:block>
 
                             <!-- 페이지 번호 -->
@@ -316,11 +319,14 @@
 
                             <!-- [ 다음 ] -->
                             <th:block th:if="${page.page != page.last}">
-                                <a class="page-item" th:href="|/company/credit/credit_list_com?page=${page.next}|" ><i class="fa-solid fa-angle-right"></i></a>
+                                <a class="page-item" th:href="|/company/credit/credit_list_com?page=${page.next}|"><i
+                                        class="fa-solid fa-angle-right"></i></a>
                             </th:block>
-                            
+
                             <!-- [ 마지막 ] -->
-                            <a class="page-item page-end" th:href="|/company/credit/credit_list_com?page=${page.last}|" ><i class="fa-solid fa-angles-right"></i></a>
+                            <a class="page-item page-end"
+                                th:href="|/company/credit/credit_list_com?page=${page.last}|"><i
+                                    class="fa-solid fa-angles-right"></i></a>
 
                         </div>
                     </div>

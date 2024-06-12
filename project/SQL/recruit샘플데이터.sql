@@ -878,3 +878,22 @@ ORDER BY
           AND file_code = 1
     ) f ON r.recruit_no = f.parent_no
     WHERE c.com_no = 3;
+
+
+    SELECT c.*, r.*, rk.*
+    FROM company c
+    INNER JOIN recruit r ON c.com_no = r.com_no
+    LEFT JOIN recruit_keyword rk ON r.recruit_no = rk.recruit_no
+    JOIN apply_employee a ON r.recruit_no = a.recruit_no
+    JOIN cv ON a.cv_no = cv.cv_no
+    WHERE cv.user_no = 1;
+
+    SELECT c.*, u.*
+      FROM cv c
+        INNER JOIN user u ON c.user_no = u.user_no
+    WHERE c.cv_no = 1;
+  
+
+  UPDATE apply_employee
+    SET `check` = 1
+  WHERE cv_no = 1;

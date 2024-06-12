@@ -99,7 +99,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="/resume/cv_create_user" class="job-item-link nav-link fw-normal fs-6">
-                            <div style="background-color: #af3c3c; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
+                            <div style="background-color: #fff; border-radius: 8px; " class="d-flex gap-2 p-2 ps-2">
                                 <div>
                                     <img src="/img/Documents.png" alt="x">
                                 </div>
@@ -136,8 +136,8 @@
                     <th:block th:each="resume : ${resumeList}">
                         <!-- <a href="/resume/cv_read_com" class="job-item-link"> -->
                         <!--구분할 수 있게 스타일임시로 추가함.-->
-                        <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
                         <a th:href="|/resume/cv_read_user?cvNo=${resume.cvNo}|" class="job-item-link">
+                            <input type="hidden" name="cvNo" th:value="${resume.cvNo}">
 
                             <form class="job-item d-flex flex-column"
                                 style="border: 1px solid gray; border-radius: 8px; margin-bottom: 5px;">

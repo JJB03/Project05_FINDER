@@ -346,12 +346,20 @@ public class RecruitController {
         int userNo = user.getUserNo();
 
         List<RecruitPost> recruitPosts = recruitService.applyCvList(userNo);
-        log.info(recruitPosts + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ re");
+        // log.info(recruitPosts + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ re");
 
         model.addAttribute("recruitPosts", recruitPosts);
-
         return "/recruit/applied_jobs_user";
     }
+
+    @ResponseBody
+    @GetMapping("/applied_jobs_user_check")
+    public ResponseEntity<Integer> getRecruitInfo(@RequestParam("recruitNo") int recruitNo) {
+        // recruitNo를 사용하여 필요한 처리를 수행합니다.
+        int checkValue = recruitService.getCheckByRecruitNo(recruitNo);
+        return ResponseEntity.ok(checkValue);
+    }
+
 
     // 등록된 채용공고 화면
     @GetMapping("/recruit_list_com")
