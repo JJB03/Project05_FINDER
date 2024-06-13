@@ -55,7 +55,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         log.info("아이디 저장 : " + rememberId);
         log.info("저장할 아이디 : " + username);
 
-
         // ✅ 아이디 저장 체크
         if (rememberId != null && rememberId.equals("on")) {
             Cookie cookie = new Cookie("remember-id", username);
@@ -71,7 +70,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             response.addCookie(cookie); // 응답에 쿠키 등록
         }
 
-         // 인증된 사용자 정보 - (아이디/패스워드/권한)
+        // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
         log.info("::::::::::::::::::::::::::::::::::::::::::");
         log.info("authentication : " + authentication);
@@ -79,11 +78,15 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         CustomUser customUser = null;
         // 소셜 로그인
         if (authentication instanceof OAuth2AuthenticationToken) {
+            // authentication.getName() : user 테이블의 user_id
             Users user = new Users();
-            user.setUserName(authentication.getName());
-            System.out.print("ansdjbalfhag" + user);
+            try {
+                user = userMapper.select(authentication.getName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            user.setUserId(authentication.getName());
             customUser = new CustomUser(user);
-            response.sendRedirect("/user/update_user");
         }
         // 그냥 로그
         else {
@@ -93,13 +96,14 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
             log.info("권한 : " + customUser.getAuthorities());
         }
 
-
+       
 
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
-        // CustomSocialUser loginUser = (CustomSocialUser) authentication.getPrincipal();
+        // CustomSocialUser loginUser = (CustomSocialUser)
+        // authentication.getPrincipal();
         // CustomUser loginUsers = (CustomUser) authentication.getPrincipal();
-                          
+
         Users user = customUser.getUser();
 
         // 기업 회원이면, 기업 정보 추가 등록
