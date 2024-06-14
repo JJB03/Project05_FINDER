@@ -78,15 +78,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         CustomUser customUser = null;
         // 소셜 로그인
         if (authentication instanceof OAuth2AuthenticationToken) {
-            // authentication.getName() : user 테이블의 user_id
             Users user = new Users();
-            try {
-                user = userMapper.select(authentication.getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            user.setUserId(authentication.getName());
+            user.setUserName(authentication.getName());
+            System.out.print("ansdjbalfhag" + user);
             customUser = new CustomUser(user);
+            response.sendRedirect("/user/update_user");
         }
         // 그냥 로그
         else {
