@@ -1,3 +1,4 @@
+-- Active: 1716771409910@@127.0.0.1@3306@joeun
 -- 테이블 삭제 ( 총 15개 )
 
 -- 메일인증 테이블
@@ -58,31 +59,50 @@ CREATE TABLE email_verification (
 );
 
 -- 소셜 테이블
-CREATE TABLE user_social (
-    `ID` CHAR(36) PRIMARY KEY,
-    `USERNAME` VARCHAR(100) NOT NULL,
-    `PROVIDER` VARCHAR(50) NOT NULL,
-    `SOCIAL_ID` VARCHAR(255) NOT NULL,
-    `NAME` VARCHAR(100) NOT NULL,
-    `EMAIL` VARCHAR(200) DEFAULT NULL,
+   CREATE TABLE user_social (
+    `ID` CHAR(36) NOT NULL,
+    `USERNAME` VARCHAR(100),
+    `PROVIDER` VARCHAR(50),
+    `SOCIAL_ID` VARCHAR(255),
+    `NAME` VARCHAR(100),
+    `EMAIL` VARCHAR(200),
     `PICTURE` TEXT DEFAULT NULL,
     `CREATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `UPDATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `UPDATED_AT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`ID`)
 );
 
 -- 회원 테이블
+-- CREATE TABLE `user` (
+--     `user_no` int NOT NULL AUTO_INCREMENT,
+--     `user_name` varchar(500) NOT NULL,
+--     `user_id` varchar(500) NOT NULL,
+--     `user_pw` varchar(500) NOT NULL,
+--     `user_before_pw` varchar(500) NULL,
+--     `user_birth` varchar(50) NOT NULL,
+--     `user_phone` varchar(50) NOT NULL,
+--     `user_email` varchar(500) NOT NULL,
+--     `user_reg_date` timestamp NOT NULL DEFAULT now(),
+--     `user_upd_date` timestamp NULL DEFAULT now(),
+--     `user_gender` enum('남자', '여자') NOT NULL,
+--     `ENABLED` int DEFAULT 1,
+--     PRIMARY KEY (`user_no`)
+-- );
+
+-- INSERT INTO user (user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender)
+-- VALUES ('John Doe', 'johndoe', 'password', '1990-01-01', '010-1234-5678', 'johndoe@example.com', '남자');
 CREATE TABLE `user` (
     `user_no` int NOT NULL AUTO_INCREMENT,
-    `user_name` varchar(500) NOT NULL,
-    `user_id` varchar(500) NOT NULL,
-    `user_pw` varchar(500) NOT NULL,
-    `user_before_pw` varchar(500) NULL,
-    `user_birth` varchar(50) NOT NULL,
-    `user_phone` varchar(50) NOT NULL,
-    `user_email` varchar(500) NOT NULL,
+    `user_name` varchar(500) ,
+    `user_id` varchar(500) ,
+    `user_pw` varchar(500) ,
+    `user_before_pw` varchar(500),
+    `user_birth` varchar(50) ,
+    `user_phone` varchar(50) ,
+    `user_email` varchar(500) ,
     `user_reg_date` timestamp NOT NULL DEFAULT now(),
     `user_upd_date` timestamp NULL DEFAULT now(),
-    `user_gender` enum('남자', '여자') NOT NULL,
+    `user_gender` enum('남자', '여자'),
     `ENABLED` int DEFAULT 1,
     PRIMARY KEY (`user_no`)
 );

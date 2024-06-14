@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +20,10 @@ import com.finder.project.company.dto.CompanyDetail;
 import com.finder.project.company.dto.Order;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.recruit.service.RecruitService;
+import com.finder.project.user.dto.CustomSocialUser;
 import com.finder.project.user.dto.CustomUser;
 import com.finder.project.user.dto.Users;
+import com.finder.project.user.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +40,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     @Autowired
     private RecruitService recruitService;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws ServletException, IOException {
@@ -45,17 +51,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         // 아이디 저장
         String rememberId = request.getParameter("remember-id"); // 아이디 저장 여부
-        String rememberMe = request.getParameter("remember-me"); // 자동로그인 여부
         String username = request.getParameter("userId"); // 아이디
         log.info("아이디 저장 : " + rememberId);
-        log.info("아이디 저장 : " + rememberMe);
         log.info("저장할 아이디 : " + username);
-
-        if (rememberMe != null && rememberMe.equals("on")) {
-            // Users user = (Users) authentication.getPrincipal();
-            // int userNo = user.getUserNo();
-
-        }
 
         // ✅ 아이디 저장 체크
         if (rememberId != null && rememberId.equals("on")) {
@@ -74,8 +72,35 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
-        CustomUser loginUser = (CustomUser) authentication.getPrincipal();
-        Users user = loginUser.getUser();
+        log.info("::::::::::::::::::::::::::::::::::::::::::");
+        log.info("authentication : " + authentication);
+
+        CustomUser customUser = null;
+        // 소셜 로그인
+        if (authentication instanceof OAuth2AuthenticationToken) {
+            Users user = new Users();
+            user.setUserName(authentication.getName());
+            System.out.print("ansdjbalfhag" + user);
+            customUser = new CustomUser(user);
+            response.sendRedirect("/user/update_user");
+        }
+        // 그냥 로그
+        else {
+            customUser = (CustomUser) authentication.getPrincipal();
+            log.info("아이디 : " + customUser.getUsername());
+            log.info("패스워드 : " + customUser.getPassword()); // 보안상 노출❌
+            log.info("권한 : " + customUser.getAuthorities());
+        }
+
+       
+
+        // 인증된 사용자 정보 - (아이디/패스워드/권한)
+        // User user = (User) authentication.getPrincipal();
+        // CustomSocialUser loginUser = (CustomSocialUser)
+        // authentication.getPrincipal();
+        // CustomUser loginUsers = (CustomUser) authentication.getPrincipal();
+
+        Users user = customUser.getUser();
 
         // 기업 회원이면, 기업 정보 추가 등록
         Company company = companyService.selectByUserNo(user.getUserNo());
@@ -96,9 +121,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         LocalDate currentDate = LocalDate.now();
         session.setAttribute("currentDate", currentDate);
 
-        log.info("아이디 : " + loginUser.getUsername());
-        log.info("패스워드 : " + loginUser.getPassword()); // 보안상 노출 ❌
-        log.info("권한 : " + loginUser.getAuthorities());
+        // log.info("아이디 : " + loginUser.getUsername());
+        // log.info("패스워드 : " + loginUser.getPassword()); // 보안상 노출 ❌
+        // log.info("권한 : " + loginUser.getAuthorities());
 
         super.onAuthenticationSuccess(request, response, authentication);
     }

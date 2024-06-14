@@ -13,18 +13,18 @@ import lombok.extern.slf4j.Slf4j;
 public class OAuthAttributes {
     private Map<String, Object> attribute;      // OAuth 토큰 속성들
     private String nameAttributeKey;            // 사용자 이름 속성 키
-    private String name;                        // 이름(닉네임)
-    private String email;                       // 이메일
-    private String picture;                     // 프로필 사진 URL
+    private String userName;                        // 이름(닉네임)
+    private String userEmail;                       // 이메일
+    // private String picture;                     // 프로필 사진 URL
     private String id;                          // 사용자 정보 식별키
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture, String id) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String userName, String userEmail, String id) {
         this.attribute = attributes;
         this.nameAttributeKey = nameAttributeKey;
-        this.name = name;
-        this.email = email;
-        this.picture = picture;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        // this.picture = picture;
         this.id = id;
     }
 
@@ -46,10 +46,10 @@ public class OAuthAttributes {
 		log.info("thumbnail_image_url : " + profile.get("thumbnail_image_url"));
 
 		return OAuthAttributes.builder()
-							  .name((String) profile.get("nickname"))
-							  .email((String) kakaoAccount.get("email") )
+							  .userName((String) profile.get("nickname"))
+							  .userEmail((String) kakaoAccount.get("email") )
 							  .id( String.valueOf( attributes.get(userNameAttributeName) ) )
-							  .picture((String) profile.get("thumbnail_image_url") )
+							//   .picture((String) profile.get("thumbnail_image_url") )
 							  .attributes(attributes)
 							  .nameAttributeKey(userNameAttributeName)
 							  .build();
