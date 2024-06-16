@@ -86,7 +86,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                 customUser = new CustomUser(userInfo);
                 System.out.print("ansdjbalfhag" + customUser);
                 // response.sendRedirect("/user/update_user");
-                response.sendRedirect("/user/update_user?message=pleaseUpdateInfo");
+                response.sendRedirect("/user/social_user?message=pleaseUpdateInfo");
             }
             catch (Exception e) {
             }
