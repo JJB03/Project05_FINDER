@@ -73,17 +73,25 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         // 인증된 사용자 정보 - (아이디/패스워드/권한)
         // User user = (User) authentication.getPrincipal();
         log.info("::::::::::::::::::::::::::::::::::::::::::");
-        log.info("authentication : " + authentication);
+        log.info("authentication :  " + authentication);
 
         CustomUser customUser = null;
         // 소셜 로그인
-        if (authentication instanceof OAuth2AuthenticationToken) {
-            Users user = new Users();
-            user.setUserName(authentication.getName());
-            System.out.print("ansdjbalfhag" + user);
-            customUser = new CustomUser(user);
-            response.sendRedirect("/user/update_user");
+        if (authentication instanceof OAuth2AuthenticationToken) {// userMapper조회 하고 user에다가 넣어 씨발 병신아 
+            try {
+                Users user = new Users();
+                user.setUserId(authentication.getName());
+                String userId  = user.getUserId();
+                Users userInfo = userMapper.select(userId);
+                customUser = new CustomUser(userInfo);
+                System.out.print("ansdjbalfhag" + customUser);
+                // response.sendRedirect("/user/update_user");
+                response.sendRedirect("/user/update_user?message=pleaseUpdateInfo");
+            }
+            catch (Exception e) {
+            }
         }
+
         // 그냥 로그
         else {
             customUser = (CustomUser) authentication.getPrincipal();
@@ -117,6 +125,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         // 로그인된 사용자 정보 세션에 등록
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
+        log.info("세션에 등록하는 user 정보 " + user);
 
         LocalDate currentDate = LocalDate.now();
         session.setAttribute("currentDate", currentDate);
