@@ -1,6 +1,7 @@
 package com.finder.project.user.service;
 
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,13 +187,13 @@ public class OAuthServiceImpl implements OAuthService {
     @Override
     public int join(UserSocial userSocial, OAuthAttributes oAuthAttributes) throws Exception {
         // 1. 가입 여부 확인
-         log.info("유저 소셜정보" + userSocial);
+        log.info("유저 소셜정보" + userSocial);
         Users joinedUser = userMapper.selectBySocial(userSocial);
 
         // 2. joinedUser 이 null 이면, 회원 가입
         int result = 0;
         String username = userSocial.getProvider() + "_" + userSocial.getSocialId();
-        if( joinedUser == null ) {
+        if (joinedUser == null) {
             Users user = new Users();
             user.setUserId(username);
             user.setUserName(oAuthAttributes.getUserName());
@@ -203,7 +204,11 @@ public class OAuthServiceImpl implements OAuthService {
             user.setUserBirth("");
             // user.setUserAddress("");
             user.setUserGender("남자");
-            user.setUserPw(UUID.randomUUID().toString());
+
+            String randomDigits = generateRandomNumber(8);
+            user.setUserPw(randomDigits);
+            
+            log.info("소셜회원가입 정보로 로그인 하는 정보 " + user);
             // 1️⃣ user 정보 등록
             result = userMapper.join(user);
             joinedUser = userMapper.select(username);
@@ -252,6 +257,17 @@ public class OAuthServiceImpl implements OAuthService {
         result = userMapper.updateSocial(userSocial);
 
         return result;
+    }
+
+    public static String generateRandomNumber(int length) {
+        Random random = new Random();
+        StringBuilder randomNumber = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            randomNumber.append(random.nextInt(10)); // 0부터 9까지의 숫자를 랜덤으로 추가
+        }
+
+        return randomNumber.toString();
     }
 
 }

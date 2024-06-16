@@ -358,6 +358,20 @@
 
     <script>
 
+        // 소셜로그인 했을때 실행되는 함수 
+        window.onload = function () {
+            // URL 파라미터에서 메시지 읽기
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+
+            // 메시지가 있을 경우 알림 표시
+            if (message) {
+                if (message === 'pleaseUpdateInfo') {
+                    alert('회원정보를 입력해주세요.');
+                }
+            }
+        }
+
         // 성별 표시 ⭕
         $(function () { // 페이지가 로드되기 전에 실행시킬 코드들
             var gender = "[[${session.user.userGender}]]";
@@ -494,7 +508,7 @@
         }
 
 
-        
+
     </script>
 
 </body>
