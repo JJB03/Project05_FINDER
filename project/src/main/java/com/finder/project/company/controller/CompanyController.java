@@ -378,10 +378,10 @@ public class CompanyController {
             response.put("status", "fail");
         }
 
-        // Users user = (Users) session.getAttribute("user");
+        Users user = (Users) session.getAttribute("user");
 
-        // user.setOrder(order);
-        // session.setAttribute("user", user);
+        user.setOrder(order);
+        session.setAttribute("user", user);
         
         response.put("productNo", productNo);
         response.put("orderNo", orderNo);
