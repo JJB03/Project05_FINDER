@@ -1,21 +1,18 @@
-package com.finder.project.user.service;
+package com.finder.project.user.dto;
 
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
-import com.finder.project.user.dto.OAuthAttributes;
-import com.finder.project.user.dto.Users;
-
 import lombok.Getter;
 
 @Getter
-public class CustomUser extends DefaultOAuth2User {
+public class CustomSocialUser extends DefaultOAuth2User {
 
     private Users user;
 
-    public CustomUser(Users user, OAuthAttributes oAuthAttributes) {
+    public CustomSocialUser(Users user, OAuthAttributes oAuthAttributes) {
         super(user.getAuthList().stream().map(auth -> new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList())
             ,oAuthAttributes.getAttribute()
             ,oAuthAttributes.getNameAttributeKey() )
@@ -24,10 +21,15 @@ public class CustomUser extends DefaultOAuth2User {
     }
 
     public String getName() {
-        return user.getUserEmail();
+        return user.getUserId();
     }
 
     public String getEmail() {
         return user.getUserEmail();
     }
+
+    // public String profile() {
+    //     return user.getUserProfile();
+    // }
+
 }

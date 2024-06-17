@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import com.finder.project.company.dto.Company;
 import com.finder.project.user.dto.EmailVerification;
 import com.finder.project.user.dto.UserAuth;
+import com.finder.project.user.dto.UserSocial;
 import com.finder.project.user.dto.Users;
 
 @Mapper
@@ -21,7 +22,7 @@ public interface UserMapper {
     // 회원 가입
     public int join(Users user) throws Exception;
 
-    // 기업 회원 가입 
+    // 기업 회원 가입
     public int comJoin(Company company) throws Exception;
 
     // 회원 수정
@@ -30,7 +31,7 @@ public interface UserMapper {
     // 회원 권한 등록
     public int insertAuth(UserAuth userAuth) throws Exception;
 
-    // 권한 업데이트 
+    // 권한 업데이트
     // public int updateAuth(UserAuth userAuth) throws Exception;
 
     public int max() throws Exception;
@@ -45,7 +46,7 @@ public interface UserMapper {
     // 사용자 비밀번호 찾기
     @Select("SELECT * FROM user WHERE user_id = #{userId}")
     public Users findUserById(String userId) throws Exception;
- 
+
     // 비밀번호 수정하기
     public int updatePw(Users userPw) throws Exception;
 
@@ -60,5 +61,17 @@ public interface UserMapper {
     // 사용자가 입력한 이메일이 중복인지 아닌지 확인하기
     @Select("SELECT user_email FROM user WHERE user_email = #{checkEmail}")
     public String checkEmail(String checkEmail) throws Exception;
+
+    // 소셜 회원 가입
+    public int insertSocial(UserSocial userSocial) throws Exception;
+
+    // 소셜 회원 조회
+    public UserSocial selectSocial(UserSocial userSocial) throws Exception;
+
+    // 소셜 회원 수정
+    public int updateSocial(UserSocial userSocial) throws Exception;
+
+    // 소셜 정보로 회원 조회
+    public Users selectBySocial(UserSocial userSocial) throws Exception;
 
 }

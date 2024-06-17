@@ -2,10 +2,8 @@ package com.finder.project.company.controller;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +27,6 @@ import com.finder.project.company.dto.PasswordConfirmRequest;
 import com.finder.project.company.dto.Product;
 import com.finder.project.company.service.CompanyService;
 import com.finder.project.main.dto.Page;
-import com.finder.project.recruit.dto.RecruitPost;
 import com.finder.project.recruit.service.RecruitService;
 import com.finder.project.resume.dto.Resume;
 import com.finder.project.resume.service.ResumeService;
@@ -198,6 +195,50 @@ public class CompanyController {
         return "redirect:/user/error";
     }
 
+    // kakao 로그인하면 여길루옴
+    @PostMapping("/update_com_kakaoInfo")
+    public String updateKakao(HttpSession session, Company company
+                              ,@RequestParam("userName") String userName,
+                               @RequestParam("userBirth") String userBirth,
+                               @RequestParam("userPhone") String userPhone,
+                               @RequestParam("userEmail") String userEmail
+                               ) throws Exception {
+        
+        // 세션에서 사용자 정보 가져오기
+        Users user = (Users) session.getAttribute("user");
+        
+        if (user == null) {
+            // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+
+        // 사용자 정보 업데이트
+        user.setUserBirth(userBirth);
+        user.setUserPhone(userPhone);
+        user.setUserEmail(userEmail);
+
+        
+        // company = companyService.selectByUserNo(user.getUserNo());
+        
+        // company = user.getCompany();
+        // company.setComAddress(comAddress); // 기업 주소 업데이트
+        
+
+        // 데이터 요청
+        int result = companyService.updateUserInfo(user);
+        
+        // 데이터 처리 성공 
+        if( result > 0 ) {
+            log.info("User : " + user.getUserBirth());
+            // log.info("Company : " + company.getComAddress());
+            // user.setCompany(company);
+            // session.setAttribute("user", user);
+            return "redirect:/user/social_user";
+        }
+        // 데이터 처리 실패
+        return "redirect:/user/error";
+    }
+
     // 현재 비밀번호 확인
     @PostMapping("/update_com_pw_confirm")
     public ResponseEntity<Boolean> pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
@@ -336,6 +377,11 @@ public class CompanyController {
         } else {
             response.put("status", "fail");
         }
+
+        // Users user = (Users) session.getAttribute("user");
+
+        // user.setOrder(order);
+        // session.setAttribute("user", user);
         
         response.put("productNo", productNo);
         response.put("orderNo", orderNo);

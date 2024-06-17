@@ -192,10 +192,16 @@
         <div class="form-group row w-100 flex-column">
 
           <!-- 학력/경력 시작 -->
-          <div class="col-sm-12  border bg-light rounded-3 " style="">
+          <div class="col-sm-12  border bg-light rounded-3 " >
             <!--학력 controller 부르기-->
             <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
               <h5>학력</h5>
+              <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+              <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+                <button type="button" class="educationBtn btn-short">
+                  <span class="fs-2">+</span>
+                </button>
+              </th:block>
             </div>
 
             <div>
@@ -230,12 +236,6 @@
                     placeholder="학력상태">
                 </div>
                 <div class="flex-column col-3">
-                  <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-                  <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
-                    <button type="button" class="educationBtn btn-short">
-                      <span class="fs-2">+</span>
-                    </button>
-                  </th:block>
                 </div>
               </div>
 
@@ -250,9 +250,14 @@
 
         <div class="col-sm-12  border bg-light rounded-3 mt-3">
           <!--경력 db 넣기-->
-
+          
           <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
             <h5>경력</h5>
+            <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
+              <button type="button" class="employmentHistoryBtn btn-short">
+                <span class="fs-2">+</span>
+              </button>
+            </th:block>
           </div>
 
           <div>
@@ -275,11 +280,11 @@
               <p>당담</p>
             </div>
           </div>
-
+          
           <div class="col-12 d-flex">
             <div class="form-group col-3">
               <input type="text" class="form-control w-75" name="organization" id="organization" placeholder="기관"
-                value="">
+              value="">
             </div>
             <div class="form-group col-3">
               <input type="date" class="form-control w-75" name="startDate" id="startDate" placeholder="시작 날짜">
@@ -293,12 +298,7 @@
             <div class="flex-column col-3">
               <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
               <th:block sec:authorize="hasRole('ROLE_COMPANY')">
-
-              </th:block>
-              <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
-                <button type="button" class="employmentHistoryBtn btn-short">
-                  <span class="fs-2">+</span>
-                </button>
+                
               </th:block>
             </div>
           </div>

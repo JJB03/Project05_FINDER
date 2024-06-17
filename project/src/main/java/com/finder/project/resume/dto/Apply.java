@@ -9,4 +9,5 @@ public class Apply {
     private int applyNo;
     private int cvNo;
     private int recruitNo;
+    private int check;
 }
