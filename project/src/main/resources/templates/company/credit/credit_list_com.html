@@ -59,7 +59,13 @@
                         <br>
                         <br>
                         <span th:text="${session.user.userName}"></span>님의 결제 내역입니다<br>
-                        상품 옵션은 개월이며 <br>
+                        상품 옵션은 
+                        <th:block th:switch="${order.totalQuantity}">
+                            <span th:case="30">2</span>
+                            <span th:case="80">3</span>
+                            <span th:case="150">5</span>
+                        </th:block>
+                        개월이며 <br>
                         결제 금액은
                         <span th:text="${order.totalPrice}"></span>
                         원입니다.<br>
