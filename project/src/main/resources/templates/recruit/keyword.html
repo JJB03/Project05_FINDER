@@ -1,6 +1,7 @@
 <div class="">
     <th:block th:each="company : ${companyList}">
         <div class="d-flex company-item" data-id="${company.comNo}"></div>
+
         <div class="company-item ">
             <ul class="item">
                 <li class="d-flex">
@@ -11,6 +12,7 @@
                     <ul class="recruit-wrab">
                         <div class="item recruit-list-item" th:data-id="${company.comNo}"
                             th:classappend="' custom-dropdown-item-' + ${company.comNo}">
+
 
                         </div>
                     </ul>
