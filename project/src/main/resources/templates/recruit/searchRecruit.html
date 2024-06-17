@@ -1,5 +1,6 @@
 <th:block th:each="recruit : ${recruitPost}">
-    <div class="recruit-box custom-dropdown-item2">
-        <a th:href="|/recruit/detail_jobs_user?recruitNo=${recruit.recruitNo}|" th:text="${recruit.recruitTitle}" th:value="${recruit.recruitNo}"></a>
-    </div>
+    <li class="recruit-box custom-dropdown-item2">
+        <a th:href="|/recruit/detail_jobs_user?recruitNo=${recruit.recruitNo}|" th:text="${recruit.recruitTitle}"
+            th:value="${recruit.recruitNo}"></a>
+    </li>
 </th:block>
