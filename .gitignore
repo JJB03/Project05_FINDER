@@ -12,3 +12,6 @@ bin
 
 build
 **/build
+
+node_modules/
+logs
