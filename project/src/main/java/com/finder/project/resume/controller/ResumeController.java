@@ -119,7 +119,7 @@ public class ResumeController {
     @GetMapping("/cv_list_user")
     public String CvList(HttpSession session, Model model) throws Exception {
         Users user = (Users) session.getAttribute("user");
-    
+
         if (user == null) {
             // 사용자 정보가 없으면 로그인 페이지로 리다이렉트
             return "redirect:/login";
@@ -224,8 +224,8 @@ public class ResumeController {
         // EmploymentHistory employmentHistory = employmentHistoryService.select(cvNo);
 
         // List<Education> educationList = educationService.educationList(cvNo);
-        // List<EmploymentHistory> employmentHistoryList = employmentHistoryService.employmentHistoryList(cvNo);
-        
+        // List<EmploymentHistory> employmentHistoryList =
+        // employmentHistoryService.employmentHistoryList(cvNo);
 
         file.setParentNo(cvNo);
         file.setParentTable("resume");
@@ -233,10 +233,10 @@ public class ResumeController {
         Files Thumbnail = fileService.listByCVParentThumbnail(file);
 
         if (resume != null) {
-            
+
             // 가져온 이력서 정보를 모델에 추가하여 화면에 전달
 
-            model.addAttribute("fileList" , fileList);
+            model.addAttribute("fileList", fileList);
             model.addAttribute("cvNo", cvNo);
             model.addAttribute("resume", resume);
             model.addAttribute("user", user);
@@ -312,7 +312,7 @@ public class ResumeController {
             e.printStackTrace();
             System.err.println("경력 등록시, 에러 발생");
         }
-        return new ResponseEntity<>("FAIL", HttpStatus.OK); 
+        return new ResponseEntity<>("FAIL", HttpStatus.OK);
     }
 
     // html list 만든 후 list - get 도 만들기
@@ -349,7 +349,7 @@ public class ResumeController {
             int result = educationService.create(education);
             int educationNo = educationService.maxPk();
             education = educationService.select(educationNo);
-            
+
             log.info("result : " + result);
             log.info("educationNo : " + educationNo);
             log.info("education : " + education);
@@ -371,93 +371,93 @@ public class ResumeController {
         return "/resume/education/list";
     }
 
-    
-        public ResumeController(ResumeService resumeService, FileService fileService) {
+    public ResumeController(ResumeService resumeService, FileService fileService) {
         this.resumeService = resumeService;
         this.fileService = fileService;
     }
 
-
     // 이미지 파일 업데이트
     @ResponseBody
     @PostMapping("/cv_FileUpdate_user")
-    public ResponseEntity<Integer> uploadFiles(@RequestParam("cvNo") int cvNo, @ModelAttribute Resume resume) throws Exception {
+    public ResponseEntity<Integer> uploadFiles(@RequestParam("cvNo") int cvNo, @ModelAttribute Resume resume)
+            throws Exception {
         log.info("::::::::::::::::::::: resume :::::::::::::::::::::");
         log.info(resume.toString());
-    
+
         Files file = new Files();
-    
+
         file = fileService.selectByParentNo(cvNo);
         log.info("file" + file);
-    
+
         // 파일의 부모번호가 이 resume에 cvno와 같으면 삭제부터 업데이트
         // if (file != null) {
-        //     fileService.deleteByParent(file);
+        // fileService.deleteByParent(file);
         // }
-    
+
         log.info("부모번호, 테이블: " + file.getParentNo() + file.getParentTable());
         file.setFile(resume.getThumbnail());
         file.setFileCode(1);
-    
+
         int fileNo = resumeService.resumeProfileUpload(file);
-    
+
         return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
 
     // 이미지 파일 등록
     @ResponseBody
     @PostMapping("/cv_FileCreate_user")
-    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
+    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[]
+    // files) throws Exception {
     public ResponseEntity<Integer> createFiles(@RequestParam("cvNo") int cvNo, Resume resume) throws Exception {
         log.info("::::::::::::::::::::: resume :::::::::::::::::::::");
-        log.info(resume.toString());
-
+        
         Files file = new Files();
         
         file.setParentNo(cvNo);
         file.setParentTable("resume");
+        // log.info(resume.getThumbnail() + "fasfdsaassfasasaas????");
+        
         file.setFile(resume.getThumbnail());
         file.setFileCode(1);
 
         // file = fileService.listByCVParentThumbnail(file);
         // if (file != null) {
-        //     fileService.delete(file.getFileNo());
+        // fileService.delete(file.getFileNo());
         // }
 
-        
         // 사진이 있다면 삭제 후 새 사진을 넣을 수 있게 만들어야 함.
 
-        // fileService.upload(file);
-
         int fileNo = resumeService.resumeProfileUpload(file);
+        // fileService.upload(file);
 
         return new ResponseEntity<Integer>(fileNo, HttpStatus.OK);
     }
 
     @ResponseBody
     @DeleteMapping("/cv_delete_user")
-    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
+    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[]
+    // files) throws Exception {
     public ResponseEntity<Integer> deleteFiles(@RequestBody Map<String, Integer> request) throws Exception {
         Files file = new Files();
         int cvNo = request.get("cvNo");
         file.setParentNo(cvNo);
         log.info(cvNo + "asdfasdfasdfla;dksjlafsljks;");
-    file.setParentTable("resume");
+        file.setParentTable("resume");
         int result = fileService.deleteByParent(file);
 
         log.info("asdfas" + result);
         return new ResponseEntity<Integer>(result, HttpStatus.OK);
     }
 
-
-      // 문서 파일 업데이트
-      @ResponseBody
-      @PostMapping("/cv_FileUpdate2_user")
-      // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[] files) throws Exception {
-      public ResponseEntity<List<String>> uploadFile(Resume resume) throws Exception {
-          log.info(resume.toString());
-          List<MultipartFile> files = resume.getFile();
-          log.info("::::::::::::::::::::: resume22222222222222 :::::::::::::::::::::" + files);
+    // 문서 파일 업데이트
+    @ResponseBody
+    @PostMapping("/cv_FileUpdate2_user")
+    // public String uploadFiles(@RequestParam("imgUploadFile") MultipartFile[]
+    // files) throws Exception {
+    public ResponseEntity<List<String>> uploadFile(Resume resume) throws Exception {
+        log.info(resume.toString());
+        List<MultipartFile> files = resume.getFile();
+        log.info("::::::::::::::::::::: resume22222222222222 :::::::::::::::::::::" + files);
 
         List<String> fileNameList = new ArrayList<>();
         if (files != null) {
@@ -471,21 +471,18 @@ public class ResumeController {
                 file.setFileCode(0);
                 // file.setOriginName(multipartFile.getOriginalFilename());
                 // file.setFilePath(multipartFile.getP);
-                
-                fileNameList.add(multipartFile.getOriginalFilename());     
+
+                fileNameList.add(multipartFile.getOriginalFilename());
                 fileService.upload(file);
             }
-            
+
         }
 
         // fileService.upload(file);
         return new ResponseEntity<>(fileNameList, HttpStatus.OK);
-      }
-    
-    
+    }
 
-
-    //이력서 수정
+    // 이력서 수정
     @PostMapping("/cv_read_user")
     public String updateUserPro2(HttpSession session, Resume resume) throws Exception {
 
@@ -508,8 +505,7 @@ public class ResumeController {
      * @return
      */
     @GetMapping("/cv_read_com")
-    public String ReadCom(@RequestParam("cvNo") int cvNo ,HttpSession session, Model model) throws Exception {
-        
+    public String ReadCom(@RequestParam("cvNo") int cvNo, HttpSession session, Model model) throws Exception {
 
         // 세션에서 사용자 정보를 가져옴
         Users user = (Users) session.getAttribute("user");
@@ -582,7 +578,6 @@ public class ResumeController {
             throws Exception {
         log.info("###############################" + employmentHistoryNo);
 
-
         // 데이터 db에 저장
         try {
             // 데이터 db에 저장
@@ -607,16 +602,14 @@ public class ResumeController {
         educationService.deleteByCvNo(cvNo);
         employmentHistoryService.deleteByCvNo(cvNo);
 
-
         int result = resumeService.delete(cvNo);
         if (result > 0) {
 
-            // 파일까지 삭제            
-             Files file = new Files();
-             file.setParentTable("Resume");
-             file.setParentNo(cvNo);
-             fileService.deleteByParent(file);
-             
+            // 파일까지 삭제
+            Files file = new Files();
+            file.setParentTable("Resume");
+            file.setParentNo(cvNo);
+            fileService.deleteByParent(file);
 
             log.info(cvNo + "번 이력서 삭제되었습니다.");
             return "redirect:/resume/cv_list_user";
@@ -625,27 +618,19 @@ public class ResumeController {
         return "redirect:/resume/cv_read?no=" + cvNo + "&error";
     }
 
-
-    
-
-
-    // ------------------------------------------------------------------------------- 기업 이력서 합 불
+    // -------------------------------------------------------------------------------
+    // 기업 이력서 합 불
     @PostMapping("/check/{check}")
-    public String postMethodName(@PathVariable("check") int check ,@RequestParam("cvNo") int cvNo ,@RequestParam("userNo") int userNo) throws Exception {
-        
-        
+    public String postMethodName(@PathVariable("check") int check, @RequestParam("cvNo") int cvNo,
+            @RequestParam("userNo") int userNo) throws Exception {
 
         int result = resumeService.applyCheck(cvNo, check);
-        
 
         if (result > 0) {
             log.info(" 합 , 불 성공");
         }
-        
+
         return "redirect:/recruit/recruit_list_com?userNo=" + userNo;
     }
 
 }
-
-
-

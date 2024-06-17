@@ -496,3 +496,27 @@
     border: none;
     display: none;
 }
+
+
+.custom-dropdown-item{
+    position: relative;
+}
+
+.company-item > ul {
+    padding-left: 0 !important;
+}
+
+.recruit-wrab {
+    position: relative;
+    top: 0;
+    left: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+.recruit-box {
+   
+    padding: 10px;
+    margin-bottom: 0 !important;
+    margin-left: 10px;
+}

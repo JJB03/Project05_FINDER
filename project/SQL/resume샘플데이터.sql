@@ -1,4 +1,4 @@
--- Active: 1716771298869@@127.0.0.1@3306@joeun
+-- Active: 1711633953173@@127.0.0.1@3306@joeun
 -- cv 테이블에 임시 값 삽입
 INSERT INTO cv (user_no, cover_letter, cv_title, cv_reg_date, cv_upd_date) VALUES
 (1, '자기소개서입니다', '이력서 제목입니다1', NOW(), NOW()),
@@ -55,3 +55,7 @@ SELECT c.*, u.*
       FROM cv c
         INNER JOIN user u ON c.user_no = u.user_no
     WHERE c.cv_no = 1;
+
+    DELETE FROM file
+        WHERE parent_table = 'resume'
+          AND parent_no = 49;
