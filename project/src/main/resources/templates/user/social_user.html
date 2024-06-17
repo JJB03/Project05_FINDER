@@ -356,9 +356,12 @@
             // URL 파라미터에서 메시지 읽기
             const urlParams = new URLSearchParams(window.location.search);
             const message = urlParams.get('message');
+            const birthDate = document.getElementById('startDate').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
 
             // 메시지가 있을 경우 알림 표시
-            if (message) {
+            if (message && !birthDate || !validatePhone(phone) || !validateEmail(email)) {
                 if (message === 'pleaseUpdateInfo') {
                     alert('회원정보를 입력해주세요.');
                 }
