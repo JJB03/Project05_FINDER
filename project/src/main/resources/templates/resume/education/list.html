@@ -15,8 +15,10 @@
             </th:block>
             <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
                 <div class="flex-column col-3">
-                    <button type="button" class="btn btn-danger"
-                        th:onclick="|deleteEducation(${education.educationNo})|">X</button>
+                    <button type="button" class="btn del_btn"
+                        th:onclick="|deleteEducation(${education.educationNo})|">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
                 </div>
             </th:block>
         </div>
