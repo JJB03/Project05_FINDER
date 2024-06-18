@@ -1,4 +1,4 @@
--- Active: 1716771298869@@127.0.0.1@3306@joeun
+-- Active: 1711633953173@@127.0.0.1@3306@joeun
 SELECT c.*, r.*, rk.*
 FROM
     company c
@@ -897,3 +897,13 @@ ORDER BY
   UPDATE apply_employee
     SET `check` = 1
   WHERE cv_no = 1;
+
+  SELECT *
+        FROM file
+        WHERE parent_no = 1 AND
+        parent_table = 'resume';
+
+
+SELECT COALESCE(`check`, -1) AS `check`
+      FROM apply_employee
+      WHERE recruit_no = 1

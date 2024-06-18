@@ -48,12 +48,30 @@
 
   <!-- 이력서 리스트 조회 -->
   <select id="resumelist" resultMap="CvResultMap">
-     SELECT c.*, u.*
+    SELECT c.*, u.*
         FROM cv c
         INNER JOIN user u ON c.user_no = u.user_no
-    WHERE u.user_no = #{user_no};
-
+    WHERE u.user_no = #{userNo};
   </select>
+
+  <!-- 이력서 리스트 조회 [cv_list_user] [승헌 페이징] -->
+  <select id="resumelistPaging" resultMap="CvResultMap">
+    SELECT c.*, u.*
+        FROM cv c
+        INNER JOIN user u ON c.user_no = u.user_no
+    WHERE u.user_no = #{userNo}
+    LIMIT #{page.index}, #{page.rows};
+  </select>
+  <!-- 내 이력서에 띄울 내역 데이터 개수 [cv_list_user] [승헌 페이징] -->
+  <select id="countMyResume" resultType="int">
+    SELECT COUNT(*) 
+        FROM cv c
+        INNER JOIN user u ON c.user_no = u.user_no
+    WHERE u.user_no = #{userNo};
+  </select>
+
+
+
 
   <!-- 이력서 작성,  ⭕ -->
   <insert id="create" >

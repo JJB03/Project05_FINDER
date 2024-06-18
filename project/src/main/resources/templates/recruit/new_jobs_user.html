@@ -120,7 +120,9 @@
                     </form>
                     
                     <th:block th:if="${recruits.isEmpty()}">
-                    
+                        <div style="min-height: 300px; text-align: center;">
+                            <h5 style="line-height: 300px;">최근 본 채용공고가 없습니다.</h5>
+                        </div>
                     </th:block>
 
                     <th:block th:each="recruit : ${recruits}">

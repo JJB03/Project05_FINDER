@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finder.project.company.dto.Order;
 import com.finder.project.main.dto.Files;
+import com.finder.project.main.dto.Page;
 import com.finder.project.main.mapper.FileMapper;
 import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Resume;
@@ -172,6 +174,18 @@ public class ResumeServiceImpl implements ResumeService {
         return resumeMapper.applyCheck(cvNo, check);
     }
 
+
+    // 내 이력서 페이징용 리스트 [승헌]
+    @Override
+    public List<Resume> resumelistPaging(int userNo, Page page) throws Exception {
+   
+        int total = resumeMapper.countMyResume(userNo);
+        page.setTotal(total);
+
+        List<Resume> resumelistPaging = resumeMapper.resumelistPaging(userNo, page);
+        return resumelistPaging;
+   
+    }
 
 
 }

@@ -439,7 +439,7 @@
   
   <!-- 합 / 불 -->
   <select id="getCheckByRecruitNo" resultType="int">
-      SELECT `check`
+      SELECT COALESCE(`check`, -1) AS `check`
       FROM apply_employee
       WHERE recruit_no = #{recruitNo}
   </select>
