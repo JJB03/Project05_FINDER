@@ -488,11 +488,13 @@
 
 .remove-thumbnail {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    width: 24px;
+    top: 0px;
+    right: -24px;
     cursor: pointer;
-    background-color: rgba(92, 92, 92, 0.332);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.332);
+    font-weight: bold;
+    color: rgb(0, 0, 0);
     border: none;
     display: none;
 }
