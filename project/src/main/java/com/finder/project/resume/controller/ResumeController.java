@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.project.main.dto.Files;
+import com.finder.project.main.dto.Page;
 import com.finder.project.main.service.FileService;
 import com.finder.project.resume.dto.Education;
 import com.finder.project.resume.dto.EmploymentHistory;
@@ -117,7 +118,7 @@ public class ResumeController {
     // }
 
     @GetMapping("/cv_list_user")
-    public String CvList(HttpSession session, Model model) throws Exception {
+    public String CvList(HttpSession session, Model model, Page page) throws Exception {
         Users user = (Users) session.getAttribute("user");
 
         if (user == null) {
@@ -127,13 +128,15 @@ public class ResumeController {
 
         int userNo = user.getUserNo();
         log.info(" 유저번호는 : " + userNo);
-        List<Resume> resumeList = resumeService.resumelist(userNo);
+        List<Resume> resumeList = resumeService.resumelistPaging(userNo, page);
 
         if (resumeList != null) {
             log.info("이력서 목록이 있구나 : " + resumeList.size() + "건");
             // 모델 등록
             model.addAttribute("resumeList", resumeList);
             model.addAttribute("user", user);
+            model.addAttribute("page", page);
+
             // 뷰페이지 지정
             return "resume/cv_list_user";
         }
@@ -386,17 +389,17 @@ public class ResumeController {
 
         Files file = new Files();
 
-        file = fileService.selectByParentNo(cvNo);
-        log.info("file" + file);
+        file.setParentNo(cvNo);
+        file.setParentTable("resume");
+        file.setFile(resume.getThumbnail());
+        file.setFileCode(1);
+        
 
         // 파일의 부모번호가 이 resume에 cvno와 같으면 삭제부터 업데이트
         // if (file != null) {
         // fileService.deleteByParent(file);
         // }
 
-        log.info("부모번호, 테이블: " + file.getParentNo() + file.getParentTable());
-        file.setFile(resume.getThumbnail());
-        file.setFileCode(1);
 
         int fileNo = resumeService.resumeProfileUpload(file);
 

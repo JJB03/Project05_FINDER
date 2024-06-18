@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.finder.project.company.dto.Order;
+import com.finder.project.main.dto.Page;
 import com.finder.project.resume.dto.Resume;
 
 @Mapper
@@ -12,6 +14,13 @@ import com.finder.project.resume.dto.Resume;
     //게시글 목록 + 나중에 페이징 (아니면 스크롤로 감)
           // 이력서 목록 + 검색 ⭕
           public List<Resume> resumelist(int userNo) throws Exception;
+
+          // 내 이력서 목록 조회 페이징 [승헌]
+          public List<Resume> resumelistPaging(@Param("userNo") int userNo, @Param("page") Page page
+                                                ) throws Exception;
+          // 내 이력서 페이지 당 개수 [승헌]
+          public int countMyResume(int userNo) throws Exception;
+
 
           // 이력서 조회 ⭕
           public Resume select(int cvNo) throws Exception;

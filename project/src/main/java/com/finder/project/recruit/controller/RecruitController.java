@@ -356,7 +356,8 @@ public class RecruitController {
     @GetMapping("/applied_jobs_user_check")
     public ResponseEntity<Integer> getRecruitInfo(@RequestParam("recruitNo") int recruitNo) {
         // recruitNo를 사용하여 필요한 처리를 수행합니다.
-        int checkValue = recruitService.getCheckByRecruitNo(recruitNo);
+        Integer checkValue = recruitService.getCheckByRecruitNo(recruitNo);
+        log.info(checkValue + "getCheckByRecruitNo");
         return ResponseEntity.ok(checkValue);
     }
 

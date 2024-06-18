@@ -114,6 +114,7 @@
 
       <div class="d-flex">
 
+
         <div class="form-group col-6" style="width:calc(100% - 250px);">
           <div class=" row ">
             <div class="form-group col-12">
@@ -137,9 +138,16 @@
 
         </div>
 
-        <div class="profile-pic col-6" style="width:180px; height:auto; margin-left:70px;">
+<!--         <div class="profile-pic col-6" style="width:180px; height:auto; margin-left:70px;">
           <div id="preview" style="border:none; min-height:210px; max-height:210px; margin-bottom:15px; ">
-            <img src="" class="img-thumbnail" alt="이미지를 넣어주세요" style="border:none; background: #f5f5f5; border-radius: 0;">
+            <img src="" class="img-thumbnail" alt="이미지를 넣어주세요" style="border:none; background: #f5f5f5; border-radius: 0;"> -->
+
+        <div class="profile-pic col-6">
+          <div id="preview">
+            <img th:if="${Thumbnail != null}" th:src="|/file/img/${Thumbnail.fileNo}|" class="img-thumbnail"
+                style="width: auto; height: auto;" alt="이미지를 넣어주세요">
+              <p th:if="${Thumbnail == null}">이미지를 넣어주세요</p>
+
           </div>
 
           <div class="ImgFile"> <!--파일 비동기 html-->
