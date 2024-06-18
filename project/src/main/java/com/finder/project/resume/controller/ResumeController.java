@@ -386,17 +386,17 @@ public class ResumeController {
 
         Files file = new Files();
 
-        file = fileService.selectByParentNo(cvNo);
-        log.info("file" + file);
+        file.setParentNo(cvNo);
+        file.setParentTable("resume");
+        file.setFile(resume.getThumbnail());
+        file.setFileCode(1);
+        
 
         // 파일의 부모번호가 이 resume에 cvno와 같으면 삭제부터 업데이트
         // if (file != null) {
         // fileService.deleteByParent(file);
         // }
 
-        log.info("부모번호, 테이블: " + file.getParentNo() + file.getParentTable());
-        file.setFile(resume.getThumbnail());
-        file.setFileCode(1);
 
         int fileNo = resumeService.resumeProfileUpload(file);
 

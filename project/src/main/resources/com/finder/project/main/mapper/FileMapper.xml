@@ -55,7 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectByParentNo" resultType="Files">
         SELECT *
         FROM file
-        WHERE parent_no = #{parentNo}
+        WHERE parent_no = #{parentNo} AND
+        parent_table = #{parentTable}
     </select>
 
 
