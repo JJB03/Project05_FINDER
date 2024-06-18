@@ -22,7 +22,7 @@
             color: white;
         }
     </style>
-    <title>정보 수정</title>
+    <title>기업 정보 수정</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -269,13 +269,6 @@
                             <input type="text" id="username" th:value="${session.user.userId}" name="username"
                                 placeholder="사용자 아이디" readonly>
                             <br>
-                            <!-- 현재 비밀번호 확인 -->
-                            <div for="password" class="userpw" style="width: 115px; text-align: center;">비밀번호 변경</div>
-                            <input type="password" id="userBeforePw" name="userBeforePw" placeholder="현재 비밀번호 입력"
-                                required autoComplete="off">
-                            <button type="button" onclick="PW_Confirm()" id="confirm-password-btn"
-                                class="btn-in-short align-self-end"
-                                style="margin-right: 10px; background-color: var(--long-btn-color);">확인</button>
                         </div>
 
                         <div id="passwordChange" class="d-flex flex-column" style="display: none !important;">
@@ -294,7 +287,7 @@
 
 
                     <!-- 이름/생년월일/휴대폰/이메일/기업주소 변경 폼 -->
-                    <form id="InfoForm" action="/company/update_com_info" method="post" class="register-form mt-4"
+                    <form id="InfoForm" action="/company/update_com_kakaoInfo" method="post" class="register-form mt-4"
                         style="border-radius: 12px; background-color: #FAFAFA;">
                         <!-- CSRF 토큰 -->
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -363,9 +356,12 @@
             // URL 파라미터에서 메시지 읽기
             const urlParams = new URLSearchParams(window.location.search);
             const message = urlParams.get('message');
+            const birthDate = document.getElementById('startDate').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
 
             // 메시지가 있을 경우 알림 표시
-            if (message) {
+            if (message && !birthDate || !validatePhone(phone) || !validateEmail(email)) {
                 if (message === 'pleaseUpdateInfo') {
                     alert('회원정보를 입력해주세요.');
                 }

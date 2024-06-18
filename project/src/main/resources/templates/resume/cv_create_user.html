@@ -71,12 +71,13 @@
 
       margin-bottom: 60px;
     }
+
   </style>
 </head>
 
 <body layout:fragment="content">
 
-  <div class="container-fluid container resume-form ">
+  <div class="container-fluid container resume-form  ">
     <div class="form-header">
       <h4>이력서 작성</h4>
     </div>
@@ -123,7 +124,7 @@
         </div>
       </div>
 
-      <div class="form-group row w-100 flex-column">
+      <div class="form-group row w-100 flex-column ms-1">
 
         <!-- 학력/경력 시작 -->
         <div class="col-sm-12  border bg-light rounded-3 " style="min-height: 250px;">
@@ -131,6 +132,10 @@
 
           <div class="d-flex justify-content-between mt-3" style="margin-top: 10px;">
             <h5>학력</h5>
+            <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+            <button type="button" class="educationBtn btn-short">
+              <span class="fs-2">+</span>
+            </button>
           </div>
 
           <div>
@@ -164,10 +169,7 @@
                 <input type="text" class="form-control w-75" id="universityStatus" placeholder="학력상태">
               </div>
               <div class="flex-column col-3">
-                <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-                <button type="button" class="educationBtn btn-short">
-                  <span class="fs-2">+</span>
-                </button>
+                
               </div>
             </div>
 
@@ -185,11 +187,15 @@
 
 
         <div class="col-sm-12  border bg-light rounded-3 mt-3" style="min-height: 250px;">
-
+          
           <!--경력 db 넣기-->
-
+          
           <div class="d-flex justify-content-between mt-3" style="margin-top: 18px;">
             <h5>경력</h5>
+            <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
+            <button type="button" class="employmentHistoryBtn btn-short">
+              <span class="fs-2">+</span>
+            </button>
           </div>
 
           <div>
@@ -227,10 +233,7 @@
               <input type="text" class="form-control w-75" id="duties" placeholder="담당업무">
             </div>
             <div class="flex-column col-3">
-              <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-              <button type="button" class="employmentHistoryBtn btn-short">
-                <span class="fs-2">+</span>
-              </button>
+              
             </div>
           </div>
 
@@ -470,7 +473,7 @@
 
       formData.append("cvNo", cvNo)
       for (let i = 0; i < files.length; i++) {
-        formData.append("file" + i, files[i]);
+        formData.append("thumbnail", files[i]);
       }
       $.ajax({
         url: '/resume/cv_FileCreate_user',

@@ -169,15 +169,15 @@
                         <!-- <div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-right: 20px;"> -->
                         <div class="d-flex justify-content-end align-items-center me-3 mb-2">
                             <!-- <select name="filter" id="filter" class="form-control"> -->
-                            <select name="filter" class="form-control w-auto mx-3"
+                            <!-- <select name="filter" class="form-control w-auto mx-3"
                                 style="color: #828282; padding: 3px 12px 3px 12px;">
                                 <option value="1">최근 날짜</option>
-                            </select>
-                            <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
+                            </select> -->
+                            <!-- <input class="form-control form_input" type="text" name="search_filter" id="search_filter"
                                 placeholder="검색어를 입력해주세요">
                             <button class="d-flex justify-content-center align-items-center btn-in-short fw-bold">
                                 찾기
-                            </button>
+                            </button> -->
                         </div>
                     </form>
 
@@ -185,8 +185,8 @@
 
                     <th:block th:if="${resumeList.isEmpty()}">
 
-                        <div style="min-height: 500px; text-align: center;">
-                            <h1 style="line-height: 500px;">조회된 이력서 정보가 없습니다.</h1>
+                        <div style="min-height: 300px; text-align: center;">
+                            <h5 style="line-height: 300px;">조회된 이력서 정보가 없습니다.</h5>
                         </div>
 
                     </th:block>

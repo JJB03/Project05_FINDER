@@ -27,7 +27,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info(":::::::::: UserDetailServiceImpl ::::::::::");
         log.info("- 사용자 정의 인증을 위해, 사용자 정보 조회");
-        log.info("- username : " + username);
+        log.info("- userId : " + username);
 
         Users user = null;
         try {
