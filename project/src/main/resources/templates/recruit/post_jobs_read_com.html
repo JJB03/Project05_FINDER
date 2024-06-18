@@ -171,8 +171,9 @@
                                         th:if="${Thumbnail != null}">삭제</button>
                                     <button type="button" class="btn-short file-upload-button btn-upload-file"
                                         th:if="${Thumbnail == null}">등록</button>
-                                    <button type="button" class="btn-short file-upload-button btn-upload-file"
+                                    <button type="button" class="btn-short file-upload-button1 btn-upload-file"
                                         style="display: none;">등록</button>
+                                    <button class="btn-short file-upload-button2" style="display: none;">삭제</button>    
                                 </div>
                             </div>
 
@@ -272,13 +273,13 @@
 
                         <div class="file-input-wrapper">
                             <div>
-                                <button type="button" class="btn-long file-upload-button">파일 첨부</button>
+                                <button type="button" class="btn-long file-upload-button4">파일 첨부</button>
                             </div>
-                            <div class=" d-flex " style="flex-wrap: wrap;">
+                            <div class=" d-flex " style="flex-wrap: wrap; height: 200px;" >
                                 <input name="file" type="file" class="file-input hidden-file-input" id="file-input"
                                     multiple>
 
-                                <div id="file-names" class="mt-2 d-flex align-items-center " style="flex-wrap: wrap;">
+                                <div id="file-names" class="mt-2" style="flex-wrap: wrap;">
                                     <th:block th:each="file : ${fileList}">
                                         <div class="file-name d-flex">
                                             <span th:text="${file.originName}"></span>
@@ -345,9 +346,23 @@
                 event.preventDefault();
                 if ($(this).hasClass('btn-upload-file')) {
                     $('#thumbnail').click();
-                } else {
-                    $('#file-input').click();
+                    $(this).hide();
+                    $('.file-upload-button2').show();
                 }
+            });
+
+            $('.file-upload-button4').on('click', function (event) {
+                event.preventDefault();
+                $('#file-input').click();
+            });
+
+
+            $('.file-upload-button1').on('click', function (event) {
+                event.preventDefault();
+                    $('#thumbnail').click();
+                    $(this).hide();
+                    $('.file-upload-button2').show()
+
             });
 
             // 파일 선택 시 썸네일 미리보기 업데이트
@@ -361,9 +376,19 @@
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    $('#thumbnail-preview').hide();
-                    $('#remove-thumbnail').hide();
+                    $('#thumbnail-preview').attr('src', '/img/no-image.png')
+                    
                 }
+            });
+
+            $('.file-upload-button2').on('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                $('#thumbnail-preview').attr('src', '/img/no-image.png')
+                $('#thumbnail').val('');
+                $(this).hide();
+                $('.file-upload-button1').show()
+
             });
 
 
@@ -469,7 +494,7 @@
         function deleteFile(event, fileNo) {
             let request = new XMLHttpRequest();
             // let csrfToken = $('#csrfToken').val();
-            alert(fileNo)
+            // alert(fileNo)
             var csrfToken = "[[${_csrf.token}]]"
 
 
@@ -487,7 +512,7 @@
                 if (request.readyState == request.DONE) {
                     if (request.status == 200) {
                         if (request.responseText == 'SUCCESS') {
-                            alert('삭제 되었습니다.');
+                            // alert('삭제 되었습니다.');
                             // $('.btn-delete-file').removeClass('btn-delete-file').addClass('btn-upload-file').text('등록');
 
                             $(event.target).closest(".file-name").remove();
@@ -501,7 +526,7 @@
         function deleteThumbnail(event, fileNo) {
             let request = new XMLHttpRequest();
             // let csrfToken = $('#csrfToken').val();
-            alert(fileNo)
+            // alert(fileNo)
             var csrfToken = "[[${_csrf.token}]]"
 
 
@@ -521,11 +546,12 @@
                         if (request.responseText == 'SUCCESS') {
                             alert('삭제 되었습니다.');
                             // 이미지 미리보기 영역 초기화
-                            document.getElementById("thumbnail-preview").src = "";
+                            document.getElementById("thumbnail-preview").src = "/img/no-image.png";
 
                             // 버튼 변경: 삭제 버튼 숨기기, 등록 버튼 보이기
                             document.querySelector('.btn-delete-file').style.display = 'none';
-                            document.querySelector('.btn-upload-file').style.display = 'block';
+                            $('.file-upload-button1').show()
+                            
                         }
                     } else {
                         alert(`삭제 실패: ${request.status} ${request.statusText}`);

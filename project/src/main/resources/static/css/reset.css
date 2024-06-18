@@ -193,7 +193,7 @@ footer {
   flex-direction: column;
   width: 100%;
   height: auto; /* 푸터 하단 고정에 사용 */
-  margin-top: 50px; /* footer - content 영역 사이 간격 */
+  margin-top: 180px; /* footer - content 영역 사이 간격 */
 }
 
 .footer-wrap {
