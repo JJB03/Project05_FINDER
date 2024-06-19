@@ -197,3 +197,4 @@ VALUES
 
 INSERT INTO recruit_keyword (recruit_keyword,recruit_no)
 VALUES ('물리치료', 5);
+

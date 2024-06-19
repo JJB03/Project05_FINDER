@@ -985,6 +985,12 @@ VALUES
     ('#데이터분석', 24), ('#인사이트', 24),
     ('#하드웨어', 25), ('#전자공학', 25);
 
+INSERT INTO `product` (`product_name`, `product_count`, `product_price`, `product_duration`)
+VALUES 
+('10만원', 30, 100000, 2),
+('30만원', 80, 300000, 3),
+('50만원', 150, 500000, 5);
+
 
 
 
