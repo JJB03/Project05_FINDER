@@ -906,4 +906,19 @@ ORDER BY
 
 SELECT COALESCE(`check`, -1) AS `check`
       FROM apply_employee
-      WHERE recruit_no = 1
+      WHERE recruit_no = 1;
+
+      <select id="getCheckByRecruitNoAndUserNo" resultType="int">
+  SELECT COALESCE(ae.`check`, -1) AS `check`
+  FROM apply_employee ae
+  JOIN cv c ON ae.cv_no = c.cv_no
+  JOIN `user` u ON c.user_no = u.user_no
+  JOIN recruit r ON ae.recruit_no = r.recruit_no
+  WHERE r.recruit_no = #{recruitNo} AND u.user_no = #{userNo}
+</select>
+
+--  <select id="getCheckByRecruitNo" resultType="int">
+      SELECT COALESCE(`check`, -1) AS `check`
+      FROM apply_employee
+      WHERE recruit_no = 26;
+--   </select>

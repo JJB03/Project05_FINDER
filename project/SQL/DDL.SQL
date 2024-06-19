@@ -1,4 +1,4 @@
--- Active: 1716818238004@@127.0.0.1@3306@finder
+-- Active: 1711633953173@@127.0.0.1@3306@joeun
 
 
 -- 테이블 삭제 ( 총 15개 )
@@ -1333,10 +1333,10 @@ VALUES (3,'recruit',1,NULL,'HJB-logo.png','C:/upload/cdeb601f-a295-49c2-a8b3-e79
 
 INSERT INTO `apply_employee` (`check`, `cv_no`, `recruit_no`) 
 VALUES 
-(0, 1, 26),
-(0, 2, 26),
-(0, 3, 26),
-(0, 4, 26);
+(-1, 1, 26),
+(-1, 2, 26),
+(-1, 3, 26),
+(-1, 4, 26);
 
 
 

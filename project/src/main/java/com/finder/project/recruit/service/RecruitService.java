@@ -89,5 +89,5 @@ public interface RecruitService {
     // 채용공고 등록 후 퀀티티 0 일때 엑세스 0으로 감소
     public int updateRemainQuantityAndAccessOrderByOrderNo(Order order);
 
-    public int getCheckByRecruitNo(int recruitNo);
+    public int getCheckByRecruitNo(int recruitNo, int userNo);
 }

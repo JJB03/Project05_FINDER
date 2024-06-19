@@ -21,18 +21,20 @@
       </div>
 
       <form action="/index" method="get" class="w-75 d-flex align-items-center justify-content-end">
-        <div class="d-flex align-items-center w-75 mb-3 mt-3 position-relative">
-          <div class="custom-form-floating">
-            <input type="text" id="customDropdownMenuInput" class="custom-input" placeholder="기업, 채용공고를 검색해보세요."
-              name="keyword" th:value="${param.keyword}" autocomplete="off">
-          </div>
+        <div class="d-flex align-items-center w-75 mb-3 mt-3 position-relative flex-column">
+          <div class="d-flex align-items-center w-75 mb-3 mt-3 box">
+            <div class="custom-form-floating">
+              <input type="text" id="customDropdownMenuInput" class="custom-input" placeholder="기업, 채용공고를 검색해보세요."
+                name="keyword" th:value="${param.keyword}" autocomplete="off">
+            </div>
 
-          <div class="form-floating w-25" style="height: 40px; margin-left: 1px;">
-            <select name="code" class="form-select" id="floatingSelectGrid"
-              style="box-shadow: none; --bs-border-width: -8px; padding: 5px 5px 5px 5px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
-              <option th:each="item : ${optionList}" th:value="${item.code}" th:selected="${item.code == option.code}"
-                th:text="${item.keyword}"></option>
-            </select>
+            <div class="form-floating w-25" style="height: 40px; margin-left: 1px;">
+              <select name="code" class="form-select" id="floatingSelectGrid"
+                style="box-shadow: none; --bs-border-width: -8px; padding: 5px 5px 5px 5px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;">
+                <option th:each="item : ${optionList}" th:value="${item.code}" th:selected="${item.code == option.code}"
+                  th:text="${item.keyword}"></option>
+              </select>
+            </div>
           </div>
 
           <div class="custom-dropdown-menu" id="customDropdownMenu"></div>
@@ -262,7 +264,7 @@
                 recruitListItem.html(html); // 응답 내용을 recruit-list-item에 삽입
                 console.log(html);
                 // recruitListItem.classList.add('show');
-              
+
                 // recruitListItem.removeClass("d-none"); // 목록 표시
               })
               .catch(error => {

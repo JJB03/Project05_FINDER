@@ -391,7 +391,9 @@
     border-bottom-left-radius: 8px;
     width: 75%;
 }
-
+.box {
+    position: relative;
+}
 .custom-input {
     width: 100%;
     height: 100%;
@@ -404,10 +406,10 @@
 .custom-dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 130%;
+    top: 60px;
+    left: 12.4%;
+    width: 75%;
+    /* height: 130%; */
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 0 0 8px 8px;
@@ -418,7 +420,7 @@
 }
 
 .custom-dropdown-menu.show {
-    display: block;
+    display: inline;
     opacity: 1;
 }
 
@@ -510,9 +512,9 @@
 }
 
 .recruit-wrab {
-    position: relative;
-    top: 0;
-    left: 0px;
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0px; */
     margin: 0;
     padding: 0;
 }

@@ -60,15 +60,14 @@ public class RecruitController {
             HttpSession session) throws Exception {
 
         Users user = (Users) session.getAttribute("user");
-        
+
         if (user != null) {
             Integer userNo = user.getUserNo();
             log.info(" 유저번호는 : " + userNo);
-            
+
             if (userNo != null) { // userNo가 null이 아닌지 확인
-           
+
                 List<Resume> resumeList = resumeService.resumelist(userNo);
-                
 
                 if (resumeList != null) {
                     // log.info("이력서 목록이 있구나 : " + resumeList.size() + "건");
@@ -77,7 +76,7 @@ public class RecruitController {
                     model.addAttribute("user", user);
                     // 뷰페이지 지정
                 }
-                
+
                 // 유저 번호에 해당하는 recruitNo 집합 가져오기
                 Map<Integer, Set<Integer>> userVisitedRecruitNos = (Map<Integer, Set<Integer>>) session
                         .getAttribute("userVisitedRecruitNos");
@@ -98,10 +97,8 @@ public class RecruitController {
                 model.addAttribute("aeCount", aeCount);
             }
         } else {
-            
-        }
 
-        
+        }
 
         RecruitPost recruitPost = recruitService.recruitRead(recruitNo);
         if (recruitPost == null) {
@@ -109,7 +106,7 @@ public class RecruitController {
         } else {
             // log.info("RecruitPost 정보: {}", recruitPost);
         }
-        
+
         // 파일 목록 요청
         file.setParentTable("recruit");
         file.setParentNo(recruitNo);
@@ -189,7 +186,7 @@ public class RecruitController {
             order.setRemainQuantity(remainQuantity);
             recruitService.updateRemainQuantityByOrderNo(order);
         }
-        
+
         if (remainQuantity == 1) {
             remainQuantity = remainQuantity - 1;
             accessOrder = accessOrder - 1;
@@ -197,7 +194,6 @@ public class RecruitController {
             order.setAccessOrder(accessOrder);
             recruitService.updateRemainQuantityAndAccessOrderByOrderNo(order);
         }
-
 
         return "redirect:/index";
     }
@@ -346,7 +342,8 @@ public class RecruitController {
         int userNo = user.getUserNo();
 
         List<RecruitPost> recruitPosts = recruitService.applyCvList(userNo);
-        // log.info(recruitPosts + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ re");
+        // log.info(recruitPosts +
+        // "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ re");
 
         model.addAttribute("recruitPosts", recruitPosts);
         return "/recruit/applied_jobs_user";
@@ -354,18 +351,21 @@ public class RecruitController {
 
     @ResponseBody
     @GetMapping("/applied_jobs_user_check")
-    public ResponseEntity<Integer> getRecruitInfo(@RequestParam("recruitNo") int recruitNo) {
+    public ResponseEntity<Integer> getRecruitInfo(@RequestParam("recruitNo") int recruitNo, HttpSession session) {
+
+        Users user = (Users) session.getAttribute("user");
+
+        int userNo = user.getUserNo();
         // recruitNo를 사용하여 필요한 처리를 수행합니다.
-        Integer checkValue = recruitService.getCheckByRecruitNo(recruitNo);
+        Integer checkValue = recruitService.getCheckByRecruitNo(recruitNo, userNo);
         log.info(checkValue + "getCheckByRecruitNo");
         return ResponseEntity.ok(checkValue);
     }
 
-
     // 등록된 채용공고 화면
     @GetMapping("/recruit_list_com")
 
-    public String recruit_list_com(Model model , HttpSession session, Page page) throws Exception {
+    public String recruit_list_com(Model model, HttpSession session, Page page) throws Exception {
 
         Users user = (Users) session.getAttribute("user");
 
@@ -374,7 +374,7 @@ public class RecruitController {
             return "redirect:/login";
         }
         int userNo = user.getUserNo();
-        
+
         Company company = recruitService.userNoToCom(userNo); // 1
 
         int comNo = company.getComNo(); // 31
@@ -384,7 +384,6 @@ public class RecruitController {
 
         // for (Resume resume : applyCvList) {
 
-        
         // }
 
         model.addAttribute("resumeList", applyCvList);

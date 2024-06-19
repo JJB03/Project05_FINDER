@@ -1,6 +1,5 @@
 package com.finder.project.recruit.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,133 +39,128 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Autowired
     CreditMapper creditMapper;
-    
+
     // 채용공고 List
     @Override
     public List<RecruitPost> recruitList(RecruitPage page, Option option) throws Exception {
-       
+
         List<RecruitPost> recruitList = recruitMapper.recruitList(page, option);
 
-
         return recruitList;
-    } 
+    }
 
     // 채용공고 등록 & keyword 등록
     @Override
     public int recruitPost(RecruitPost recruitPost) throws Exception {
-        
+
         int result = recruitMapper.recruitPost(recruitPost);
         int recruitNo = recruitMapper.max();
 
-        if( recruitNo == 0 ) return 0;
+        if (recruitNo == 0)
+            return 0;
         recruitPost.setRecruitNo(recruitNo);
 
         for (String keyword : recruitPost.getKeyword()) {
             Keyword k = new Keyword();
             k.setRecruitKeyword(keyword);
             k.setRecruitNo(recruitNo);
-            recruitMapper.recruitKeyword(k);     
+            recruitMapper.recruitKeyword(k);
         }
 
         String parentTable = "recruit";
         int parentNo = recruitMapper.max();
-        
 
-        System.out.println("겟파일 "+ recruitPost.getFile());
-        System.out.println("겟파일 "+ recruitPost.getThumbnail());
+        System.out.println("겟파일 " + recruitPost.getFile());
+        System.out.println("겟파일 " + recruitPost.getThumbnail());
         // 썸네일 업로드
         // - 부모테이블, 부모번호, 멀티파트파일, 파일코드:1(썸네일)
         MultipartFile thumbnailFile = recruitPost.getThumbnail();
         if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
-            
+
             Files thumbnail = new Files();
             thumbnail.setFile(thumbnailFile);
             thumbnail.setParentTable(parentTable);
             thumbnail.setParentNo(parentNo);
             thumbnail.setFileCode(1);
-            
-            fileService.upload(thumbnail);      // 썸네일 파일 업로드
+
+            fileService.upload(thumbnail); // 썸네일 파일 업로드
         }
 
         // 첨부파일 업로드
         List<MultipartFile> fileList = recruitPost.getFile();
-        if( fileList != null && !fileList.isEmpty() ) {
+        if (fileList != null && !fileList.isEmpty()) {
             for (MultipartFile file : fileList) {
-                if( file.isEmpty() ) continue;
+                if (file.isEmpty())
+                    continue;
 
                 // 파일 정보 등록
                 Files uploadFile = new Files();
                 uploadFile.setParentTable(parentTable);
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);
-                
 
                 fileService.upload(uploadFile);
 
             }
         }
-            
-
 
         return result;
     }
 
     @Override
     public int recruitUpdate(RecruitPost recruitPost) throws Exception {
-        
+
         int result = recruitMapper.recruitUpdate(recruitPost);
         int recruitNo = recruitPost.getRecruitNo();
 
         log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + recruitNo);
-        if( recruitNo == 0 ) return 0;
-
-        
+        if (recruitNo == 0)
+            return 0;
 
         for (String keyword : recruitPost.getKeyword()) {
             Keyword k = new Keyword();
             k.setRecruitKeyword(keyword);
             k.setRecruitNo(recruitNo);
-            recruitMapper.recruitKeyword(k);     
+            recruitMapper.recruitKeyword(k);
         }
 
         String parentTable = "recruit";
         int parentNo = recruitNo;
-        
 
-        System.out.println("겟파일 "+ recruitPost.getFile());
-        System.out.println("겟파일 "+ recruitPost.getThumbnail());
+        System.out.println("겟파일 " + recruitPost.getFile());
+        System.out.println("겟파일 " + recruitPost.getThumbnail());
         // 썸네일 업로드
         // - 부모테이블, 부모번호, 멀티파트파일, 파일코드:1(썸네일)
         MultipartFile thumbnailFile = recruitPost.getThumbnail();
         if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
-            
+
             Files thumbnail = new Files();
             thumbnail.setFile(thumbnailFile);
             thumbnail.setParentTable(parentTable);
             thumbnail.setParentNo(parentNo);
             thumbnail.setFileCode(1);
-            
-            fileService.upload(thumbnail);      // 썸네일 파일 업로드
+
+            fileService.upload(thumbnail); // 썸네일 파일 업로드
         }
 
         // 첨부파일 업로드
         List<MultipartFile> fileList = recruitPost.getFile();
-        if( fileList != null && !fileList.isEmpty() ) {
+        if (fileList != null && !fileList.isEmpty()) {
             for (MultipartFile file : fileList) {
-                if( file.isEmpty() ) continue;
+                if (file.isEmpty())
+                    continue;
 
                 // 파일 정보 등록
                 Files uploadFile = new Files();
                 uploadFile.setParentTable(parentTable);
                 uploadFile.setParentNo(parentNo);
                 uploadFile.setFile(file);
-                
 
                 fileService.upload(uploadFile);
 
             }
         }
-        
+
         return result;
     }
 
@@ -175,15 +169,14 @@ public class RecruitServiceImpl implements RecruitService {
     public RecruitPost recruitRead(int recruitNo) throws Exception {
         RecruitPost recruitPost = recruitMapper.recruitRead(recruitNo);
 
-
         return recruitPost;
-    }    
+    }
     // 채용공고 상세조회 끝
 
     // 등록 한 채용공고 목록
     @Override
     public List<RecruitPost> postsRecruitList(int comNo) throws Exception {
-        
+
         List<RecruitPost> postsRecruitList = recruitMapper.postsRecruitList(comNo);
 
         return postsRecruitList;
@@ -210,7 +203,7 @@ public class RecruitServiceImpl implements RecruitService {
     @Override
     public int deleteRecruitList(int recruitNo) throws Exception {
         int result = recruitMapper.deleteRecruitList(recruitNo);
-        
+
         return result;
     }
 
@@ -219,7 +212,6 @@ public class RecruitServiceImpl implements RecruitService {
     public int updateRecruitRead(RecruitPost recruitPost) throws Exception {
         int recruitNo = recruitPost.getRecruitNo();
 
-        
         int result2 = recruitMapper.deleteKeyword(recruitNo);
         if (result2 > 0) {
             log.info("keyword 삭제성공");
@@ -228,7 +220,7 @@ public class RecruitServiceImpl implements RecruitService {
             Keyword k = new Keyword();
             k.setRecruitKeyword(keyword);
             k.setRecruitNo(recruitNo);
-            recruitMapper.recruitKeyword(k);     
+            recruitMapper.recruitKeyword(k);
         }
 
         int result = recruitMapper.updateRecruitRead(recruitPost);
@@ -236,14 +228,12 @@ public class RecruitServiceImpl implements RecruitService {
         return result;
     }
 
-   
-   
     @Override
     public List<RecruitPost> selectRecruitsByNos(List<Integer> recruitNos) {
         return recruitMapper.selectRecruitsByNos(new ArrayList<>(recruitNos));
     }
 
-    //연관검색
+    // 연관검색
     @Override
     public List<String> selectCompanyNameList() {
         return recruitMapper.selectCompanyNameList();
@@ -291,25 +281,25 @@ public class RecruitServiceImpl implements RecruitService {
 
     @Override
     public RecruitPost recruitNoToRecruit(int recruitNo) throws Exception {
-        
+
         return recruitMapper.recruitNoToRecruit(recruitNo);
     }
 
     @Override
     public int userNoToDistnctRecruitNo(int userNo, int recruitNo) {
-        
+
         return recruitMapper.userNoToDistnctRecruitNo(userNo, recruitNo);
     }
 
     @Override
     public Order selectOrdersByUserNo(int userNo) {
-        
+
         return recruitMapper.selectOrdersByUserNo(userNo);
     }
 
     @Override
     public List<RecruitPost> postsRecruitListKeyword(int comNo) {
-        
+
         return recruitMapper.postsRecruitListKeyword(comNo);
     }
 
@@ -324,19 +314,9 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public int getCheckByRecruitNo(int recruitNo) {
-        
-        return recruitMapper.getCheckByRecruitNo(recruitNo);
+    public int getCheckByRecruitNo(int recruitNo, int userNo) {
+
+        return recruitMapper.getCheckByRecruitNo(recruitNo, userNo);
     }
 
-
-
-
-
-    
-    
-    
-     
-
-    
 }
