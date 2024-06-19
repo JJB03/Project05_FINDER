@@ -1000,6 +1000,33 @@ VALUES
 ('50만원', 150, 500000, 5);
 
 
+-- 채용공고 썸네일 파일
+INSERT INTO `` (`file_no`,`parent_table`,`parent_no`,`file_name`,`origin_name`,`file_path`,`file_size`,`reg_date`,`upd_date`,`file_code`) 
+VALUES (3,'recruit',1,NULL,'HJB-logo.png','C:/upload/cdeb601f-a295-49c2-a8b3-e79fabcaae32_HJB-logo.png',9279,'2024-06-20 02:16:07','2024-06-20 02:16:07',1)
+       (4,'recruit',2,NULL,'HJB-logo.png','C:/upload/af6debc8-2e8b-4e92-84d7-d8f034dfd036_HJB-logo.png',9279,'2024-06-20 02:16:14','2024-06-20 02:16:14',1)
+       (5,'recruit',3,NULL,'HJB-logo.png','C:/upload/21367aca-807a-42c9-99e4-d898eba22a83_HJB-logo.png',9279,'2024-06-20 02:16:20','2024-06-20 02:16:20',1)
+       (6,'recruit',4,NULL,'HJB-logo.png','C:/upload/91401f26-00d0-4b14-9f01-ea3246be2cf6_HJB-logo.png',9279,'2024-06-20 02:16:31','2024-06-20 02:16:31',1)
+       (7,'recruit',5,NULL,'HJB-logo.png','C:/upload/72605c52-683d-4a6f-a5e4-021ccba47ec7_HJB-logo.png',9279,'2024-06-20 02:16:42','2024-06-20 02:16:42',1)
+       (8,'recruit',6,NULL,'samsung-logo.png','C:/upload/23ab4599-3687-483f-94f6-fbc8c7f55eeb_samsung-logo.png',19466,'2024-06-20 02:17:18','2024-06-20 02:17:18',1)
+       (9,'recruit',7,NULL,'samsung-logo.png','C:/upload/03b5c843-2b72-4b39-aab5-6d36da8ee052_samsung-logo.png',19466,'2024-06-20 02:17:24','2024-06-20 02:17:24',1)
+       (10,'recruit',8,NULL,'samsung-logo.png','C:/upload/cf304b62-c630-491c-b648-24311bc4eff3_samsung-logo.png',19466,'2024-06-20 02:17:32','2024-06-20 02:17:32',1)
+       (11,'recruit',9,NULL,'samsung-logo.png','C:/upload/5491a6e2-0563-4a57-bd28-1e2beddf0e64_samsung-logo.png',19466,'2024-06-20 02:17:38','2024-06-20 02:17:38',1)
+       (12,'recruit',10,NULL,'samsung-logo.png','C:/upload/5ecf8ea0-ae5b-4980-b2dd-2067d90c62d5_samsung-logo.png',19466,'2024-06-20 02:17:44','2024-06-20 02:17:44',1)
+       (13,'recruit',11,NULL,'hyundai-logo.png','C:/upload/8a9cde39-1fb7-4be6-ab93-89ace572e0d9_hyundai-logo.png',47444,'2024-06-20 02:18:12','2024-06-20 02:18:12',1)
+       (14,'recruit',12,NULL,'hyundai-logo.png','C:/upload/b45c7ca5-50e6-4c58-aae6-90d8ae2ad6eb_hyundai-logo.png',47444,'2024-06-20 02:18:18','2024-06-20 02:18:18',1)
+       (15,'recruit',13,NULL,'hyundai-logo.png','C:/upload/29d94947-3d1d-4919-b278-171d79167284_hyundai-logo.png',47444,'2024-06-20 02:18:25','2024-06-20 02:18:25',1)
+       (16,'recruit',14,NULL,'hyundai-logo.png','C:/upload/b62a74c7-a98d-4acd-b30f-2bf64e90efeb_hyundai-logo.png',47444,'2024-06-20 02:18:32','2024-06-20 02:18:32',1)
+       (17,'recruit',15,NULL,'hyundai-logo.png','C:/upload/3323e907-d948-4211-8585-cbd259e4e74a_hyundai-logo.png',47444,'2024-06-20 02:18:39','2024-06-20 02:18:39',1)
+       (18,'recruit',16,NULL,'lg-logo.png','C:/upload/26befd28-d191-4db1-a11c-0ca24280ce55_lg-logo.png',5611,'2024-06-20 02:19:09','2024-06-20 02:19:09',1)
+       (19,'recruit',17,NULL,'lg-logo.png','C:/upload/8fc5aefb-57bc-4be5-a3c3-3c5ddda21fe6_lg-logo.png',5611,'2024-06-20 02:19:15','2024-06-20 02:19:15',1)
+       (20,'recruit',18,NULL,'lg-logo.png','C:/upload/212fc5ca-fb82-488a-9cc8-dd8431726148_lg-logo.png',5611,'2024-06-20 02:19:21','2024-06-20 02:19:21',1)
+       (21,'recruit',19,NULL,'lg-logo.png','C:/upload/bf024ebd-4203-48bf-b941-d436a7fbeea1_lg-logo.png',5611,'2024-06-20 02:19:28','2024-06-20 02:19:28',1)
+       (22,'recruit',20,NULL,'lg-logo.png','C:/upload/4dc50110-3981-400c-bedb-0a626ff129cc_lg-logo.png',5611,'2024-06-20 02:19:36','2024-06-20 02:19:36',1)
+       (23,'recruit',21,NULL,'apple-logo.png','C:/upload/f1ca50f4-7dc6-4511-aed1-662afab73d0b_apple-logo.png',12354,'2024-06-20 02:21:01','2024-06-20 02:21:01',1)
+       (24,'recruit',22,NULL,'apple-logo.png','C:/upload/9109f101-d668-4a4f-9ded-c607de8c19d6_apple-logo.png',12354,'2024-06-20 02:21:09','2024-06-20 02:21:09',1)
+       (25,'recruit',23,NULL,'apple-logo.png','C:/upload/328b9bc0-cd13-48aa-bc25-3f03b70d3d2c_apple-logo.png',12354,'2024-06-20 02:21:27','2024-06-20 02:21:27',1)
+       (26,'recruit',24,NULL,'apple-logo.png','C:/upload/4c24dd2d-24b1-4821-8946-49d6786695d4_apple-logo.png',12354,'2024-06-20 02:21:37','2024-06-20 02:21:37',1)
+       (27,'recruit',25,NULL,'apple-logo.png','C:/upload/fae91d7f-0572-4797-85d0-af5c556bdf9c_apple-logo.png',12354,'2024-06-20 02:21:52','2024-06-20 02:21:52',1);
 
 
 
