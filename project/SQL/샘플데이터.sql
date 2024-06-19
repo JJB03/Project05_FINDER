@@ -1,4 +1,4 @@
--- Active: 1717080256825@@127.0.0.1@3306@joeun
+-- Active: 1716771409910@@127.0.0.1@3306@joeun
 
 
 # 회원 컬럼 나열
@@ -15,7 +15,7 @@ TRUNCATE user_auth;
 ## 회원
 INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender )
 VALUES ('정주빈', 'jjb', '$2a$12$TrN..KcVjciCiz.5Vj96YOBljeVTTGJ9AUKmtfbGpgc9hmC7BxQ92', '20240101', '01012341234', 'jjb@naver.com', '여자');
-INSERT INTO user_auth (user_no, auth) VALUES (1, 'ROLE_USER');
+INSERT INTO user_auth (user_no, auth) VALUES (3, 'ROLE_USER');
 
 
 
