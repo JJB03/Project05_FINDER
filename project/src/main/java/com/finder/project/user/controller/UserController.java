@@ -60,21 +60,21 @@ public class UserController {
 
     // 사용자 회원가입
     @PostMapping("/join_user")
-public String userjoinPro(Users users) throws Exception {
+    public String userjoinPro(Users users) throws Exception {
 
-    String userEmail = users.getUserEmail();
-    String checkEmail = userMapper.checkEmail(userEmail);
+        String userEmail = users.getUserEmail();
+        String checkEmail = userMapper.checkEmail(userEmail);
 
-    log.info("db에서 가져오는 이메일" + checkEmail);
+        log.info("db에서 가져오는 이메일" + checkEmail);
 
-    if (checkEmail == null) {
-        // 회원가입 성공
-        userService.join(users);
-        return "redirect:/login";
+        if (checkEmail == null) {
+            // 회원가입 성공
+            userService.join(users);
+            return "redirect:/login";
+        }
+        // 회원가입 실패
+        return "redirect:/user/join_user?error=emailExists";
     }
-    // 회원가입 실패
-    return "redirect:/user/join_user?error=emailExists";
-}
 
     // 기업 회원가입
     @PostMapping("/join_com")
@@ -94,6 +94,7 @@ public String userjoinPro(Users users) throws Exception {
         // 회원가입 실패
         return "redirect:/user/join_com?error=emailExists";
     }
+
     // 아이디 중복확인
     @ResponseBody
     @GetMapping("/check/{userId}")
@@ -152,7 +153,6 @@ public String userjoinPro(Users users) throws Exception {
         String subject = "FINDER의 이메일 인증";
         String text = "이메일 인증 코드 : " + mailKey;
         emailService.sendSimpleMessage(userEmail, subject, text);
-
 
         return "1";
     }

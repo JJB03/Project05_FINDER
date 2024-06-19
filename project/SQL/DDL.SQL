@@ -1,3 +1,4 @@
+-- Active: 1717080256825@@127.0.0.1@3306@finder
 
 -- 테이블 삭제 ( 총 15개 )
 
@@ -279,25 +280,4 @@ CREATE TABLE `credit` (
     FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`)
 );
 
--- 메일인증 테이블
--- CREATE TABLE `mail` (
--- 	`mail_key` varchar(500) NOT NULL,
--- 	`user_no` int NOT NULL,
--- 	PRIMARY KEY (`mail_key`),
--- 	FOREIGN KEY (`user_no`) REFERENCES `user`(`user_no`)
--- );
 
--- 썸네일 테이블 없어도될듯
--- CREATE TABLE `thumbnail` (
---     `thumbnail_no` INT NOT NULL AUTO_INCREMENT,
---     `thumbnail_type` INT NOT NULL,
---     `thumbnail_name` VARCHAR(500) NOT NULL,
---     `thumbnail_size` VARCHAR(500) NOT NULL,
---     `thumbnail_reg_date` TIMESTAMP NOT NULL,
---     `thumbnail_upd_date` TIMESTAMP NOT NULL,
---     `cv_no` INT NULL,
---     `recruit_no` INT NULL,
---     PRIMARY KEY (`thumbnail_no`),
--- 	FOREIGN KEY (`cv_no`) REFERENCES `cv`(`cv_no`),
--- 	FOREIGN KEY (`recruit_no`) REFERENCES `recruit`(`recruit_no`)
--- );
