@@ -1,3 +1,4 @@
+-- Active: 1716818238004@@127.0.0.1@3306@finder
 
 
 -- 테이블 삭제 ( 총 15개 )
@@ -375,7 +376,7 @@ INSERT INTO
         cv_reg_date,
         cv_upd_date
     )
--- VALUES 
+VALUES 
     (
         1,
         1,
@@ -1330,7 +1331,12 @@ VALUES (3,'recruit',1,NULL,'HJB-logo.png','C:/upload/cdeb601f-a295-49c2-a8b3-e79
        (27,'recruit',25,NULL,'apple-logo.png','C:/upload/fae91d7f-0572-4797-85d0-af5c556bdf9c_apple-logo.png',12354,'2024-06-20 02:21:52','2024-06-20 02:21:52',1);
 
 
-
+INSERT INTO `apply_employee` (`check`, `cv_no`, `recruit_no`) 
+VALUES 
+(0, 1, 26),
+(0, 2, 26),
+(0, 3, 26),
+(0, 4, 26);
 
 
 
