@@ -53,6 +53,14 @@ DROP TABLE IF EXISTS user_social;
 -- 테이블 생성 ( 총 16개 )
 
 -- 메일 인증 실험 테이블
+
+CREATE TABLE IF NOT EXISTS persistent_logins (
+    username VARCHAR(64) NOT NULL,
+    series VARCHAR(64) PRIMARY KEY,
+    token VARCHAR(64) NOT NULL,
+    last_used TIMESTAMP NOT NULL
+);
+
 CREATE TABLE email_verification (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
