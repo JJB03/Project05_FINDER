@@ -489,6 +489,8 @@ public class ResumeController {
     @PostMapping("/cv_read_user")
     public String updateUserPro2(HttpSession session, Resume resume) throws Exception {
 
+        log.info("이력서 정보" + session  + "ddsds" + resume);
+
         int result = resumeService.update(resume);
 
         if (result > 0) {
