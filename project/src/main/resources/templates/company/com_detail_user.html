@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         .detail-content {
-            min-height: 200px;
+            min-height: 190px;
             height: auto; 
             overflow-y: hidden;
             resize: none; 
@@ -69,7 +69,7 @@
                 <!-- 엽력/규모/사원수/매출액 -->
                 <div class="row w-100 justify-content-center">
                     <div class="d-flex flex-column row-gap-3 col-3 text-center">
-                        <img src="/img/업력연차.png" alt="업력연차" style="width: auto; padding: 26px 12px 10px;"
+                        <img src="/img/연차1.png" alt="업력연차" style="width: 190px; padding: 26px 12px 10px;"
                             class="align-self-center">
                         <div class="mb-3">
                             <label for="floatingPlaintextInput" class="fs-4" style="text-align: center;">업력 연차</label>
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column row-gap-3 col-3 text-center">
-                        <img src="/img/기업규모.png" alt="기업규모" style="width: auto; padding: 26px 12px 10px;"
+                        <img src="/img/대기업1.png" alt="기업규모" style="width: 190px; padding: 26px 12px 10px;"
                             class="align-self-center">
                         <div class="mb-3">
                             <label for="floatingPlaintextInput" class="fs-4" style="text-align: center;">기업 규모</label>
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column row-gap-3 col-3 text-center">
-                        <img src="/img/사원수.png" alt="사원수" style="width: auto; padding: 26px 12px 10px;"
+                        <img src="/img/사원수1.png" alt="사원수" style="width: 190px; padding: 26px 12px 10px;"
                             class="align-self-center">
                         <div class="mb-3">
                             <label for="floatingPlaintextInput" class="fs-4" style="text-align: center;">사원 수</label>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column row-gap-3 col-3 text-center">
-                        <img src="/img/매출액.png" alt="매출액" style="width: auto; padding: 26px 12px 10px;"
+                        <img src="/img/매출액1.png" alt="매출액" style="width: 190px; padding: 26px 12px 10px;"
                             class="align-self-center">
                         <div class="mb-3">
                             <label for="floatingPlaintextInput" class="fs-4" style="text-align: center;">매출액</label>
@@ -115,6 +115,22 @@
                         <label for="floatingPlaintextInput" class="fs-2 mb-3" style="text-align: center;">기술 소개</label>
                         <textarea readonly class="w-75 mx-auto detail-content" id="floatingPlaintextInput"
                             placeholder="name@example.com" th:text="${companyDetail.comContent}"></textarea>
+                    </div>
+                </div>
+                <!-- 비전 -->
+                <div class="w-100">
+                    <div class="d-flex flex-column mx-auto">
+                        <label for="floatingPlaintextInput" class="fs-2 mb-3" style="text-align: center;">기업 비전</label>
+                        <textarea readonly class="w-75 mx-auto detail-content" id="floatingPlaintextInput"
+                            placeholder="name@example.com" th:text="${companyDetail.comVision}"></textarea>
+                    </div>
+                </div>
+                <!-- 복지 -->
+                <div class="w-100">
+                    <div class="d-flex flex-column mx-auto">
+                        <label for="floatingPlaintextInput" class="fs-2 mb-3" style="text-align: center;">기업 복지</label>
+                        <textarea readonly class="w-75 mx-auto detail-content" id="floatingPlaintextInput"
+                            placeholder="name@example.com" th:text="${companyDetail.comWelfare}"></textarea>
                     </div>
                 </div>
 

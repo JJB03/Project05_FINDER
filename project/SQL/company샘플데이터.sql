@@ -1,4 +1,4 @@
--- Active: 1716770063195@@127.0.0.1@3306@joeun
+-- Active: 1711633953173@@127.0.0.1@3306@joeun
 
 
 INSERT INTO user( user_name, user_id, user_pw, user_birth, user_phone, user_email, user_gender, enabled) 
