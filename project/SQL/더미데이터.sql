@@ -1,4 +1,4 @@
--- Active: 1718188528919@@127.0.0.1@3306@joeun
+-- Active: 1717080256825@@127.0.0.1@3306@joeun
 
 --이미지 파일 경로 이름/임시이름/경로설정 해야함. 문법은 맞아요.
 
@@ -197,3 +197,4 @@ VALUES
 
 INSERT INTO recruit_keyword (recruit_keyword,recruit_no)
 VALUES ('물리치료', 5);
+
