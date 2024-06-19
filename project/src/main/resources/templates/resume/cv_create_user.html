@@ -74,41 +74,59 @@
 
 
 
-  .more_btn::before{
-    content: "+"; font-size:24px; padding-right:5px;
-  }
-  .more_btn{
-    color:#475067; font-size:32px !important; width:120px; height:40px; border-radius: 5px; 
-    font-size:17px !important; line-height: 35px;
-  }
-  .more_btn:hover{
-    background: #f4f6fa; transition: all .3s ease; 
-  }
+    .more_btn::before {
+      content: "+";
+      font-size: 24px;
+      padding-right: 5px;
+    }
 
-  .del_btn{
-    height:46px; color:#475067; padding:10px;
-  }
-  .del_btn:hover{
-    background: #f4f6fa; color:#475067; transition: all .3s ease; 
-  }
+    .more_btn {
+      color: #475067;
+      font-size: 32px !important;
+      width: 120px;
+      height: 40px;
+      border-radius: 5px;
+      font-size: 17px !important;
+      line-height: 35px;
+    }
 
+    .more_btn:hover {
+      background: #f4f6fa;
+      transition: all .3s ease;
+    }
+
+    .del_btn {
+      height: 46px;
+      color: #475067;
+      padding: 10px;
+    }
+
+    .del_btn:hover {
+      background: #f4f6fa;
+      color: #475067;
+      transition: all .3s ease;
+    }
   </style>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
 
 
 <body layout:fragment="content">
 
-  <div class="container-fluid container resume-form  ">
-    <div class="form-group col-12" style="margin-bottom: 60px;padding: 40px; border-radius: 12px; box-shadow: 0 0 7px 5px #f5f5f5;">
-      <span style="font-weight:bold;font-size:22px;width: 140px;display: inline-block;float: left; color: #0d6efd;">이력서 제목</span>
-      <input name="cvTitle" type="text" class="form-control" id="title" placeholder="제목을 입력해주세요."
-        style="width: calc(100% - 140px); margin-bottom:0; border-top:0; border-left:0; border-right:0; background: none; border-bottom:solid 1px #0d6efd; border-radius: 0; padding:3px 5px 6px;">
-    </div>
+  <form action="/resume/cv_update_user" method="post" enctype="multipart/form-data">
+    <div class="container-fluid container resume-form  ">
+      <div class="form-group col-12"
+        style="margin-bottom: 60px;padding: 40px; border-radius: 12px; box-shadow: 0 0 7px 5px #f5f5f5;">
+        <span
+          style="font-weight:bold;font-size:22px;width: 140px;display: inline-block;float: left; color: #0d6efd;">이력서
+          제목</span>
+        <input name="cvTitle" type="text" class="form-control" id="title" placeholder="제목을 입력해주세요."
+          style="width: calc(100% - 140px); margin-bottom:0; border-top:0; border-left:0; border-right:0; background: none; border-bottom:solid 1px #0d6efd; border-radius: 0; padding:3px 5px 6px;">
+      </div>
 
-    <form action="/resume/cv_update_user" method="post" enctype="multipart/form-data">
       <!-- CSRF 토큰 -->
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
@@ -138,15 +156,16 @@
 
         </div>
 
-<!--         <div class="profile-pic col-6" style="width:180px; height:auto; margin-left:70px;">
+        <div class="profile-pic col-6" style="width:180px; height:auto; margin-left:70px;">
           <div id="preview" style="border:none; min-height:210px; max-height:210px; margin-bottom:15px; ">
-            <img src="" class="img-thumbnail" alt="이미지를 넣어주세요" style="border:none; background: #f5f5f5; border-radius: 0;"> -->
+            <img th:if="${Thumbnail != null}" th:src="|/file/img/${Thumbnail.fileNo}|" class="img-thumbnail"
+              alt="이미지를 넣어주세요" style="border:none; background: #f5f5f5; border-radius: 0;">
+            <!-- <p th:if="${Thumbnail == null}">이미지를 넣어주세요</p> -->
 
-        <div class="profile-pic col-6">
+            <!-- <div class="profile-pic col-6">
           <div id="preview">
             <img th:if="${Thumbnail != null}" th:src="|/file/img/${Thumbnail.fileNo}|" class="img-thumbnail"
-                style="width: auto; height: auto;" alt="이미지를 넣어주세요">
-              <p th:if="${Thumbnail == null}">이미지를 넣어주세요</p>
+                style="width: auto; height: auto;" alt="이미지를 넣어주세요"> -->
 
           </div>
 
@@ -175,7 +194,8 @@
           <div class="d-flex justify-content-between mt-3" style="margin-top: 30px !important; ">
             <h5 style="font-weight:bold; font-size:22px; margin-left:10px; ">학력</h5>
             <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-            <button type="button" class="educationBtn btn-short" style="width:80px; background: none; justify-content: flex-end; margin-bottom:7px;">
+            <button type="button" class="educationBtn btn-short"
+              style="width:80px; background: none; justify-content: flex-end; margin-bottom:7px;">
               <span class="fs-2 more_btn">추가</span>
             </button>
           </div>
@@ -189,18 +209,26 @@
 
             <div class="col-12 d-flex" style="margin-left:1%;">
               <div class="form-group col-3" style="width:33%;">
-                <span style="font-size: 17px;font-weight: bold;color: #0d6efd;width: 50px;float: left;display: inline-block; line-height: 32px;">학교</span>
-                <input type="text" class="form-control w-75" id="university" placeholder="학교" value="" style="calc : (100% - 70px) !important;">
+                <span
+                  style="font-size: 17px;font-weight: bold;color: #0d6efd;width: 50px;float: left;display: inline-block; line-height: 32px;">학교</span>
+                <input type="text" class="form-control w-75" id="university" placeholder="학교" value=""
+                  style="calc : (100% - 70px) !important;">
               </div>
 
               <div class="form-group col-3" style="width:33%;">
-                <span style="font-size: 17px;font-weight: bold;color: #0d6efd;width: 50px;float: left;display: inline-block; line-height: 32px;">전공</span>
-                <input type="text" class="form-control w-75" id="major" placeholder="전공" style="calc : (100% - 70px) !important;">
+                <span
+                  style="font-size: 17px;font-weight: bold;color: #0d6efd;width: 50px;float: left;display: inline-block; line-height: 32px;">전공</span>
+                <input type="text" class="form-control w-75" id="major" placeholder="전공"
+                  style="calc : (100% - 70px) !important;">
               </div>
 
               <div class="form-group col-3" style="width:33%;">
                 <span style="font-size: 17px;font-weight: bold;color: #0d6efd;width: 50px;float: left;display: inline-block; line-height: 32px;">학적</span>
                 <input type="text" class="form-control w-75" id="universityStatus" placeholder="학력상태" style="calc : (100% - 70px) !important;">
+                <span
+                  style="font-size: 17px;font-weight: bold;color: #0d6efd;width: 50px;float: left;display: inline-block; line-height: 32px;">학적</span>
+                <input type="text" class="form-control w-75" id="universityStatus" placeholder="학력상태"
+                  style="calc(100% - 70px) !important;">
               </div>
             </div>
 
@@ -225,7 +253,8 @@
           <div class="d-flex justify-content-between mt-3" style="margin-top: 30px !important; ">
             <h5 style="font-weight:bold; font-size:22px; margin-left:10px; ">경력</h5>
             <!-- .educationBtn 으로 클릭 이벤트 걸려있음 -->
-            <button type="button" class="employmentHistoryBtn btn-short" style="width:80px; background: none; justify-content: flex-end; margin-bottom:7px;">
+            <button type="button" class="employmentHistoryBtn btn-short"
+              style="width:80px; background: none; justify-content: flex-end; margin-bottom:7px;">
               <span class="fs-2 more_btn">추가</span>
             </button>
           </div>
@@ -310,7 +339,7 @@
         </div>
       </div>
 
-    </form>
+  </form>
 
   </div>
 
