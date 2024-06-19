@@ -148,7 +148,7 @@ footer .footer-col2 {
   margin: 10px 10px;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 298px;
 }
 
 .credit-body  {
@@ -164,26 +164,6 @@ footer .footer-col2 {
   font-size: 20px;
 }
 
-/* 아래 폼 양식 */
-.payment-form {
-border: 1px solid lightgrey;
-border-radius: 10px;
-box-shadow: 1px 2px 2px 3px lightgrey;
-padding: 20px;
-position: relative;
-height: auto;
-}
-.payment-form .credit-form-btn {
-display: flex;
-justify-content: space-between;
-column-gap: 10px;
-}
-
-.credit-form-btn a {
-  text-decoration: none;
-  text-align: center;
-  padding-top: 4px;
-}
 
 .disabled {
   pointer-events: none; /* 클릭 이벤트 비활성화 */
