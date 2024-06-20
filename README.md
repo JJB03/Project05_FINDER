@@ -158,25 +158,25 @@
 ## 5-1. 요구사항 정의서
 <details>
 <summary><h3>요구사항 정의서 👆</h3></summary>
-![요구사항정의서](https://github.com/JJB03/Project05_FINDER/assets/160222162/db4e0fcb-65b9-40c4-95b9-63387e9affca)
-
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/e9ffbc53-176f-4e9b-9f3a-cda0f7be4b77)
 
 
 
 </details>
-## 5-2. 기능 정의서
+
+ ## 5-2. 기능 정의서
 <details>
 <summary><h3>기능 정의서 👆</h3></summary>
 <h5>사용자</h5>
- ![기능정의서](https://github.com/JJB03/Project05_FINDER/assets/160222162/a6b15c94-c6e3-42b2-b5e6-6ffdbe5502c5)
+ ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/aeddf1b0-099b-4f05-a9e8-6e68b7360413)
 
 
 <h5>기업</h5>
-![기능정의서(기업)](https://github.com/JJB03/Project05_FINDER/assets/160222162/128713ab-1fd6-49c5-89b7-a8593bfcabf8)
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/83fa3dbd-b8e4-4e21-9d08-2b5beefefc30)
 
 
 <h5>API</h5>
-![기능정의서 AIP](https://github.com/JJB03/Project05_FINDER/assets/160222162/264e8707-b977-4998-9e9e-bc7494732e8d)
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/c53a93c8-5996-4ab6-b544-00a8fa5100b5)
 
 
 
@@ -185,7 +185,8 @@
 ## 5-3. ERD
 <details>
 <summary><h3>ERD 👆</h3></summary>
-![erd](https://github.com/JJB03/Project05_FINDER/assets/160222162/822c9638-e6fd-4b80-88b1-bf4aca1d4ce5)
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/815f99ba-d9fe-478b-8ae2-639c9e94b3d5)
+
 
 
 </details>
