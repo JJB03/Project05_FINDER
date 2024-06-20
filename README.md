@@ -158,8 +158,7 @@
 ## 5-1. 요구사항 정의서
 <details>
 <summary><h3>요구사항 정의서 👆</h3></summary>
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/e9ffbc53-176f-4e9b-9f3a-cda0f7be4b77)
-
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/3e10d519-e56a-4d52-812a-7e3defede2b0)
 
 
 </details>
@@ -203,6 +202,8 @@
 <details>
 <summary><h3>사용자 👆</h3></summary>
 <div markdown="1">
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/8ac77214-3e01-4e8d-ba24-1d4df2c68f65)
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/7d19637f-86a3-4ce1-9ee5-3293d9beced4)
 
 
 
