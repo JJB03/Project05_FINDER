@@ -151,6 +151,7 @@
 
 
 ## 4-2. 수행 방법
+- 사용 언어와 협업툴
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/1df705e2-0851-469d-a4a1-7ddedd9522e4)
 
 
