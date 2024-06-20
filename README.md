@@ -1,4 +1,4 @@
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/c6e43a67-872f-4d91-880d-6c576d1d58b0)![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/a669e595-187c-4f86-a757-8575ef004aeb)# 프로젝트: FINDER
+
 
 [시연영상](유튜브)
  
