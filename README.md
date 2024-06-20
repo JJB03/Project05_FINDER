@@ -156,14 +156,14 @@
 
 # 5. 프로젝트 수행 경과
 ## 5-1. 요구사항 정의서
+<details>
 <summary><h3>요구사항 정의서 👆</h3></summary>
 ![요구사항정의서](https://github.com/JJB03/Project05_FINDER/assets/160222162/db4e0fcb-65b9-40c4-95b9-63387e9affca)
 
 
 
 
-
-
+</details>
 ## 5-2. 기능 정의서
 <details>
 <summary><h3>기능 정의서 👆</h3></summary>
