@@ -393,13 +393,13 @@
           <h5 style="font-weight:bold; font-size:22px; margin-left:10px; ">자기소개서</h5>
           <th:block sec:authorize="!hasRole('ROLE_COMPANY') and hasRole('ROLE_USER')">
             <hr color="#eee" style="margin:15px 0 20px; border-color:#d7dce5; opacity: 1;">
-            <textarea required minlength="50" class="form-control border bg-light rounded-3" rows="5"
+            <textarea required minlength="50" class="form-control border bg-light rounded-3 p-5" rows="5"
               placeholder="최소 50글자 이상 작성해야 합니다." name="coverLetter" style="border-radius: 0 !important;"
               th:text="${resume.coverLetter}"></textarea>
           </th:block>
           <th:block sec:authorize="hasRole('ROLE_COMPANY')">
             <hr color="#eee" style="margin:15px 0 20px; border-color:#d7dce5; opacity: 1;">
-            <textarea required minlength="50" class="form-control border bg-light rounded-3" rows="5"
+            <textarea required minlength="50" class="form-control border bg-light rounded-3 p-4" rows="5"
               placeholder="최소 50글자 이상 작성해야 합니다." name="coverLetter" readonly style="border-radius: 0 !important;"
               th:text="${resume.coverLetter}"></textarea>
           </th:block>
@@ -427,12 +427,12 @@
             <div class="btn-click123">
               <button type="submit" class="btn-long">수정</button>
               <button type="button" class="btn-long" onclick="moveToDelete()">삭제</button>
-              <button type="button" class="btn-long" onclick="moveToList1()">이전 페이지</button>
+              <button type="button" class="btn-long" onclick="history.back()">이전 페이지</button>
           </th:block>
           <th:block sec:authorize="hasRole('ROLE_COMPANY')">
             <button type="button" class="btn-long" data-bs-toggle="modal" data-bs-target="#exampleModal">합격 /
               불합격</button>
-            <button type="button" class="btn-long" onclick="moveToList()" style="float: inline-end;">이전 페이지</button>
+            <button type="button" class="btn-long" onclick="history.back()" style="float: inline-end;">이전 페이지</button>
           </th:block>
         </div>
 
@@ -779,6 +779,17 @@
         }
       });
     });
+
+     // 페이지 로드될 때 textarea의 높이를 조절하는 함수 실행
+     window.addEventListener('load', adjustTextareaHeight);
+
+      // textarea의 내용에 따라 높이를 조절하는 함수
+      function adjustTextareaHeight() {
+          const textarea = document.querySelector('.textarea-comContent');
+          textarea.style.height = 'auto'; // 기본 높이로 초기화
+          textarea.style.height = textarea.scrollHeight + 'px'; // 실제 내용의 높이로 설정
+      }
+
   </script>
 </body>
 
