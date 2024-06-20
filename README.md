@@ -193,7 +193,8 @@
 ## 5-4. 테이블 정의서
 <details>
 <summary><h3>테이블 정의서 👆</h3></summary>
-
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/8ac77214-3e01-4e8d-ba24-1d4df2c68f65)
+![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/7d19637f-86a3-4ce1-9ee5-3293d9beced4)
 
 
 </details>
@@ -202,8 +203,7 @@
 <details>
 <summary><h3>사용자 👆</h3></summary>
 <div markdown="1">
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/8ac77214-3e01-4e8d-ba24-1d4df2c68f65)
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/7d19637f-86a3-4ce1-9ee5-3293d9beced4)
+
 
 
 
