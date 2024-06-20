@@ -158,7 +158,7 @@
 <details>
 <summary><h3>요구사항 정의서 👆</h3></summary>
  <div markdown="1">
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/a8551b0b-8ff1-4bc8-8c1d-fc599a3c0172)
+![요구사항정의서](https://github.com/JJB03/Project05_FINDER/assets/160222162/db4e0fcb-65b9-40c4-95b9-63387e9affca)
 
 
 
@@ -170,13 +170,16 @@
 <summary><h3>기능 정의서 👆</h3></summary>
 <div markdown="1">
 <h5>사용자</h5>
- ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/b5382eaa-512d-4eeb-bdb0-6b99f7b2da1f)
+ ![기능정의서](https://github.com/JJB03/Project05_FINDER/assets/160222162/a6b15c94-c6e3-42b2-b5e6-6ffdbe5502c5)
+
 
 <h5>기업</h5>
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/ba71979b-3830-43f3-a1c2-60af6ba2b752)
+![기능정의서(기업)](https://github.com/JJB03/Project05_FINDER/assets/160222162/128713ab-1fd6-49c5-89b7-a8593bfcabf8)
+
 
 <h5>API</h5>
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/4313876f-82b4-46d3-b4aa-6cd1a5923f7b)
+![기능정의서 AIP](https://github.com/JJB03/Project05_FINDER/assets/160222162/264e8707-b977-4998-9e9e-bc7494732e8d)
+
 
 </div>
 </details>
@@ -185,7 +188,8 @@
 <details>
 <summary><h3>ERD 👆</h3></summary>
 <div markdown="1">
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/19b241f4-bdd4-4df7-ab07-65fe34a27c56)
+![erd](https://github.com/JJB03/Project05_FINDER/assets/160222162/822c9638-e6fd-4b80-88b1-bf4aca1d4ce5)
+
 
 </div>
 </details>
