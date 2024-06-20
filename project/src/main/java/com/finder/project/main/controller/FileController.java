@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.finder.project.main.dto.Files;
 import com.finder.project.main.service.FileService;
 
-import groovy.util.logging.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,6 +100,55 @@ public class FileController {
     public ResponseEntity<byte[]> thumbnail_img(@PathVariable("no") int no) throws Exception{
         //번호로 파일정보 조회
         Files file = fileService.select(no);
+
+        //Null체크
+        if (file == null) {
+            //이미지 없을시
+            String filePath = uploadPath + "/no-img.png";
+            java.io.File noImageFile = new java.io.File(filePath);
+            byte[] noImageFileData = FileCopyUtils.copyToByteArray(noImageFile);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(noImageFileData, headers, HttpStatus.OK);
+        }
+
+        //파일 정보 중 파일 경로 가지오기
+        String filePath = file.getFilePath();
+
+        //파일 객체 생성
+        java.io.File f = new java.io.File(filePath);
+
+        //파일 데이터
+        byte[] fileData = FileCopyUtils.copyToByteArray(f);
+
+        // 이미지 컨텐츠 타입 지정
+        HttpHeaders headers = new HttpHeaders();
+        String contentType = MediaType.IMAGE_JPEG_VALUE; 
+        String fileExtension = "jpg"; // 파일 확장자
+        if (fileExtension.equalsIgnoreCase("png")) {
+            contentType = MediaType.IMAGE_PNG_VALUE; // PNG로 설정
+        } else if (fileExtension.equalsIgnoreCase("jpg") || fileExtension.equalsIgnoreCase("jpeg")) {
+            contentType = MediaType.IMAGE_JPEG_VALUE; // JPEG로 설정
+        }
+        headers.setContentType(MediaType.valueOf(contentType));
+
+
+        //데이터 헤더 상태코드
+        return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
+    }
+
+    // 이력서 번호로 파일 조회
+    @GetMapping("/img/cv/{cvNo}")
+    public ResponseEntity<byte[]> thumbnail_cv_img(@PathVariable("cvNo") int cvNo) throws Exception{
+
+        Files file = new Files();
+        file.setParentTable("resume");
+        file.setParentNo(cvNo);
+        file.setCvNo(cvNo);
+        //번호로 파일정보 조회
+        file = fileService.listByCVParentThumbnail(file);
+        log.info("file : " + file);
+        // Files file = fileService.select(no);
 
         //Null체크
         if (file == null) {

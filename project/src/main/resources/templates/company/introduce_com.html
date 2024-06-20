@@ -12,11 +12,11 @@
             height: 50px;
             font-size: var(--text-middle);
             border-radius: 8px;
-            border: 1px solid #bdbdbd;
+            border: 1px solid #FAFAFA;
         }
 
         .com-intro-input {
-            border: 1px solid #bdbdbd;
+            border: 1px solid #FAFAFA;
             border-radius: 8px;
             padding: 5px;
             width: 100%;
@@ -24,10 +24,15 @@
         }
 
         .introduce-col1 {
-            border: 1px solid #bdbdbd;
+            border: 1px solid #FAFAFA;
             border-radius: 8px;
             padding: 5px;
             width: auto;
+        }
+
+        img {
+            width: 60%;
+            align-self: center;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -261,11 +266,11 @@
                                 </div>
                                 <div class="w-100 introduce-col4">
                                     <h4 class="w-100"
-                                        style="text-align: center; background-color: #bdbdbd; margin-top: 20px; margin-bottom: 0;">
+                                        style="text-align: center; background-color: #FAFAFA; margin-top: 20px; margin-bottom: 0;">
                                         기술 소개</h4>
                                     <textarea name="comContent" id="comContent" placeholder="기업 소개글을 작성하세요."
                                         class="w-100"
-                                        style="min-height: 300px; border: 1px solid #bdbdbd; border-radius: 0 0 8px 8px;"></textarea>
+                                        style="min-height: 300px; border: 1px solid #FAFAFA; border-radius: 0 0 8px 8px;"></textarea>
                                 </div>
                             </div>
                         </th:block>
@@ -339,13 +344,13 @@
                                         th:value="${session.user.company.comAddress}" readonly>
                                 </div>
                                 <div class="w-100 introduce-col4">
-                                    <h4 class="w-100"
-                                        style="text-align: center; background-color: #bdbdbd; margin-top: 20px; margin-bottom: 0;">
+                                    <h4 class="w-100 py-2"
+                                        style="text-align: center; background-color: #FAFAFA; margin-top: 20px; margin-bottom: 0;">
                                         기술 소개</h4>
                                     <textarea name="comContent" id="comContent"
                                         th:text="${session.user.companyDetail.comContent}" placeholder="기업 소개글을 작성하세요."
-                                        class="w-100"
-                                        style="min-height: 300px; border: 1px solid #bdbdbd; border-radius: 0 0 8px 8px;"></textarea>
+                                        class="w-100 p-3 fs-5"
+                                        style="min-height: 300px; border: 1px solid  #FAFAFA; border-radius: 0 0 8px 8px;"></textarea>
                                 </div>
                             </div>
                         </th:block>

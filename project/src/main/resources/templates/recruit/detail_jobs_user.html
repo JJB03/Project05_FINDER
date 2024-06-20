@@ -192,106 +192,106 @@
 
                             </div>
                         </th:block>
-                    </div>
-
-                    <th:block th:if="${companyDetail != null}">
-                        <div class="d-flex justify-content-start">
-                            <div class="company-introduce d-flex flex-column w-75">
-                                <input type="hidden" name="comNo" th:value="${companyDetail.company.comNo}">
-
-                                <div class="row">
-                                    <div class="d-flex flex-column row-gap-3 col-3">
-                                        <img src="/img/연차1.png" alt="업력연차" style="width: 8vw; padding: 26px 12px 10px;">
+                        <th:block th:if="${companyDetail != null}">
+                            <div class="d-flex justify-content-center">
+                                <div class="company-introduce d-flex flex-column w-75">
+                                    <input type="hidden" name="comNo" th:value="${companyDetail.company.comNo}">
+    
+                                    <div class="row">
+                                        <div class="d-flex flex-column row-gap-3 col-3">
+                                            <img src="/img/연차1.png" alt="업력연차" style="width: 8vw; padding: 26px 12px 10px;">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="floatingPlaintextInput" placeholder=""
+                                                    th:value="${companyDetail.comBirth} + 년">
+                                                <label for="floatingPlaintextInput" style="text-align: center;">업력
+                                                    연차</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column row-gap-3 col-3">
+                                            <img src="/img/대기업1.png" alt="기업규모"
+                                                style="width: 8vw; padding: 26px 12px 10px;">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="floatingPlaintextInput" placeholder=""
+                                                    th:value="${companyDetail.comSize}">
+                                                <label for="floatingPlaintextInput">기업 규모</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column row-gap-3 col-3 ">
+                                            <img src="/img/사원수1.png" alt="사원수" style="width: 8vw; padding: 26px 12px 10px;">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="floatingPlaintextInput" placeholder=""
+                                                    th:value="${companyDetail.comEmpCount} + 명">
+                                                <label for="floatingPlaintextInput">사원 수</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column row-gap-3 col-3 ">
+                                            <img src="/img/매출액1.png" alt="매출액" style="width: 8vw; padding: 26px 12px 10px;">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="floatingPlaintextInput" placeholder=""
+                                                    th:value="${companyDetail.comSales} + 억">
+                                                <label for="floatingPlaintextInput">매출액</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between introduce-col2 mb-3"
+                                        style="column-gap: 25px;">
+                                        <div class="d-flex w-100">
+                                            <div class="col-3">
+                                                <label for="" style="font-weight: bold;">회사이름</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <span th:text="${companyDetail.company.comName}"></span>
+                                            </div>
+                                        </div>
+    
+                                        <div class="d-flex w-100">
+                                            <div class="col-3">
+                                                <label for="com_represent" style="font-weight: bold;">대표명</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <span th:text="${companyDetail.comRepresent}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between introduce-col2 mb-3"
+                                        style="column-gap: 25px;">
+                                        <div class="d-flex w-100">
+                                            <div class="col-3">
+                                                <label for="com_category" style="font-weight: bold;">업종</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <span th:text="${companyDetail.company.comBusiness}"></span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex w-100">
+                                            <div class="col-3">
+                                                <label for="com_address" style="font-weight: bold;">주소</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <span th:text="${companyDetail.company.comAddress}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 introduce-col4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" readonly class="form-control-plaintext"
-                                                id="floatingPlaintextInput" placeholder=""
-                                                th:value="${companyDetail.comBirth} + 년">
-                                            <label for="floatingPlaintextInput" style="text-align: center;">업력
-                                                연차</label>
+                                            <textarea readonly class="form-control-plaintext textarea-comContent"
+                                                id="floatingPlaintextInput" placeholder="name@example.com"
+                                                th:text="${companyDetail.comContent}"
+                                                style="overflow-y: hidden;  resize: none; color: #475067;"></textarea>
+                                            <label for="floatingPlaintextInput">기술 소개</label>
                                         </div>
+    
+    
                                     </div>
-                                    <div class="d-flex flex-column row-gap-3 col-3">
-                                        <img src="/img/대기업1.png" alt="기업규모"
-                                            style="width: 8vw; padding: 26px 12px 10px;">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" readonly class="form-control-plaintext"
-                                                id="floatingPlaintextInput" placeholder=""
-                                                th:value="${companyDetail.comSize}">
-                                            <label for="floatingPlaintextInput">기업 규모</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column row-gap-3 col-3 ">
-                                        <img src="/img/사원수1.png" alt="사원수" style="width: 8vw; padding: 26px 12px 10px;">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" readonly class="form-control-plaintext"
-                                                id="floatingPlaintextInput" placeholder=""
-                                                th:value="${companyDetail.comEmpCount} + 명">
-                                            <label for="floatingPlaintextInput">사원 수</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column row-gap-3 col-3 ">
-                                        <img src="/img/매출액1.png" alt="매출액" style="width: 8vw; padding: 26px 12px 10px;">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" readonly class="form-control-plaintext"
-                                                id="floatingPlaintextInput" placeholder=""
-                                                th:value="${companyDetail.comSales} + 억">
-                                            <label for="floatingPlaintextInput">매출액</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between introduce-col2 mb-3"
-                                    style="column-gap: 25px;">
-                                    <div class="d-flex w-100">
-                                        <div class="col-3">
-                                            <label for="" style="font-weight: bold;">회사이름</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <span th:text="${companyDetail.company.comName}"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex w-100">
-                                        <div class="col-3">
-                                            <label for="com_represent" style="font-weight: bold;">대표명</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <span th:text="${companyDetail.comRepresent}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between introduce-col2 mb-3"
-                                    style="column-gap: 25px;">
-                                    <div class="d-flex w-100">
-                                        <div class="col-3">
-                                            <label for="com_category" style="font-weight: bold;">업종</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <span th:text="${companyDetail.company.comBusiness}"></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex w-100">
-                                        <div class="col-3">
-                                            <label for="com_address" style="font-weight: bold;">주소</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <span th:text="${companyDetail.company.comAddress}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-100 introduce-col4">
-                                    <div class="form-floating mb-3">
-                                        <textarea readonly class="form-control-plaintext textarea-comContent"
-                                            id="floatingPlaintextInput" placeholder="name@example.com"
-                                            th:text="${companyDetail.comContent}"
-                                            style="overflow-y: hidden;  resize: none; color: #475067;"></textarea>
-                                        <label for="floatingPlaintextInput">기술 소개</label>
-                                    </div>
-
-
                                 </div>
                             </div>
-                        </div>
-                    </th:block>
+                        </th:block>
+                    </div>
+
 
                 </div>
 
