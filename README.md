@@ -150,7 +150,6 @@
 
 
 ## 4-2. 수행 방법
-- 사용 언어 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/1df705e2-0851-469d-a4a1-7ddedd9522e4)
 
 
@@ -158,9 +157,9 @@
 ## 5-1. 요구사항 정의서
 <details>
 <summary><h3>요구사항 정의서 👆</h3></summary>
+ <div markdown="1">
  ![Uploading image.png…]()
 
-<div markdown="1">
 
 
 </div>
