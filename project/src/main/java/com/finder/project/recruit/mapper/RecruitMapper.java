@@ -38,6 +38,7 @@ public interface RecruitMapper {
     // 채용공고 회사정보
     public CompanyDetail selectCompanyDetailsWithRecruit(int comNo) throws Exception;
     // 채용공고 상세조회 끝
+    public CompanyDetail selectCompanyDetailsWithRecruit2(int comNo) throws Exception;
 
     // 등록 한 채용공고 목록
     public List<RecruitPost> postsRecruitList(int comNo) throws Exception;
