@@ -409,33 +409,6 @@
             company_detail cd ON #{comNo} = cd.com_no;
     </select>
 
-    
-<!-- 기업 상세조회 이걸로 하면됨
-  <select id="selectCompanyDetailsWithRecruit2" resultMap="CompanyDetailResultMap">
-        SELECT
-            c.com_no,
-            c.com_name,
-            c.com_category,
-            c.com_address,
-            c.com_business,
-            cd.com_info_no,
-            cd.com_represent,
-            cd.com_url,
-            cd.com_birth,
-            cd.com_size,
-            cd.com_emp_count,
-            cd.com_sales,
-            cd.com_content,
-            cd.com_vision,
-            cd.com_welfare,
-            cd.com_avg_salary
-        FROM
-            recruit r
-        JOIN
-            company c ON r.com_no = c.com_no
-        JOIN
-            company_detail cd ON #{comNo} = cd.com_no;
-    </select> -->
 
   <!-- 지금 보고있는 recruit comNo으로 com -->
   <select id="recruitToCom" resultType="Company">
