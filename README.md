@@ -137,6 +137,9 @@
 <summary><h3>공통 👆</h3></summary>
 <div markdown="1">
 
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/7378756a-c5af-418f-82dc-dbe51868cec7)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/abffdb86-3b0e-40d8-b6bc-2ccb1d4bdf6c)
+
 </div>
 </details>
 
@@ -146,6 +149,15 @@
 <summary><h3>구직자 👆</h3></summary>
 <div markdown="1">
 
+ 
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/60542067-4706-48ca-a2e3-2b8962e7a3dd)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/7176da0b-2038-47ed-b007-22ebd232a2d5)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/be792f3e-a8d9-47c3-a2df-2518fa8cab71)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/9e1e615d-2f54-400a-a804-99f1da70c210)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/cf6eb543-19ad-472d-adf3-9b7b13b83711)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/d8ca99ac-29fc-49cd-b4d0-e1e8f2e2e67d)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/bda63248-7923-46c9-9278-e064d25774ac)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e357d61d-2cef-4ab1-9bc4-4abbb4be0387)
 
 </div>
 </details>
@@ -168,8 +180,6 @@
 <summary><h3>공통 👆</h3></summary>
 <div markdown="1">
 
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/7378756a-c5af-418f-82dc-dbe51868cec7)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/abffdb86-3b0e-40d8-b6bc-2ccb1d4bdf6c)
 
 </div>
 </details>
@@ -179,16 +189,6 @@
 <details>
 <summary><h3>구직자 👆</h3></summary>
 <div markdown="1">
- 
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/60542067-4706-48ca-a2e3-2b8962e7a3dd)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/7176da0b-2038-47ed-b007-22ebd232a2d5)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/be792f3e-a8d9-47c3-a2df-2518fa8cab71)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/9e1e615d-2f54-400a-a804-99f1da70c210)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/cf6eb543-19ad-472d-adf3-9b7b13b83711)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/d8ca99ac-29fc-49cd-b4d0-e1e8f2e2e67d)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/bda63248-7923-46c9-9278-e064d25774ac)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e357d61d-2cef-4ab1-9bc4-4abbb4be0387)
-
 
 
 </div>
