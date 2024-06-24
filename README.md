@@ -118,9 +118,16 @@
 ## 5-4. 테이블 정의서
 <details>
 <summary><h3>테이블 정의서 👆</h3></summary>
+
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/31a7412e-0f66-4470-afab-b0f07994ec8e)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/37a1656b-2859-4b15-b6aa-d4e3b80e1ca3)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/a70d0d8f-fca5-4a9a-9bbb-a559486b80d5)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/bff034bf-5ad9-4358-964b-719bffe974d9)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/abc1ba28-978e-4272-92f2-f0a0d35b4ebb)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/0216cf0a-22f1-408a-bcb7-7bb49f256f3f)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/4e5fddf9-200b-4785-bb54-8130a7b395d3)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/5e887227-8312-4fb3-aa22-b206cffe0c71)
  
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/8ac77214-3e01-4e8d-ba24-1d4df2c68f65)
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/7d19637f-86a3-4ce1-9ee5-3293d9beced4)
 </details>
 
 ## 5-5. 화면 설계서
