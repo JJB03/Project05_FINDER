@@ -26,6 +26,7 @@
   - 개별 평가
   - 종합 평가
 
+
 # 1. 프로젝트 개요
 ## 1-1. 프로젝트 주제
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/9bc0d384-969a-4862-9e72-8ecece3c78f0)
@@ -121,8 +122,8 @@
  
 # 4. 프로젝트 수행절차 및 방법
 ## 4-1. 프로젝트 수행 절차
-- 2024-05-16 ~ 2023-06-12
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/cd51476b-e8b6-4cd6-bddb-bbc4fe1e2fa7)
+2024-05-16 ~ 2023-06-12
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/cb041109-5d15-4173-a62b-efb2038a7305)
 
 
 
