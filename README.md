@@ -203,7 +203,7 @@
 
 ## 6-2. 종합 평가
 
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/ab2cc9c0-555d-4de9-b4cc-4fe732f99069)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/3005b45d-7edf-47f8-a872-72c3d80d96e6)
 
 
 
