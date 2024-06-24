@@ -128,8 +128,9 @@
 
 
 ## 4-2. 수행 방법
-- 사용 언어와 협업툴
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/1df705e2-0851-469d-a4a1-7ddedd9522e4)
+사용 언어와 협업툴
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/7f89dc68-61f7-4578-8dad-15008387628f)
+
 
 
 # 5. 프로젝트 수행 경과
