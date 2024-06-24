@@ -9,10 +9,8 @@
   - 기획 의도
   - 활용방안 및 기대효과
 ### 2. 프로젝트 구조
-  - 주요 기능
+  - 주요 기능 요약
   - Menu Structure
-  - Project Structure
-  - Flow Chart
 ### 3. 프로젝트 팀 구성 및 역할
 ### 4. 프로젝트 수행절차 및 방법
   - 수행 절차
@@ -24,13 +22,7 @@
   - 테이블 정의서
   - 화면 설계서
   - 프로젝트 실제 화면 UI
-### 6. REST Architecture로 전환
-  - 대표 컨트롤러 코드 비교 및 설명
-### 7. 핵심기능 코드 리뷰
-  - 기능 목표
-  - QR코드 생성 및 처리과정
-  - 개선 할 점
-### 8. 자체 평가 의견
+### 6. 자체 평가 의견
   - 개별 평가
   - 종합 평가
 
@@ -90,16 +82,6 @@
 <details>
 <summary><h3>Menu Structure 👆</h3></summary>
 <div markdown="1">
-
-
-</div>
-</details>
-
-## 2-3. Flow Chart
-<details>
-<summary><h3>Flow Chart 👆</h3></summary>
-<div markdown="1">
-
 
 </div>
 </details>
@@ -201,7 +183,7 @@
 
 ## 5-5. 화면 설계서
 <details>
-<summary><h3>사용자 👆</h3></summary>
+<summary><h3>일반회원 👆</h3></summary>
 <div markdown="1">
 
 
@@ -213,33 +195,12 @@
 ----
 
 <details>
-<summary><h3>관리자 👆</h3></summary>
+<summary><h3>기업회원 👆</h3></summary>
 <div markdown="1">
 
 
 </div>
 </details>
-
-----
-
-<details>
-<summary><h3>예매 서비스 👆</h3></summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
-----
-
-<details>
-<summary><h3>게시판 👆</h3></summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
 
 ----
 
@@ -267,7 +228,7 @@
 ----
 
 <details>
-<summary><h3>예매 서비스 👆</h3></summary>
+<summary><h3>AI 간편 평가 👆</h3></summary>
 <div markdown="1">
 
 
@@ -283,55 +244,12 @@
 </div>
 </details>
 
-
 ----
 
-# 6. REST Architecture로 전환
-<details>
-<summary><h3>대표 컨트롤러 코드 비교 및 설명 👆</h3></summary>
-<div markdown="1">
-
-</div>
-</details>
 
 
-# 7. 핵심기능 코드 리뷰
-## 7-1. 기능목표
-### 탑승권을 QR 코드의 형태로 제공하여 관리자가 편리하게 업무(사용자 탑승권 탑승 처리)를 볼 수 있도록 함
-
-
-
-## 7-2. QR코드 생성 및 처리과정
-### QR코드 생성 : 항공권 결제 완료 → 티켓 번호 발급 → QR 코드 생성
-<details>
-<summary><h3>QR코드 생성 👆</h3></summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
-----
-
-### QR코드 처리 : QR 코드 인식 →  탑승권 처리 페이지로 연결 → 해당 티켓 번호에 대한 탑승권 조회 → 탑승 처리 완료 → QR 코드 삭제
-<details>
-<summary><h3>QR코드 처리 👆</h3></summary>
-<div markdown="1">
-
-
-</div>
-</details>
-
-----
-
-## 7-3. 개선 할 점
-- 
-  - 
-
-
-
-# 8. 자체 평가 의견
-## 8-1. 개별 평가
+# 6. 자체 평가 의견
+## 6-1. 개별 평가
 - 홍준범
   - 설계 단계부터 배포까지 모든 과정을 경험하면서 설계의 중요성을 절실히 깨달았습니다.
 화면 설계를 열심히 했다고 생각했지만, 실제 개발 과정에서는 
@@ -395,7 +313,7 @@ html,css,js 를 이용한 뷰를 작성하는 작업까지 개인적으로도 �
 
   
 
-## 8-2. 종합 평가
+## 6-2. 종합 평가
 
 ### 한계점
 - 무리한 기획으로 인한 시간소요. 커뮤니티 기능, 네이버, 구글 소셜 로그인을 
