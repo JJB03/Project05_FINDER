@@ -64,6 +64,11 @@
   - 채용공고 조회 정보 제공
   - 미리 작성한 이력서로 바로 지원하기 기능 제공
 
+```
+```
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/f38e061a-ec14-4522-b9cc-59ec80d511cc)
+
+
 ## 2-2. 메뉴 구조도
 <details>
 
