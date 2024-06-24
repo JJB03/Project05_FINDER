@@ -70,13 +70,10 @@
 
 
 ## 2-2. 메뉴 구조도
-<details>
 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/2053216c-af3c-4e67-b7aa-8c00db307e63)
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/01fa1cf7-4013-4daa-a5ec-77089715afe4)
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/a57221e7-51d5-4570-b3d0-1bfd022bcc61)
-
-</details>
 
 
 
@@ -116,6 +113,10 @@
    - 비밀번호 변경
    - 기업 소개
    - 프로젝트 설계 및 DB 구축
+
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/02617f5f-6b63-48f7-a314-0d97dd6c66e6)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/fcd3081b-4a7b-46cd-b9aa-34b827c21433)
+
 
  
 # 4. 프로젝트 수행절차 및 방법
