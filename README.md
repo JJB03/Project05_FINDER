@@ -125,9 +125,6 @@
 
 ## 5-5. 화면 설계서
 <details>
-<summary><h3>더보기 👆</h3>
-
-<details>
 <summary><h3>공통 👆</h3></summary>
 <div markdown="1">
 
@@ -155,8 +152,6 @@
 </details>
 
 ----
-</summary>
-</details>
 
 
 ## 5-6. 프로젝트 실제 화면 UI
