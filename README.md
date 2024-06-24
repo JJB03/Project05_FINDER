@@ -47,9 +47,9 @@
 # 2. 프로젝트 구조
 ## 2-1. 주요기능
 
-- 공통 ( 회원가입 / 로그인 / 로그아웃 / 마이페이지 / 채용공고 조회 )
-- 구직자 ( 이력서 작성 / 채용공고 지원 / 합불 여부 확인 )
-- 기업 ( 결제 / 채용공고 작성 / 제출된 이력서 조회 / AI 간편 평가 / 합불 평가 )
+### - 공통 ( 회원가입 / 로그인 / 로그아웃 / 마이페이지 / 채용공고 조회 )
+### - 구직자 ( 이력서 작성 / 채용공고 지원 / 합불 여부 확인 )
+### - 기업 ( 결제 / 채용공고 작성 / 제출된 이력서 조회 / AI 간편 평가 / 합불 평가 )
 
 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/f38e061a-ec14-4522-b9cc-59ec80d511cc)
@@ -66,7 +66,7 @@
 
 
 # 3.프로젝트 팀 구성 및 역할
-인원 : 4명
+### 인원 : 4명
 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/02617f5f-6b63-48f7-a314-0d97dd6c66e6)
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/fcd3081b-4a7b-46cd-b9aa-34b827c21433)
@@ -75,13 +75,13 @@
  
 # 4. 프로젝트 수행절차 및 방법
 ## 4-1. 프로젝트 수행 절차
-2024-05-16 ~ 2023-06-12
+### 2024-05-16 ~ 2023-06-12
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/cb041109-5d15-4173-a62b-efb2038a7305)
 
 
 
 ## 4-2. 수행 방법
-사용 언어와 협업툴
+### 사용 언어와 협업툴
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/7f89dc68-61f7-4578-8dad-15008387628f)
 
 
@@ -195,16 +195,16 @@
 
 # 6. 자체 평가 의견
 ## 6-1. 개별 평가
-#### 홍준범
+### 홍준범
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/c7e9ea99-3009-4f41-a563-c23f657175ec)
 
-#### 유상준
+### 유상준
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e2d5effe-4585-4b38-ba16-daffd2f0aeaa)
 
-#### 정주빈
+### 정주빈
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e0980c87-4122-4712-8eea-4d84a4f367a9)
    
-#### 백승헌
+### 백승헌
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/52ae0ee8-ef9f-4980-acb6-f08cd2dd2875)
 
 
