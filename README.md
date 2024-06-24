@@ -125,9 +125,11 @@
 
 ## 5-5. 화면 설계서
 <details>
+<summary><h3>더보기 👆</h3>
+
+<details>
 <summary><h3>공통 👆</h3></summary>
 <div markdown="1">
-
 
 </div>
 </details>
@@ -150,6 +152,9 @@
 
 
 </div>
+</details>
+
+</summary>
 </details>
 
 ----
