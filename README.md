@@ -66,11 +66,11 @@
 
 ## 2-2. 메뉴 구조도
 <details>
-<summary><h3>Menu Structure 👆</h3></summary>
+
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/2053216c-af3c-4e67-b7aa-8c00db307e63)
 
 </details>
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/552cd523-918d-4d71-b4e2-522b48faecd3)
+
 
 
 # 3.프로젝트 팀 구성 및 역할
