@@ -67,6 +67,7 @@
 
 # 3.프로젝트 팀 구성 및 역할
 인원 : 4명
+
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/02617f5f-6b63-48f7-a314-0d97dd6c66e6)
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/fcd3081b-4a7b-46cd-b9aa-34b827c21433)
 
