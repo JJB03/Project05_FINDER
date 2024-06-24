@@ -101,10 +101,10 @@
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/01b59191-e05c-4da9-8014-a8feda3a20dd)
 <h5>기업</h5>
 
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/83fa3dbd-b8e4-4e21-9d08-2b5beefefc30)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/82e00c87-1da4-449c-b27f-ca8e4067e6d5)
 <h5>API</h5>
 
-![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/c53a93c8-5996-4ab6-b544-00a8fa5100b5)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/859d57ce-e0f7-43bc-86ee-3619ffa03896)
 </details>
 
 ## 5-3. ERD
