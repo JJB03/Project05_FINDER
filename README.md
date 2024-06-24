@@ -98,8 +98,7 @@
 <summary><h3>기능 정의서 👆</h3></summary>
 <h5>사용자</h5>
  
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/73dfe6ea-1a29-49ea-ac52-068bc502563a)
-
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/01b59191-e05c-4da9-8014-a8feda3a20dd)
 <h5>기업</h5>
 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/83fa3dbd-b8e4-4e21-9d08-2b5beefefc30)
