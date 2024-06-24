@@ -125,10 +125,8 @@
 
 ## 5-5. 화면 설계서
 <details>
-<summary><h3>일반회원 👆</h3></summary>
+<summary><h3>공통 👆</h3></summary>
 <div markdown="1">
-
-
 
 
 </div>
@@ -137,7 +135,17 @@
 ----
 
 <details>
-<summary><h3>기업회원 👆</h3></summary>
+<summary><h3>구직자 👆</h3></summary>
+<div markdown="1">
+
+
+</div>
+</details>
+
+----
+
+<details>
+<summary><h3>기업 👆</h3></summary>
 <div markdown="1">
 
 
@@ -149,9 +157,8 @@
 
 
 ## 5-6. 프로젝트 실제 화면 UI
-
 <details>
-<summary><h3>사용자 👆</h3></summary>
+<summary><h3>공통 👆</h3></summary>
 <div markdown="1">
 
 
@@ -161,7 +168,7 @@
 ----
 
 <details>
-<summary><h3>관리자 👆</h3></summary>
+<summary><h3>구직자 👆</h3></summary>
 <div markdown="1">
 
 
@@ -171,7 +178,7 @@
 ----
 
 <details>
-<summary><h3>AI 간편 평가 👆</h3></summary>
+<summary><h3>기업 👆</h3></summary>
 <div markdown="1">
 
 
@@ -179,8 +186,6 @@
 </details>
 
 ----
-
-
 
 
 # 6. 자체 평가 의견
