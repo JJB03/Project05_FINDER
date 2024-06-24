@@ -137,44 +137,38 @@
 ## 5-1. 요구사항 정의서
 <details>
 <summary><h3>요구사항 정의서 👆</h3></summary>
+ 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/3e10d519-e56a-4d52-812a-7e3defede2b0)
-
-
 </details>
 
  ## 5-2. 기능 정의서
 <details>
 <summary><h3>기능 정의서 👆</h3></summary>
 <h5>사용자</h5>
+ 
 ![Uploading image.png…]()
 
 <h5>기업</h5>
+
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/83fa3dbd-b8e4-4e21-9d08-2b5beefefc30)
-
-
 <h5>API</h5>
+
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/c53a93c8-5996-4ab6-b544-00a8fa5100b5)
-
-
-
 </details>
 
 ## 5-3. ERD
 <details>
 <summary><h3>ERD 👆</h3></summary>
+ 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/815f99ba-d9fe-478b-8ae2-639c9e94b3d5)
-
-
-
 </details>
 
 ## 5-4. 테이블 정의서
 <details>
 <summary><h3>테이블 정의서 👆</h3></summary>
+ 
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/8ac77214-3e01-4e8d-ba24-1d4df2c68f65)
 ![image](https://github.com/JJB03/Project05_FINDER/assets/160222162/7d19637f-86a3-4ce1-9ee5-3293d9beced4)
-
-
 </details>
 
 ## 5-5. 화면 설계서
