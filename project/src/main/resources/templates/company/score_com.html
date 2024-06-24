@@ -270,7 +270,8 @@
                             <div class="job-list mt-1">
 
                                 <ol class="list-group">
-                                    <li class="list-group-item d-flex">
+                                    <li class="list-group-item d-flex 
+                                    ">
                                         <div class="" style="width: 18%;">
                                             <strong style="font-size: 20px;">지원자</strong>
                                         </div>
@@ -286,7 +287,8 @@
                                         value="자기소개서를 100점 만점으로 평가해주세요.
                                         무조건 점수만 응답해주세요.
                                         자기소개서는 '50자 이상이어야 하며', '한글 맞춤법을 준수할 경우', '외부 활동과 성취 내용이 있는 경우', '전공 선택 이유와 성취 내용이 있는 경우', 
-                                        '지원 동기와 의지가 확실한 경우' 에는 가산점을 부여합니다. 나머지 점수는 아래 키워드와의 유사성을 평가하여 매우 엄격하게 평가해야 합니다.
+                                        '지원 동기와 의지가 확실한 경우' 에 해당하지 않는경우 점수를 줄 수 없습니다. 나머지 점수는 아래 키워드와의 유사성을 평가하여 매우 엄격하게 평가해야 합니다. 키워드와 유사성이 없으면 최하점을 주어야합니다.
+                                        '디자이너' 라는 글자가 들어가면 점수는 30점입니다.
                                         만약 자기소개서가 빈 문자열이거나 null이면 0점을 주세요. 결과를 꼭 숫자로만 표현해주세요 꼭 숫자만 값이 나와야합니다. '예를들어 90점이면 90으로 표현'">
 
                                     <th:block th:if="${resumeList.isEmpty()}">
@@ -308,15 +310,15 @@
                                                 <div class="d-felx">
                                                     <a th:href="|/resume/cv_read_user?cvNo=${resume.cvNo}|"
                                                         class="job-item-link name-link">
-                                                        <span th:text="${resume.user.userName}"></span>
+                                                        <span id="resume-name" th:text="${resume.user.userName}"></span>
                                                     </a>
                                                 </div>
 
                                             </div>
 
-                                            <div class="w-25">
-                                                <span style="color:#128246;">
-                                                    <strong th:attr="id='score-' + ${stat.index}">
+                                            <div class="w-25" style="padding-top: 5px ;">
+                                                <span >
+                                                    <strong th:attr="id='score-' + ${stat.index}" >
 
                                                     </strong>
                                                 </span>
@@ -325,7 +327,7 @@
                                             <div class="d-flex justify-content-between" style="width: 68%;">
                                                 <div class="d-flex ">
                                                     <th:block th:each="recruit : ${resume.recruitPost}">
-                                                        <div class="me-2">
+                                                        <div class="me-2" style="padding-top: 5px ;">
                                                             <span th:text="${recruit.recruitTitle}">
 
                                                             </span>
@@ -340,6 +342,8 @@
                                                     <div>
                                                         <button class="btn-in-short finder-btn"
                                                             th:attr="data-index=${stat.index}"
+                                                            th:value="${resume.user.userName}"
+                                                            th:cvNo="${resume.cvNo}" 
                                                             style="font-weight: bold;">FINDER</button>
                                                     </div>
                                                 </div>
@@ -403,16 +407,45 @@
                 </div>
             </main>
             
-
+            <div class="counter" data-count="60">0</div>
         </div>
     </div>
     <!-- <textarea name="" th:attr="id='result-' + ${stat.index}" rows="20" cols="50" class="" placeholder="응답 결과"></textarea> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <script>
 
 
+        function countUp() {
+
+            $('.counter').each(function() {
+                var $this = $(this),
+                    countTo = $this.attr('data-count');
+                $({ countNum: $this.text()}).animate({
+                    countNum: countTo
+                },
+
+                {
+                    duration: 3000,
+                    easing:'linear',
+                    step: function() {
+                    $this.text(Math.floor(this.countNum));
+                    },
+                    complete: function() {
+                    $this.text(this.countNum);
+                    //alert('finished');
+                    }
+
+                });  
+            });
+
+        }
+
+
         $(document).ready(function () {
+
+            
 
 
             let resumeCoverLetter = $('#resume-cover-letter-' + 0).val();
@@ -447,16 +480,21 @@
                 }
             });
 
-
             let API_KEY = ''
 
             if (API_KEY == '') {
-                alert('API_KEY 를 변수에 입력하세요.')
+                // alert('API_KEY 를 변수에 입력하세요.')
             }
 
 
             // AI 지원자 평가
             $('.finder-btn').on('click', function () {
+
+                let resumeName = $(this).val();
+                let cvNo = $(this).attr('cvNo')
+                // alert(cvNo)
+                // alert(resumeName)
+
                 let index = $(this).data('index');  // 클릭된 버튼의 인덱스 가져오기
                 let inputKeywords = $('.input-keyword').map(function () {
                     return $(this).val();
@@ -513,19 +551,19 @@
 
                                 // title: "",
                                 width: 800,
-                                html: "<h1 style='font-weight:bold;'>AI 이력서 평가 진행중</h1>"
+                                html: "<h1 style='font-weight:bold; margin-top:50px;'>👨‍💻 AI 이력서 평가 진행중 👩‍🚀</h1>"
                                     // + "<img src='/img/AI_BOT.webp' width='480' /> "
                                     + "<div class='d-flex justify-content-center'>"
                                     + "<img src='/img/AI분석중.gif' width='720' /> "
                                     // + "<img src='/img/AI_BOT.webp' width='560' /> "
                                     + "</div>"
-                                    + "<h3 style='font-weight:bold;'>지원서의 이력서 분석을 시작합니다.</h3>",
+                                    + `<h3 style='font-weight:bold;'>${resumeName}님의 이력서 분석을 시작합니다.</h3>`,
                                 // html: "지원서의 이력서 분석을 시작합니다.",
                                 timer: 10000,
                                 timerProgressBar: true,
 
                                 backdrop: `
-                                            rgba(0,0,123,0.4)
+                                            rgba(0,0,0,0.7)
                                             right center 
                                             url("/img/AI_BOT.webp")
                                             no-repeat
@@ -541,17 +579,30 @@
                                 willClose: () => {
                                     clearInterval(timerInterval);
                                     Swal.fire({
-                                        title: "지원자 AI 이력서 점수",
-                                        html: `<h1 style='font-size: 60px'>${contentValue} 점</h1>`,
+                                        // title: `👨‍💼 ${resumeName}님의 AI 이력서 점수 ✨`,
+                                        html: `
+                                            <img src='http://localhost:8080/file/img/cv/${cvNo}' width='200' style='margin: 0 auto 30px;' />
+                                            <h1 style='font-size: 28px; font-weight: bold;'>👨‍💼 ${resumeName}님의 AI 이력서 점수 ✨</h1>
+                                            <h1 style='font-size: 40px'>
+                                                <span style="font-size: 60px" class="counter" data-count="${contentValue}">0</span>
+                                                점
+                                            </h1>
+                                        `,
+                                        // imageUrl: `http://localhost:8080/file/img/cv/${cvNo}`,
+                                        // imageWidth: 200,
                                         width: 600,
                                         padding: "3em",
                                         color: "#716add",
+                                        confirmButtonText: "확인",
+                                        //rgba(0,0,123,0.4)
                                         backdrop: `
-                                            rgba(0,0,123,0.4)
+                                            rgba(0,0,0,0.7)
                                             left top
                                             no-repeat
                                         `
                                     });
+
+                                    countUp()
 
                                 }
                             })

@@ -409,6 +409,7 @@
             company_detail cd ON #{comNo} = cd.com_no;
     </select>
 
+
   <!-- 지금 보고있는 recruit comNo으로 com -->
   <select id="recruitToCom" resultType="Company">
     SELECT c.*

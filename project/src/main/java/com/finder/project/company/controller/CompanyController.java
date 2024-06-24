@@ -488,7 +488,7 @@ public class CompanyController {
     public String getMethodName(@RequestParam("comNo") Integer comNo, Model model,
             HttpSession session) throws Exception {
         
-        Users user = (Users) session.getAttribute("user");
+        // Users user = (Users) session.getAttribute("user");
         
         // log.info("@@@@@@@@@@@@@" + comNo);
         // RecruitPost recruitPost = recruitService.recruitRead(recruitNo);

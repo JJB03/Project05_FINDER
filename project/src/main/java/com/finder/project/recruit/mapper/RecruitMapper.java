@@ -37,7 +37,6 @@ public interface RecruitMapper {
     // public List<Keyword> recruitReadKeyword(int recruitNo) throws Exception;
     // 채용공고 회사정보
     public CompanyDetail selectCompanyDetailsWithRecruit(int comNo) throws Exception;
-    // 채용공고 상세조회 끝
 
     // 등록 한 채용공고 목록
     public List<RecruitPost> postsRecruitList(int comNo) throws Exception;
