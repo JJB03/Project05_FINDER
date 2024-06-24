@@ -185,16 +185,16 @@
 
 # 6. 자체 평가 의견
 ## 6-1. 개별 평가
-- 홍준범
+#### 홍준범
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/c7e9ea99-3009-4f41-a563-c23f657175ec)
 
-- 유상준
+#### 유상준
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e2d5effe-4585-4b38-ba16-daffd2f0aeaa)
 
-- 정주빈
+#### 정주빈
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e0980c87-4122-4712-8eea-4d84a4f367a9)
    
-- 백승헌
+#### 백승헌
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/52ae0ee8-ef9f-4980-acb6-f08cd2dd2875)
 
 
