@@ -154,11 +154,9 @@
 </div>
 </details>
 
+----
 </summary>
 </details>
-
-----
-
 
 
 ## 5-6. 프로젝트 실제 화면 UI
