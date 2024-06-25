@@ -158,6 +158,8 @@
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/d8ca99ac-29fc-49cd-b4d0-e1e8f2e2e67d)
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/bda63248-7923-46c9-9278-e064d25774ac)
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e357d61d-2cef-4ab1-9bc4-4abbb4be0387)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/ae862e3c-9841-4a51-9080-71ca142c96b9)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/e68b6367-85cd-4087-a22c-9d72ac9ede59)
 
 </div>
 </details>
@@ -167,6 +169,11 @@
 <details>
 <summary><h3>기업 👆</h3></summary>
 <div markdown="1">
+
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/190682c8-9509-4b16-87e7-93adcfa7d50c)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/c3ea4e01-ab96-4cf7-9ad0-dc7fcc1e7a49)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/2c62c422-f38f-40d9-a3d8-c2fc0c54e8f8)
+![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/a83da684-a31b-4afa-901d-4008f44c6a63)
 
 
 </div>
