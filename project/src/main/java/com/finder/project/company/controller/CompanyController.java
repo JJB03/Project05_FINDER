@@ -152,7 +152,7 @@ public class CompanyController {
     // }
 
     // 기업 정보 수정
-    @PostMapping("/update_com_info")
+    @PostMapping("/update_info")
     public String updateCompany(HttpSession session, Company company
                               ,@RequestParam("userName") String userName,
                                @RequestParam("userBirth") String userBirth,
@@ -239,8 +239,8 @@ public class CompanyController {
         return "redirect:/user/error";
     }
 
-    // 현재 비밀번호 확인
-    @PostMapping("/update_com_pw_confirm")
+    // 비밀번호 확인 (update_user)
+    @PostMapping("/update_pw_confirm")
     public ResponseEntity<Boolean> pw_confirm(@RequestBody PasswordConfirmRequest request, HttpSession session) {
         
         // 세션에서 사용자 정보 가져오기
@@ -250,8 +250,8 @@ public class CompanyController {
         return ResponseEntity.ok(isMatch);
     }
 
-    // 기업 비밀번호 수정
-    @PostMapping("/update_com_pw")
+    // 비밀번호 수정 (update_user)
+    @PostMapping("/update_pw")
     public String updateCompany(HttpSession session 
                                 ,@RequestParam("userPw") String userPw
                                 //,@RequestParam("userBeforePw") String userBeforePw

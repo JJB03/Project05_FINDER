@@ -28,8 +28,8 @@
       const paymentKey = urlParams.get("paymentKey");
       const orderId = urlParams.get("orderId");
       const amount = urlParams.get("amount"); // 총가격
+      
       const productNo = urlParams.get("productNo");
-      // const orderNo = urlParams.get("orderNo");
       const orderNo = urlParams.get("orderNo");
 
       var csrfToken = $("meta[name='_csrf']").attr("content");
@@ -50,7 +50,6 @@
       };
 
       return new Promise(function (resolve, reject) {
-
 
         $.ajax({
           type: "POST",
