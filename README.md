@@ -1,6 +1,6 @@
 
 
-[시연영상](유튜브)
+[시연영상](유튜브)https://youtu.be/QKLgA23a-Rg?si=fnQyGQ90yttpXSNK
  
 ## 목차
 ### 1. 프로젝트 개요
