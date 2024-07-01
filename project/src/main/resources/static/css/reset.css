@@ -153,6 +153,29 @@ header .nav-menu {
   column-gap: 40px;
 }
 
+@media (max-width: 768px) {
+
+  .header-wrap {
+    width: 100%;
+  }
+
+  header .nav-menu {
+      flex-direction: column;
+      width: 100%;
+  }
+
+  header .nav-menu a, 
+  header .nav-menu button {
+    border-left: 1px solid var(--main-color);
+    border-right: 1px solid var(--main-color);
+  }
+
+  header .nav-menu>form {
+     flex-direction: column;
+  }  
+}
+
+
 header .nav-menu a {
   color: black;
   text-decoration: none;
