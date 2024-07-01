@@ -1,7 +1,7 @@
 
 
-# [시연영상](유튜브)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/3308c620-f607-4fd1-b0d0-c38ca7d8c43c)
+
+[시연영상](https://youtu.be/QKLgA23a-Rg?si=Nm1q1dV3q_xplJcd)
 
  
 ## 목차
