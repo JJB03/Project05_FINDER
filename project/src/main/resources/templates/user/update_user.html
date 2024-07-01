@@ -259,7 +259,7 @@
                     </div>
 
                     <!-- 비밀번호 변경 폼 -->
-                    <form id="PwForm" action="/company/update_com_pw" method="post" class="register-form"
+                    <form id="PwForm" action="/company/update_pw" method="post" class="register-form"
                         style="width:100% !important; border-radius: 12px; background-color: #FAFAFA;">
                         <!-- CSRF 토큰 -->
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -294,7 +294,7 @@
 
 
                     <!-- 이름/생년월일/휴대폰/이메일/기업주소 변경 폼 -->
-                    <form id="InfoForm" action="/company/update_com_info" method="post" class="register-form mt-4"
+                    <form id="InfoForm" action="/company/update_info" method="post" class="register-form mt-4"
                         style="border-radius: 12px; background-color: #FAFAFA;">
                         <!-- CSRF 토큰 -->
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -335,15 +335,9 @@
                                 th:value="${session.user.userEmail}" required>
                         </div>
 
-                        <!-- <div for="address" class="useraddress">
-                            기업 주소
-                        </div> -->
                         <div class="phone d-flex flex-column">
-                            <!-- 기업주소 -->
-                            <!-- <input type="text" id="address" name="comAddress" th:value="${session.user.company.comAddress}" required > -->
-
                             <!-- 폼 전송버튼 -->
-                            <button id="UpdateUserComInfo" type="submit" class="btn-in-short align-self-end"
+                            <button id="UpdateUserInfo" type="submit" class="btn-in-short align-self-end"
                                 style="margin-right: 10px; background-color: var(--long-btn-color);">변경</button>
                         </div>
                     </form>
@@ -398,7 +392,7 @@
 
             // 💍 CSRF TOKEN
             var csrfToken = "[[${_csrf.token}]]";
-            let url = "/company/update_com_pw_confirm";
+            let url = "/company/update_pw_confirm";
             var userBeforePw = document.getElementById('userBeforePw').value;
 
             // jQuery 로 AJAX 요청
@@ -464,7 +458,7 @@
 
 
 
-        // 기업회원 정보 수정 알림 ⭕
+        // 정보 수정 알림 ⭕
         $(document).ready(function () {
             // 폼 제출 이벤트 핸들러 설정
             $("#InfoForm").on("submit", function (event) {
