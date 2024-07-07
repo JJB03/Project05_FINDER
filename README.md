@@ -1,12 +1,9 @@
 
 
-[시연영상](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en) 
+[![FINDER 시연영상](https://img.youtube.com/vi/QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en/0.jpg)](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en)
+https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en
+ [![IU(아이유) _ Into the I-LAND](http://img.youtube.com/vi/QYNwbZHmh8g/0.jpg)](https://youtu.be/QYNwbZHmh8g?t=0s) 
 
-https://www.youtube.com/watch?v=QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en
-
-[![FINDER 시연영상](https://img.youtube.com/vi/QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en/0.jpg)](https://www.youtube.com/watch?v=QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en)
-
- 
 ## 목차
 ### 1. 프로젝트 개요
   - 프로젝트 주제
