@@ -1,6 +1,6 @@
 
 
-[![FINDER 시연영상](https://img.youtube.com/vi/QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en/1.jpg)](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en)
+[![FINDER 시연영상](https://img.youtube.com/vi/QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en&index=5/1.jpg)](https://youtu.be/QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en&index=5)
 https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en
 
 ## 목차
