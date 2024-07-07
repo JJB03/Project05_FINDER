@@ -1,7 +1,7 @@
 
 
 
-[시연영상](https://youtu.be/QKLgA23a-Rg?si=Nm1q1dV3q_xplJcd)
+[시연영상](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en)
 
  
 ## 목차
