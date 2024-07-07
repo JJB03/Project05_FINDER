@@ -1,7 +1,5 @@
 
-
-
-[![FINDER 시연영상](http://img.youtube.com/vi/QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en/0.jpg)](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en) 
+# FINDER 프로젝트 발표 + 시연 영상
 [![FINDER 시연영상](http://img.youtube.com/vi/QKLgA23a-Rg/0.jpg)](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en)
 
 
