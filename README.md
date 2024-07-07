@@ -3,8 +3,7 @@
 [![FINDER 시연영상](![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/cad9c30f-1aab-45e0-9a08-00c9a7c5734d)
 )](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en)
 
-[![FINDER 시연영상](http://img.youtube.com/vi/QYNwbZHmh8g/0.jpg)](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en) 
-
+[![FINDER 시연영상](http://img.youtube.com/vi/QKLgA23a-Rg&list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en/0.jpg)](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en) 
 
 ## 목차
 ### 1. 프로젝트 개요
