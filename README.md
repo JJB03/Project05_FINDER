@@ -1,9 +1,9 @@
 
+# FINDER 프로젝트 발표 + 시연 영상
+[![FINDER 시연영상](http://img.youtube.com/vi/QKLgA23a-Rg/0.jpg)](https://youtu.be/QKLgA23a-Rg?list=PL4C2AmBC9jOZcGAsRoJTzEV5_IjnNl0en)
 
-# [시연영상](유튜브)
-![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/3308c620-f607-4fd1-b0d0-c38ca7d8c43c)
 
- 
+
 ## 목차
 ### 1. 프로젝트 개요
   - 프로젝트 주제
@@ -77,7 +77,7 @@
  
 # 4. 프로젝트 수행절차 및 방법
 ## 4-1. 프로젝트 수행 절차
-#### 2024-05-16 ~ 2023-06-12
+#### 2024-05-16 ~ 2024-06-12
 ![image](https://github.com/JJB03/Project05_FINDER/assets/121448554/cb041109-5d15-4173-a62b-efb2038a7305)
 
 
