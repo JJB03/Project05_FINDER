@@ -1,4 +1,4 @@
--- Active: 1716770063195@@127.0.0.1@3306@finder
+-- Active: 1719384389661@@127.0.0.1@3306@finder
 
 
 -- 테이블 삭제 ( 총 15개 )
@@ -1746,15 +1746,82 @@ VALUES (43,'recruit',1,NULL,'HJB-poster.png','C:/upload/b3ed9fba-6bfc-458b-af87-
        (46,'recruit',4,NULL,'lg-poster.png','C:/upload/94e21a7f-b76d-4f0b-9772-d22559cf9754_lg-poster.png',180645,'2024-06-20 05:17:28','2024-06-20 05:17:28',0),
        (47,'recruit',5,NULL,'apple-poster.png','C:/upload/88ac41d1-6648-4b6d-9eee-7e9174199dda_apple-poster.png',167945,'2024-06-20 05:17:54','2024-06-20 05:17:54',0);
 
+-- user1 (유상준 이력서 임시데이터)
+INSERT INTO
+    cv (
+        cv_no,
+        user_no,
+        cover_letter,
+        cv_title,
+        cv_reg_date,
+        cv_upd_date
+    )
+VALUES 
+    (
+        5,
+        5,
+        '저는 Java를 주 언어로 사용하며, Spring 프레임워크를 활용한 웹 애플리케이션 개발에 능숙합니다. Spring Boot를 이용해 RESTful API를 설계하고 구현한 경험이 있으며, 프로젝트의 효율성을 높이기 위해 Spring Security를 통한 인증 및 권한 부여 기능을 구현하였습니다.
 
--- 도희아 이거야!!!!!!!!!
--- 이력서 지원 후 기업 지원한 이력서에서 1개 밖에 없어서 여기서 추가해줄거임
-INSERT INTO `apply_employee` (`check`, `cv_no`, `recruit_no`) 
-VALUE 
-(-1, 1, 41),
-(-1, 2, 41),
-(-1, 3, 41),
-(-1, 4, 41);
+React를 이용한 프론트엔드 개발에도 능숙하여, 사용자 친화적인 UI/UX를 구현할 수 있습니다. React Hooks와 Context API를 활용하여 상태 관리를 효율적으로 처리하며, 다양한 컴포넌트를 재사용 가능한 형태로 설계하여 코드의 유지보수성을 높였습니다.
+
+데이터베이스는 MySQL을 주로 사용하며, 효율적인 데이터 모델링과 복잡한 쿼리 작성에 자신이 있습니다. 인덱스 최적화와 쿼리 튜닝을 통해 성능을 향상시키고, 데이터 무결성을 유지하는 데 주력하고 있습니다.',
+        'Java 애플리케이션 개발 전문가 - 유상준',
+        '2024-06-20 01:05:28',
+        '2024-06-20 01:09:14'
+    );
+
+INSERT INTO
+    file (
+        file_no,
+        parent_table,
+        parent_no,
+        file_name,
+        origin_name,
+        file_path,
+        file_size,
+        reg_date,
+        upd_date,
+        file_code
+    )
+VALUES (
+        48,
+        'resume',
+        5,
+        NULL,
+        "이력서 사진.jpg",
+        "C:/upload/f12a287a-4f2e-49f4-84ff-bb0dab8370ef_이력서 사진.jpg",
+        3348217,
+        "2024-06-20 01:19:40",
+        "2024-06-20 01:19:40",
+        1
+    );
+
+INSERT INTO
+    `employment_history` (
+        `cv_no`,
+        `organization`,
+        `start_date`,
+        `end_date`,
+        `duties`
+    )
+VALUES
+    (
+        5,
+        'LG전자',
+        '2016-06-10',
+        '2017-12-20',
+        '고객관리시스템 관리자'
+    );
+
+INSERT INTO
+    `education` (
+        `cv_no`,
+        `university`,
+        `major`,
+        `university_status`
+    )
+VALUES 
+    (5, '김조은대학교', '컴퓨터공학과', '학사');
 
 
 -- 채용공고 직접 작성 ( HJB ) 
@@ -1764,8 +1831,20 @@ VALUES
     '우리 회사는 다양한 웹 기반 애플리케이션 및 서비스를 개발하는 IT 기업입니다. 저희 팀은 현재 풀스택 개발자를 모집하고 있습니다. 풀스택 개발자는 프론트엔드와 백엔드 모두에서 활동하며, 최신 기술과 도구를 활용하여 사용자 경험을 향상시키는 솔루션을 제공합니다.', 
     '프론트엔드와 백엔드 개발 및 유지보수',
     '컴퓨터 공학 또는 관련 전공 학사 학위',
-    'React 또는 Angular와 같은 프론트엔드 프레임워크 경험',
     'Node.js 또는 Spring Boot와 같은 백엔드 프레임워크 경험 우대',
     '2024-06-20');
+
+
+-- 도희아 이거야!!!!!!!!!
+-- 이력서 지원 후 기업 지원한 이력서에서 1개 밖에 없어서 여기서 추가해줄거임
+INSERT INTO `apply_employee` (`check`, `cv_no`, `recruit_no`) 
+VALUE 
+(-1, 1, 41),
+(-1, 2, 41),
+(-1, 3, 41),
+(-1, 4, 41),
+(-1, 5, 41);
+
+
 
 
